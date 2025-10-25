@@ -1,6 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+
 import { AuthService } from './auth.service';
 import { RegisterUserDto, LoginUserDto } from './dtos';
+import { MyAuth } from './decorators';
+import { MyValidRoles } from './interfaces';
+
+import { PaginationDto } from '../common/dtos';
 
 @Controller('auth')
 export class AuthController {
@@ -22,6 +27,13 @@ export class AuthController {
   @Post('login')
   loginUser(@Body() loginUserDto: LoginUserDto ) {
     return this.authService.login( loginUserDto );
+  }
+
+
+  @Get()
+  @MyAuth(MyValidRoles.admin)
+  findAll( @Query() paginationDto:PaginationDto ) {
+    return this.authService.findAll( paginationDto );
   }
 
 }

@@ -8,6 +8,8 @@ import { RegisterUserDto, LoginUserDto } from './dtos';
 import { User } from './entities';
 import { MyJwtPayload } from './interfaces';
 
+import { PaginationDto } from '../common/dtos';
+
 
 
 @Injectable()
@@ -78,12 +80,19 @@ export class AuthService {
     } catch (error) {this.handleDBErrors( error );}
   }
   
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 10, offset = 0 } = paginationDto;
 
-  private generateJwt(payload : MyJwtPayload) {
+    return await this.userRepository.find({
+      take : limit,
+      skip : offset
+    });
+  }
+
+  private generateJwt(payload : MyJwtPayload): String {
     return this.jwtService.sign(payload);
   }
   
-
   private handleDBErrors( error: any ): never {
     if ( error.code === '23505' ) 
       throw new BadRequestException( error.detail );
