@@ -1,0 +1,34 @@
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { DeviceTypes } from "../interfaces/device-types.interface";
+import { IsEnum, isEnum } from "class-validator";
+
+@Entity('devices') // Name of this table in database
+export class Device {
+
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column('text', { unique : true, nullable: false})
+  name: string;
+  
+  @Column('enum', { enum : DeviceTypes, default : DeviceTypes.lamp })
+  @IsEnum(DeviceTypes)
+  type: string;
+  
+  @Column('text', {default : 'No comment'})
+  description:  string;
+
+  @Column('boolean', { default: true, nullable: false })
+  isActive: boolean;
+
+  @BeforeInsert()
+  checkNameBeforeInsert() {
+    this.name = this.name.toLowerCase().trim();
+  }
+
+  @BeforeUpdate()
+  checkNameBeforeUpdate() {
+    this.checkNameBeforeInsert();
+  }
+
+}

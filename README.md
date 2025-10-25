@@ -69,3 +69,37 @@ yarn add -D @types/passport-jwt
 yarn add @nestjs/websockets @nestjs/platform-socket.io
 yarn add socket.io
 ```
+
+### PostgreSQL Database
+
+#### Table: `Users`
+
+| Field | Type |
+|:------|:-----|
+| id | uuid |
+| email | string |
+| fullname | string |
+| password | string |
+| isActive | bool |
+| roles | string[] |
+
+Create nest resource:
+
+```shell
+nest g red auth --no-spec
+```
+
+#### Table: `Devices`
+
+| Field | Type |
+|:------|:-----|
+| id | uuid |
+| name | string |
+| type | string |
+| isActive | bool |
+
+Create nest resource:
+
+```shell
+nest g red devices --no-spec
+```
