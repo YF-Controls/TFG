@@ -1,4 +1,4 @@
-export enum ValidRoles {
+export enum MyValidRoles {
   user = 'user',
   admin = 'admin',
   guest = 'guest',

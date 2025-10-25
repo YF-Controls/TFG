@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 
 import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
 import { Device } from './entities';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Injectable()
 export class DevicesService {
@@ -27,16 +28,29 @@ export class DevicesService {
     } catch (error) {this.handleDBErrors( error );}
   }
 
-  findAll() {
-    return `This action returns all devices`;
+  async findAll(paginationDto: PaginationDto) {
+    
+    const { limit = 10, offset = 0 } = paginationDto;
+
+    const devices = await this.deviceRepository.find({
+      take : limit,
+      skip : offset
+    });
+
+    return devices;
   }
 
   findOne(id: number) {
     return `This action returns a #${id} device`;
   }
 
-  update(id: number, updateDeviceDto: UpdateDeviceDto) {
-    return `This action updates a #${id} device`;
+
+  async update(id: string, updateDeviceDto: UpdateDeviceDto) {
+    
+    const device: Device = await this.deviceRepository.save({id, ...updateDeviceDto});
+
+    return device;
+
   }
 
   remove(id: number) {
@@ -44,10 +58,10 @@ export class DevicesService {
   }
 
   private handleDBErrors( error: any ): never {
-    //if ( error.code === '23505' ) 
-    //  throw new BadRequestException( error.detail );
+    if ( error.code === '23505' ) 
+      throw new BadRequestException( error.detail );
     
     this.logger.error( error.detail );
-    throw new InternalServerErrorException('Please check server logs');
+    throw new InternalServerErrorException('Unexpected error, check server logs');
   }
 }

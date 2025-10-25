@@ -1,5 +1,5 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { ValidRoles } from "../interfaces";
+import { MyValidRoles } from "../interfaces";
 
 @Entity('users') // Name of this table in database
 export class User {
@@ -19,7 +19,7 @@ export class User {
   @Column('boolean', { default: true })
   isActive: boolean;
 
-  @Column('text', { array: true, default: [ValidRoles.user] })
+  @Column('text', { array: true, default: [MyValidRoles.user] })
   roles: string[];
 
   @BeforeInsert()
