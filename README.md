@@ -103,3 +103,59 @@ Create nest resource:
 ```shell
 nest g red devices --no-spec
 ```
+
+## Frontend
+
+```shell
+ng new frontend
+```
+
+* To start the app.
+
+```shell
+cd frontend
+ng serve -o
+```
+
+### Install Tailwind and Daisy UI
+
+* Tailwind
+
+```shell
+npm install daisyui@latest tailwindcss@latest @tailwindcss/postcss@latest postcss@latest --force
+npm i -D daisyui@latest
+```
+
+* `.postcssrc.json`
+
+```ts
+{
+  "plugins": {
+    "@tailwindcss/postcss": {}
+  }
+}
+```
+
+* `src/styles.css`
+
+```css
+@import "tailwindcss";
+@plugin "daisyui";
+```
+
+* Adding Daisy UI themes
+
+1. Modify `src/styles.css`
+
+```css
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, halloween;
+}
+```
+
+2. Modify `src/index.html`
+
+```html
+<html lang="en" data-theme="halloween">
+```

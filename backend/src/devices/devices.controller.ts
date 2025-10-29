@@ -33,4 +33,10 @@ export class DevicesController {
     return this.devicesService.findAll(paginationDto);
   }
 
+  @Delete(':id')
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user)
+  remove(@Param( 'id', ParseUUIDPipe ) id: string,) {
+    return this.devicesService.remove(id);
+  }
+
 }

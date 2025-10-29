@@ -40,7 +40,7 @@ export class DevicesService {
     return devices;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} device`;
   }
 
@@ -53,8 +53,13 @@ export class DevicesService {
 
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} device`;
+  async remove(id: string) {
+    
+    
+    const device = await this.deviceRepository.delete({id});
+
+
+
   }
 
   private handleDBErrors( error: any ): never {
