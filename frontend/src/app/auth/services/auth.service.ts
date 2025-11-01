@@ -19,7 +19,7 @@ export class AuthService {
   
   // Private attributes/properties
   private _user = signal<User | null>(null);
-  private _token = signal<string | null>(null);
+  private _token = signal<string | null>(localStorage.getItem('token'));
   private _authStatus = signal<AuthStatus>('checking');
   
   private http = inject(HttpClient);
@@ -69,11 +69,12 @@ export class AuthService {
       return of(false);
     }
     
-    const options = {
-      headers: {Authorization: `Bearer ${token}`}
-    };
-
-    return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`, options)
+    // Done with interceptors!
+    //const options = {
+    //  headers: {Authorization: `Bearer ${token}`}
+    //};
+    
+    return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`) // , options)
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false
