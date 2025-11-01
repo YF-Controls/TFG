@@ -2,10 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 
 import { AuthService } from './auth.service';
 import { RegisterUserDto, LoginUserDto } from './dtos';
-import { MyAuth } from './decorators';
+import { MyAuth, MyGetUser } from './decorators';
 import { MyValidRoles } from './interfaces';
 
 import { PaginationDto } from '../common/dtos';
+import { User } from './entities';
 
 @Controller('auth')
 export class AuthController {
@@ -35,5 +36,12 @@ export class AuthController {
   findAll( @Query() paginationDto:PaginationDto ) {
     return this.authService.findAll( paginationDto );
   }
+
+  @Get('check-status')
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user)
+  checkAuthStatus(@MyGetUser() user: User){
+    return this.authService.checkAuthStatus(user);
+  }
+
 
 }

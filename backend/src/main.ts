@@ -8,6 +8,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
 
+  app.enableCors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+  });
+
   app.setGlobalPrefix('api');
   
   app.useGlobalPipes(

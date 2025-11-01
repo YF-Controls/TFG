@@ -1,7 +1,7 @@
 import { applyDecorators, UseGuards } from "@nestjs/common";
-import { MyValidRoles } from "../interfaces";
 import { AuthGuard } from "@nestjs/passport";
 
+import { MyValidRoles } from "../interfaces";
 import { MyUserRoleGuard } from "../guards";
 import { MyRoleProtected } from "./";
 

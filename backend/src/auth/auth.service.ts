@@ -46,15 +46,14 @@ export class AuthService {
       // Return user info
       return {
         id : user.id,
-        email : user.email,
-        fullname : user.fullname,
+        //email : user.email,
+        //fullname : user.fullname,
         token : this.generateJwt({id: user.id})
       };
       
     } catch (error) {this.handleDBErrors( error );}
   }
-
-
+  
   async login( loginUserDto : LoginUserDto) {
     try {
       // Get data
@@ -63,7 +62,7 @@ export class AuthService {
       // Find user
       const user = await this.userRepository.findOne({
         where : { email },
-        select : {id : true, email : true, fullname: true, password : true}
+        select : {id : true, email : true, fullname: true, password : true, isActive: true, roles: true}
       });
 
       // Check user and password
@@ -75,9 +74,22 @@ export class AuthService {
         id : user.id,
         email : user.email,
         fullname : user.fullname,
+        isActive: user.isActive,
+        roles: user.roles,
         token : this.generateJwt({id: user.id})
       };
     } catch (error) {this.handleDBErrors( error );}
+  }
+  
+  async checkAuthStatus(user: User) {
+    return {
+      id : user.id,
+      email : user.email,
+      fullname : user.fullname,
+      isActive: user.isActive,
+      roles: user.roles,
+      token : this.generateJwt({id: user.id})
+    };
   }
   
   async findAll(paginationDto: PaginationDto) {
