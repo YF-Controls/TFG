@@ -7,7 +7,12 @@ export class CreateDeviceDto {
   @MinLength(4)
   @MaxLength(50)
   name: string;
-
+  
+  @IsString()
+  @MinLength(4)
+  @MaxLength(50)
+  hwId: string;
+  
   @IsString()
   @IsOptional()
   @MinLength(4)

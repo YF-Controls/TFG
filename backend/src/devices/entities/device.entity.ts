@@ -11,6 +11,9 @@ export class Device {
   @Column('text', { unique : true, nullable: false})
   name: string;
   
+  @Column('text', {unique: true, nullable: true})
+  hwId: string;
+
   @Column('enum', { enum : DeviceTypes, default : DeviceTypes.lamp })
   @IsEnum(DeviceTypes)
   type: string;
