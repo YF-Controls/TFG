@@ -1,36 +1,28 @@
-<div class="inline-flex flex-col m-2 border rounded-xl border-primary">
+<div class="card bg-base-100 w-96 shadow-sm m-5 border">
+  <!--
+  <figure>
+    <img
+      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+      alt="Shoes" />
+  </figure>
+  -->
+  <div class="card-body">
+    <h2 class="card-title">
+      {{ inName() }}
 
-  <p class="text-primary mx-2 mt-2">{{ name() }}</p>
-
-  <div
-    class="flex gap-2 items-center m-2">
-
-    <button
-      class="btn btn-primary"
-      (click)="setOn()">
-      On
-    </button>
-
-    <button
-      class="btn btn-primary"
-      (click)="setOff()">
-      Off
-    </button>
-  
-    <div
-      class="text-primary rounded-xl border py-2 px-4"
-      >
-      @switch (status()) {
-        @case ('on') {
-          ON
-        }
-        @case ('off') {
-          OFF
-        }
-        @default {
-          ?
-        }
-      }
+      <div
+        class="badge"
+        [ngClass]="{
+          'bg-white' : inStatus() === 'unknown',
+          'bg-gray-500' : inStatus() === 'off',
+          'bg-green-500' : inStatus() === 'on'}"></div>
+    </h2>
+    
+    <p>{{ inDescription() }}</p>
+    
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary" (mousedown)="setOff()" (mouseup)="clear()">OFF</button>
+      <button class="btn btn-primary" (mousedown)="setOn()" (mouseup)="clear()">ON</button>
     </div>
   </div>
 </div>
