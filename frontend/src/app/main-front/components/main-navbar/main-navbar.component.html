@@ -125,7 +125,7 @@
 
     <!-- Page title -->
     <a class="btn btn-ghost text-xl"
-      routerLink="/">Home <span class="text-secondary">Assistant</span> </a>
+      routerLink="/">Home <span class="text-primary">Assistant</span> </a>
 
   </div>
 
@@ -247,27 +247,29 @@
   </div>
 
   <!-- Right elements -->
-  <div class="navbar-end gap-4">
+  <div class="navbar-end">
     
+    <!-- Show user name and exit button when authenticated -->
     @if (authService.authStatus() === 'authenticated') {
-      <button class="btn btn-sm btn-ghost">
-        {{ authService.user()?.fullname }}
-      </button>
-
-      <button class="btn btn-sm btn-error">
-        Exit
-      </button>
+      <button class="btn btn-sm btn-ghost">{{ authService.user()?.fullname }}</button>
+      <button class="btn btn-sm btn-primary" (click)="logout()" >Logout</button>
+    }
+    <!-- Show login button when not-authenticated -->
+    @else if (authService.authStatus() === 'not-authenticated') {
+      <a 
+        class="btn btn-primary"
+        routerLink="/auth/login"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+        </svg>
+      </a>
+    }
+    <!-- Show ... while is login -->
+    @else {
+      <a class="btn btn-ghost">...</a>
     }
     
-    
-    <a 
-      class="mx-1 btn"
-      routerLink="/auth/login"
-      routerLinkActive="text-secondary">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
-        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-      </svg>
-    </a>
 
 
   </div>

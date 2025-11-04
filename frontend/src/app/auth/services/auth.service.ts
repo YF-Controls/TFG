@@ -9,6 +9,8 @@ import { User, AuthResponse } from "../interfaces";
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
+const LOGIN_URL: string = `${baseUrl}/auth/login`;
+const CHECK_STATUS_URL: string = `${baseUrl}/auth/check-status`;
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -35,12 +37,7 @@ export class AuthService {
     return 'not-authenticated';
   });
 
-  user = computed<User | null>(() => {
-    
-    console.log('!DELETE user-computed() -> user', this._user());
-    
-    return this._user()});
-
+  user = computed<User | null>(() => this._user());
   token = computed<string | null>(() => this._token());
 
   /**************************************
@@ -52,7 +49,7 @@ export class AuthService {
     
     const body = {email, password}; // {email: xxx, password: xxx}
     
-    return this.http.post<AuthResponse>(`${baseUrl}/auth/login`, body)
+    return this.http.post<AuthResponse>(LOGIN_URL, body)
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false
@@ -74,7 +71,7 @@ export class AuthService {
     //  headers: {Authorization: `Bearer ${token}`}
     //};
     
-    return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`) // , options)
+    return this.http.get<AuthResponse>(CHECK_STATUS_URL) // , options)
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false

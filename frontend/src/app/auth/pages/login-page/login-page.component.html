@@ -1,13 +1,15 @@
-<h1 class="tex-2xl font-montserrat font-bold text-secondary text-center">
+<!-- Title -->
+<h1 class="tex-2xl font-montserrat font-bold text-primary text-center">
   Login
 </h1>
 
+<!-- Login form -->
 <form 
   class="mt-4 flex flex-col gap-2"
   [formGroup]="loginForm"
-  (ngSubmit) = "onSubmit()"
-  >
+  (ngSubmit) = "onSubmit()">
 
+  <!-- Email field -->
   <label class="flex items-center gap-2 input input-bordered">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +41,7 @@
     </span>
   }
   
+  <!-- Password field -->
   <label class="flex items-center gap-2 input input-bordered">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -68,25 +71,25 @@
     </span>
   }
 
+  <!-- Submit button -->
   <button 
     type="submit" 
-    class="btn btn-secondary"
+    class="btn btn-primary"
   >
     Login
   </button>
-
-  
   
 </form>
 
+<!-- Register link -->
 <div class="mt-4 flex flex-col items-center gap-2">
   <p class="text-slate-700">
     ¿No tienes cuenta?
-    <a routerLink="/auth/register" class="text-secondary">Crea una aquí</a>
+    <a routerLink="/auth/register" class="text-primary">Crea una aquí</a>
   </p>
 </div>
 
-<!-- TODO: Reemplazarlo por un toast! -->
+<!-- !TODO: Reemplazarlo por un toast! -->
 @if (hasError()) {
 <div 
   role="alert"
