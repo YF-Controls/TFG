@@ -16,9 +16,9 @@ export class User {
   @Column('text', { select: false })
   password?: string;
   
-  @Column('boolean', { default: true })
+  @Column('boolean', { default: false })
   isActive: boolean;
-
+  
   @Column('text', { array: true, default: [MyValidRoles.user] })
   roles: string[];
 

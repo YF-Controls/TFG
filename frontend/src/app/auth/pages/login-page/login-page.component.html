@@ -56,11 +56,19 @@
       />
     </svg>
     <input
-      type="password"
+      [type]="showPassword() ? 'text' : 'password'"
       class="grow"
       placeholder="password"
       formControlName="password"
     />
+
+    <button
+      type="button"
+      (click)="toggleShowPassword()">
+      <span class="text-xs font-medium">
+        {{ showPassword() ? 'Hide' : 'Show' }}
+      </span>
+    </button>
   </label>
   
   @if (isNotValidField('password')) {

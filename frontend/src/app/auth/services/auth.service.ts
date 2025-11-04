@@ -10,6 +10,7 @@ import { User, AuthResponse } from "../interfaces";
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
 const LOGIN_URL: string = `${baseUrl}/auth/login`;
+const REGISTER_URL: string = `${baseUrl}/auth/register`;
 const CHECK_STATUS_URL: string = `${baseUrl}/auth/check-status`;
 
 @Injectable({providedIn: 'root'})
@@ -50,6 +51,18 @@ export class AuthService {
     const body = {email, password}; // {email: xxx, password: xxx}
     
     return this.http.post<AuthResponse>(LOGIN_URL, body)
+      .pipe(
+        map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
+        catchError((error: any) => this.handleAuthError(error)) // Return false
+      );
+  }
+  
+  // Http request POST
+  register(email: string, fullname: string, password: string): Observable<boolean> {
+    
+    const body = {email, fullname, password};
+    
+    return this.http.post<AuthResponse>(REGISTER_URL, body)
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false

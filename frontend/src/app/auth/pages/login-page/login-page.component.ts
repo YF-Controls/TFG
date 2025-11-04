@@ -3,7 +3,6 @@ import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +19,7 @@ export class LoginPageComponent {
   hasError = signal<boolean>(false);
   errorMessage = signal<string>('');
   isPosting = signal<boolean>(false);
+  showPassword = signal<boolean>(false);
 
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email ]],
@@ -50,6 +50,11 @@ export class LoginPageComponent {
       });
   }
   
+  toggleShowPassword () {
+    const v: boolean = this.showPassword();
+    this.showPassword.set(!v);
+  }
+
   isNotValidField (fieldName: string): boolean | null {
     return (this.loginForm.controls[fieldName] &&
            this.loginForm.controls[fieldName].touched); 
