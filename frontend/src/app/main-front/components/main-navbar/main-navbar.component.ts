@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+// App modules
+import { AuthService } from '../../../auth/services';
+
+
 
 @Component({
   selector: 'app-main-navbar',
@@ -7,4 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './main-navbar.component.html',
   standalone: true,
 })
-export class MainNavbarComponent { }
+export class MainNavbarComponent {
+  // Attributes
+  authService = inject(AuthService);
+}

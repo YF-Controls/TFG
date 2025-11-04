@@ -1,18 +1,14 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { rxResource } from '@angular/core/rxjs-interop';
 import { catchError, map, Observable, of, tap } from "rxjs";
 
 import { environment } from "../../../environments/environment";
-
 import { User, AuthResponse } from "../interfaces";
-import { rxResource } from '@angular/core/rxjs-interop';
-
-
 
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
-
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -39,9 +35,13 @@ export class AuthService {
     return 'not-authenticated';
   });
 
-  user = computed<User | null>(() => this._user());
+  user = computed<User | null>(() => {
+    
+    console.log('!DELETE user-computed() -> user', this._user());
+    
+    return this._user()});
 
-  token = computed(() => this._token());
+  token = computed<string | null>(() => this._token());
 
   /**************************************
     Methods 
@@ -61,7 +61,7 @@ export class AuthService {
   
   // Http request GET
   checkStatus(): Observable<boolean> {
-
+    
     const token = localStorage.getItem('token');
     
     if (!token) {

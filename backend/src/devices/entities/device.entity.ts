@@ -1,6 +1,4 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { DeviceTypes } from "../interfaces/device-types.interface";
-import { IsEnum, isEnum } from "class-validator";
 
 @Entity('devices') // Name of this table in database
 export class Device {
@@ -11,16 +9,19 @@ export class Device {
   @Column('text', { unique : true, nullable: false})
   name: string;
   
+  @Column('numeric', {unique: true, nullable: true})
+  nr: number;
+
   @Column('text', {unique: true, nullable: true})
   hwId: string;
 
-  @Column('enum', { enum : DeviceTypes, default : DeviceTypes.lamp })
-  @IsEnum(DeviceTypes)
-  type: string;
+  //@Column('enum', { enum : DeviceTypes, default : DeviceTypes.lamp })
+  //@IsEnum(DeviceTypes)
+  //type: string;
   
   @Column('text', {default : 'No comment'})
   description:  string;
-
+  
   @Column('boolean', { default: true, nullable: false })
   isActive: boolean;
 

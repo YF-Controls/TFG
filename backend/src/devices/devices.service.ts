@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
 import { Device } from './entities';
-import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { PaginationDto } from '../common/dtos';
 
 @Injectable()
 export class DevicesService {

@@ -44,10 +44,11 @@ export class AuthService {
       await this.userRepository.save(user);
       
       // Return user info
+      delete user.password;
+
+      // Return user info
       return {
-        id : user.id,
-        //email : user.email,
-        //fullname : user.fullname,
+        user,
         token : this.generateJwt({id: user.id})
       };
       
@@ -67,27 +68,24 @@ export class AuthService {
 
       // Check user and password
       if (!user) throw new UnauthorizedException('Credentials are not valid (email)');
-      if (!bcrypt.compareSync(password, user.password)) throw new UnauthorizedException('Credentials are not valid (password)');
+      if (!bcrypt.compareSync(password, user.password!)) throw new UnauthorizedException('Credentials are not valid (password)');
+
+      delete user.password;
 
       // Return user info
       return {
-        id : user.id,
-        email : user.email,
-        fullname : user.fullname,
-        isActive: user.isActive,
-        roles: user.roles,
+        user,
         token : this.generateJwt({id: user.id})
       };
     } catch (error) {this.handleDBErrors( error );}
   }
   
   async checkAuthStatus(user: User) {
+
+    delete user.password;
+
     return {
-      id : user.id,
-      email : user.email,
-      fullname : user.fullname,
-      isActive: user.isActive,
-      roles: user.roles,
+      user,
       token : this.generateJwt({id: user.id})
     };
   }

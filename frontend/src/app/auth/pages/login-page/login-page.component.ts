@@ -43,7 +43,7 @@ export class LoginPageComponent {
     this.authService.login(email, password)
       .subscribe(isAuthenticated => {
         if (isAuthenticated) {
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/devices/all');
           return;
         }
         this.errorToast('Login error');
