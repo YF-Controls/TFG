@@ -5,7 +5,7 @@ import { catchError, map, Observable, of, tap } from "rxjs";
 
 import { environment } from "../../../environments/environment";
 import { User, AuthResponse } from "../interfaces";
-
+import { LoginUserDto, RegisterUserDto } from "../dtos";
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
@@ -46,11 +46,9 @@ export class AuthService {
   ***************************************/
 
   // Http request POST
-  login(email: string, password: string): Observable<string | null> {
+  login(loginUserDto: LoginUserDto): Observable<string | null> {
     
-    const body = {email, password}; // {email: xxx, password: xxx}
-    
-    return this.http.post<AuthResponse>(LOGIN_URL, body)
+    return this.http.post<AuthResponse>(LOGIN_URL, loginUserDto)
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false
@@ -58,11 +56,9 @@ export class AuthService {
   }
   
   // Http request POST
-  register(email: string, fullname: string, password: string): Observable<string | null> {
+  register(registerUserDto: RegisterUserDto): Observable<string | null> {
     
-    const body = {email, fullname, password};
-    
-    return this.http.post<AuthResponse>(REGISTER_URL, body)
+    return this.http.post<AuthResponse>(REGISTER_URL, registerUserDto)
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false

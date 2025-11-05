@@ -39,8 +39,9 @@ export class LoginPageComponent {
     
     // Get form data
     const {email = '', password = ''} = this.loginForm.value;
+    
     // Send to api
-    this.authService.login(email, password)
+    this.authService.login({email, password})
       .subscribe(status => {
         if (!status) {
           this.router.navigateByUrl('/devices/all');
