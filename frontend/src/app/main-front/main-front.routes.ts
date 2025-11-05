@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
 import { MainFrontLayoutComponent } from "./layouts";
-import { DevicesPageComponent, DevicePageComponent, HomePageComponent, NotFoundPageComponent } from "./pages";
-
+import { DevicesPageComponent, HomePageComponent, NotFoundPageComponent } from "./pages";
+import { CheckAuthenticationOnDevicesGuard } from '../devices/guards';
 
 export const systemFrontRoutes: Routes = [
   {
@@ -9,8 +9,7 @@ export const systemFrontRoutes: Routes = [
     component: MainFrontLayoutComponent,
     children : [
       {path: '', component: HomePageComponent},
-      {path: 'devices/:type', component: DevicesPageComponent},
-      {path: 'device/:id', component: DevicePageComponent},
+      {path: 'devices/:type', component: DevicesPageComponent, canMatch : [CheckAuthenticationOnDevicesGuard],},
       {path: '**', component: NotFoundPageComponent},
     ],
   },

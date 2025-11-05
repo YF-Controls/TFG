@@ -1,1 +1,1 @@
-export { MyNotAuthenticatedGuard } from "./not-authenticated.guard";
+export { CheckAuthenticationOnAuthdGuard } from "./chech-authentiation-on-auth.guard";

@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { MyNotAuthenticatedGuard } from './auth/guards';
+import { CheckAuthenticationOnAuthdGuard } from './auth/guards';
 
 export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.routes'),
-    canMatch : [MyNotAuthenticatedGuard,],
+    canMatch : [CheckAuthenticationOnAuthdGuard,],
   },
   {
     path : '',
