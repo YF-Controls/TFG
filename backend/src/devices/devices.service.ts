@@ -1,10 +1,12 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
 import { Device } from './entities';
 import { PaginationDto } from '../common/dtos';
+import { DeviceType } from 'src/device-types/entities';
+import { DeviceArea } from 'src/device-areas/entities';
 
 @Injectable()
 export class DevicesService {
@@ -22,27 +24,37 @@ export class DevicesService {
     Constructor
     ************************************ */
   constructor (
-    @InjectRepository(Device)
-    private readonly repository: Repository<Device>,
+    @InjectRepository(Device) private readonly deviceRepository: Repository<Device>,
+    @InjectRepository(DeviceType) private readonly deviceTypeRepository: Repository<DeviceType>,
+    @InjectRepository(DeviceArea) private readonly deviceAreaRepository: Repository<DeviceArea>,
   ) {}
-  
+
   /* ************************************
     Public methods
     ************************************ */
   async create(createDeviceDto: CreateDeviceDto) {
-    try {
-      const device = this.repository.create(createDeviceDto);
-      await this.repository.save(device);
-      return device;
-      
-    } catch (error) {this.handleDBErrors( error );}
+    
+    // Check device type
+    const deviceType = await this.deviceTypeRepository.findOne({where : {id: createDeviceDto.deviceTypeId}});
+    if (!deviceType) throw new NotFoundException(`Device type with ID ${createDeviceDto.deviceTypeId} was not found`);
+    if (!deviceType.isActive) throw new UnauthorizedException(`Device type with ID ${createDeviceDto.deviceTypeId} is not active`);
+
+    // Check device area
+    const deviceArea = await this.deviceAreaRepository.findOne({where : {id : createDeviceDto.deviceAreaId}});
+    if (!deviceArea) throw new NotFoundException(`Device area with ID ${createDeviceDto.deviceAreaId} was not found`);
+    if (!deviceArea.isActive) throw new UnauthorizedException(`Device area with ID ${createDeviceDto.deviceAreaId} is not active`);
+
+    // Create device
+    const device = this.deviceRepository.create(createDeviceDto);
+    await this.deviceRepository.save(device);
+    return device;
   }
 
   async findAll(paginationDto: PaginationDto) {
     
     const { limit = 10, offset = 0 } = paginationDto;
 
-    const devices = await this.repository.find({
+    const devices = await this.deviceRepository.find({
       take : limit,
       skip : offset
     });
@@ -50,18 +62,43 @@ export class DevicesService {
     return devices;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} device`;
+  async findOne(id: string) {
+    return await this.deviceRepository.findOne({where : {id}});
   }
   
   async update(id: string, updateDeviceDto: UpdateDeviceDto) {
-    return await this.repository.save({id, ...updateDeviceDto});
+
+    const device = await this.deviceRepository.findOne({where : {id}});
+    if (!device) throw new NotFoundException(`Device with ID ${id} was not found`);
+
+    // Check device type
+    if (updateDeviceDto.deviceTypeId) {
+      const deviceType = await this.deviceTypeRepository.findOne({where : {id: updateDeviceDto.deviceTypeId}});
+      if (!deviceType) throw new NotFoundException(`Device type with ID ${updateDeviceDto.deviceTypeId} was not found`);
+      if (!deviceType.isActive) throw new UnauthorizedException(`Device type with ID ${updateDeviceDto.deviceTypeId} is not active`);
+      device.deviceType = deviceType;
+    }
+    // Check device area
+    if (updateDeviceDto.deviceTypeId) {
+      const deviceArea = await this.deviceAreaRepository.findOne({where : {id : updateDeviceDto.deviceAreaId}});
+      if (!deviceArea) throw new NotFoundException(`Device area with ID ${updateDeviceDto.deviceAreaId} was not found`);
+      if (!deviceArea.isActive) throw new UnauthorizedException(`Device area with ID ${updateDeviceDto.deviceAreaId} is not active`);
+      device.deviceArea = deviceArea;
+    }
+    // Update fields
+    Object.assign(device, updateDeviceDto);
+
+    // Update
+    return await this.deviceRepository.save({id, ...updateDeviceDto});
   }
 
   async remove(id: string) {
-    const device = await this.repository.delete({id});
+    const device = await this.deviceRepository.findOne({where: {id}});
+    if (!device) throw new NotFoundException(`Device with ID ${id} was not found`);
+    await this.deviceRepository.remove(device);
+    return {status : 200, message : 'Removed'};
   }
-
+  
   /* ************************************
     Private methods
     ************************************ */

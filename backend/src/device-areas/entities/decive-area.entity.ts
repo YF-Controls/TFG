@@ -1,4 +1,5 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Device } from "../../devices/entities";
 
 @Entity('device_areas') // Name of this table in database
 export class DeviceArea {
@@ -15,6 +16,16 @@ export class DeviceArea {
   @Column('text', {default : 'No comment'})
   description:  string;
   
+  @Column('boolean', { default: true, nullable: false })
+  isActive: boolean;
+  
+  // Relación con Device
+  @OneToMany(
+    () => Device,
+    device => device.deviceArea
+  )
+  devices: Device[];
+
   @BeforeInsert()
   checkBeforeInsert() {
     this.name = this.name.toLowerCase().trim();
