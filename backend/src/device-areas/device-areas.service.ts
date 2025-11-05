@@ -2,12 +2,12 @@ import { BadRequestException, Injectable, InternalServerErrorException, Logger, 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
-import { Device } from './entities';
+import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from './dtos';
+import { DeviceArea } from './entities';
 import { PaginationDto } from '../common/dtos';
 
 @Injectable()
-export class DevicesService {
+export class DeviceAreasService {
 
   /* ************************************
     Public methods
@@ -17,26 +17,26 @@ export class DevicesService {
     Private attributes
     ************************************ */
   private readonly logger = new Logger('DevicesService');
-
+  
   /* ************************************
     Constructor
     ************************************ */
   constructor (
-    @InjectRepository(Device)
-    private readonly repository: Repository<Device>,
+    @InjectRepository(DeviceArea)
+    private readonly repository: Repository<DeviceArea>,
   ) {}
   
   /* ************************************
     Public methods
     ************************************ */
-  async create(createDeviceDto: CreateDeviceDto) {
-    try {
-      const device = this.repository.create(createDeviceDto);
-      await this.repository.save(device);
-      return device;
-      
-    } catch (error) {this.handleDBErrors( error );}
-  }
+  async create(createDeviceAreaDto: CreateDeviceAreaDto) {
+  try {
+    const device = this.repository.create(createDeviceAreaDto);
+    await this.repository.save(device);
+    return device;
+    
+  } catch (error) {this.handleDBErrors( error );}
+}
 
   async findAll(paginationDto: PaginationDto) {
     
@@ -51,11 +51,11 @@ export class DevicesService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} device`;
+    return `This action returns a #${id} deviceArea`;
   }
-  
-  async update(id: string, updateDeviceDto: UpdateDeviceDto) {
-    return await this.repository.save({id, ...updateDeviceDto});
+
+  async update(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto) {
+    return await this.repository.save({id, ...updateDeviceAreaDto});
   }
 
   async remove(id: string) {
@@ -73,3 +73,5 @@ export class DevicesService {
     throw new InternalServerErrorException('Unexpected error, check server logs');
   }
 }
+
+

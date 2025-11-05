@@ -1,6 +1,6 @@
 import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
-export class CreateDeviceDto {
+export class CreateDeviceTypeDto {
 
   @IsString()
   @MinLength(4)
@@ -9,7 +9,7 @@ export class CreateDeviceDto {
   
   @IsString()
   @MinLength(4)
-  @MaxLength(50)
+  @MaxLength(8)
   hwId: string;
   
   @IsString()

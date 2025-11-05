@@ -21,7 +21,7 @@ export class AuthService {
   // Constructor
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly repository: Repository<User>,
 
     private readonly jwtService : JwtService,
   ) {}
@@ -35,13 +35,13 @@ export class AuthService {
 
       // Prepare the user entity
       // email, password, fullName, isActive, roles
-      const user = this.userRepository.create({
+      const user = this.repository.create({
         ...userData,
         password: bcrypt.hashSync(password, 10),
       });
 
       // Save the user entity to the database
-      await this.userRepository.save(user);
+      await this.repository.save(user);
       
       // Return user info
       delete user.password;
@@ -60,7 +60,7 @@ export class AuthService {
     const {email, password} = loginUserDto;
 
     // Find user
-    const user = await this.userRepository.findOne({
+    const user = await this.repository.findOne({
       where : { email },
       select : {id : true, email : true, fullname: true, password : true, isActive: true, roles: true}
     });
@@ -93,7 +93,7 @@ export class AuthService {
   async findAll(paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;
 
-    return await this.userRepository.find({
+    return await this.repository.find({
       take : limit,
       skip : offset
     });

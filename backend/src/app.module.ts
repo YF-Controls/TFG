@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { DevicesModule } from './devices/devices.module';
 import { CommonModule } from './common/common.module';
+import { DeviceTypesModule } from './device-types/device-types.module';
+import { DeviceAreasModule } from './device-areas/device-areas.module';
 
 
 @Module({
@@ -22,9 +24,9 @@ import { CommonModule } from './common/common.module';
     }),
 
     AuthModule,
-
     DevicesModule,
-
+    DeviceTypesModule,
+    DeviceAreasModule,
     CommonModule,
   ],
 })

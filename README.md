@@ -86,7 +86,7 @@ yarn add socket.io
 Create nest resource:
 
 ```shell
-nest g red auth --no-spec
+nest g res auth --no-spec
 ```
 
 #### Table: `Devices`

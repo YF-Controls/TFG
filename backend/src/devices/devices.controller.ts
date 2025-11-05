@@ -17,6 +17,18 @@ export class DevicesController {
   create(@Body() createDeviceDto: CreateDeviceDto) {
     return this.devicesService.create(createDeviceDto);
   }
+  
+  @Get()
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
+  findAll( @Query() paginationDto:PaginationDto ) {
+    return this.devicesService.findAll(paginationDto);
+  }
+
+  @Get(':id')
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
+  findOne( @Param('id', ParseUUIDPipe ) id: string ) {
+    return this.devicesService.findOne(id);
+  }
 
   @Patch(':id')
   @MyAuth(MyValidRoles.admin, MyValidRoles.user)
@@ -27,16 +39,9 @@ export class DevicesController {
     return this.devicesService.update(id, UpdateDeviceDto);
   }
   
-  @Get()
-  @MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
-  findAll( @Query() paginationDto:PaginationDto ) {
-    return this.devicesService.findAll(paginationDto);
-  }
-
   @Delete(':id')
   @MyAuth(MyValidRoles.admin, MyValidRoles.user)
   remove(@Param( 'id', ParseUUIDPipe ) id: string,) {
     return this.devicesService.remove(id);
   }
-
 }
