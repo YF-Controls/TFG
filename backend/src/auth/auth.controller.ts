@@ -29,8 +29,7 @@ export class AuthController {
   loginUser(@Body() loginUserDto: LoginUserDto ) {
     return this.authService.login( loginUserDto );
   }
-
-
+  
   @Get()
   @MyAuth(MyValidRoles.admin)
   findAll( @Query() paginationDto:PaginationDto ) {

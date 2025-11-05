@@ -41,18 +41,17 @@ export class LoginPageComponent {
     const {email = '', password = ''} = this.loginForm.value;
     // Send to api
     this.authService.login(email, password)
-      .subscribe(isAuthenticated => {
-        if (isAuthenticated) {
+      .subscribe(status => {
+        if (!status) {
           this.router.navigateByUrl('/devices/all');
           return;
         }
-        this.errorToast('Login error');
+        this.errorToast(`Login error: ${status}`);
       });
   }
   
   toggleShowPassword () {
-    const v: boolean = this.showPassword();
-    this.showPassword.set(!v);
+    this.showPassword.update(v => !v);
   }
 
   isNotValidField (fieldName: string): boolean | null {

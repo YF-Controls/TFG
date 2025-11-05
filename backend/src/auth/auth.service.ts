@@ -45,7 +45,7 @@ export class AuthService {
       
       // Return user info
       delete user.password;
-
+      
       // Return user info
       return {
         user,
@@ -56,28 +56,28 @@ export class AuthService {
   }
   
   async login( loginUserDto : LoginUserDto) {
-    try {
-      // Get data
-      const {email, password} = loginUserDto;
+    // Get data
+    const {email, password} = loginUserDto;
 
-      // Find user
-      const user = await this.userRepository.findOne({
-        where : { email },
-        select : {id : true, email : true, fullname: true, password : true, isActive: true, roles: true}
-      });
+    // Find user
+    const user = await this.userRepository.findOne({
+      where : { email },
+      select : {id : true, email : true, fullname: true, password : true, isActive: true, roles: true}
+    });
 
-      // Check user and password
-      if (!user) throw new UnauthorizedException('Credentials are not valid (email)');
-      if (!bcrypt.compareSync(password, user.password!)) throw new UnauthorizedException('Credentials are not valid (password)');
+    // Check user and password
+    if (!user) throw new UnauthorizedException('Credentials are not valid (email)');
+    if (!bcrypt.compareSync(password, user.password!)) throw new UnauthorizedException('Credentials are not valid (password)');
+    if (!user.isActive) throw new UnauthorizedException('User is not active. Contact with admin.');
 
-      delete user.password;
+    // Delete password to send response
+    delete user.password;
 
-      // Return user info
-      return {
-        user,
-        token : this.generateJwt({id: user.id})
-      };
-    } catch (error) {this.handleDBErrors( error );}
+    // Return user info
+    return {
+      user,
+      token : this.generateJwt({id: user.id})
+    };
   }
   
   async checkAuthStatus(user: User) {

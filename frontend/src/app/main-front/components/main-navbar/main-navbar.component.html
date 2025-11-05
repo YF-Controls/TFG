@@ -249,6 +249,10 @@
   <!-- Right elements -->
   <div class="navbar-end">
     
+    <span class="mx-2">
+      {{ authService.authStatus() }}
+    </span>
+
     <!-- Show user name and exit button when authenticated -->
     @if (authService.authStatus() === 'authenticated') {
       <button class="btn btn-sm btn-ghost">{{ authService.user()?.fullname }}</button>

@@ -41,26 +41,30 @@ export class RegisterPageComponent {
     }
     
     // Get form data
-    const {email = '', password = '', fullname = ''} = this.registerForm.value;
+    const {email = '', fullname = '', password = '', password1 = '', password2 = ''} = this.registerForm.value;
+
+    if (password1 !== password2) {
+      this. errorToast('Password does not match');
+      return;
+    }
+
     // Send to api
-    this.authService.register(email, fullname, password)
-      .subscribe(isAuthenticated => {
-        if (isAuthenticated) {
+    this.authService.register(email, fullname, password1)
+      .subscribe(status => {
+        if (!status) {
           this.router.navigateByUrl('/auth/login');
           return;
         }
-        this.errorToast('Register error');
+        this.errorToast(`Login error: ${status}`);
       });
   }
   
   toggleShowPassword1 () {
-    const v: boolean = this.showPassword1();
-    this.showPassword1.set(!v);
+    this.showPassword1.update(v => !v);
   }
 
   toggleShowPassword2 () {
-    const v: boolean = this.showPassword2();
-    this.showPassword2.set(!v);
+    this.showPassword2.update(v => !v);
   }
 
   isNotValidField (fieldName: string): boolean | null {

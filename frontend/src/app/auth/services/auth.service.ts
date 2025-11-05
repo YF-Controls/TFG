@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { rxResource } from '@angular/core/rxjs-interop';
 import { catchError, map, Observable, of, tap } from "rxjs";
 
@@ -24,9 +24,9 @@ export class AuthService {
   private http = inject(HttpClient);
 
   // Public attributes/properties
-  checkStatusResource = rxResource<boolean, null>({
+  checkStatusResource = rxResource<string | null, null>({
     stream: () => this.checkStatus(),
-    defaultValue: false,
+    defaultValue: "Error",
   });
   
   // Constructor
@@ -46,7 +46,7 @@ export class AuthService {
   ***************************************/
 
   // Http request POST
-  login(email: string, password: string): Observable<boolean> {
+  login(email: string, password: string): Observable<string | null> {
     
     const body = {email, password}; // {email: xxx, password: xxx}
     
@@ -58,7 +58,7 @@ export class AuthService {
   }
   
   // Http request POST
-  register(email: string, fullname: string, password: string): Observable<boolean> {
+  register(email: string, fullname: string, password: string): Observable<string | null> {
     
     const body = {email, fullname, password};
     
@@ -70,13 +70,13 @@ export class AuthService {
   }
   
   // Http request GET
-  checkStatus(): Observable<boolean> {
+  checkStatus(): Observable<string | null> {
     
     const token = localStorage.getItem('token');
     
     if (!token) {
       this.logout();
-      return of(false);
+      return of('Not valid credentials');
     }
     
     // Done with interceptors!
@@ -98,16 +98,19 @@ export class AuthService {
     this._authStatus.set('not-authenticated');
   }
 
-  private handleAuthSuccess ({user, token} : AuthResponse): boolean {
+  private handleAuthSuccess ({user, token} : AuthResponse): null {
     this._user.set(user);
     this._token.set(token);
     localStorage.setItem('token', token);
     this._authStatus.set('authenticated');
-    return true;
+    return null;
   }
 
-  private handleAuthError(error: any): Observable<boolean> {
+  private handleAuthError(error: HttpErrorResponse): Observable<string> {
+    
+    console.log('!DELETE error->', {error});
+
     this.logout();
-    return of(false);
+    return of(error.error.message);
   }
 }
