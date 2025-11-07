@@ -103,9 +103,6 @@ export class AuthService {
   }
 
   private handleAuthError(error: HttpErrorResponse): Observable<string> {
-    
-    console.log('!DELETE error->', {error});
-
     this.logout();
     return of(error.error.message);
   }

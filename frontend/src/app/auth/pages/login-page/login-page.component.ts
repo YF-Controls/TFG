@@ -42,12 +42,12 @@ export class LoginPageComponent {
     
     // Send to api
     this.authService.login({email, password})
-      .subscribe(status => {
-        if (!status) {
+      .subscribe(errorMessage => {
+        if (!errorMessage) {
           this.router.navigateByUrl('/devices/all');
           return;
         }
-        this.errorToast(`Login error: ${status}`);
+        this.errorToast(`Login error: ${errorMessage}`);
       });
   }
   
