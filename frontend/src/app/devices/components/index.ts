@@ -1,1 +1,1 @@
-export { DeviceControlComponent } from "./device-control/device-control.component";
+export { DeviceControlComponent } from "./device-control/device-control-component";

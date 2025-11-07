@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services';
 
 @Component({
-  selector: 'register-page',
+  selector: 'app-register-page',
   imports: [RouterLink, ReactiveFormsModule],
-  templateUrl: './register-page.component.html',
+  templateUrl: './register-page.html',
 })
-export class RegisterPageComponent { 
+export class RegisterPage { 
   
   // Public Attributes/Properties
   fb = inject(FormBuilder);

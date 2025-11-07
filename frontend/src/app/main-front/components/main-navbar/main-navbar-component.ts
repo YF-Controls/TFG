@@ -8,7 +8,7 @@ import { AuthService } from '../../../auth/services';
 @Component({
   selector: 'app-main-navbar',
   imports: [RouterLink, RouterLinkActive],
-  templateUrl: './main-navbar.component.html',
+  templateUrl: './main-navbar-component.html',
   standalone: true,
 })
 export class MainNavbarComponent {

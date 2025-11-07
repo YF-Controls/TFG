@@ -5,7 +5,7 @@ import { Component, input, signal } from '@angular/core';
 @Component({
   selector: 'app-device-control',
   imports: [NgClass],
-  templateUrl: './device-control.component.html',
+  templateUrl: './device-control-component.html',
 })
 export class DeviceControlComponent {
 

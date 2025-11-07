@@ -1,1 +1,1 @@
-export { CheckAuthenticationOnDevicesGuard } from "./check-authentication-on-devices.guard";
+export { CheckAuthenticationOnDevicesGuard } from "./check-authentication-on-devices-guard";

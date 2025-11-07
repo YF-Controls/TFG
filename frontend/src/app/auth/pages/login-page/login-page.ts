@@ -7,9 +7,9 @@ import { AuthService } from '../../services';
 @Component({
   selector: 'app-login-page',
   imports: [RouterLink, ReactiveFormsModule],
-  templateUrl: './login-page.component.html',
+  templateUrl: './login-page.html',
 })
-export class LoginPageComponent {
+export class LoginPage {
 
   // Public Attributes/Properties
   fb = inject(FormBuilder);

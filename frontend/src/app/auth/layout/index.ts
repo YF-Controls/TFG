@@ -1,1 +1,1 @@
-export { AuthLayoutComponent } from "./auth-layout/auth-layout.component";
+export { AuthLayout } from "./auth-layout/auth-layout";

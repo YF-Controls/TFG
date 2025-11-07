@@ -1,3 +1,3 @@
-export { HomePageComponent } from "./home-page/home-page.component";
-export { DevicesPageComponent } from "./devices-page/devices-page.component";
-export { NotFoundPageComponent } from "./not-found-page/not-found-page.component";
+export { HomePage } from "./home-page/home-page";
+export { DevicesPage } from "./devices-page/devices-page";
+export { NotFoundPage } from "./not-found-page/not-found-page";
