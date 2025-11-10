@@ -19,8 +19,8 @@ export class DeviceAreasController {
   findAll( @Query() paginationDto:PaginationDto ) {
     return this.deviceAreasService.findAll(paginationDto);
   }
-
-  @Get(':id')
+  
+  @Get('/:id')
   //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.deviceAreasService.findOne(id);

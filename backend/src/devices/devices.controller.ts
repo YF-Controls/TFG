@@ -23,7 +23,7 @@ export class DevicesController {
   findAll( @Query() paginationDto:PaginationDto ) {
     return this.devicesService.findAll(paginationDto);
   }
-
+  
   @Get(':id')
   //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
   findOne( @Param('id', ParseUUIDPipe ) id: string ) {

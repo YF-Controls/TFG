@@ -7,6 +7,7 @@ import { Device } from './entities';
 import { PaginationDto } from '../common/dtos';
 import { DeviceType } from 'src/device-types/entities';
 import { DeviceArea } from 'src/device-areas/entities';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class DevicesService {
@@ -50,37 +51,48 @@ export class DevicesService {
     return device;
   }
 
-  async findAll(paginationDto: PaginationDto) {
-    
-    const { limit = 10, offset = 0 } = paginationDto;
-
-    const devices = await this.deviceRepository.find({
+  async findAll(paginationDto: PaginationDto, filterByIsActive: boolean = true) {
+    const {limit = 10, offset = 0} = paginationDto;
+    return await this.deviceRepository.find({
       take : limit,
-      skip : offset
+      skip : offset,
+      ...(filterByIsActive && { where : { isActive : true } })
     });
-
-    return devices;
   }
 
-  async findOne(id: string) {
-    return await this.deviceRepository.findOne({where : {id}});
+  async findOne(id: string, filterByIsActive: boolean = true) {
+    return await this.deviceRepository.findOne({
+      where : {
+        id,
+        ...(filterByIsActive && { isActive : true })
+      }
+    });
   }
   
-  async update(id: string, updateDeviceDto: UpdateDeviceDto) {
+  async update(id: string, updateDeviceDto: UpdateDeviceDto, filterByIsActive: boolean = true) {
 
-    const device = await this.deviceRepository.findOne({where : {id}});
+    const device = await this.deviceRepository.findOne({
+      where : {
+        id,
+        ...(filterByIsActive && { isActive : true })
+      }});
+
     if (!device) throw new NotFoundException(`Device with ID ${id} was not found`);
 
     // Check device type
     if (updateDeviceDto.deviceTypeId) {
-      const deviceType = await this.deviceTypeRepository.findOne({where : {id: updateDeviceDto.deviceTypeId}});
+      const deviceType = await this.deviceTypeRepository.findOne({
+        where : {id: updateDeviceDto.deviceTypeId, ...(filterByIsActive && { isActive : true })}
+      });
       if (!deviceType) throw new NotFoundException(`Device type with ID ${updateDeviceDto.deviceTypeId} was not found`);
       if (!deviceType.isActive) throw new UnauthorizedException(`Device type with ID ${updateDeviceDto.deviceTypeId} is not active`);
       device.deviceType = deviceType;
     }
     // Check device area
     if (updateDeviceDto.deviceTypeId) {
-      const deviceArea = await this.deviceAreaRepository.findOne({where : {id : updateDeviceDto.deviceAreaId}});
+      const deviceArea = await this.deviceAreaRepository.findOne({
+        where : {id : updateDeviceDto.deviceAreaId, ...(filterByIsActive && { isActive : true })}
+      });
       if (!deviceArea) throw new NotFoundException(`Device area with ID ${updateDeviceDto.deviceAreaId} was not found`);
       if (!deviceArea.isActive) throw new UnauthorizedException(`Device area with ID ${updateDeviceDto.deviceAreaId} is not active`);
       device.deviceArea = deviceArea;
@@ -92,6 +104,16 @@ export class DevicesService {
     return await this.deviceRepository.save({id, ...updateDeviceDto});
   }
 
+  async desactive(id: string) {
+    const result = await this.deviceRepository.update(
+      {id, isActive : true},
+      {isActive : false}
+    );
+
+    if (result.affected === 0) 
+      throw new NotFoundException(`Device with ID ${id} was not found or is inactive`);
+  }
+
   async remove(id: string) {
     const device = await this.deviceRepository.findOne({where: {id}});
     if (!device) throw new NotFoundException(`Device with ID ${id} was not found`);
@@ -99,6 +121,7 @@ export class DevicesService {
     return {status : 200, message : 'Removed'};
   }
   
+
   /* ************************************
     Private methods
     ************************************ */
