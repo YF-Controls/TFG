@@ -8,7 +8,7 @@ import { LinkButtonComponent } from '../../components/link-button/link-button-co
 @Component({
   standalone : true,
   selector: 'app-admin-dashboard-layout',
-  imports: [LinkButtonComponent, RouterLink, RouterLinkActive, ],
+  imports: [RouterOutlet, LinkButtonComponent ],
   templateUrl: './admin-dashboard-layout.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -32,6 +32,10 @@ export class AdminDashboardLayout {
     
   //}
 
-
+  logout() {
+    this.authService.logout();
+    //this.router.navigateByUrl('/auth/login');
+  }
+  
 
  }

@@ -2,26 +2,28 @@ import { inject } from "@angular/core";
 import { CanMatchFn, Route, Router, UrlSegment } from "@angular/router";
 
 
-import { AuthService } from '../../auth/services';
+import { AuthService } from '../services';
 import { firstValueFrom } from "rxjs";
 
-export const CheckAuthenticationOnDevicesGuard: CanMatchFn = async (
+export const IsAdminGuard: CanMatchFn = async (
   route: Route,
   segements: UrlSegment[]
 ) => {
 
+  console.log('IsAdminGuard invoked');
+
   const authService = inject(AuthService);
   const router = inject(Router);
+
   const status = await firstValueFrom(authService.checkStatus());
   
-  console.log('!DELETE status >', {status});
+  console.log('Auth status checked:', {status});
 
-  // If logged in, return to device/all
-  if (status) {
+  if (!authService.isAdmin()) {
     router.navigateByUrl('/auth/login');
     return false;
   }
   
-  // Can go to login
   return true;
+
 }

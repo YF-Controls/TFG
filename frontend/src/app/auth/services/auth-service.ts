@@ -6,6 +6,7 @@ import { catchError, map, Observable, of, tap } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { User, AuthResponse } from "../interfaces";
 import { LoginUserDto, RegisterUserDto } from "../dtos";
+import { MyValidRoles } from '../../../../../backend/src/auth/interfaces/valid-roles.interface';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
@@ -40,7 +41,9 @@ export class AuthService {
 
   user = computed<User | null>(() => this._user());
   token = computed<string | null>(() => this._token());
-
+  isAdmin = computed<boolean>(() => this._user()?.roles.includes(MyValidRoles.admin) ?? false);
+  isUser = computed<boolean>(() => this._user()?.roles.includes(MyValidRoles.user) ?? false);
+  
   /**************************************
     Methods 
   ***************************************/

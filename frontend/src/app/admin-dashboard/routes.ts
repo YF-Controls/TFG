@@ -1,13 +1,26 @@
 import { Routes } from "@angular/router";
 import { AdminDashboardLayout } from "./layouts";
-import { DeviceAdminPage, DeviceAreaAdminPage, DeviceAreasAdminPage, DevicesAdminPage, DeviceTypeAdminPage, DeviceTypesAdminPage, UserAdminPage, UsersAdminPage } from "./pages";
+import {
+  AdminDashboardPage,
+  DeviceAdminPage, 
+  DeviceAreaAdminPage,
+  DeviceAreasAdminPage, 
+  DevicesAdminPage,
+  DeviceTypeAdminPage, 
+  DeviceTypesAdminPage, 
+  UserAdminPage, 
+  UsersAdminPage } from "./pages";
+import { IsAdminGuard } from "../auth/guards";
+
 
 
 export const adminDeashboardRouters: Routes = [
   {
     path : '',
     component : AdminDashboardLayout,
+    canMatch : [IsAdminGuard],
     children : [
+      {path : 'dashboard', component : AdminDashboardPage},
       {path : 'users', component : UsersAdminPage},
       {path : 'user/:id', component: UserAdminPage},
       {path : 'devices', component : DevicesAdminPage},
@@ -16,7 +29,7 @@ export const adminDeashboardRouters: Routes = [
       {path : 'device-type/:id', component : DeviceTypeAdminPage},
       {path : 'device-areas', component : DeviceAreasAdminPage},
       {path : 'device-area/:id', component : DeviceAreaAdminPage},
-      {path : '**', redirectTo : 'devices'}
+      {path : '**', redirectTo : 'dashboard'}
     ]
   }
 ];
