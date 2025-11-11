@@ -1,6 +1,8 @@
+// System
 import { Routes } from '@angular/router';
+// Other modules
+import { CheckAuthenticationOnAuthdGuard } from '@auth/guards';
 
-import { CheckAuthenticationOnAuthdGuard } from './auth/guards';
 
 export const routes: Routes = [
   {

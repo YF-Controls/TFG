@@ -1,5 +1,14 @@
 {
   "compilerOptions": {
+
+    "baseUrl": "./",
+    "paths": {
+      "@auth/*" : ["src/auth/*"],
+      "@common/*" : ["src/common/*"],
+      "@device-areas/*" : ["src/device-areas/*"],
+      "@device-types/*" : ["src/device-types/*"],
+      "@devices/*" : ["src/devices/*"],
+    },
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
@@ -13,7 +22,6 @@
     "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,

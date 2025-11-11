@@ -1,12 +1,13 @@
+// System
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
-import { DevicesService } from './devices.service';
-
-import { PaginationDto } from '../common/dtos';
+// Other modules
+import { PaginationDto } from '@common/dtos';
+import { MyAuth } from '@auth/decorators';
+import { MyValidRoles } from '@auth/interfaces';
+// This module
 import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
-
-import { MyAuth } from '../auth/decorators/auth.decorator';
-import { MyValidRoles } from '../auth/interfaces';
-
+// This path
+import { DevicesService } from './';
 
 @Controller('devices')
 export class DevicesController {

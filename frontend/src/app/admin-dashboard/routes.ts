@@ -1,4 +1,8 @@
+// System
 import { Routes } from "@angular/router";
+// Ohter modules
+import { IsAdminGuard } from "@auth/guards";
+// This module
 import { AdminDashboardLayout } from "./layouts";
 import {
   AdminDashboardPage,
@@ -10,7 +14,7 @@ import {
   DeviceTypesAdminPage, 
   UserAdminPage, 
   UsersAdminPage } from "./pages";
-import { IsAdminGuard } from "../auth/guards";
+
 
 
 

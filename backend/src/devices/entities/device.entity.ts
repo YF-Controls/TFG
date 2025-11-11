@@ -1,6 +1,9 @@
-import { DeviceArea } from "../../device-areas/entities";
-import { DeviceType } from "../../device-types/entities";
+// System
 import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+// Ohter modules
+import { DeviceArea } from "@device-areas/entities";
+import { DeviceType } from "@device-types/entities";
+
 
 @Entity('devices') // Name of this table in database
 export class Device {

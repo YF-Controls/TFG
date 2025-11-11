@@ -1,7 +1,8 @@
-import { HttpEvent, HttpEventType, HttpHandlerFn, HttpRequest } from "@angular/common/http";
+// System
+import { HttpHandlerFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { Observable, tap } from "rxjs";
-import { AuthService } from "../../auth/services";
+// Other modules
+import { AuthService } from "@auth/services";
 
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {

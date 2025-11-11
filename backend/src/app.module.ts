@@ -1,11 +1,13 @@
+// System
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
-import { DevicesModule } from './devices/devices.module';
-import { CommonModule } from './common/common.module';
-import { DeviceTypesModule } from './device-types/device-types.module';
-import { DeviceAreasModule } from './device-areas/device-areas.module';
+// Ohter modules
+import { AuthModule } from '@auth/index';
+import { DevicesModule } from '@devices/index';
+import { CommonModule } from '@common/index';
+import { DeviceTypesModule } from '@device-types/index';
+import { DeviceAreasModule } from '@device-areas/index';
 
 
 @Module({

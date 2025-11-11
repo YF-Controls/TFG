@@ -1,8 +1,12 @@
+// System
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
-
-import { DeviceAreasService } from './device-areas.service';
+// Oteher modules
+import { PaginationDto } from '@common/dtos';
+// This module
 import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from './dtos';
-import { PaginationDto } from '../common/dtos';
+// This path
+import { DeviceAreasService } from './';
+
 
 @Controller('device-areas')
 export class DeviceAreasController {

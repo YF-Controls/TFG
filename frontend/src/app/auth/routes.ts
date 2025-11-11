@@ -1,5 +1,6 @@
+// System
 import { Routes } from '@angular/router';
-
+// This module
 import { AuthLayout } from './layout';
 import { LoginPage, RegisterPage } from './pages';
 

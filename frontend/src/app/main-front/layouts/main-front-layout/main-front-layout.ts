@@ -1,7 +1,9 @@
+// System
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+// Other modules
+import { MainNavbarComponent } from '@main-front/components';
 
-import { MainNavbarComponent } from '../../components';
 
 @Component({
   standalone: true,

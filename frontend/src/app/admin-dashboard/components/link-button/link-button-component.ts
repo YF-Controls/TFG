@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from "@angular/common";
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-link-button',

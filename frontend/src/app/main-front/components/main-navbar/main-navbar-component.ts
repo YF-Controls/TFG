@@ -1,8 +1,8 @@
+// System
 import { Component, computed, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-// App modules
-import { AuthService } from '../../../auth/services';
-
+// Other modules
+import { AuthService } from '@auth/services';
 
 
 @Component({

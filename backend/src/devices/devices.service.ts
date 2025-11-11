@@ -1,13 +1,15 @@
+// System
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
+// Ohter modules
+import { PaginationDto } from '@common/dtos';
+import { DeviceType } from '@device-types/entities';
+import { DeviceArea } from '@device-areas/entities';
+// This module
 import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
 import { Device } from './entities';
-import { PaginationDto } from '../common/dtos';
-import { DeviceType } from 'src/device-types/entities';
-import { DeviceArea } from 'src/device-areas/entities';
-import { firstValueFrom } from 'rxjs';
+
 
 @Injectable()
 export class DevicesService {

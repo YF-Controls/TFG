@@ -1,15 +1,16 @@
+// System
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-
+// Other modules
+import { PaginationDto } from '@common/dtos';
+// This module
 import { RegisterUserDto, LoginUserDto } from './dtos';
 import { User } from './entities';
 import { MyJwtPayload } from './interfaces';
-
-import { PaginationDto } from '../common/dtos';
-
+// This path
 
 
 @Injectable()

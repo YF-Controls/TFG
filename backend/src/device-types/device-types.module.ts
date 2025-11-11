@@ -1,10 +1,15 @@
+// System
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { DeviceTypesService } from './device-types.service';
-import { DeviceTypesController } from './device-types.controller';
+// Other modules
+import { AuthModule } from '@auth/index';
+// This module
 import { DeviceType } from './entities';
-import { AuthModule } from '../auth/auth.module';
+// This path
+import { DeviceTypesService, DeviceTypesController } from './';
+
+
+
 
 @Module({
   controllers: [DeviceTypesController],

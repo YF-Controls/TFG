@@ -1,8 +1,11 @@
+// System
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
-
-import { DeviceTypesService } from './device-types.service';
+// Other modules
+import { PaginationDto } from '@common/dtos';
+// This module
 import { CreateDeviceTypeDto, UpdateDeviceTypeDto } from './dtos';
-import { PaginationDto } from '../common/dtos';
+// This path
+import { DeviceTypesService } from './';
 
 @Controller('device-types')
 export class DeviceTypesController {

@@ -3,6 +3,20 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+
+    "baseUrl": "./",
+    "paths": {
+      //"@app/*": ["src/app/*"], // Deprecated path alias
+      "@assets/*": ["src/assets/*"],
+      "@env/*": ["src/environments/*"],
+
+      "@admin/*" : ["src/app/admin-dashboard/*"],
+      "@auth/*" : ["src/app/auth/*"],
+      "@devices/*" : ["src/app/devices/*"],
+      "@main-front/*" : ["src/app/main-front/*"],
+      "@shared/*" : ["src/app/shared/*"],
+    },
+
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

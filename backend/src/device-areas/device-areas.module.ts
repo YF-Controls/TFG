@@ -1,10 +1,12 @@
+// System
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { DeviceAreasService } from './device-areas.service';
-import { DeviceAreasController } from './device-areas.controller';
+// Ohter modules
+import { AuthModule } from '@auth/index';
+// This module
 import { DeviceArea } from './entities';
-import { AuthModule } from '../auth/auth.module';
+import { DeviceAreasController, DeviceAreasService } from './';
+
 
 @Module({
   controllers: [DeviceAreasController],

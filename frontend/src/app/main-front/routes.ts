@@ -1,8 +1,11 @@
+// System
 import { Routes } from "@angular/router";
-
+// Other modules
+import { IsUserGuard } from "@auth/guards";
+// This module
 import { MainFrontLayout } from "./layouts";
 import { DevicesPage, HomePage, NotFoundPage } from "./pages";
-import { IsUserGuard } from "../auth/guards";
+
 
 export const systemFrontRoutes: Routes = [
   {

@@ -1,5 +1,6 @@
-import { NgClass } from '@angular/common';
+// System
 import { Component, input, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 
 @Component({

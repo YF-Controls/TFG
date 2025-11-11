@@ -1,8 +1,10 @@
+// System
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
+// This module
 import { AuthService } from '../../services';
+
 
 @Component({
   selector: 'app-register-page',

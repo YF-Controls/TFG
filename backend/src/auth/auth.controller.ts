@@ -1,12 +1,15 @@
+// System
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
-
-import { AuthService } from './auth.service';
+// Other modules
+import { PaginationDto } from '@common/dtos';
+// This module
 import { RegisterUserDto, LoginUserDto } from './dtos';
 import { MyAuth, MyGetUser } from './decorators';
 import { MyValidRoles } from './interfaces';
-
-import { PaginationDto } from '../common/dtos';
 import { User } from './entities';
+// This path
+import { AuthService } from './';
+
 
 @Controller('auth')
 export class AuthController {
