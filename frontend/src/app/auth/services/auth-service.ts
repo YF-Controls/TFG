@@ -49,6 +49,16 @@ export class AuthService {
   /**************************************
     Methods 
   ***************************************/
+  // Http request POST
+  register(registerUserDto: RegisterUserDto): Observable<string | null> {
+    
+    return this.http.post<AuthResponse>(REGISTER_URL, registerUserDto)
+      .pipe(
+        map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
+        catchError((error: any) => this.handleAuthError(error)) // Return false
+      );
+  }
+
 
   // Http request POST
   login(loginUserDto: LoginUserDto): Observable<string | null> {
@@ -60,15 +70,6 @@ export class AuthService {
       );
   }
   
-  // Http request POST
-  register(registerUserDto: RegisterUserDto): Observable<string | null> {
-    
-    return this.http.post<AuthResponse>(REGISTER_URL, registerUserDto)
-      .pipe(
-        map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
-        catchError((error: any) => this.handleAuthError(error)) // Return false
-      );
-  }
   
   // Http request GET
   checkStatus(): Observable<string | null> {
