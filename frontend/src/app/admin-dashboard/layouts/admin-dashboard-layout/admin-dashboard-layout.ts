@@ -12,7 +12,6 @@ import { LinkButtonComponent } from '../../components';
   selector: 'app-admin-dashboard-layout',
   imports: [RouterOutlet, LinkButtonComponent ],
   templateUrl: './admin-dashboard-layout.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminDashboardLayout {
   

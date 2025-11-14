@@ -6,6 +6,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-admin-dashboard-page',
   imports: [],
   templateUrl: './admin-dashboard-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminDashboardPage { }

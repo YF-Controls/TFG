@@ -11,7 +11,6 @@ import { DeviceType } from '../../interfaces';
   selector: 'app-device-type-table',
   imports: [NgClass, RouterLink],
   templateUrl: './device-type-table-component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeviceTypeTableComponent { 
 

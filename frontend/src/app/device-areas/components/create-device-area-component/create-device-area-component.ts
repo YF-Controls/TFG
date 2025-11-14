@@ -4,14 +4,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DialogRef } from '@angular/cdk/dialog';
 // Ohter modules
 import { DeviceAreasService } from '@device-areas/services';
+import { FormFieldErrorComponent } from '@shared/components';
+import { JsonPipe } from '@angular/common';
 
 
 @Component({
   standalone : true,
   selector: 'app-create-device-area',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormFieldErrorComponent, JsonPipe],
   templateUrl: './create-device-area-component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateDeviceAreaComponent {
 
@@ -21,6 +23,8 @@ export class CreateDeviceAreaComponent {
   private deviceAreasService = inject(DeviceAreasService);
 
   // Properties
+  protected hasError = signal<boolean>(false);
+  protected errorMessage = signal<string>('');
   protected form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     hwId: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
@@ -28,21 +32,20 @@ export class CreateDeviceAreaComponent {
     isActive: [true, [Validators.required]],
   });
 
-  protected hasError = signal<boolean>(false);
-  errorMessage = signal<string>('');
-
+  
   // Methods
-
-
   protected onSubmit() {
+
     if (this.form.invalid) {
+      // Mark all fields as touched to show errors
+      this.form.markAllAsTouched();
       this.errorToast('Not valid data!');
       return;
     }
 
     // Get from data
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
-
+    
     // Send to api
     this.deviceAreasService.create({ name, hwId, description, isActive })
       .subscribe( errorMessage => {
@@ -54,43 +57,13 @@ export class CreateDeviceAreaComponent {
         this.dialogRef?.close(true);
     });
   }
-
+  
 
   protected onCancel() {
     this.dialogRef?.close(false);
   }
-
-
-
-  protected isNotValidField (fieldName: string): boolean | null {
-    return (this.form.controls[fieldName] &&
-           this.form.controls[fieldName].touched); 
-  }
-
-  protected getFieldError (fieldName: string): string | null {
-
-    if (!this.form.controls[fieldName]) return null;
-
-    const errors = this.form.controls[fieldName].errors ?? {};
-
-    for (const key of Object.keys(errors)) {
-      
-      switch(key) {
-        
-        case 'required':
-          return 'Required field!';
-
-        case 'minlength':
-          return `Min. length is ${errors['minlength'].requiredLength} chars!`;
-        
-        case 'maxlength':
-          return `Max. length is ${errors['maxlength'].requiredLength} chars!`;
-      }
-    }
-    // Default
-    return null;
-  }
   
+
   errorToast(message: string) {
     this.errorMessage.set(message);
     this.hasError.set(true);

@@ -9,10 +9,10 @@ import { DeviceAreasService } from '@device-areas/services';
 
 
 @Component({
+  standalone : true,
   selector: 'app-device-areas-admin-page',
   imports: [DeviceAreaTableComponent],
   templateUrl: './device-areas-admin-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeviceAreasAdminPage { 
 

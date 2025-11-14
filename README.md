@@ -145,7 +145,7 @@ npm i -D daisyui@latest
 
 * Adding Daisy UI themes
 
-1. Modify `src/styles.css`
+> Modify `src/styles.css`
 
 ```css
 @import "tailwindcss";
@@ -154,7 +154,7 @@ npm i -D daisyui@latest
 }
 ```
 
-2. Modify `src/index.html`
+> Modify `src/index.html`
 
 ```html
 <html lang="en" data-theme="halloween">

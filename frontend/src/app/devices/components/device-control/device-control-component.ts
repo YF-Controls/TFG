@@ -4,6 +4,7 @@ import { NgClass } from '@angular/common';
 
 
 @Component({
+  standalone : true,
   selector: 'app-device-control',
   imports: [NgClass],
   templateUrl: './device-control-component.html',

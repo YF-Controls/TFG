@@ -8,10 +8,11 @@ import { DevicesService } from '@devices/services';
 
 
 @Component({
+  standalone : true,
   selector: 'app-devices-admin-page',
   imports: [DeviceTableComponent],
   templateUrl: './devices-admin-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevicesAdminPage {
 

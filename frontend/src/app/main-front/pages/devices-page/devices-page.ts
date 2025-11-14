@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { DeviceControlComponent } from '@devices/components';
 
 @Component({
+  standalone : true,
   selector: 'app-devices-page',
   imports: [DeviceControlComponent, ],
   templateUrl: './devices-page.html',

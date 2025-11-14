@@ -5,10 +5,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
+  standalone : true,
   selector: 'app-link-button',
   imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './link-button-component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkButtonComponent { 
 

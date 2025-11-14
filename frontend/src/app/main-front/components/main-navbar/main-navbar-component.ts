@@ -6,10 +6,10 @@ import { AuthService } from '@auth/services';
 
 
 @Component({
+  standalone: true,
   selector: 'app-main-navbar',
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './main-navbar-component.html',
-  standalone: true,
 })
 export class MainNavbarComponent {
   // Attributes

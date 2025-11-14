@@ -6,10 +6,11 @@ import { DeviceType } from '@devices-types/interfaces';
 
 
 @Component({
+  standalone : true,
   selector: 'app-device-types-admin-page',
   imports: [DeviceTypeTableComponent],
   templateUrl: './device-types-admin-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeviceTypesAdminPage { 
 

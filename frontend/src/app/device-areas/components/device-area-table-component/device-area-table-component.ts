@@ -11,7 +11,6 @@ import { DeviceArea } from '../../interfaces';
   selector: 'app-device-area-table',
   imports: [NgClass, RouterLink],
   templateUrl: './device-area-table-component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeviceAreaTableComponent { 
 

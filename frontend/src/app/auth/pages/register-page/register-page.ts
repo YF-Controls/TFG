@@ -7,6 +7,7 @@ import { AuthService } from '../../services';
 
 
 @Component({
+  standalone : true,
   selector: 'app-register-page',
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './register-page.html',
@@ -31,9 +32,7 @@ export class RegisterPage {
     password2: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  // Constructor
-
-
+  
   // Public Methods
   onSubmit () {
     // Check form and show toast
