@@ -7,10 +7,11 @@ import { MyValidRoles } from '@auth/interfaces';
 // This module
 import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
 // This path
-import { DevicesService } from './';
+import { DevicesService } from './devices.service';
 
 @Controller('devices')
 export class DevicesController {
+  
   constructor(private readonly devicesService: DevicesService) {}
 
   @Post()

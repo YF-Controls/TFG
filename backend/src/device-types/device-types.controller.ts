@@ -5,7 +5,8 @@ import { PaginationDto } from '@common/dtos';
 // This module
 import { CreateDeviceTypeDto, UpdateDeviceTypeDto } from './dtos';
 // This path
-import { DeviceTypesService } from './';
+import { DeviceTypesService } from './device-types.service';
+
 
 @Controller('device-types')
 export class DeviceTypesController {

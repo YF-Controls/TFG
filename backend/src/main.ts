@@ -1,7 +1,7 @@
 // System
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-// Other module
+// This path
 import { AppModule } from './app.module';
 
 

@@ -1,4 +1,5 @@
-import { IsEnum, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+// System
+import { IsBoolean, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
 export class CreateDeviceAreaDto {
 
@@ -13,9 +14,12 @@ export class CreateDeviceAreaDto {
   hwId: string;
   
   @IsString()
-  @IsOptional()
   @MinLength(4)
   @MaxLength(250)
-  description?: string;
+  description: string;
   
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
+
 }

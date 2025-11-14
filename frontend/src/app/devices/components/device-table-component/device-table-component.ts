@@ -2,8 +2,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { RouterLink } from "@angular/router";
-// Other modules
-import { Device } from '@devices/interfaces';
+// This modules
+import { Device } from '../../interfaces';
 
 
 @Component({

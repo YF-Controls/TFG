@@ -13,6 +13,8 @@
       "@admin/*" : ["src/app/admin-dashboard/*"],
       "@auth/*" : ["src/app/auth/*"],
       "@devices/*" : ["src/app/devices/*"],
+      "@device-areas/*" : ["src/app/device-areas/*"],
+      "@devices-types/*" : ["src/app/device-types/*"],
       "@main-front/*" : ["src/app/main-front/*"],
       "@shared/*" : ["src/app/shared/*"],
     },

@@ -8,7 +8,7 @@ import { MyAuth, MyGetUser } from './decorators';
 import { MyValidRoles } from './interfaces';
 import { User } from './entities';
 // This path
-import { AuthService } from './';
+import { AuthService } from './auth.service';
 
 
 @Controller('auth')

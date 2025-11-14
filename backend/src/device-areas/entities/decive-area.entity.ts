@@ -1,5 +1,8 @@
+// System
 import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Device } from "../../devices/entities";
+// Other modules
+import { Device } from "@devices/entities";
+
 
 @Entity('device_areas') // Name of this table in database
 export class DeviceArea {

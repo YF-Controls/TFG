@@ -1,10 +1,13 @@
+// System
 import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
+// Other modules
+import { PaginationDto } from '@common/dtos';
+// This module
 import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from './dtos';
 import { DeviceArea } from './entities';
-import { PaginationDto } from '../common/dtos';
+
 
 @Injectable()
 export class DeviceAreasService {
@@ -35,26 +38,27 @@ export class DeviceAreasService {
     return device;
   }
 
-  async findAll(paginationDto: PaginationDto, filterByIsActive: boolean = true) {
-    const { limit = 10, offset = 0 } = paginationDto;
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 10, offset = 0, withInactives = false } = paginationDto;
     const devices = await this.repository.find({
       take : limit,
       skip : offset,
-      ...(filterByIsActive && { where : { isActive : true } })
+      ...(!withInactives && { where : { isActive : true } })
     });
 
     return devices;
   }
 
-  async findOne(id: string, filterByIsActive: boolean = true) {
+  async findOne(id: string) {
+    
     return await this.repository.findOne({
       where : {
         id,
-        ...(filterByIsActive && { isActive : true })
+        //...(!withInactives && { isActive : true })
       }
     });
   }
-
+  
   async update(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto, filterByIsActive: boolean = true) {
     const result = await this.repository.update(
       {id, ...(filterByIsActive && { isActive : true })},

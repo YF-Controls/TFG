@@ -2,10 +2,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 // Ohter modules
-import { AuthModule } from '@auth/index';
+import { AuthModule } from '@auth/auth.module';
 // This module
 import { DeviceArea } from './entities';
-import { DeviceAreasController, DeviceAreasService } from './';
+import { DeviceAreasService } from './device-areas.service';
+import { DeviceAreasController } from './device-areas.controller';
+// This path
 
 
 @Module({
@@ -15,6 +17,6 @@ import { DeviceAreasController, DeviceAreasService } from './';
     AuthModule,
     TypeOrmModule.forFeature([DeviceArea]),
   ],
-  exports : [DeviceAreasModule, TypeOrmModule]
+  exports : [TypeOrmModule]
 })
 export class DeviceAreasModule {}

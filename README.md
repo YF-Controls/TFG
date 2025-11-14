@@ -159,3 +159,9 @@ npm i -D daisyui@latest
 ```html
 <html lang="en" data-theme="halloween">
 ```
+
+### Modal
+
+```shell
+npm i @angular/cdk
+```

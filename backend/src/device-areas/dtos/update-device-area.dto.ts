@@ -1,4 +1,6 @@
+// System
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateDeviceAreaDto } from '../../devices/dtos';
+// This path
+import { CreateDeviceAreaDto } from './';
 
 export class UpdateDeviceAreaDto extends PartialType(CreateDeviceAreaDto) {}

@@ -2,11 +2,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 // Other modules
-import { AuthModule } from '@auth/index';
+import { AuthModule } from '@auth/auth.module';
 // This module
 import { DeviceType } from './entities';
+import { DeviceTypesService } from './device-types.service';
+import { DeviceTypesController } from './device-types.controller';
 // This path
-import { DeviceTypesService, DeviceTypesController } from './';
 
 
 
@@ -18,6 +19,6 @@ import { DeviceTypesService, DeviceTypesController } from './';
     AuthModule,
     TypeOrmModule.forFeature([DeviceType]),
   ],
-  exports : [DeviceTypesModule, TypeOrmModule]
+  exports : [TypeOrmModule]
 })
 export class DeviceTypesModule {}

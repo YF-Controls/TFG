@@ -5,7 +5,7 @@ import { PaginationDto } from '@common/dtos';
 // This module
 import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from './dtos';
 // This path
-import { DeviceAreasService } from './';
+import { DeviceAreasService } from './device-areas.service';
 
 
 @Controller('device-areas')
@@ -26,7 +26,8 @@ export class DeviceAreasController {
   
   @Get('/:id')
   //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
+  findOne(
+    @Param('id', ParseUUIDPipe) id: string) {
     return this.deviceAreasService.findOne(id);
   }
 
