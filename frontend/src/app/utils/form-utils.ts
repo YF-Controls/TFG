@@ -27,22 +27,13 @@ export class FormUtils {
       switch (key) {
         
         case 'required':
-          return 'Field is required';
-
-        case 'minlength':
-          return `Minimum length is ${errors['minlength'].requiredLength} characters`;
-          
-        case 'minlength':
-          return `Mínimo de ${errors['minlength'].requiredLength} caracteres.`;
+          return 'Required field!';
         
         case 'email':
           return 'Not a valid email!';
-
-        case 'required':
-          return 'Required field!';
-
+        
         case 'minlength':
-          return `Min. length is ${errors['minlength'].requiredLength} chars!`;
+          return `Minimum length is ${errors['minlength'].requiredLength} characters`;
         
         case 'maxlength':
           return `Max. length is ${errors['maxlength'].requiredLength} chars!`;

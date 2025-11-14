@@ -1,0 +1,50 @@
+<div class="relative">
+  
+  <!-- Language button -->
+  <button 
+    type="button"
+    class="btn btn-primary btn-sm justify-between"
+    (click)="toggleDropdown()">
+    
+    <span class="hidden sm:inline font-bold">{{ currentLanguage().name }}</span>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 opacity-70">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+
+  </button>
+  
+  <!-- Dropdown menu -->
+  @if (isOpen()) {
+    <ul 
+      class="
+        absolute right-0 top-full z-10 
+        mt-1 
+        bg-base-100 menu
+        rounded-lg
+        border border-primary
+        shadow-lg">
+
+      @for (lang of languages; track lang.code) {
+        <li class="border-b border-primary pb-1 my-1">
+          <button 
+            type="button"
+            class="flex items-center flex-2 justify-between gap-5"
+            [class.text-primary]="lang.code === languageService.currentLang()"
+            (click)="selectLanguage(lang)">
+            
+            <span class="text-xs">{{ lang.name }}</span>
+            
+            @if (lang.code === languageService.currentLang()) {
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-4 ml-auto">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+              </svg>
+            }
+
+          </button>
+        </li>
+      }
+      
+    </ul>
+  }
+</div>

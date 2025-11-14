@@ -24,8 +24,7 @@ export class LanguageService {
     this.currentLang.set(lang);
     localStorage.setItem('language', lang);
   }
-
-  // Get instant translation
+  
   getTranslation(key: string, params?: any): string {
     return this.translate.instant(key, params);
   }
