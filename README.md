@@ -173,3 +173,10 @@ npm i @angular/cdk
 ```shell
 npm i @angular/material
 ```
+
+### Translate
+
+```shell
+cd frontend
+npm i @ngx-translate/core @ngx-translate/http-loader
+```
