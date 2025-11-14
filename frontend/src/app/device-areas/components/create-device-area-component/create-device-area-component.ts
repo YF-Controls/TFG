@@ -1,5 +1,5 @@
 // System
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -29,7 +29,7 @@ export class CreateDeviceAreaComponent {
     description: ['....', [Validators.required, Validators.minLength(4)]],
     isActive: [true, [Validators.required]],
   });
-
+  
   // Methods
   protected onSubmit() {
     // Exit with toast if invalid form
@@ -77,4 +77,5 @@ export class CreateDeviceAreaComponent {
   protected onCancel() {
     this.dialogRef?.close(false);
   }
+
 }

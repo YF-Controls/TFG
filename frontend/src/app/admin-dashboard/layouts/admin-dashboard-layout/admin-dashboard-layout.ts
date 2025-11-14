@@ -1,11 +1,15 @@
 // System
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
-import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, computed, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { Dialog } from '@angular/cdk/dialog';
 // Other modules
+import { ConfirmComponent } from '@shared/components';
 import { AuthService } from '@auth/services';
 import { User } from '@auth/interfaces';
 // This module
 import { LinkButtonComponent } from '../../components';
+
+
 
 @Component({
   standalone : true,
@@ -15,28 +19,30 @@ import { LinkButtonComponent } from '../../components';
 })
 export class AdminDashboardLayout {
   
-  // Private attributes
+  // Injections
+  private dialog = inject(Dialog);
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Protected attributes
-  
-
-  // Public attributes
+  // Properties
   user = computed<User | null>(this.authService.user);
-   
-
-  // Constructor
-
-  // Methods
-  //ngOnInit(): void {
-    
-  //}
-
-  logout() {
-    this.authService.logout();
-    //this.router.navigateByUrl('/auth/login');
-  }
   
+  // Methods
+  protected logout() {
 
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      disableClose: true,
+      data: {
+        title: 'Confirm Logout',
+        message: 'Are you sure you want to logout?'
+      }
+    });
+
+    dialogRef.closed.subscribe((confirmed) => {
+      if (confirmed) {
+        this.authService.logout();
+        this.router.navigateByUrl('/auth/login');
+      };
+    });
+  }
  }
