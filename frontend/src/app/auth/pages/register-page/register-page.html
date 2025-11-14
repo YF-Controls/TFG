@@ -1,12 +1,13 @@
 <!-- Title -->
 <h1 class="tex-2xl font-montserrat font-bold text-primary text-center">
-  Register
+  {{ 'REGISTER_COMPONENT.TITLE' | translate }}
 </h1>
+
 
 <!-- Login form -->
 <form 
   class="mt-4 flex flex-col gap-2"
-  [formGroup]="registerForm"
+  [formGroup]="form"
   (ngSubmit) = "onSubmit()">
 
   <!-- Fullname field -->
@@ -21,19 +22,12 @@
     <input
       type="text"
       class="grow"
-      placeholder="full name"
+      placeholder="{{ 'REGISTER_COMPONENT.FORM.FULLNAME_PLACEHOLDER' | translate }}"
       formControlName="fullname"/>
 
-      
   </label>
 
-  @if (isNotValidField('fullname')) {
-    <span
-      role="alert"
-      class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-      {{ getFieldError('fullname') }}
-    </span>
-  }
+  <app-form-field-error  [control]="form.controls['fullname']" />
 
   <!-- Email field -->
   <label class="flex items-center gap-2 input input-bordered">
@@ -53,20 +47,13 @@
     <input
       type="text"
       class="grow"
-      placeholder="email"
+      placeholder="{{ 'REGISTER_COMPONENT.FORM.EMAIL_PLACEHOLDER' | translate }}"
       formControlName="email"/>
-
       
   </label>
 
-  @if (isNotValidField('email')) {
-    <span
-      role="alert"
-      class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-      {{ getFieldError('email') }}
-    </span>
-  }
-  
+  <app-form-field-error  [control]="form.controls['email']" />
+
   <!-- Password 1 field -->
   <label class="flex items-center gap-2 input input-bordered">
     <svg
@@ -85,7 +72,7 @@
       
       [type]="showPassword1() ? 'text' : 'password'"
       class="grow"
-      placeholder="password"
+      placeholder="{{ 'REGISTER_COMPONENT.FORM.PASSWORD_PLACEHOLDER' | translate }}"
       formControlName="password1"
     />
     <!-- show/hide button -->
@@ -119,14 +106,8 @@
     </button> 
   </label>
   
-  @if (isNotValidField('password1')) {
-    <span
-      role="alert"
-      class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-      {{ getFieldError('password1') }}
-    </span>
-  }
-
+  <app-form-field-error  [control]="form.controls['password1']" />
+  
   <!-- Password 2 field -->
   <label class="flex items-center gap-2 input input-bordered">
     <svg
@@ -144,7 +125,7 @@
     <input
       [type]="showPassword2() ? 'text' : 'password'"
       class="grow"
-      placeholder="repeat password"
+      placeholder="{{ 'REGISTER_COMPONENT.FORM.REPEAT_PASSWORD_PLACEHOLDER' | translate }}"
       formControlName="password2"
     />
 
@@ -179,20 +160,14 @@
     </button>
   </label>
   
-  @if (isNotValidField('password2')) {
-    <span
-      role="alert"
-      class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-      {{ getFieldError('password2') }}
-    </span>
-  }
+  <app-form-field-error  [control]="form.controls['password2']" />
 
   <!-- Submit button -->
   <button 
     type="submit" 
     class="btn btn-primary"
   >
-    Register
+    {{ 'REGISTER_COMPONENT.FORM.SUBMIT_BUTTON' | translate }}
   </button>
   
 </form>
@@ -200,23 +175,10 @@
 <!-- Register link -->
 <div class="mt-4 flex flex-col items-center gap-2">
   <p class="text-slate-700">
-    ¿Ya tienes cuenta?
-    <a routerLink="/auth/login" class="text-primary">Accede aquí</a>
+    {{ 'REGISTER_COMPONENT.LOGIN.TEXT' | translate }}
+
+    <a routerLink="/auth/login" class="text-primary">
+      {{ 'REGISTER_COMPONENT.LOGIN.LINK' | translate }}
+    </a>
   </p>
 </div>
-
-<!-- !TODO: Reemplazarlo por un toast! -->
-@if (hasError()) {
-<div 
-  role="alert"
-  class="alert alert-error animate-fadeIn fixed bottom-5 right-5 w-52">
-  
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-  
-  <span>{{errorMessage()}}</span>
-</div>
-}
-
-

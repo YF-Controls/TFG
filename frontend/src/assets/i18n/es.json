@@ -1,0 +1,46 @@
+{
+  "AUTHENTICATION_LAYOUT" : {
+    "TITLE" : "Autenticación"
+  },
+  
+  "LOGIN_COMPONENT" : {
+    "TITLE" : "Iniciar Sesión",
+    
+    "FORM" : {
+      "USERNAME_PLACEHOLDER" : "Nombre de usuario",
+      "PASSWORD_PLACEHOLDER" : "Contraseña",
+      "SUBMIT_BUTTON" : "Iniciar Sesión"},
+    
+    "REGISTER" : {
+      "TEXT" : "¿No tienes una cuenta?",
+      "LINK" : "Regístrate aquí."},
+
+    "TOAST" : {
+      "CLOSE" : "Cerrar",
+      "FORM_ERROR" : "Datos del formulario no válidos.",
+      "LOGIN_SUCCESS" : "Inicio de sesión exitoso."
+    }
+  },
+
+    "REGISTER_COMPONENT" : {
+    "TITLE" : "Registro",
+    
+    "FORM" : {
+      "FULLNAME_PLACEHOLDER" : "Nombre completo",
+      "EMAIL_PLACEHOLDER" : "Correo electrónico",
+      "PASSWORD_PLACEHOLDER" : "Contraseña",
+      "REPEAT_PASSWORD_PLACEHOLDER" : "Repetir contraseña",
+      "SUBMIT_BUTTON" : "Registrarse"},
+    
+    "LOGIN" : {
+      "TEXT" : "¿Ya tienes una cuenta?",
+      "LINK" : "Inicia sesión aquí."},
+
+    "TOAST" : {
+      "CLOSE" : "Cerrar",
+      "FORM_ERROR" : "Datos del formulario no válidos.",
+      "PASSWORD_MISMATCH" : "Las contraseñas no coinciden.",
+      "REGISTER_SUCCESS" : "Registro exitoso."
+    }
+  }
+}

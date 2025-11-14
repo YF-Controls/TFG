@@ -1,12 +1,12 @@
 <!-- Title -->
 <h1 class="tex-2xl font-montserrat font-bold text-primary text-center">
-  Login
+  {{ 'LOGIN_COMPONENT.TITLE' | translate }}
 </h1>
 
 <!-- Login form -->
 <form 
   class="mt-4 flex flex-col gap-2"
-  [formGroup]="loginForm"
+  [formGroup]="form"
   (ngSubmit) = "onSubmit()">
 
   <!-- Email field -->
@@ -27,19 +27,12 @@
     <input
       type="text"
       class="grow"
-      placeholder="email"
+      placeholder="{{ 'LOGIN_COMPONENT.FORM.USERNAME_PLACEHOLDER' | translate }}"
       formControlName="email"/>
 
-      
   </label>
 
-  @if (isNotValidField('email')) {
-    <span
-      role="alert"
-      class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-      {{ getFieldError('email') }}
-    </span>
-  }
+  <app-form-field-error  [control]="form.controls['email']" />
   
   <!-- Password field -->
   <label class="flex items-center gap-2 input input-bordered">
@@ -47,18 +40,17 @@
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 16 16"
       fill="currentColor"
-      class="h-4 w-4 opacity-70"
-    >
+      class="h-4 w-4 opacity-70">
       <path
         fill-rule="evenodd"
         d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"
-        clip-rule="evenodd"
-      />
+        clip-rule="evenodd"/>
     </svg>
+
     <input
       [type]="showPassword() ? 'text' : 'password'"
       class="grow"
-      placeholder="password"
+      placeholder="{{ 'LOGIN_COMPONENT.FORM.PASSWORD_PLACEHOLDER' | translate }}"
       formControlName="password"
     />
 
@@ -93,21 +85,15 @@
       }
     </button>
   </label>
+    
+  <app-form-field-error  [control]="form.controls['password']" />
   
-  @if (isNotValidField('password')) {
-    <span
-      role="alert"
-      class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-      {{ getFieldError('password') }}
-    </span>
-  }
-
   <!-- Submit button -->
   <button 
     type="submit" 
     class="btn btn-primary"
   >
-    Login
+    {{ 'LOGIN_COMPONENT.FORM.SUBMIT_BUTTON' | translate }}
   </button>
   
 </form>
@@ -115,21 +101,11 @@
 <!-- Register link -->
 <div class="mt-4 flex flex-col items-center gap-2">
   <p class="text-slate-700">
-    ¿No tienes cuenta?
-    <a routerLink="/auth/register" class="text-primary">Crea una aquí</a>
+    {{ 'LOGIN_COMPONENT.REGISTER.TEXT' | translate }}
+
+    <a routerLink="/auth/register" class="text-primary">
+      {{ 'LOGIN_COMPONENT.REGISTER.LINK' | translate }}
+    </a>
+
   </p>
 </div>
-
-<!-- !TODO: Reemplazarlo por un toast! -->
-@if (hasError()) {
-<div 
-  role="alert"
-  class="alert alert-error animate-fadeIn fixed bottom-5 right-5 w-52">
-  
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-  
-  <span>{{errorMessage()}}</span>
-</div>
-}

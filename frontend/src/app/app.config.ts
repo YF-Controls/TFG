@@ -1,7 +1,9 @@
 // System
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { provideHttpClient, withFetch, withInterceptors, HttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 // Other modules
 import { authInterceptor } from '@shared/intercerptors';
 // This module
@@ -17,5 +19,15 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([authInterceptor, ]),
     ),
+    provideTranslateService({
+      loader : provideTranslateHttpLoader({
+        prefix: '/assets/i18n/',
+        suffix: '.json',
+        enforceLoading: false,
+        useHttpBackend: false,
+      }),
+      fallbackLang: 'en',
+      lang: 'en',
+    }),
   ],
 };

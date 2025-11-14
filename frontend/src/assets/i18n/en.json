@@ -1,0 +1,46 @@
+{
+  "AUTHENTICATION_LAYOUT" : {
+    "TITLE" : "Authentication"
+  },
+  
+  "LOGIN_COMPONENT" : {
+    "TITLE" : "Login",
+    
+    "FORM" : {
+      "USERNAME_PLACEHOLDER" : "Username",
+      "PASSWORD_PLACEHOLDER" : "Password",
+      "SUBMIT_BUTTON" : "Login"},
+    
+    "REGISTER" : {
+      "TEXT" : "Don't have an account?",
+      "LINK" : "Register here."},
+
+    "TOAST" : {
+      "CLOSE" : "Close",
+      "FORM_ERROR" : "Form not valid data.",
+      "LOGIN_SUCCESS" : "Login successful."
+    }
+  },
+
+  "REGISTER_COMPONENT" : {
+    "TITLE" : "Register",
+    
+    "FORM" : {
+      "FULLNAME_PLACEHOLDER" : "Full name",
+      "EMAIL_PLACEHOLDER" : "Email",
+      "PASSWORD_PLACEHOLDER" : "Password",
+      "REPLEAT_PASSWORD_PLACEHOLDER" : "Repeat password",
+      "SUBMIT_BUTTON" : "Register"},
+    
+    "LOGIN" : {
+      "TEXT" : "Already have an account?",
+      "LINK" : "Login here."},
+
+    "TOAST" : {
+      "CLOSE" : "Close",
+      "FORM_ERROR" : "Form not valid data.",
+      "PASSWORD_MISMATCH" : "Passwords do not match.",
+      "REGISTER_SUCCESS" : "Registration successful."
+    }
+  }
+}
