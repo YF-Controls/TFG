@@ -25,9 +25,13 @@ export class FormUtils {
   static getTextError(errors: ValidationErrors) {
     for (const key of Object.keys(errors)) {
       switch (key) {
+        
         case 'required':
-          return 'Este campo es requerido';
+          return 'Field is required';
 
+        case 'minlength':
+          return `Minimum length is ${errors['minlength'].requiredLength} characters`;
+          
         case 'minlength':
           return `Mínimo de ${errors['minlength'].requiredLength} caracteres.`;
         

@@ -160,8 +160,16 @@ npm i -D daisyui@latest
 <html lang="en" data-theme="halloween">
 ```
 
-### Modal
+### Modal Components
 
 ```shell
 npm i @angular/cdk
+```
+
+### Toast
+
+[Video](https://www.youtube.com/watch?v=qpKUf_9Ut9k)
+
+```shell
+npm i @angular/material
 ```

@@ -4,6 +4,26 @@
   themes: light --default, dark --prefersdark, halloween;
 }
 
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 /*
 extends : {
     animation : { fadeIn : "fadeIn 0.5s ease-in-out" },
@@ -18,8 +38,39 @@ extends : {
 */
 
 
-/*
-.my-login-form {
+
+.toast-container-effect {
   @apply 
+    rounded-lg
+    text-sm
+    shadow-lg
+    transition-all
+    duration-300
+    ease-in-out;
+  animation: slideInFromBottom 0.3s ease-out;
 }
-*/
+
+.toast-container-success {
+  @apply
+    bg-green-500
+    text-white;
+}
+
+.toast-container-info {
+  @apply 
+    bg-[#2f96b4]
+    text-white;
+}
+
+.toast-container-warning {
+  @apply 
+    bg-[#f89406]
+    text-white;
+}
+
+.toast-container-error {
+  @apply 
+    bg-[#bd362f]
+    text-white;
+}
+

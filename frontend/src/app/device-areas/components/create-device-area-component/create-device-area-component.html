@@ -1,6 +1,7 @@
-<div class="bg-black rounded-lg text-white border-2 border-primary">
+<div class="bg-gray-900 text-white border border-primary">
 
-  <header class="flex gap-2 justify-between items-center border-b-2 border-primary">
+  <!-- Header -->
+  <header class="flex gap-2 justify-between items-center border-b border-primary">
     
     <h1 class="tex-2xl font-montserrat ml-2 font-bold text-primary text-center">
       Add Device Area
@@ -17,12 +18,13 @@
     </button>
   </header>
   
-
+  <!-- Form -->
   <form 
     class="mx-10 my-5 flex flex-col gap-3 items-center"
     [formGroup]="form"
     (ngSubmit) = "onSubmit()">
 
+    <!-- Name field  -->
     <label class="flex items-center gap-2 input input-bordered">
 
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 opacity-70">
@@ -37,20 +39,10 @@
         placeholder="Name..."
         formControlName="name"/>
     </label>
-    <!-- (blur)="form.controls['name'].markAsTouched()" -->
     
     <app-form-field-error  [control]="form.controls['name']" />
 
-    <!--
-    @if (isNotValidField('name')) {
-      <span
-        role="alert"
-        class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-        {{ getFieldError('name') }}
-      </span>
-    }
-    -->
-
+    <!-- hwId field  -->
     <label class="flex items-center gap-2 input input-bordered">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 opacity-70">
@@ -66,20 +58,10 @@
         placeholder="Some hardware ID..."
         formControlName="hwId"/>
     </label>
-
-    <!-- (blur)="form.controls['hwId'].markAsTouched()" -->
-
+    
     <app-form-field-error  [control]="form.controls['hwId']" />
-    <!--
-    @if (isNotValidField('hwId')) {
-      <span
-        role="alert"
-        class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-        {{ getFieldError('hwId') }}
-      </span>
-    }
-    -->
-
+    
+    <!-- description field -->
     <label class="flex items-center gap-2 input input-bordered">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 opacity-70">
@@ -93,21 +75,8 @@
         placeholder="Description..."
         formControlName="description"/>
     </label>
-    <!--  (blur)="form.controls['description'].markAsTouched()" -->
-
-
-
-    <!--
     
-    @if (isNotValidField('description')) {
-      <span
-        role="alert"
-        class="text-red-500 text-xs sm-text-sm bg-black/1 px-3 py-1 rounded-lg">
-        {{ getFieldError('description') }}
-      </span>
-    }
-    -->
-
+    <!-- isActive field -->
     <label class="flex items-center gap-2">Active
 
       <input
@@ -119,32 +88,13 @@
       
     </label>
 
-      
+    <!-- Submit button -->      
     <button 
       type="submit"
       class="btn btn-primary mt-5">
       <img  src="assets/icons/add.svg" class="size-6" alt="Add">
     </button>
     
-
-    <span class="mb-3">
-      {{ form.touched}} <br>
-      
-      {{ form.controls["name"].errors | json  }}
-    </span>
-
   </form>
 
 </div>
-
-  <!-- !TODO: Reemplazarlo por un toast! -->
-  @if (hasError()) {
-  <div 
-    role="alert"
-    class="alert alert-error animate-fadeIn fixed bottom-5 right-5 w-52">
-    
-    <img src="assets/icons/not-valid.svg" class="h-6 w-6 shrink-0" alt="Error">
-    
-    <span>{{errorMessage()}}</span>
-  </div>
-  }
