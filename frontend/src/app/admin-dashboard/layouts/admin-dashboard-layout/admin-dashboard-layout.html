@@ -1,53 +1,120 @@
+<!-- All screen -->
 <div 
   class="bg-gray-800 overflow-y-scroll w-screen h-screen
     antialiased text-slate-300 selection:bg-blue-600
     selection:text-white">
 
+
+  <!-- Left side menu position -->
   <div class="flex flex-col relative w-screen">
 
-    <!-- Side menu -->
+    <!-- Left side menu -->
     <div
       id="menu"
-      class="bg-gray-900 min-h-screen z-10
-      text-slate-300 w-64 fixed left-0 h-screen overflow-y-scroll">
-
-
-      <!-- Logo, title, subtitle -->
+      [ngClass]="{
+        'w-60': !isSidebarCollapsed(),
+        'w-20': isSidebarCollapsed(),
+      }"
+      class="bg-gray-900 min-h-screen z-30
+      text-slate-300 fixed left-0 h-screen overflow-y-scroll transition-all duration-300">
+      
+      <!-- Title, subtitle -->
       <div
-        id="logo"
-        class="my-4 px-6">
+        class="my-4 transition-all duration-300"
+        [ngClass]="{
+          'px-0': isSidebarCollapsed(),
+          'px-6': !isSidebarCollapsed()
+        }">
+        
+        <!-- Collapsed: Only title -->
+        @if (isSidebarCollapsed()) {
+          <!-- Title-->
+          <h1 
+            class="text-lg md:text-2xl
+              font-bold gap-2
+              flex
+              items-center justify-center
+              transition-opacity duration-300">
+            <span class="text-white">H</span>
+            <span class="text-primary">A</span>
+          </h1>
+          <!-- Subtitle -->
+          <p 
+            class="text-transparent text-sm transition-opacity duration-300">
+            ...
+          </p>
+        }
+        <!-- Not Collapsed: Title and subtitle  -->
+        @else {
+          <!-- Title -->
+          <h1 
+            class="text-lg md:text-2xl
+              font-bold
+              flex gap-2
+              transition-opacity duration-300">
 
-        <!-- Title -->
-        <h1 class="text-lg md:text-2xl font-bold text-white">
-          Home
-          <span class="text-primary">Asisstant</span>
-        </h1>
-
-        <!-- Subtitle -->
-        <p class="text-slate-500 text-sm">Administrative Panel</p>
+            <span class="text-white">Home</span>
+            <span class="text-primary">Assistant</span>
+          </h1>
+          <!-- Subtitle -->
+          <p 
+            class="text-slate-500 text-sm transition-opacity duration-300">
+            Administrative Panel
+          </p>
+        }
+        
       </div>
       
-
+      <!-- Divider -->
+      <div class="divider my-0"></div>      
+      
       <!-- Administrator info-->
-      <div id="profile" class="px-6 py-10">
+      <div 
+        id="profile" 
+        class="py-10 transition-all duration-300"
+        [ngClass]="{
+          'px-0': isSidebarCollapsed(),
+          'px-6': !isSidebarCollapsed()
+        }">
 
-        <p class="text-slate-500">Welcome back,</p>
-        
-        <a href="#" class="inline-flex space-x-2 items-center">
-          <span class="text-sm md:text-base font-bold text-primary ">
-            {{ user()?.fullname || '???' }}
-          </span>
-        </a>
+        <!-- Not collapsed: Show welcome message -->
+        @if (isSidebarCollapsed()) {
+          <!-- Full name -->
+          <div 
+            id ="profile-initials"
+            class="mask mask-circle bg-primary
+            text-black font-bold text-lg
+            w-14 h-14 transition-opacity duration-300 
+            flex items-center justify-center
+            whitespace-nowrap mx-auto">
+            {{ fullNameInitials }}
+          </div>
+        }
+        @else  {
+          <p 
+            class="text-slate-500 transition-opacity duration-300">
+            Welcome back,
+          </p>
+
+          <!-- Full name -->
+          <div class="inline-flex space-x-2 items-center">
+            <span 
+              class="text-sm md:text-base font-bold text-primary transition-opacity duration-300">
+              {{ user()?.fullname || '???' }}
+            </span>
+          </div>
+        }
       </div>
 
       <!-- Navigation buttons -->
-      <div id="nav" class="w-full px-6">
+      <div id="nav" class="w-full px-3">
 
         <!-- Dashboard button -->
         <app-link-button
           title="Dashboard"
           subtitle="Data overview"
           path="/admin/dashboard"
+          [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
@@ -59,6 +126,7 @@
           title="Devices"
           subtitle="Manage Devices"
           path="/admin/devices"
+          [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path d="M12 .75a8.25 8.25 0 0 0-4.135 15.39c.686.398 1.115 1.008 1.134 1.623a.75.75 0 0 0 .577.706c.352.083.71.148 1.074.195.323.041.6-.218.6-.544v-4.661a6.714 6.714 0 0 1-.937-.171.75.75 0 1 1 .374-1.453 5.261 5.261 0 0 0 2.626 0 .75.75 0 1 1 .374 1.452 6.712 6.712 0 0 1-.937.172v4.66c0 .327.277.586.6.545.364-.047.722-.112 1.074-.195a.75.75 0 0 0 .577-.706c.02-.615.448-1.225 1.134-1.623A8.25 8.25 0 0 0 12 .75Z" />
@@ -71,6 +139,7 @@
           title="Device Areas"
           subtitle="Manage Device Areas"
           path="/admin/device-areas"
+          [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path d="M19.006 3.705a.75.75 0 1 0-.512-1.41L6 6.838V3a.75.75 0 0 0-.75-.75h-1.5A.75.75 0 0 0 3 3v4.93l-1.006.365a.75.75 0 0 0 .512 1.41l16.5-6Z" />
@@ -83,6 +152,7 @@
           title="Device Types"
           subtitle="Manage Device Types"
           path="/admin/device-types"
+          [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path d="M19.5 21a3 3 0 0 0 3-3v-4.5a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3V18a3 3 0 0 0 3 3h15ZM1.5 10.146V6a3 3 0 0 1 3-3h5.379a2.25 2.25 0 0 1 1.59.659l2.122 2.121c.14.141.331.22.53.22H19.5a3 3 0 0 1 3 3v1.146A4.483 4.483 0 0 0 19.5 9h-15a4.483 4.483 0 0 0-3 1.146Z" />
@@ -94,36 +164,84 @@
           title="Users"
           subtitle="Manage Users"
           path="/admin/users"
+          [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
               <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
               <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
             </svg>'
         />
-            
-        <!-- Divide button sections -->
-        <div class="divider my-2"></div>
-
-        <!-- Logout button -->
-        <div class="flex flex-col items-center">
-          <button
-            class="btn btn-primary
-            block justify-center rounded-lg mb-5"
-            (click)="logout()">
-            Logout
-          </button>
-        </div>
         
-
-
       </div>
+
+      <!-- Logout button -->
+      <div class="flex flex-col items-center pt-20">
+        <button
+          [ngClass]="{'justify-center': isSidebarCollapsed()}"
+          class="btn btn-primary flex rounded-lg"
+          (click)="logout()">
+          <!-- Elements -->
+          <div class="flex justify-between items-center">
+            <!-- logout icon -->            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 opacity-70">
+              <path fill-rule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+            <!-- logout text -->
+            @if (!isSidebarCollapsed()) {
+              <span class="ml-2">Logout</span>
+            }
+          </div>
+        </button>
+      </div> 
+      
+      <!-- Toggle sidebar button -->
+      <button
+        (click)="toggleSidebar()"
+        class="flex fixed top-1/5 -translate-y-1/2 z-40 
+               bg-primary text-black  py-10 rounded-r-lg shadow-lg
+               hover:bg-primary/80 transition-all duration-300
+               items-center justify-center"
+        [ngClass]="{
+          'left-20': isSidebarCollapsed(),
+          'left-60': !isSidebarCollapsed()
+        }">
+        <!-- Expand icon (when collapsed) -->
+        @if (isSidebarCollapsed()) {
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke-width="2" 
+            stroke="currentColor" 
+            class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        }
+        <!-- Collapse icon (when expanded) -->
+        @else {
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke-width="2" 
+            stroke="currentColor" 
+            class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+          </svg>
+        }
+      </button>
+
     </div>
   </div>
 
   <!-- Main content -->
-  <div class="flex-1 ml-68 pt-5 px-5">
+  <div 
+    class="flex-1 pt-5 px-5 transition-all duration-300"
+    [ngClass]="{
+      'ml-25': isSidebarCollapsed(),
+      'ml-65': !isSidebarCollapsed()
+    }">
     <router-outlet/>
   </div>
-  
   
 </div>

@@ -5,47 +5,23 @@
     <!-- Header -->
     <div class="flex flex-1 justify-between items-center pb-5">
 
+      <!--Title -->
       <div class="flex justify-center items-center">
-
         <h1 class="tex-2xl font-montserrat font-bold text-primary text-center">
           {{ 'AUTHENTICATION_LAYOUT.TITLE' | translate }}
         </h1>
       </div>
       
+      <!-- Language Switcher button -->
       <div class="flex justify-end items-center gap-2">
-
         <app-switch-language/>
-
-        <!--
-        <button 
-          type="button"
-          (click)="changeLanguage('en')"
-          [ngClass]="{
-            'btn-primary': languageService.currentLang() === 'en',
-            'btn-ghost border border-primary/50': languageService.currentLang() !== 'en'}"
-          class="btn btn-sm">
-          EN
-        </button>
-
-        <button 
-          type="button"
-          (click)="changeLanguage('es')"
-          [ngClass]="{
-            'btn-primary': languageService.currentLang() === 'es',
-            'btn-ghost border border-primary/50': languageService.currentLang() !== 'es'}"
-          class="btn btn-sm">
-          ES
-        </button>
-        -->
       </div>
 
     </div>
-    
-    
+   
+    <!-- Page -->
     <router-outlet/>  
 
   </div>
-
-  
 
 </div>

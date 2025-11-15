@@ -2,32 +2,43 @@
   [routerLink]="path()"
   routerLinkActive="bg-primary"
   #rla="routerLinkActive"
-  class="w-full px-2 inline-flex space-x-2 items-center
-         border-b border-slate-700 py-3 hover:bg-white/5
-         transition ease-linear duration-150">
+  [ngClass]="{
+    'justify-center px-5': isCollapsed(),
+    'justify-start px-2': !isCollapsed()
+  }"
+  class=
+    "w-full inline-flex
+    items-center
+    py-3
+    rounded-lg
+    border-b border-slate-700
+    hover:bg-white/5
+    transition ease-linear duration-150">
   
   <!-- Icon -->
   <div
-    [ngClass]="rla.isActive ? 'text-black flex items-center justify-center' :
-              'text-white flex items-center justify-center'"
+    [ngClass]="rla.isActive ? 'text-black' : 'text-white'"
+    class="flex items-center justify-center"
     [innerHTML]="safeSvgIcon()">
   </div>
 
+  @if (!isCollapsed()) {
   <!-- Text block -->
-  <div class="flex flex-col">
-
+  <div 
+    class="flex flex-col ml-4">
     <!-- Title -->
     <span 
-      [ngClass]="rla.isActive ? 'text-black text-lg font-bold leading-5' :
-                'text-white text-lg font-bold leading-5'">
+      [ngClass]="rla.isActive ? 'text-black' : 'text-white'"
+      class = "text-lg font-bold leading-5">
       {{ title() }}
     </span>
-    
-      <!-- Subtitle -->
+    <!-- Subtitle -->
     <span 
-      [ngClass]="rla.isActive ? 'text-black/50 text-sm hidden md:block' :
-                'text-white/50 text-sm hidden md:block'">
+      [ngClass]="rla.isActive ? 'text-black/50' : 'text-white/50'"
+      class=" text-sm hidden md:block">
       {{ subtitle() }}
     </span>
   </div>
+  }
+  
 </a>

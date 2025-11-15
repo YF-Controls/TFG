@@ -24,6 +24,7 @@ export class LinkButtonComponent {
   subtitle = input.required<string>();
   path = input.required<string>();
   svgIcon = input.required<string>();
+  isCollapsed = input<boolean>(false);
   
   /*
     Constructor

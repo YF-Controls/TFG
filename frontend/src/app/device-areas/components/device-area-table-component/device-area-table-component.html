@@ -5,16 +5,14 @@
     <thead>
       <tr>
         <!-- col 1 -->
-        <th> <label><input type="checkbox" class="checkbox" /></label></th>
+        <th class="text-white font-bold text-center">Status</th>
         <!-- col 2 -->
-        <th class="text-white font-bold">Is active</th>
-        <!-- col 3 -->
         <th class="text-white font-bold">Name</th>
-        <!-- col 4 -->
+        <!-- col 3 -->
         <th class="text-white font-bold">Hw ID</th>
-        <!-- col 5 -->
-        <th class="text-white font-bold">Description</th>
-        <!-- col 6: Details, no header -->
+        <!-- col 4 -->
+        <th class="hidden md:block text-white font-bold">Description</th>
+        <!-- col 5: Details, no header -->
         <!-- empty -->
       </tr>
     </thead>
@@ -27,16 +25,9 @@
         <!-- row x -->
         <tr>
 
-          <!-- Col 1: checkbox -->
+          <!-- Col 1 -->
           <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
-          
-          <!-- Col 2 -->
-          <th>
-            <div class="flex items-center gap-3">
+            <div class="flex justify-center">
               <div 
                 class="badge bg-green-500"
                 [ngClass]="deviceArea.isActive ? 'bg-green-500' : 'bg-red-500'" >
@@ -44,7 +35,7 @@
             </div>
           </th>
           
-          <!-- Col 3: Name -->
+          <!-- Col 2: Name -->
           <td>
             <div class="flex items-center gap-3">
               <div class="font-bold">
@@ -53,7 +44,7 @@
             </div>
           </td>
           
-          <!-- Col 4: HW ID -->
+          <!-- Col 3: HW ID -->
           <td>
             <div class="flex items-center gap-3">
               <div class="text-sm opacity-50">
@@ -62,8 +53,8 @@
             </div>
           </td>
           
-          <!-- Col 5: Description -->
-          <td>
+          <!-- Col 4: Description -->
+          <td class="hidden md:block">
             <div class="flex items-center gap-3">
               <div class="text-sm opacity-50">
                 {{ deviceArea.description }}
@@ -71,14 +62,13 @@
             </div>
           </td>
 
-          <!-- Col 6: Details button -->
+          <!-- Col 5: Details button -->
           <th>
             <a 
               [routerLink]="['/device-area', deviceArea.id]"
               class="btn btn-ghost text-accent btn-xs">
               Details
             </a>
-            
           </th>
           
         </tr>
