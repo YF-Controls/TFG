@@ -50,20 +50,16 @@ export class DeviceAreasService {
   }
 
   async findOne(id: string) {
-    
-    return await this.repository.findOne({
-      where : {
-        id,
-        //...(!withInactives && { isActive : true })
-      }
-    });
+    //...(!withInactives && { isActive : true })
+    return await this.repository.findOne({where : {id}});
   }
   
-  async update(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto, filterByIsActive: boolean = true) {
+  async update(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto) {
     const result = await this.repository.update(
-      {id, ...(filterByIsActive && { isActive : true })},
+      {id},
       {...updateDeviceAreaDto}
     );
+    
     if (result.affected === 0) 
       throw new NotFoundException(`Device Area with ID ${id} was not found`);
   }

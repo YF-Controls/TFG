@@ -5,7 +5,7 @@ import { catchError, map, Observable, of, tap } from "rxjs";
 // Other modules
 import { environment } from "@env/environment.development";
 import { PaginationDto } from "@shared/dto";
-import { CreateDeviceAreaDto, DeviceAreaResponseDto } from "@device-areas/dtos";
+import { CreateDeviceAreaDto, DeviceAreaResponseDto, UpdateDeviceAreaDto } from "@device-areas/dtos";
 // This module
 import { DeviceArea } from "../interfaces";
 
@@ -49,6 +49,22 @@ export class DeviceAreasService {
           return of(error.error.message || 'Error creating device area');
         })
       );
+  }
+
+  update(id: string, deviceArea: UpdateDeviceAreaDto) : Observable<string | null> {
+    
+    return this.http.patch<DeviceAreaResponseDto>(`${DEVICE_AREAS_URL}/${id}`, deviceArea)
+      .pipe(
+        map((resp: DeviceAreaResponseDto) => {
+          console.log('!DELETE device-areas.service.ts Created device area:', {resp});
+          return null;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.error('!DELETE device-areas.service.ts Error creating device area:', error);
+          return of(error.error.message || 'Error creating device area');
+        })
+      );
+
   }
 
 }

@@ -28,4 +28,6 @@
 <div class="divider"></div>
 
 <!-- Table -->
-<app-device-area-table [deviceAreas]="deviceAreasResource.value() ?? []"/>
+<app-device-area-table 
+  [deviceAreas]="deviceAreasResource.value() ?? []"
+  (updateTable)="onUpdateTable()"/>

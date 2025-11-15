@@ -33,8 +33,12 @@ export class DeviceAreasAdminPage {
     });
 
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.deviceAreasResource.reload();
+      if (confirmed) this.onUpdateTable();
     });
   }
   
+  protected onUpdateTable() {
+    this.deviceAreasResource.reload();
+  }
+
 }
