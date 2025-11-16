@@ -1,4 +1,52 @@
 {
+  "ADMIN_DASHBOARD" : {
+
+    "LAYOUT" : {
+      "SUBTITLE" : "Panel Administrativo",
+      "WELCOME" : "Bienvenido de nuevo, ",
+
+      "NAV_BUTTONS" : {
+        "DASHBOARD" : {
+          "TITLE" : "Dashboard",
+          "SUBTITLE" : "Resumen de datos"
+        },
+
+        "DEVICES" : {
+          "TITLE" : "Dispositivos",
+          "SUBTITLE" : "Gestionar dispositivos"
+        },
+
+        "DEVICE_AREAS" : {
+          "TITLE" : "Áreas de Dispositivos",
+          "SUBTITLE" : "Gestionar áreas de dispositivos"
+        },
+
+        "DEVICE_TYPES" : {
+          "TITLE" : "Tipos de Dispositivos",
+          "SUBTITLE" : "Gestionar tipos de dispositivos"
+        },
+
+        "USERS" : {
+          "TITLE" : "Usuarios",
+          "SUBTITLE" : "Gestionar usuarios"
+        }
+      },
+      
+      "LOGOUT" : {
+        "BUTTON" : "Cerrar sesión",
+        "POPUP" : {
+          "TITLE" : "Confirmar cierre de sesión",
+          "MESSAGE" : "¿Estás seguro de que deseas cerrar sesión?"
+        }
+      }
+    },
+
+    "DEVICE_AREAS_ADMIN_PAGE" : {
+      "TITLE": "Gestión de Áreas de Dispositivos",
+      "TOTAL" : "Total de Áreas de Dispositivos: "
+    } 
+  },
+  
   "AUTHENTICATION_LAYOUT" : {
     "TITLE" : "Autenticación"
   },
@@ -22,7 +70,7 @@
     }
   },
 
-    "REGISTER_COMPONENT" : {
+  "REGISTER_COMPONENT" : {
     "TITLE" : "Registro",
     
     "FORM" : {
@@ -42,5 +90,80 @@
       "PASSWORD_MISMATCH" : "Las contraseñas no coinciden.",
       "REGISTER_SUCCESS" : "Registro exitoso."
     }
-  }
+  },
+
+  "DEVICE_AREAS" : {
+
+    "CREATE_DEVICE_AREA" : {
+      "TITLE" : "Crear Área de Dispositivos",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Nombre...",
+        "HWID_PLACEHOLDER" : "ID de hardware...",
+        "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "IS_ACTIVE_LABEL" : "Activo"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Área de dispositivos creada exitosamente."
+      }
+    },
+
+    "EDIT_DEVICE_AREA" : {
+      "TITLE" : "Editar Área de Dispositivos",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Nombre...",
+        "HWID_PLACEHOLDER" : "ID de hardware...",
+        "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "IS_ACTIVE_LABEL" : "Activo"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Área de dispositivos actualizada exitosamente."
+      }
+    },
+
+    "DEVICE_AREA_TABLE" : {
+      "TABLE" : {
+        "HEADER" : {
+          "STATUS" : "Estado",
+          "NAME" : "Nombre",
+          "DESCRIPTION" : "Descripción"
+        },
+        "NO_DATA" : "No se encontraron áreas de dispositivos."
+      },
+
+      "DELETE_POPUP" : {
+        "TITLE" : "Eliminar Área de Dispositivos",
+        "MESSAGE" : "¿Estás seguro de que deseas eliminar esta área de dispositivos?"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "DELETED" : "Área de dispositivos eliminada exitosamente."}
+    }
+  },
+
+  "UTILS" : {
+    "GET_ERROR_TEXT_FROM_FORM_FIELD" : {
+      "CHRARACTERS" : " caraters.",
+      "REQUIRED" : "Campo requerido.",
+      "EMAIL" : "Correo electrónico no válido",
+      "MIN_LENGTH" : "La longitud mínima es ",
+      "MAX_LENGTH" : "La longitud máxima es ",
+      "MIN" : "El valor mínimo es ",
+      "MAX" : "El valor máximo es ",
+      "EMAIL_TAKEN" : "El correo electrónico ya está en uso",
+      "NO_STRIDER" : "El nombre de usuario Strider no está permitido",
+      "EMAIL_PATTERN" : "El valor ingresado no parece una dirección de correo electrónico",
+      "PATTERN" : "El valor ingresado no coincide con el patrón requerido",
+      "DEFAULT" : "Error de validación no manejado"
+    }
+  }  
+
 }

@@ -1,25 +1,28 @@
 <div class="overflow-x-auto">
+  <!-- Table -->
   <table class="table">
-
     <!-- Header -->
     <thead>
       <tr>
         <!-- col 1: Status -->
-        <th class="text-white font-bold">Status</th>
+        <th class="text-white font-bold text-center">
+          {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.HEADER.STATUS' | translate }}
+        </th>
         <!-- col 2: Name -->
-        <th class="text-white font-bold">Name</th>
+        <th class="text-white font-bold">
+          {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.HEADER.NAME' | translate }}
+        </th>
         <!-- col 3: Description -->
-        <th class="hidden md:block text-white font-bold">Description</th>
+        <th class="hidden md:block text-white font-bold">
+          {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.HEADER.DESCRIPTION' | translate }}
+        </th>
         <!-- col 4: Edit and delete buttons -->
         <!-- empty -->
       </tr>
     </thead>
-
     <!-- Rows -->
     <tbody>
-
       @for (deviceArea of deviceAreas(); track deviceArea.id) {
-      
         <!-- row x -->
         <tr>
           <!-- Col 1: Status -->
@@ -75,10 +78,13 @@
       
       } 
       @empty {
-        <span>No device areas found!</span>
+        <span>
+          {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.NO_DATA' | translate }}
+        </span>
       }
       
     </tbody>
+
   </table>
 </div>
 

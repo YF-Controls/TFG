@@ -1,27 +1,28 @@
 // System
 import { Component, computed, inject, signal, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
-import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { ConfirmComponent } from '@shared/components';
+import { ConfirmComponent, SwitchLanguageComponent } from '@shared/components';
+import { LanguageService } from '@shared/services';
 import { AuthService } from '@auth/services';
 import { User } from '@auth/interfaces';
 // This module
 import { LinkButtonComponent } from '../../components';
-import { ɵInternalFormsSharedModule } from "@angular/forms";
-
 
 
 @Component({
   standalone : true,
   selector: 'app-admin-dashboard-layout',
-  imports: [RouterOutlet, LinkButtonComponent, CommonModule, ɵInternalFormsSharedModule],
+  imports: [TranslateModule, RouterOutlet, LinkButtonComponent, CommonModule, SwitchLanguageComponent],
   templateUrl: './admin-dashboard-layout.html',
 })
 export class AdminDashboardLayout implements OnInit {
   
   // Injections
+  private languageService = inject(LanguageService);
   private dialog = inject(Dialog);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -70,8 +71,8 @@ export class AdminDashboardLayout implements OnInit {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: 'Confirm Logout',
-        message: 'Are you sure you want to logout?'
+        title: this.languageService.getTranslation('ADMIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.TITLE'),
+        message: this.languageService.getTranslation('ADMIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.MESSAGE') 
       }
     });
 

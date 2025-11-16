@@ -1,4 +1,52 @@
 {
+  "ADMIN_DASHBOARD" : {
+
+    "LAYOUT" : {
+      "SUBTITLE" : "Administrative Panel",
+      "WELCOME" : "Welcome back, ",
+
+      "NAV_BUTTONS" : {
+        "DASHBOARD" : {
+          "TITLE" : "Dashboard",
+          "SUBTITLE" : "Data overview"
+        },
+
+        "DEVICES" : {
+          "TITLE" : "Devices",
+          "SUBTITLE" : "Manage devices"
+        },
+
+        "DEVICE_AREAS" : {
+          "TITLE" : "Device Areas",
+          "SUBTITLE" : "Manage device areas"
+        },
+
+        "DEVICE_TYPES" : {
+          "TITLE" : "Device Types",
+          "SUBTITLE" : "Manage device types"
+        },
+
+        "USERS" : {
+          "TITLE" : "Users",
+          "SUBTITLE" : "Manage users"
+        }
+      },
+      
+      "LOGOUT" : {
+        "BUTTON" : "Logout",
+        "POPUP" : {
+          "TITLE" : "Confirm Logout",
+          "MESSAGE" : "Are you sure you want to logout?"
+        }
+      }
+    },
+
+    "DEVICE_AREAS_ADMIN_PAGE" : {
+      "TITLE": "Device Areas Management",
+      "TOTAL" : "Total Device Areas: "
+    } 
+  },
+
   "AUTHENTICATION_LAYOUT" : {
     "TITLE" : "Authentication"
   },
@@ -42,5 +90,80 @@
       "PASSWORD_MISMATCH" : "Passwords do not match.",
       "REGISTER_SUCCESS" : "Registration successful."
     }
+  },
+
+  "DEVICE_AREAS" : {
+
+    "CREATE_DEVICE_AREA" : {
+      "TITLE" : "Create Device Area",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Name...",
+        "HWID_PLACEHOLDER" : "Hardware ID...",
+        "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "IS_ACTIVE_LABEL" : "Active"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "FORM_ERROR" : "Form not valid data.",
+        "SUCCESS" : "Device area created successfully."
+      }
+    },
+
+    "EDIT_DEVICE_AREA" : {
+      "TITLE" : "Edit Device Area",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Name...",
+        "HWID_PLACEHOLDER" : "Hardware ID...",
+        "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "IS_ACTIVE_LABEL" : "Active"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "FORM_ERROR" : "Form not valid data.",
+        "SUCCESS" : "Device area updated successfully."
+      }
+    },
+
+    "DEVICE_AREA_TABLE" : {
+      "TABLE" : {
+        "HEADER" : {
+          "STATUS" : "Status",
+          "NAME" : "Name",
+          "DESCRIPTION" : "Description"
+        },
+        "NO_DATA" : "No device areas found."
+      },
+
+      "DELETE_POPUP" : {
+        "TITLE" : "Delete Device Area",
+        "MESSAGE" : "Are you sure you want to delete this device area?"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "DELETED" : "Device area deleted successfully."}
+    }
+  },
+
+  "UTILS" : {
+    "GET_ERROR_TEXT_FROM_FORM_FIELD" : {
+      "CHRARACTERS" : " characters.",
+      "REQUIRED" : "This field is required.",
+      "EMAIL" : "Not a valid email",
+      "MIN_LENGTH" : "Minimum length is ",
+      "MAX_LENGTH" : "Maximum length is ",
+      "MIN" : "Minimum value is ",
+      "MAX" : "Maximum value is ",
+      "EMAIL_TAKEN" : "Email is used already in the system",
+      "NO_STRIDER" : "Strider username is not allowed",
+      "EMAIL_PATTERN" : "Input value does not look like an email address",
+      "PATTERN" : "Input value does not match the required pattern",
+      "DEFAULT" : "Unhandled validation error"
+    }
   }
+
 }

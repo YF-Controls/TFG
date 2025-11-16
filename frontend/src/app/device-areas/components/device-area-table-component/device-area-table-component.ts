@@ -3,11 +3,12 @@ import { Component, inject, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
-import { DeviceAreasService } from '@device-areas/services';
 // This module
+import { DeviceAreasService } from '../../services';
 import { DeviceArea } from '../../interfaces';
 import { EditDeviceAreaComponent } from '../';
 
@@ -15,7 +16,7 @@ import { EditDeviceAreaComponent } from '../';
 @Component({
   standalone: true,
   selector: 'app-device-area-table',
-  imports: [NgClass],
+  imports: [NgClass, TranslateModule],
   templateUrl: './device-area-table-component.html',
 })
 export class DeviceAreaTableComponent { 
@@ -31,7 +32,7 @@ export class DeviceAreaTableComponent {
   updateTable = output();
   
   // Methods
-  onUpdateOne (deviceArea: DeviceArea) {
+  protected onUpdateOne (deviceArea: DeviceArea) {
     const dialogRef = this.dialog.open(EditDeviceAreaComponent, {
       disableClose: false,
       data: {deviceArea}
@@ -42,15 +43,15 @@ export class DeviceAreaTableComponent {
     });
   }
   
-  onDeleteOne (deviceArea: DeviceArea) {
+  protected onDeleteOne (deviceArea: DeviceArea) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: 'Confirm Delete',
-        message: 'Are you sure you want to delete this device area?'
+        title: this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
-
+    
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
@@ -58,7 +59,8 @@ export class DeviceAreaTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            this.toast.open(errorMessage, 'Close', { 
+            const action = this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.CLOSE');
+            this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['toast-container-effect', 'toast-container-error'],
               horizontalPosition : 'center',
@@ -67,7 +69,9 @@ export class DeviceAreaTableComponent {
             return;
           }
           // Deleted!
-          this.toast.open('Device area deleted successfully!', 'Close', { 
+          const message = this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.DELETED');
+          const action = this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.CLOSE');
+          this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['toast-container-effect', 'toast-container-success'],
             horizontalPosition : 'center',

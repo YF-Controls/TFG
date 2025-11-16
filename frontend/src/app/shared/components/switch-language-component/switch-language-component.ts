@@ -1,5 +1,6 @@
 // System
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
 // Other modules
 import { LanguageService } from '@shared/services';
 
@@ -12,15 +13,16 @@ interface Language {
 @Component({
   standalone : true,
   selector: 'app-switch-language',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './switch-language-component.html',
 })
 export class SwitchLanguageComponent { 
   
   // Injections
   protected readonly languageService = inject(LanguageService);
-
+  
   // Properties
+  isSidebarCollapsed = input<boolean>(true);
   protected readonly isOpen = signal(false);
   protected readonly languages: Language[] = [
     { code: 'en', name: 'English' },

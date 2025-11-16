@@ -20,7 +20,7 @@
       
       <!-- Title, subtitle -->
       <div
-        class="my-4 transition-all duration-300"
+        class="my-2 transition-all duration-300"
         [ngClass]="{
           'px-0': isSidebarCollapsed(),
           'px-6': !isSidebarCollapsed()
@@ -59,19 +59,28 @@
           <!-- Subtitle -->
           <p 
             class="text-slate-500 text-sm transition-opacity duration-300">
-            Administrative Panel
+            {{ 'ADMIN_DASHBOARD.LAYOUT.SUBTITLE' | translate }}
           </p>
         }
         
       </div>
       
       <!-- Divider -->
-      <div class="divider my-0"></div>      
+      <div class="divider my-0"></div>
       
+      <!-- Languge button -->
+      <div class="flex flex-col items-center my-2">
+        <app-switch-language
+          [isSidebarCollapsed] = "isSidebarCollapsed()"/>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider my-0"></div>
+
       <!-- Administrator info-->
       <div 
         id="profile" 
-        class="py-10 transition-all duration-300"
+        class="py-2 transition-all duration-300"
         [ngClass]="{
           'px-0': isSidebarCollapsed(),
           'px-6': !isSidebarCollapsed()
@@ -93,7 +102,7 @@
         @else  {
           <p 
             class="text-slate-500 transition-opacity duration-300">
-            Welcome back,
+            {{ 'ADMIN_DASHBOARD.LAYOUT.WELCOME' | translate }},
           </p>
 
           <!-- Full name -->
@@ -106,13 +115,16 @@
         }
       </div>
 
+      <!-- Divider -->
+      <div class="divider my-0"></div>
+
       <!-- Navigation buttons -->
       <div id="nav" class="w-full px-3">
 
         <!-- Dashboard button -->
         <app-link-button
-          title="Dashboard"
-          subtitle="Data overview"
+          title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DASHBOARD.TITLE' | translate }}"
+          subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DASHBOARD.SUBTITLE' | translate }}"
           path="/admin/dashboard"
           [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
@@ -123,8 +135,8 @@
         
         <!-- Devices button -->
         <app-link-button
-          title="Devices"
-          subtitle="Manage Devices"
+          title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.TITLE' | translate }}"
+          subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.SUBTITLE' | translate }}"
           path="/admin/devices"
           [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
@@ -136,8 +148,8 @@
         
         <!-- Device areas button -->
         <app-link-button
-          title="Device Areas"
-          subtitle="Manage Device Areas"
+          title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_AREAS.TITLE' | translate }}"
+          subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_AREAS.SUBTITLE' | translate }}"
           path="/admin/device-areas"
           [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
@@ -149,8 +161,8 @@
         
         <!-- Device types button -->
         <app-link-button
-          title="Device Types"
-          subtitle="Manage Device Types"
+          title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_TYPES.TITLE' | translate }}"
+          subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_TYPES.SUBTITLE' | translate }}"
           path="/admin/device-types"
           [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
@@ -161,8 +173,8 @@
         
         <!-- Users button -->
         <app-link-button
-          title="Users"
-          subtitle="Manage Users"
+          title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.USERS.TITLE' | translate }}"
+          subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.USERS.SUBTITLE' | translate }}"
           path="/admin/users"
           [isCollapsed]="isSidebarCollapsed()"
           svgIcon='
@@ -188,7 +200,9 @@
             </svg>
             <!-- logout text -->
             @if (!isSidebarCollapsed()) {
-              <span class="ml-2">Logout</span>
+              <span class="ml-2">
+                {{ 'ADMIN_DASHBOARD.LAYOUT.LOGOUT.BUTTON' | translate }}
+              </span>
             }
           </div>
         </button>

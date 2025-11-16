@@ -1,10 +1,15 @@
+// System
 import {
   AbstractControl,
   FormArray,
   FormGroup,
   ValidationErrors,
 } from '@angular/forms';
+// Other modules
+import { LanguageService } from '@shared/services';
 
+
+// Function
 async function sleep() {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -13,6 +18,8 @@ async function sleep() {
   });
 }
 
+
+// Class
 export class FormUtils {
 
   // Class properties
@@ -22,39 +29,48 @@ export class FormUtils {
   static slugPattern = '^[a-z0-9_]+(?:-[a-z0-9_]+)*$';
 
   // Class methods
-  static getTextError(errors: ValidationErrors) {
+  static getErrorTextFromFormField(errors: ValidationErrors, languageService: LanguageService) {
+    
     for (const key of Object.keys(errors)) {
       switch (key) {
         
         case 'required':
-          return 'Required field!';
+         return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.REQUIRED');
         
         case 'email':
-          return 'Not a valid email!';
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL');
         
         case 'minlength':
-          return `Minimum length is ${errors['minlength'].requiredLength} characters`;
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MIN_LENGTH') +
+                 errors['minlength'].requiredLength + 
+                 languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.CHRARACTERS');
         
         case 'maxlength':
-          return `Max. length is ${errors['maxlength'].requiredLength} chars!`;
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MAX_LENGTH') +
+                 errors['maxlength'].requiredLength + 
+                 languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.CHRARACTERS');
 
         case 'min':
-          return `Min values is ${errors['min']}`;
-        
-        case 'emailTaken':
-          return `Email is used already in the system`;
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MIN') +
+                 errors['min'].requiredMin;
+          
+        case 'max':
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MAX') +
+                 errors['max'].requiredMax;
 
+        case 'emailTaken':
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL_TAKEN');
         case 'noStrider':
-          return 'Strider username is not allowed';
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.NO_STRIDER');
           
         case 'pattern':
           if (errors['pattern'].requiredPattern === FormUtils.emailPattern) {
-            return 'Input value does not look like an email address';
+            return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL_PATTERN');
           }
-          return 'Input value does not match the required pattern';
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.PATTERN');
           
         default:
-          return `Unhandled validation error ${key}`;
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.DEFAULT');
       }
     }
 
@@ -67,12 +83,12 @@ export class FormUtils {
     );
   }
 
-  static getFieldError(form: FormGroup, fieldName: string): string | null {
+  static getFieldError(form: FormGroup, fieldName: string, languageService: LanguageService): string | null {
     if (!form.controls[fieldName]) return null;
 
     const errors = form.controls[fieldName].errors ?? {};
 
-    return FormUtils.getTextError(errors);
+    return FormUtils.getErrorTextFromFormField(errors, languageService);
   }
 
   static isValidFieldInArray(formArray: FormArray, index: number) {
@@ -83,13 +99,14 @@ export class FormUtils {
 
   static getFieldErrorInArray(
     formArray: FormArray,
-    index: number
+    index: number,
+    languageService: LanguageService
   ): string | null {
     if (formArray.controls.length === 0) return null;
 
     const errors = formArray.controls[index].errors ?? {};
 
-    return FormUtils.getTextError(errors);
+    return FormUtils.getErrorTextFromFormField(errors, languageService);
   }
 
   static isFieldOneEqualFieldTwo(field1: string, field2: string) {
@@ -101,11 +118,11 @@ export class FormUtils {
     };
   }
 
+  /*
   static async checkingServerResponse(
     control: AbstractControl
   ): Promise<ValidationErrors | null> {
-    console.log('Validando contra servidor');
-
+    
     await sleep(); // 2 segundos y medio
 
     const formValue = control.value;
@@ -118,6 +135,7 @@ export class FormUtils {
 
     return null;
   }
+  */
 
   static notStrider(control: AbstractControl): ValidationErrors | null {
     const value = control.value;

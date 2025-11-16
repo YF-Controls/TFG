@@ -3,24 +3,26 @@ import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Dialog } from '@angular/cdk/dialog';
 // Other modules
+import { LanguageService } from '@shared/services';
 import { CreateDeviceAreaComponent, DeviceAreaTableComponent } from '@device-areas/components';
 import { DeviceArea } from '@device-areas/interfaces';
 import { DeviceAreasService } from '@device-areas/services';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
   standalone : true,
   selector: 'app-device-areas-admin-page',
-  imports: [DeviceAreaTableComponent],
+  imports: [TranslateModule, DeviceAreaTableComponent],
   templateUrl: './device-areas-admin-page.html',
 })
 export class DeviceAreasAdminPage { 
 
   // Injections
+  private languageService = inject(LanguageService);
   private dialog = inject(Dialog);
   private deviceAreasService = inject(DeviceAreasService);
-  
+
   // Properties
   deviceAreasResource = rxResource<DeviceArea[], []>({
     stream  : () => {return this.deviceAreasService.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'name'})},

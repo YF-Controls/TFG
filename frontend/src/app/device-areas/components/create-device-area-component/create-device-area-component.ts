@@ -22,9 +22,9 @@ export class CreateDeviceAreaComponent {
   protected languageService = inject(LanguageService);
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
-
-  private fb = inject(FormBuilder);
   private deviceAreasService = inject(DeviceAreasService);
+  private fb = inject(FormBuilder);
+  
   
   // Properties
   protected form: FormGroup = this.fb.group({
@@ -40,7 +40,9 @@ export class CreateDeviceAreaComponent {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       
-      this.toast.open('Form not valid data!', 'Close', { 
+      const message = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.FORM_ERROR');
+      const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
+      this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['toast-container-effect', 'toast-container-error'],
         horizontalPosition : 'center',
@@ -58,7 +60,8 @@ export class CreateDeviceAreaComponent {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          this.toast.open(errorMessage, 'Close', { 
+          const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
+          this.toast.open(errorMessage, action, { 
             duration: 2000,
             panelClass: ['toast-container-effect', 'toast-container-error'],
             horizontalPosition : 'center',
@@ -67,7 +70,9 @@ export class CreateDeviceAreaComponent {
           return;
         }
         // created!
-        this.toast.open('Device area created successfully!', 'Close', { 
+        const message = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.SUCCESS');
+        const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
+        this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['toast-container-effect', 'toast-container-success'],
             horizontalPosition : 'center',

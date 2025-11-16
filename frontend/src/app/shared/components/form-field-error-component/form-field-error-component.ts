@@ -4,6 +4,8 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { merge } from 'rxjs';
 // Other modules
 import { FormUtils } from '@utils/index';
+// This module
+import { LanguageService } from '../../services/language.service';
 
 
 @Component({
@@ -16,6 +18,7 @@ export class FormFieldErrorComponent {
 
   // Injections
   private cdr = inject(ChangeDetectorRef);
+  private languageService = inject(LanguageService);
 
   // Properties
   control = input.required<AbstractControl>();
@@ -37,9 +40,8 @@ export class FormFieldErrorComponent {
 
   get errorMessage() {
     const errors: ValidationErrors = this.control().errors || {};
-
     return this.control().touched && Object.keys(errors).length > 0
-      ? FormUtils.getTextError(errors)
+      ? FormUtils.getErrorTextFromFormField(errors, this.languageService)
       : null;
   }
   

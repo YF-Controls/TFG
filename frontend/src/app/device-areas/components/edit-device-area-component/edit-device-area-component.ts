@@ -55,7 +55,9 @@ export class EditDeviceAreaComponent implements OnInit {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       
-      this.toast.open('Form not valid data!', 'Close', { 
+      const message = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
+      const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+      this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['toast-container-effect', 'toast-container-error'],
         horizontalPosition : 'center',
@@ -73,7 +75,8 @@ export class EditDeviceAreaComponent implements OnInit {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          this.toast.open(errorMessage, 'Close', { 
+          const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+          this.toast.open(errorMessage, action, { 
             duration: 2000,
             panelClass: ['toast-container-effect', 'toast-container-error'],
             horizontalPosition : 'center',
@@ -82,7 +85,9 @@ export class EditDeviceAreaComponent implements OnInit {
           return;
         }
         // created!
-        this.toast.open('Device area created successfully!', 'Close', { 
+        const message = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.SUCCESS');
+        const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+        this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['toast-container-effect', 'toast-container-success'],
             horizontalPosition : 'center',
