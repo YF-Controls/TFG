@@ -23,11 +23,11 @@ export class DeviceAreasAdminPage {
   
   // Properties
   deviceAreasResource = rxResource<DeviceArea[], []>({
-    stream  : () => {return this.deviceAreasService.getAll({limit: 100, offset: 0, withInactives: true})},
+    stream  : () => {return this.deviceAreasService.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'name'})},
   });
   
   // Methods
-  onAdd () {
+  protected onAdd () {
     const dialogRef = this.dialog.open(CreateDeviceAreaComponent, {
       disableClose: true,
     });

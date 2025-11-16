@@ -1,1 +1,1 @@
-export type { PaginationDto } from './pagination.dto';
+export type { QueryParamsDto } from './query-params.dto';

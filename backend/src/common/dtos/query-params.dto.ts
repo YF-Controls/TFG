@@ -27,6 +27,5 @@ export class QueryParamsDto {
   @IsOptional()
   @IsEnum(OrderDirection)
   orderDirection?: OrderDirection;
-    
-
+  
 }

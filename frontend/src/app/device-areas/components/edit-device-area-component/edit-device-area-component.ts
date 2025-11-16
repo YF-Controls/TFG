@@ -14,11 +14,11 @@ import { DeviceArea } from '@device-areas/interfaces';
 
 @Component({
   standalone : true,
-  selector: 'app-update-device-area',
+  selector: 'app-edit-device-area',
   imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent],
-  templateUrl: './update-device-area-component.html',
+  templateUrl: './edit-device-area-component.html',
 })
-export class UpdateDeviceAreaComponent implements OnInit {
+export class EditDeviceAreaComponent implements OnInit {
   
   // Injections
   protected languageService = inject(LanguageService);
