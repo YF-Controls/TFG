@@ -28,7 +28,7 @@ export class AdminDashboardLayout implements OnInit {
 
   // Properties
   user = computed<User | null>(this.authService.user);
-  isSidebarCollapsed = signal(true);
+  isSidebarCollapsed = signal<boolean>(true);
 
   // Lifecycle
   ngOnInit() {

@@ -1,7 +1,7 @@
 // System
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, Query } from '@nestjs/common';
 // Other modules
-import { PaginationDto } from '@common/dtos';
+import { QueryParamsDto } from '@common/dtos';
 // This module
 import { RegisterUserDto, LoginUserDto } from './dtos';
 import { MyAuth, MyGetUser } from './decorators';
@@ -14,13 +14,8 @@ import { AuthService } from './auth.service';
 @Controller('auth')
 export class AuthController {
   
-  // Attributes or Properties
-
-
   // Constructor
-  constructor(
-    private readonly authService: AuthService)
-  {}
+  constructor(private readonly authService: AuthService){}
 
   // Methods
   @Post('register')
@@ -35,8 +30,8 @@ export class AuthController {
   
   @Get()
   @MyAuth(MyValidRoles.admin)
-  findAll( @Query() paginationDto:PaginationDto ) {
-    return this.authService.findAll( paginationDto );
+  findAll( @Query() queryParamsDto: QueryParamsDto ) {
+    return this.authService.findAll( queryParamsDto );
   }
 
   @Get('check-status')
@@ -44,6 +39,5 @@ export class AuthController {
   checkAuthStatus(@MyGetUser() user: User){
     return this.authService.checkAuthStatus(user);
   }
-
 
 }

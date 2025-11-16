@@ -1,95 +1,78 @@
 // System
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // Other modules
-import { PaginationDto } from '@common/dtos';
+import { QueryParamsDto } from '@common/dtos';
 // This module
 import { CreateDeviceTypeDto, UpdateDeviceTypeDto } from './dtos';
 import { DeviceType } from './entities';
+import { IsNotEmpty } from 'class-validator';
 
 
 @Injectable()
 export class DeviceTypesService {
-
-  /* ************************************
-    Public methods
-    ************************************ */
-
-  /* ************************************
-    Private attributes
-    ************************************ */
-  private readonly logger = new Logger('DeviceTypesService');
   
-  /* ************************************
-    Constructor
-    ************************************ */
+  // Constructor
   constructor (
     @InjectRepository(DeviceType)
     private readonly repository: Repository<DeviceType>,
   ) {}
   
-  /* ************************************
-    Public methods
-    ************************************ */
+  // Methods
   async create(createDeviceTypeDto: CreateDeviceTypeDto) {
-    const device = this.repository.create(createDeviceTypeDto);
-    await this.repository.save(device);
-    return device;
+    // Create
+    const item = this.repository.create(createDeviceTypeDto);
+    // Query
+    await this.repository.save(item);
+    // Return
+    return item;
   }
-
-  async findAll(paginationDto: PaginationDto, filterByIsActive: boolean = true) {
-    const { limit = 10, offset = 0 } = paginationDto;
-    const devices = await this.repository.find({
+  
+  async findAll(queryParamsDto: QueryParamsDto) {
+    // Check query parametes
+    const {
+      limit = 10,
+      offset = 0,
+      withInactives = false,
+      orderBy = 'id',
+      orderDirection = 'ASC' } = queryParamsDto;
+    // Query and return
+    return await this.repository.find({
       take : limit,
       skip : offset,
-      ...(filterByIsActive && { where : { isActive : true } })
+      order : { [orderBy] : orderDirection },
+      ...(!withInactives && { where : { isActive : true } })
     });
-
-    return devices;
   }
 
-  async findOne(id: string, filterByIsActive: boolean = true) {
+  async findOne(id: string, queryParamsDto: QueryParamsDto) {
+    // Check query parametes
+    const { withInactives = false } = queryParamsDto;
+    // Query and return
     return await this.repository.findOne({
       where : {
         id,
-        ...(filterByIsActive && { isActive : true })
+        ...(!withInactives && { isActive : true })
       }
     });
   }
 
-  async update(id: string, updateDeviceTypeDto: UpdateDeviceTypeDto, filterByIsActive: boolean = true) {
+  async update(id: string, updateDeviceTypeDto: UpdateDeviceTypeDto) {
+    // Query
     const result = await this.repository.update(
-      {id, ...(filterByIsActive && { isActive : true })},
+      {id},
       {...updateDeviceTypeDto}
     );
+    // Result
     if (result.affected === 0) 
       throw new NotFoundException(`Device type with ID ${id} was not found`);
   }
-
-  async desactive(id: string) {
-    const result = await this.repository.update(
-      {id, isActive : true},
-      {isActive : false}
-    );
-
-    if (result.affected === 0) 
-      throw new NotFoundException(`Device type with ID ${id} was not found or is inactive`);
-  }
-
+  
   async remove(id: string) {
-    const device = await this.repository.delete({id});
+    // Return
+    return await this.repository.delete({id});
   }
-
-  /* ************************************
-    Private methods
-    ************************************ */
-  private handleDBErrors( error: any ): never {
-    if ( error.code === '23505' ) 
-      throw new BadRequestException( error.detail );
-    
-    this.logger.error( error.detail );
-    throw new InternalServerErrorException('Unexpected error, check server logs');
-  }
+  
 }
 

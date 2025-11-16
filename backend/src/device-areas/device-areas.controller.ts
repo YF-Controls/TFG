@@ -1,7 +1,9 @@
 // System
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
 // Oteher modules
-import { PaginationDto } from '@common/dtos';
+import { QueryParamsDto } from '@common/dtos';
+
+
 // This module
 import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from './dtos';
 // This path
@@ -20,17 +22,18 @@ export class DeviceAreasController {
 
   @Get()
   //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
-  findAll( @Query() paginationDto:PaginationDto ) {
-    return this.deviceAreasService.findAll(paginationDto);
+  findAll( @Query() queryParamsDto: QueryParamsDto ) {
+    return this.deviceAreasService.findAll(queryParamsDto);
   }
   
   @Get('/:id')
   //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
   findOne(
-    @Param('id', ParseUUIDPipe) id: string) {
-    return this.deviceAreasService.findOne(id);
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() queryParamsDto: QueryParamsDto ) {
+    return this.deviceAreasService.findOne(id, queryParamsDto);
   }
-
+  
   @Patch(':id')
   //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
   update(

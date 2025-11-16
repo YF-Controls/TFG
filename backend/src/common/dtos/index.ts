@@ -1,2 +1,2 @@
-export { PaginationDto } from "./pagination.dto";
+export { QueryParamsDto } from "./query-params.dto";
 

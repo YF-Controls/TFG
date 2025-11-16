@@ -1,9 +1,9 @@
 // System
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // Ohter modules
-import { PaginationDto } from '@common/dtos';
+import { QueryParamsDto } from '@common/dtos';
 import { DeviceType } from '@device-types/entities';
 import { DeviceArea } from '@device-areas/entities';
 // This module
@@ -13,30 +13,16 @@ import { Device } from './entities';
 
 @Injectable()
 export class DevicesService {
-
-  /* ************************************
-    Public methods
-    ************************************ */
-
-  /* ************************************
-    Private attributes
-    ************************************ */
-  private readonly logger = new Logger('DevicesService');
-
-  /* ************************************
-    Constructor
-    ************************************ */
+  
+  // Constructor
   constructor (
     @InjectRepository(Device) private readonly deviceRepository: Repository<Device>,
     @InjectRepository(DeviceType) private readonly deviceTypeRepository: Repository<DeviceType>,
     @InjectRepository(DeviceArea) private readonly deviceAreaRepository: Repository<DeviceArea>,
   ) {}
 
-  /* ************************************
-    Public methods
-    ************************************ */
+  // Methods
   async create(createDeviceDto: CreateDeviceDto) {
-    
     // Check device type
     const deviceType = await this.deviceTypeRepository.findOne({where : {id: createDeviceDto.deviceTypeId}});
     if (!deviceType) throw new NotFoundException(`Device type with ID ${createDeviceDto.deviceTypeId} was not found`);
@@ -53,67 +39,58 @@ export class DevicesService {
     return device;
   }
 
-  async findAll(paginationDto: PaginationDto, filterByIsActive: boolean = true) {
-    const {limit = 10, offset = 0} = paginationDto;
+  async findAll(queryParamsDto: QueryParamsDto) {
+    // Check query parametes
+    const {
+      limit = 10,
+      offset = 0,
+      withInactives = false,
+      orderBy = 'id',
+      orderDirection = 'ASC' } = queryParamsDto;
+    // Query and return
     return await this.deviceRepository.find({
       take : limit,
       skip : offset,
-      ...(filterByIsActive && { where : { isActive : true } })
+      order : { [orderBy] : orderDirection },
+      ...(!withInactives && { where : { isActive : true } })
     });
   }
 
-  async findOne(id: string, filterByIsActive: boolean = true) {
+  async findOne(id: string, queryParamsDto: QueryParamsDto) {
+    // Check query parameters
+    const { withInactives = false } = queryParamsDto;
+    // Query and return
     return await this.deviceRepository.findOne({
       where : {
         id,
-        ...(filterByIsActive && { isActive : true })
+        ...(!withInactives && { isActive : true })
       }
     });
   }
   
-  async update(id: string, updateDeviceDto: UpdateDeviceDto, filterByIsActive: boolean = true) {
-
-    const device = await this.deviceRepository.findOne({
-      where : {
-        id,
-        ...(filterByIsActive && { isActive : true })
-      }});
-
+  async update(id: string, updateDeviceDto: UpdateDeviceDto) {
+    // Get
+    const device = await this.deviceRepository.findOne({where : {id}});
+    // Exception
     if (!device) throw new NotFoundException(`Device with ID ${id} was not found`);
-
     // Check device type
     if (updateDeviceDto.deviceTypeId) {
-      const deviceType = await this.deviceTypeRepository.findOne({
-        where : {id: updateDeviceDto.deviceTypeId, ...(filterByIsActive && { isActive : true })}
-      });
+      const deviceType = await this.deviceTypeRepository.findOne({where : {id: updateDeviceDto.deviceTypeId}});
       if (!deviceType) throw new NotFoundException(`Device type with ID ${updateDeviceDto.deviceTypeId} was not found`);
       if (!deviceType.isActive) throw new UnauthorizedException(`Device type with ID ${updateDeviceDto.deviceTypeId} is not active`);
       device.deviceType = deviceType;
     }
     // Check device area
-    if (updateDeviceDto.deviceTypeId) {
-      const deviceArea = await this.deviceAreaRepository.findOne({
-        where : {id : updateDeviceDto.deviceAreaId, ...(filterByIsActive && { isActive : true })}
-      });
+    if (updateDeviceDto.deviceAreaId) {
+      const deviceArea = await this.deviceAreaRepository.findOne({where : {id : updateDeviceDto.deviceAreaId}});
       if (!deviceArea) throw new NotFoundException(`Device area with ID ${updateDeviceDto.deviceAreaId} was not found`);
       if (!deviceArea.isActive) throw new UnauthorizedException(`Device area with ID ${updateDeviceDto.deviceAreaId} is not active`);
       device.deviceArea = deviceArea;
     }
     // Update fields
     Object.assign(device, updateDeviceDto);
-
     // Update
     return await this.deviceRepository.save({id, ...updateDeviceDto});
-  }
-
-  async desactive(id: string) {
-    const result = await this.deviceRepository.update(
-      {id, isActive : true},
-      {isActive : false}
-    );
-
-    if (result.affected === 0) 
-      throw new NotFoundException(`Device with ID ${id} was not found or is inactive`);
   }
 
   async remove(id: string) {
@@ -123,15 +100,4 @@ export class DevicesService {
     return {status : 200, message : 'Removed'};
   }
   
-
-  /* ************************************
-    Private methods
-    ************************************ */
-  private handleDBErrors( error: any ): never {
-    if ( error.code === '23505' ) 
-      throw new BadRequestException( error.detail );
-    
-    this.logger.error( error.detail );
-    throw new InternalServerErrorException('Unexpected error, check server logs');
-  }
 }
