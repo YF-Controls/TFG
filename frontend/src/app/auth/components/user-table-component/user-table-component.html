@@ -5,19 +5,19 @@
     <thead>
       <tr>
         <!-- col 1: Status -->
-        <th class="text-white font-bold text-center">
+        <th class="text-xs md:text-sm font-normal md:font-bold text-white text-center">
           {{ 'AUTH.USER_TABLE.TABLE.HEADER.STATUS' | translate }}
         </th>
         <!-- col 2: Name -->
-        <th class="text-white font-bold">
+        <th class="text-xs md:text-sm font-normal md:font-bold text-white">
           {{ 'AUTH.USER_TABLE.TABLE.HEADER.NAME' | translate }}
         </th>
         <!-- col 3: Email -->
-        <th class="text-white font-bold">
+        <th class="text-xs md:text-sm font-normal md:font-bold text-white hidden md:visible">
           {{ 'AUTH.USER_TABLE.TABLE.HEADER.EMAIL' | translate }}
         </th>
         <!-- COL 4: Roles -->
-        <th class="text-white font-bold">
+        <th class="text-xs md:text-sm font-normal md:font-bold text-white">
           {{ 'AUTH.USER_TABLE.TABLE.HEADER.ROLES' | translate }}
         </th>
         <!-- col 5: Edit and delete buttons -->
@@ -41,22 +41,23 @@
           <!-- Col 2: Name -->
           <td>
             <div class="flex flex-col items-start">
-              <div class="font-bold">{{ user.fullname }}</div>
+              <div class=" text-xs md:text-sm">{{ user.fullname }}</div>
+            </div>
+            <div class="visible md:hidden flex flex-col items-start">
+              <div class=" text-xs md:text-sm font-normal italic text-primary/50">{{ user.email }}</div>
             </div>
           </td>
           <!-- Col 3: Email -->
-          <td>
+          <td class="hidden md:block">
             <div class="flex flex-col items-start">
-              <div class="font-bold">{{ user.email }}</div>
+              <div class=" text-xs md:text-sm font-normal">{{ user.email }}</div>
             </div>
           </td>
           <!-- Col 4: Roles -->
-          <td class="hidden md:block">
+          <td>
             <div class="flex justify-start gap-1 flex-wrap">
               @for (role of user.roles; track $index) {
-                <span class="btn btn-xs btn-secondary italic">
-                {{ role }}
-                </span>
+                <span class="btn btn-xs btn-secondary italic">{{ role }}</span>
               }
             </div>
           </td>
