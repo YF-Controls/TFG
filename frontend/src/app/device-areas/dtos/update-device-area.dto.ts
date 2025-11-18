@@ -1,7 +1,4 @@
+import { CreateDeviceAreaDto } from "./create-device-area.dto";
 
-export interface UpdateDeviceAreaDto {
-  name?: string;
-  hwId?: string;
-  description?: string;
-  isActive?: boolean;
+export interface UpdateDeviceAreaDto extends Partial<CreateDeviceAreaDto> {
 }

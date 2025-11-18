@@ -1,5 +1,5 @@
 // System
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
 // This module
-import { RegisterUserDto, LoginUserDto } from './dtos';
+import { RegisterUserDto, LoginUserDto, UpdateUserDto } from './dtos';
 import { User } from './entities';
 import { MyJwtPayload } from './interfaces';
 // This path
@@ -48,7 +48,7 @@ export class AuthService {
     } catch (error) {this.handleDBErrors( error );}
   }
   
-  async login( loginUserDto : LoginUserDto) {
+  async loginUser( loginUserDto : LoginUserDto) {
     // Get data
     const {email, password} = loginUserDto;
     // Find user
@@ -69,6 +69,24 @@ export class AuthService {
     };
   }
   
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    // Query
+    const result = await this.repository.update(
+      {id},
+      {...updateUserDto}
+    );
+    // Result
+    if (result.affected === 0)
+      throw new NotFoundException(`User with ID ${id} was not found`);
+  }
+
+
+  async deleteUser(id: string) {
+    // Return
+    return await this.repository.delete({id});
+  }
+
+
   async checkAuthStatus(user: User) {
     // Delete password to send response
     delete user.password;
@@ -87,6 +105,7 @@ export class AuthService {
       withInactives = false,
       orderBy = 'id',
       orderDirection = 'ASC' } = queryParamsDto;
+            
     return await this.repository.find({
       take : limit,
       skip : offset,

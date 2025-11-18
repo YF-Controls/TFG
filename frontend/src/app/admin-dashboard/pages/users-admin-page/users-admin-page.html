@@ -1,1 +1,34 @@
-<p>users-admin-page works!</p>,
+<!-- Header -->
+<header class="flex flex-2 gap-2 justify-between items-center">
+  <!-- Tile and Subtitle part -->
+  <div>
+    <!-- Title -->
+    <h1 class="text-2xl text-primary font-bold">
+      {{ 'ADMIN_DASHBOARD.USERS_ADMIN_PAGE.TITLE' | translate }}
+    </h1>
+    <!--  -->
+    <h2 class="text-lg text-primary/50">
+      {{ 'ADMIN_DASHBOARD.USERS_ADMIN_PAGE.TOTAL' | translate }}
+      <span >{{usersResource.value()?.length}}</span>
+    </h2>
+  </div>
+
+  <!-- Add button -->
+  <button 
+    class="btn btn-primary"
+    (click)="onAdd()">
+    <!-- Add icon -->  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+      <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+</header>
+
+<!-- Divider -->
+<div class="divider my-0"></div>
+  
+<!-- Table -->
+<app-user-table 
+  [users]="usersResource.value() ?? []"
+  (updateTable)="onUpdateTable()"/>

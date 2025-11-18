@@ -13,7 +13,7 @@ export const IsUserGuard: CanMatchFn = async (
 
   const authApi = inject(AuthApi);
   
-  await firstValueFrom(authApi.checkStatus());
+  await firstValueFrom(authApi.checkUserStatus());
   
   if (!authApi.isUser()) {
     const router = inject(Router);

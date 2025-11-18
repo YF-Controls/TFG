@@ -48,7 +48,7 @@ export class DeviceAreaApi {
     return this.http.patch<DeviceAreaResponseDto>(`${URL}/${id}`, deviceArea)
       .pipe(
         map((resp: DeviceAreaResponseDto) => null),
-        catchError((error: HttpErrorResponse) => of(error.error.message || 'Error creating device area')        )
+        catchError((error: HttpErrorResponse) => of(error.error.message || 'Error creating device area'))
       );
   }
 

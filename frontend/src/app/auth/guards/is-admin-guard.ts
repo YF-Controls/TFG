@@ -13,7 +13,7 @@ export const IsAdminGuard: CanMatchFn = async (
 
   const authApi = inject(AuthApi);
   const router = inject(Router);
-  await firstValueFrom(authApi.checkStatus());
+  await firstValueFrom(authApi.checkUserStatus());
   
   if (!authApi.isAdmin()) {
     router.navigateByUrl('/auth/login');

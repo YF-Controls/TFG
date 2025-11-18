@@ -1,7 +1,4 @@
+import { CreateDeviceTypeDto } from "./create-device-type-dto";
 
-export interface UpdateDeviceTypeDto {
-  name?: string;
-  hwId?: string;
-  description?: string;
-  isActive?: boolean;
+export interface UpdateDeviceTypeDto extends Partial<CreateDeviceTypeDto> {
 }

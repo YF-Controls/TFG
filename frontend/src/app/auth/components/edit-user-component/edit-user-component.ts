@@ -1,25 +1,25 @@
 // System
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogRef } from '@angular/cdk/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
-// OtHer modules
+// Other modules
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent } from '@shared/components';
 // This module
-import { DeviceAreaApi } from '@device-areas/services';
-import { DeviceArea } from '@device-areas/interfaces';
+import { AuthApi } from '../../services';
+import { User } from '@auth/interfaces';
 
 
 @Component({
   standalone : true,
-  selector: 'app-edit-device-area',
+  selector: 'app-edit-user',
   imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent],
-  templateUrl: './edit-device-area-component.html',
+  templateUrl: './edit-user-component.html',
 })
-export class EditDeviceAreaComponent implements OnInit {
+export class EditUserComponent implements OnInit { 
   
   // Injections
   protected languageService = inject(LanguageService);
@@ -28,36 +28,41 @@ export class EditDeviceAreaComponent implements OnInit {
   private toast = inject(MatSnackBar);
 
   private fb = inject(FormBuilder);
-  private deviceAreaApi = inject(DeviceAreaApi);
+  private authApi = inject(AuthApi);
   
   // Properties
+  protected readonly availableRoles = [
+    { value: 'user', label: 'User' },
+    { value: 'admin', label: 'Admin' }
+  ];
+  
   protected form: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(3)]],
-    hwId: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
-    description: ['....', [Validators.required, Validators.minLength(4)]],
+    email: ['', [Validators.required, Validators.email ]],
+    fullname: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
+    roles: [[], [Validators.required, Validators.minLength(1)]],
     isActive: [true, [Validators.required]],
   });
-
-  deviceArea = input<DeviceArea>(this.dialogData.deviceArea);
   
+  user = input<User>(this.dialogData.user);
+
   // Lifecycle
   ngOnInit(): void {
     this.form.setValue({
-      name: this.deviceArea().name,
-      hwId: this.deviceArea().hwId,
-      description: this.deviceArea().description,
-      isActive: this.deviceArea().isActive,
+      email: this.user().email,
+      fullname: this.user().fullname,
+      roles: this.user().roles,
+      isActive: this.user().isActive,
     });
   }
 
   // Methods
-  protected onSubmit() {
+  protected onSubmit () {
     // Exit with toast if invalid form
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       // Toast
-      const message = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+      const message = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.FORM_ERROR');
+      const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['toast-container-effect', 'toast-container-error'],
@@ -68,24 +73,24 @@ export class EditDeviceAreaComponent implements OnInit {
       return;
     }
     // Get form data
-    const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
+    const {email = '', fullname = '', roles = ['ROLE_USER'], isActive = false} = this.form.value;
     // Send to api
-    this.deviceAreaApi.update(this.deviceArea().id, { name, hwId, description, isActive })
-      .subscribe( errorMessage => {
+    this.authApi.updateUser(this.user().id, {email, fullname, roles, isActive})
+      .subscribe(errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+          const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
           this.toast.open(errorMessage, action, { 
             duration: 2000,
             panelClass: ['toast-container-effect', 'toast-container-error'],
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
-          });
+          });  
           return;
         }
         // Success
-        const message = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+        const message = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.SUCCESS');
+        const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['toast-container-effect', 'toast-container-success'],
@@ -94,12 +99,29 @@ export class EditDeviceAreaComponent implements OnInit {
           });
         // Close dialog
         this.dialogRef?.close(true);
-    });
+      });
   }
-
+  
   protected onCancel() {
     this.dialogRef?.close(false);
   }
 
+    protected toggleRole(role: string): void {
+    const roles = this.form.get('roles')?.value || [];
+    const index = roles.indexOf(role);
+    
+    if (index === -1) {
+      roles.push(role);
+    } else {
+      roles.splice(index, 1);
+    }
+    
+    this.form.patchValue({ roles });
+    this.form.get('roles')?.markAsTouched();
+  }
 
+  protected hasRole(role: string): boolean {
+    const roles = this.form.get('roles')?.value || [];
+    return roles.includes(role);
+  }
 }

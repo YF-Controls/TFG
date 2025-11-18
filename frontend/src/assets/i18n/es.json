@@ -41,6 +41,11 @@
       }
     },
 
+    "DEVICES_ADMIN_PAGE" : {
+      "TITLE": "Gestión de Dispositivos",
+      "TOTAL" : "Total de Dispositivos: "
+    },
+
     "DEVICE_AREAS_ADMIN_PAGE" : {
       "TITLE": "Gestión de Áreas de Dispositivos",
       "TOTAL" : "Total de Áreas de Dispositivos: "
@@ -49,54 +54,108 @@
     "DEVICE_TYPES_ADMIN_PAGE" : {
       "TITLE": "Gestión de Tipos de Dispositivos",
       "TOTAL" : "Total de Tipos de Dispositivos: "
-    } 
-  },
-  
-  "AUTHENTICATION_LAYOUT" : {
-    "TITLE" : "Autenticación"
-  },
-  
-  "LOGIN_COMPONENT" : {
-    "TITLE" : "Iniciar Sesión",
+    },
     
-    "FORM" : {
-      "USERNAME_PLACEHOLDER" : "Nombre de usuario",
-      "PASSWORD_PLACEHOLDER" : "Contraseña",
-      "SUBMIT_BUTTON" : "Iniciar Sesión"},
-    
-    "REGISTER" : {
-      "TEXT" : "¿No tienes una cuenta?",
-      "LINK" : "Regístrate aquí."},
-
-    "TOAST" : {
-      "CLOSE" : "Cerrar",
-      "FORM_ERROR" : "Datos del formulario no válidos.",
-      "LOGIN_SUCCESS" : "Inicio de sesión exitoso."
+    "USERS_ADMIN_PAGE" : {
+      "TITLE": "Gestión de Usuarios",
+      "TOTAL" : "Total de Usuarios: "
     }
   },
+  
+  "AUTH" : {
 
-  "REGISTER_COMPONENT" : {
-    "TITLE" : "Registro",
-    
-    "FORM" : {
-      "FULLNAME_PLACEHOLDER" : "Nombre completo",
-      "EMAIL_PLACEHOLDER" : "Correo electrónico",
-      "PASSWORD_PLACEHOLDER" : "Contraseña",
-      "REPEAT_PASSWORD_PLACEHOLDER" : "Repetir contraseña",
-      "SUBMIT_BUTTON" : "Registrarse"},
-    
-    "LOGIN" : {
-      "TEXT" : "¿Ya tienes una cuenta?",
-      "LINK" : "Inicia sesión aquí."},
+    "LAYOUT" : {
+      "TITLE" : "Bienvenido al Panel Administrativo"
+    },
+  
+    "EDIT_USER" : {
 
-    "TOAST" : {
-      "CLOSE" : "Cerrar",
-      "FORM_ERROR" : "Datos del formulario no válidos.",
-      "PASSWORD_MISMATCH" : "Las contraseñas no coinciden.",
-      "REGISTER_SUCCESS" : "Registro exitoso."
+      "TITLE" : "Editar usuario",
+
+      "FORM" : {
+        "FULLNAME_PLACEHOLDER" : "Nombre completo...",
+        "EMAIL_PLACEHOLDER" : "Correo electrónico...",
+        "ROLES_LABEL" : "Roles",
+        "IS_ACTIVE_LABEL" : "Activo",
+        "SUBMIT_BUTTON" : "Guardar Cambios"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Usuario actualizado exitosamente."
+      }
+    },
+
+    "LOGIN_USER" : {
+      "TITLE" : "Iniciar Sesión",
+      
+      "FORM" : {
+        "USERNAME_PLACEHOLDER" : "Nombre de usuario",
+        "PASSWORD_PLACEHOLDER" : "Contraseña",
+        "SUBMIT_BUTTON" : "Iniciar Sesión"
+      },
+      
+      "REGISTER" : {
+        "TEXT" : "¿No tienes una cuenta?",
+        "LINK" : "Regístrate aquí."
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Inicio de sesión exitoso."
+      }
+    },
+
+    "REGISTER_USER" : {
+
+      "TITLE" : "Registro",
+      
+      "FORM" : {
+        "FULLNAME_PLACEHOLDER" : "Nombre completo",
+        "EMAIL_PLACEHOLDER" : "Correo electrónico",
+        "PASSWORD_PLACEHOLDER" : "Contraseña",
+        "REPEAT_PASSWORD_PLACEHOLDER" : "Repetir contraseña",
+        "SUBMIT_BUTTON" : "Registrarse"
+      },
+      
+      "LOGIN" : {
+        "TEXT" : "¿Ya tienes una cuenta?",
+        "LINK" : "Inicia sesión aquí."
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "PASSWORD_MISMATCH" : "Las contraseñas no coinciden.",
+        "SUCCESS" : "Registro exitoso."
+      }
+    },
+
+    "USER_TABLE" : {
+      
+      "TABLE" : {
+        "HEADER" : {
+          "STATUS" : "Estado",
+          "NAME" : "Nombre",
+          "EMAIL" : "Correo Electrónico",
+          "ROLES" : "Roles"
+        },
+        "NO_DATA" : "No se encontraron usuarios."
+      },
+
+      "DELETE_POPUP" : {
+        "TITLE" : "Eliminar usuario",
+        "MESSAGE" : "¿Estás seguro de que deseas eliminar este usuario?"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "DELETED" : "Usuario eliminado exitosamente."}
     }
   },
-
+  
   "DEVICE_AREAS" : {
 
     "CREATE_DEVICE_AREA" : {
@@ -134,6 +193,7 @@
     },
 
     "DEVICE_AREA_TABLE" : {
+
       "TABLE" : {
         "HEADER" : {
           "STATUS" : "Estado",

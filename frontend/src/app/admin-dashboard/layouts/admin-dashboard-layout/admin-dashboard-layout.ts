@@ -78,7 +78,7 @@ export class AdminDashboardLayout implements OnInit {
 
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {
-        this.authApi.logout();
+        this.authApi.logoutUser();
         this.router.navigateByUrl('/auth/login');
       };
     });

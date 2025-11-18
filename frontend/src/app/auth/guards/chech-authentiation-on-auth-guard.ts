@@ -13,7 +13,7 @@ export const CheckAuthenticationOnAuthdGuard: CanMatchFn = async (
 
   const authApi = inject(AuthApi);
   const router = inject(Router);
-  const status = await firstValueFrom(authApi.checkStatus());
+  const status = await firstValueFrom(authApi.checkUserStatus());
   
   // If logged in, return to device/all
   if (!status) {
