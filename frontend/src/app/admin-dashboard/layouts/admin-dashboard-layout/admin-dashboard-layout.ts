@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, SwitchLanguageComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
-import { AuthService } from '@auth/services';
+import { AuthApi } from '@auth/services';
 import { User } from '@auth/interfaces';
 // This module
 import { LinkButtonComponent } from '../../components';
@@ -24,11 +24,11 @@ export class AdminDashboardLayout implements OnInit {
   // Injections
   private languageService = inject(LanguageService);
   private dialog = inject(Dialog);
-  private authService = inject(AuthService);
+  private authApi = inject(AuthApi);
   private router = inject(Router);
 
   // Properties
-  user = computed<User | null>(this.authService.user);
+  user = computed<User | null>(this.authApi.user);
   isSidebarCollapsed = signal<boolean>(true);
 
   // Lifecycle
@@ -78,7 +78,7 @@ export class AdminDashboardLayout implements OnInit {
 
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {
-        this.authService.logout();
+        this.authApi.logout();
         this.router.navigateByUrl('/auth/login');
       };
     });

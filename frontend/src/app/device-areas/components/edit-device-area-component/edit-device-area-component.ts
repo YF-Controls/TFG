@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 // OtHer modules
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent } from '@shared/components';
-import { DeviceAreasService } from '@device-areas/services';
+import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceArea } from '@device-areas/interfaces';
 
 
@@ -27,7 +27,7 @@ export class EditDeviceAreaComponent implements OnInit {
   private toast = inject(MatSnackBar);
 
   private fb = inject(FormBuilder);
-  private deviceAreasService = inject(DeviceAreasService);
+  private deviceAreaApi = inject(DeviceAreaApi);
   
   // Properties
   protected form: FormGroup = this.fb.group({
@@ -71,7 +71,7 @@ export class EditDeviceAreaComponent implements OnInit {
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
     
     // Send to api
-    this.deviceAreasService.update(this.deviceArea().id, { name, hwId, description, isActive })
+    this.deviceAreaApi.update(this.deviceArea().id, { name, hwId, description, isActive })
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {

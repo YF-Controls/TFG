@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 // OtHer modules
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent } from '@shared/components';
-import { DeviceAreasService } from '@device-areas/services';
+import { DeviceAreaApi } from '@device-areas/services';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class CreateDeviceAreaComponent {
   protected languageService = inject(LanguageService);
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
-  private deviceAreasService = inject(DeviceAreasService);
+  private deviceAreaApi = inject(DeviceAreaApi);
   private fb = inject(FormBuilder);
   
   
@@ -56,7 +56,7 @@ export class CreateDeviceAreaComponent {
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
     
     // Send to api
-    this.deviceAreasService.create({ name, hwId, description, isActive })
+    this.deviceAreaApi.create({ name, hwId, description, isActive })
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {

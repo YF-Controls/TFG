@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent } from '@shared/components';
 // This module
-import { AuthService } from '../../services';
+import { AuthApi } from '../../services';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class RegisterPage {
   private toast = inject(MatSnackBar);
 
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private authApi = inject(AuthApi);
   router = inject(Router);
 
   // Properties
@@ -71,7 +71,7 @@ export class RegisterPage {
     }
     
     // Send to api
-    this.authService.register({email, fullname, password: password1})
+    this.authApi.register({email, fullname, password: password1})
       .subscribe(errorMessage => {
         if (errorMessage) {
           

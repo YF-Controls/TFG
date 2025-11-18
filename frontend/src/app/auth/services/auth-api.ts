@@ -17,7 +17,7 @@ const REGISTER_URL: string = `${baseUrl}/auth/register`;
 const CHECK_STATUS_URL: string = `${baseUrl}/auth/check-status`;
 
 @Injectable({providedIn: 'root'})
-export class AuthService {
+export class AuthApi {
   
   // Private attributes/properties
   private _user = signal<User | null>(null);

@@ -3,7 +3,7 @@ import { inject } from "@angular/core";
 import { CanMatchFn, Route, Router, UrlSegment } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 // This module
-import { AuthService } from '../services';
+import { AuthApi } from '../services';
 
 
 export const IsUserGuard: CanMatchFn = async (
@@ -11,11 +11,11 @@ export const IsUserGuard: CanMatchFn = async (
   segements: UrlSegment[]
 ) => {
 
-  const authService = inject(AuthService);
+  const authApi = inject(AuthApi);
   
-  await firstValueFrom(authService.checkStatus());
+  await firstValueFrom(authApi.checkStatus());
   
-  if (!authService.isUser()) {
+  if (!authApi.isUser()) {
     const router = inject(Router);
     router.navigateByUrl('/auth/login');
     return false;

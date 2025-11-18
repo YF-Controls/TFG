@@ -1,5 +1,5 @@
 // System
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 // Other modules
 import { DeviceTypeTableComponent } from '@devices-types/components';
 import { DeviceType } from '@devices-types/interfaces';
@@ -16,5 +16,7 @@ export class DeviceTypesAdminPage {
 
   deviceTypes = signal<DeviceType[]>([]);  
 
+
+  
 
 }

@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 // This module
-import { DeviceAreasService } from '../../services';
+import { DeviceAreaApi } from '../../services';
 import { DeviceArea } from '../../interfaces';
 import { EditDeviceAreaComponent } from '../';
 
@@ -25,7 +25,7 @@ export class DeviceAreaTableComponent {
   protected languageSerivce = inject(LanguageService);
   private dialog = inject(Dialog);
   private toast = inject(MatSnackBar);
-  private deviceAreasService = inject(DeviceAreasService)
+  private deviceAreaApi = inject(DeviceAreaApi);
 
   // Properties
   deviceAreas = input.required<DeviceArea[]>();
@@ -55,7 +55,7 @@ export class DeviceAreaTableComponent {
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
-      this.deviceAreasService.delete(deviceArea.id)
+      this.deviceAreaApi.delete(deviceArea.id)
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {

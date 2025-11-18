@@ -1,1 +1,1 @@
-export { DeviceAreasService } from "./device-areas.service";
+export { DeviceAreaApi } from "./device-area-api";

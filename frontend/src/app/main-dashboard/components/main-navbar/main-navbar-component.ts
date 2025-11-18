@@ -2,7 +2,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 // Other modules
-import { AuthService } from '@auth/services';
+import { AuthApi } from '@auth/services';
 
 
 @Component({
@@ -13,12 +13,12 @@ import { AuthService } from '@auth/services';
 })
 export class MainNavbarComponent {
   // Attributes
-  authService = inject(AuthService);
+  authApi = inject(AuthApi);
   router = inject(Router);
 
   
   logout () {
-    this.authService.logout();
+    this.authApi.logout();
     this.router.navigateByUrl('/auth/login');
   }
 

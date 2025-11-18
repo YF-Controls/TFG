@@ -15,8 +15,8 @@ import { DeviceArea } from "../interfaces";
 const URL: string = `${environment.baseUrl}/device-areas`;
 
 @Injectable({  providedIn: 'root' })
-export class DeviceAreasService {
-
+export class DeviceAreaApi {
+  
   // Injections
   private http = inject(HttpClient);
   

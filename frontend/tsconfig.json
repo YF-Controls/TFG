@@ -15,7 +15,7 @@
       "@devices/*" : ["src/app/devices/*"],
       "@device-areas/*" : ["src/app/device-areas/*"],
       "@devices-types/*" : ["src/app/device-types/*"],
-      "@main-front/*" : ["src/app/main-front/*"],
+      "@main/*" : ["src/app/main-dashboard/*"],
       "@shared/*" : ["src/app/shared/*"],
       "@utils/*" : ["src/app/utils/*"],
     },

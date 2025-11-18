@@ -3,14 +3,14 @@ import { Routes } from "@angular/router";
 // Other modules
 import { IsUserGuard } from "@auth/guards";
 // This module
-import { MainFrontLayout } from "./layouts";
+import { MainDashboardLayout } from "./layouts";
 import { DevicesPage, HomePage, NotFoundPage } from "./pages";
 
 
-export const systemFrontRoutes: Routes = [
+export const mainDashboardRoutes: Routes = [
   {
     path : '',
-    component: MainFrontLayout,
+    component: MainDashboardLayout,
     children : [
       {path: '', component: HomePage},
       {path: 'devices/:type', component: DevicesPage, canMatch : [IsUserGuard],},
@@ -23,4 +23,4 @@ export const systemFrontRoutes: Routes = [
   },
 ];
 
-export default systemFrontRoutes;
+export default mainDashboardRoutes;

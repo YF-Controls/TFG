@@ -16,6 +16,6 @@ export const routes: Routes = [
   },
   {
     path : '',
-    loadChildren: () => import('./main-front/routes'),
+    loadChildren: () => import('./main-dashboard/routes'),
   },
 ];
