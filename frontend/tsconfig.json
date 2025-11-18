@@ -14,7 +14,7 @@
       "@auth/*" : ["src/app/auth/*"],
       "@devices/*" : ["src/app/devices/*"],
       "@device-areas/*" : ["src/app/device-areas/*"],
-      "@devices-types/*" : ["src/app/device-types/*"],
+      "@device-types/*" : ["src/app/device-types/*"],
       "@main/*" : ["src/app/main-dashboard/*"],
       "@shared/*" : ["src/app/shared/*"],
       "@utils/*" : ["src/app/utils/*"],

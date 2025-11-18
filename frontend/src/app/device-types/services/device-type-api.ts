@@ -1,0 +1,65 @@
+// System
+import { inject, Injectable } from "@angular/core";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { catchError, map, Observable, of, tap } from "rxjs";
+// Other modules
+import { environment } from "@env/environment.development";
+import { QueryParamsDto } from "@shared/dto";
+import { OrderDirection } from '@shared/interfaces';
+import { CreateDeviceTypeDto, DeviceTypeResponseDto, UpdateDeviceTypeDto } from "@device-types/dtos";
+// This module
+import { DeviceType } from "../interfaces";
+
+
+// Constants
+const URL: string = `${environment.baseUrl}/device-types`;
+
+@Injectable({  providedIn: 'root' })
+export class DeviceTypeApi {
+  
+  // Injections
+  private http = inject(HttpClient);
+  
+
+  // HTTP request GET
+  getAll(queryParamsDto: QueryParamsDto) : Observable<DeviceType[]> {
+    
+    const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
+    
+    return this.http.get<DeviceType[]>(URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
+      //.pipe(
+      //  tap((deviceTypes) => console.log('!DELETE device-Types.service.ts Fetched device Types:', {deviceTypes}))
+      //);
+  }
+
+  // HTTP request POST
+  create(deviceType: CreateDeviceTypeDto) : Observable<string | null> {
+
+    return this.http.post<DeviceTypeResponseDto>(URL, deviceType)
+      .pipe(
+        map((resp: DeviceTypeResponseDto) => null),
+        catchError((error: HttpErrorResponse) => of(error.error.message || 'Error creating device Type'))
+      );
+  }
+
+  // HTTP request PATCH
+  update(id: string, deviceType: UpdateDeviceTypeDto) : Observable<string | null> {
+    
+    return this.http.patch<DeviceTypeResponseDto>(`${URL}/${id}`, deviceType)
+      .pipe(
+        map((resp: DeviceTypeResponseDto) => null),
+        catchError((error: HttpErrorResponse) => of(error.error.message || 'Error creating device Type')        )
+      );
+  }
+
+  // HTTP request DELETE
+  delete(id: string) : Observable<string | null> {
+
+    return this.http.delete<any>(`${URL}/${id}`)
+      .pipe(
+        map((data) => null),
+        catchError((error: HttpErrorResponse) => of(error.error.message || 'Error deleting device Type'))
+      );
+  }
+
+}

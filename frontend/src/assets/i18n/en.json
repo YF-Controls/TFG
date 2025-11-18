@@ -44,6 +44,11 @@
     "DEVICE_AREAS_ADMIN_PAGE" : {
       "TITLE": "Device Areas Management",
       "TOTAL" : "Total Device Areas: "
+    },
+
+    "DEVICE_TYPES_ADMIN_PAGE" : {
+      "TITLE": "Device Types Management",
+      "TOTAL" : "Total Device Types: "
     } 
   },
 
@@ -146,6 +151,63 @@
       "TOAST" : {
         "CLOSE" : "Close",
         "DELETED" : "Device area deleted successfully."}
+    }
+  },
+
+  "DEVICE_TYPES" : {
+
+    "CREATE_DEVICE_TYPE" : {
+      "TITLE" : "Create Device Type",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Name...",
+        "HWID_PLACEHOLDER" : "Hardware ID...",
+        "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "IS_ACTIVE_LABEL" : "Active"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "FORM_ERROR" : "Form not valid data.",
+        "SUCCESS" : "Device type created successfully."
+      }
+    },
+
+    "EDIT_DEVICE_TYPE" : {
+      "TITLE" : "Edit Device Type",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Name...",
+        "HWID_PLACEHOLDER" : "Hardware ID...",
+        "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "IS_ACTIVE_LABEL" : "Active"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "FORM_ERROR" : "Form not valid data.",
+        "SUCCESS" : "Device type updated successfully."
+      }
+    },
+
+    "DEVICE_TYPE_TABLE" : {
+      "TABLE" : {
+        "HEADER" : {
+          "STATUS" : "Status",
+          "NAME" : "Name",
+          "DESCRIPTION" : "Description"
+        },
+        "NO_DATA" : "No device types found."
+      },
+
+      "DELETE_POPUP" : {
+        "TITLE" : "Delete Device Type",
+        "MESSAGE" : "Are you sure you want to delete this device type?"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "DELETED" : "Device type deleted successfully."}
     }
   },
 

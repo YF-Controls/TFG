@@ -1,1 +1,1 @@
-export type { DeviceArea } from './device-area.interface';
+export type { DeviceArea } from './device-area-interface';

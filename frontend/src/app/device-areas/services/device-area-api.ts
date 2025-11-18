@@ -26,7 +26,7 @@ export class DeviceAreaApi {
     
     const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
     
-    return this.http.get<DeviceArea[]>(URL, {params : {limit, offset, withInactives}});
+    return this.http.get<DeviceArea[]>(URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
       //.pipe(
       //  tap((deviceAreas) => console.log('!DELETE device-areas.service.ts Fetched device areas:', {deviceAreas}))
       //);

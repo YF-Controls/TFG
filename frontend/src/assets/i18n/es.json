@@ -44,6 +44,11 @@
     "DEVICE_AREAS_ADMIN_PAGE" : {
       "TITLE": "Gestión de Áreas de Dispositivos",
       "TOTAL" : "Total de Áreas de Dispositivos: "
+    },
+
+    "DEVICE_TYPES_ADMIN_PAGE" : {
+      "TITLE": "Gestión de Tipos de Dispositivos",
+      "TOTAL" : "Total de Tipos de Dispositivos: "
     } 
   },
   
@@ -146,6 +151,63 @@
       "TOAST" : {
         "CLOSE" : "Cerrar",
         "DELETED" : "Área de dispositivos eliminada exitosamente."}
+    }
+  },
+
+  "DEVICE_TYPES" : {
+
+    "CREATE_DEVICE_TYPE" : {
+      "TITLE" : "Crear Tipo de Dispositivo",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Nombre...",
+        "HWID_PLACEHOLDER" : "ID de hardware...",
+        "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "IS_ACTIVE_LABEL" : "Activo"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Tipo de dispositivo creado exitosamente."
+      }
+    },
+
+    "EDIT_DEVICE_TYPE" : {
+      "TITLE" : "Editar Tipo de Dispositivo",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Nombre...",
+        "HWID_PLACEHOLDER" : "ID de hardware...",
+        "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "IS_ACTIVE_LABEL" : "Activo"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Tipo de dispositivo actualizado exitosamente."
+      }
+    },
+
+    "DEVICE_TYPE_TABLE" : {
+      "TABLE" : {
+        "HEADER" : {
+          "STATUS" : "Estado",
+          "NAME" : "Nombre",
+          "DESCRIPTION" : "Descripción"
+        },
+        "NO_DATA" : "No se encontraron tipos de dispositivos."
+      },
+
+      "DELETE_POPUP" : {
+        "TITLE" : "Eliminar Tipo de Dispositivo",
+        "MESSAGE" : "¿Estás seguro de que deseas eliminar este tipo de dispositivo?"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "DELETED" : "Tipo de dispositivo eliminado exitosamente."}
     }
   },
 

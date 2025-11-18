@@ -2,12 +2,13 @@
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Dialog } from '@angular/cdk/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
 import { CreateDeviceAreaComponent, DeviceAreaTableComponent } from '@device-areas/components';
 import { DeviceArea } from '@device-areas/interfaces';
 import { DeviceAreaApi } from '@device-areas/services';
-import { TranslateModule } from '@ngx-translate/core';
+
 
 
 @Component({
