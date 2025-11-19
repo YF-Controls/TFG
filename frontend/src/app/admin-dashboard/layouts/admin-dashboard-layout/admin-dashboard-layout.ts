@@ -5,7 +5,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { ConfirmComponent, SwitchLanguageComponent } from '@shared/components';
+import { ConfirmComponent, SvgIconComponent, SwitchLanguageComponent, SvgIconName } from '@shared/components';
 import { LanguageService } from '@shared/services';
 import { AuthApi } from '@auth/services';
 import { User } from '@auth/interfaces';
@@ -16,7 +16,7 @@ import { LinkButtonComponent } from '../../components';
 @Component({
   standalone : true,
   selector: 'app-admin-dashboard-layout',
-  imports: [TranslateModule, RouterOutlet, LinkButtonComponent, CommonModule, SwitchLanguageComponent],
+  imports: [TranslateModule, RouterOutlet, LinkButtonComponent, CommonModule, SwitchLanguageComponent, SvgIconComponent],
   templateUrl: './admin-dashboard-layout.html',
 })
 export class AdminDashboardLayout implements OnInit {
@@ -30,6 +30,7 @@ export class AdminDashboardLayout implements OnInit {
   // Properties
   user = computed<User | null>(this.authApi.user);
   isSidebarCollapsed = signal<boolean>(true);
+  
 
   // Lifecycle
   ngOnInit() {

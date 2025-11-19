@@ -18,10 +18,10 @@
   <!-- Icon -->
   <div
     [ngClass]="rla.isActive ? 'text-black' : 'text-white'"
-    class="flex items-center justify-center"
-    [innerHTML]="safeSvgIcon()">
+    class="flex items-center justify-center">
+    <app-svg-icon [name]="svgIconNameComputed()"></app-svg-icon>
   </div>
-
+  
   @if (!isCollapsed()) {
   <!-- Text block -->
   <div 

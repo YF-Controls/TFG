@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
-import { FormFieldErrorComponent } from '@shared/components';
+import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { AuthApi } from '../../services';
 import { User } from '@auth/interfaces';
@@ -16,7 +16,7 @@ import { User } from '@auth/interfaces';
 @Component({
   standalone : true,
   selector: 'app-edit-user',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent],
+  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent, SvgIconComponent],
   templateUrl: './edit-user-component.html',
 })
 export class EditUserComponent implements OnInit { 

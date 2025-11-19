@@ -7,14 +7,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // OtHer modules
 import { LanguageService } from '@shared/services';
-import { FormFieldErrorComponent } from '@shared/components';
+import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 import { DeviceTypeApi } from '@device-types/services';
 import { DeviceType } from '@device-types/interfaces';
 
 @Component({
   standalone : true,
   selector: 'app-edit-device-type',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent],
+  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent],
   templateUrl: './edit-device-type-component.html',
 })
 export class EditDeviceTypeComponent implements OnInit {

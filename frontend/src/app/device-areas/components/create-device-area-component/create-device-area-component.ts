@@ -6,14 +6,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // OtHer modules
 import { LanguageService } from '@shared/services';
-import { FormFieldErrorComponent } from '@shared/components';
+import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 import { DeviceAreaApi } from '@device-areas/services';
 
 
 @Component({
   standalone : true,
   selector: 'app-create-device-area',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent],
+  imports: [TranslateModule, SvgIconComponent, ReactiveFormsModule, FormFieldErrorComponent],
   templateUrl: './create-device-area-component.html',
 })
 export class CreateDeviceAreaComponent {

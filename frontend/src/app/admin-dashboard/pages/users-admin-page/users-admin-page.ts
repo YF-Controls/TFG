@@ -8,12 +8,13 @@ import { LanguageService } from '@shared/services';
 import { UserTableComponent } from '@auth/components';
 import { User } from '@auth/interfaces';
 import { AuthApi } from '@auth/services';
+import { SvgIconComponent } from '@shared/components';
 
 
 @Component({
   standalone : true,
   selector: 'app-users-admin-page',
-  imports: [TranslateModule, UserTableComponent],
+  imports: [TranslateModule, UserTableComponent, SvgIconComponent],
   templateUrl: './users-admin-page.html',
 })
 export class UsersAdminPage {

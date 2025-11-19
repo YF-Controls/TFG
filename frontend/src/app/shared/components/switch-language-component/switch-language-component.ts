@@ -3,6 +3,7 @@ import { Component, computed, inject, input, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 // Other modules
 import { LanguageService } from '@shared/services';
+import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 
 
 interface Language {
@@ -13,7 +14,7 @@ interface Language {
 @Component({
   standalone : true,
   selector: 'app-switch-language',
-  imports: [NgClass],
+  imports: [NgClass, SvgIconComponent ],
   templateUrl: './switch-language-component.html',
 })
 export class SwitchLanguageComponent { 

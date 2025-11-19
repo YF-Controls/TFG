@@ -5,16 +5,16 @@ import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
+import { SvgIconComponent } from '@shared/components';
 import { CreateDeviceAreaComponent, DeviceAreaTableComponent } from '@device-areas/components';
 import { DeviceArea } from '@device-areas/interfaces';
 import { DeviceAreaApi } from '@device-areas/services';
 
 
-
 @Component({
   standalone : true,
   selector: 'app-device-areas-admin-page',
-  imports: [TranslateModule, DeviceAreaTableComponent],
+  imports: [TranslateModule, DeviceAreaTableComponent, SvgIconComponent],
   templateUrl: './device-areas-admin-page.html',
 })
 export class DeviceAreasAdminPage { 

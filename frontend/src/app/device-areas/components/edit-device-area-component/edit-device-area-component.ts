@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // OtHer modules
 import { LanguageService } from '@shared/services';
-import { FormFieldErrorComponent } from '@shared/components';
+import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceArea } from '@device-areas/interfaces';
@@ -16,7 +16,7 @@ import { DeviceArea } from '@device-areas/interfaces';
 @Component({
   standalone : true,
   selector: 'app-edit-device-area',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent],
+  imports: [TranslateModule, SvgIconComponent ,ReactiveFormsModule, FormFieldErrorComponent],
   templateUrl: './edit-device-area-component.html',
 })
 export class EditDeviceAreaComponent implements OnInit {

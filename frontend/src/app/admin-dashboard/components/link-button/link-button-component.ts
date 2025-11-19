@@ -1,45 +1,26 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+// System
+import { Component, computed, input } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+// Other modules
+import { SvgIconComponent, SvgIconName } from '@shared/components';
 
 
 @Component({
   standalone : true,
   selector: 'app-link-button',
-  imports: [RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, SvgIconComponent],
   templateUrl: './link-button-component.html',
 })
 export class LinkButtonComponent { 
 
-  /*
-    Properties
-  */
-  private sanitizer = inject(DomSanitizer);
-
-  /*
-    Inputs/Outputs
-  */
+  // Properties
   title = input.required<string>();
   subtitle = input.required<string>();
   path = input.required<string>();
-  svgIcon = input.required<string>();
+  svgIconName = input<SvgIconName>('dashboard');
   isCollapsed = input<boolean>(false);
   
-  /*
-    Constructor
-  */
+  svgIconNameComputed = computed<SvgIconName>(() => this.svgIconName());
   
-
-  /*
-    Public methods
-  */
-
-  safeSvgIcon() {
-    return this.sanitizer.bypassSecurityTrustHtml(this.svgIcon());
-  }
-
-  /*
-    Private methods
-  */
 }

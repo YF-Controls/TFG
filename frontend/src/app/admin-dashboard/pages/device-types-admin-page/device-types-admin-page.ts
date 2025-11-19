@@ -8,13 +8,14 @@ import { LanguageService } from '@shared/services';
 import { CreateDeviceTypeComponent, DeviceTypeTableComponent } from '@device-types/components';
 import { DeviceType } from '@device-types/interfaces';
 import { DeviceTypeApi } from '@device-types/services';
+import { SvgIconComponent } from '@shared/components';
 
 
 
 @Component({
   standalone : true,
   selector: 'app-device-types-admin-page',
-  imports: [TranslateModule, DeviceTypeTableComponent],
+  imports: [TranslateModule, DeviceTypeTableComponent, SvgIconComponent],
   templateUrl: './device-types-admin-page.html',
 })
 export class DeviceTypesAdminPage { 

@@ -5,7 +5,7 @@ import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { ConfirmComponent } from '@shared/components';
+import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 // This module
 import { AuthApi } from '../../services';
@@ -16,7 +16,7 @@ import { EditUserComponent } from '../';
 @Component({
   standalone: true,
   selector: 'app-user-table',
-  imports: [NgClass, TranslateModule],
+  imports: [NgClass, TranslateModule, SvgIconComponent],
   templateUrl: './user-table-component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // Other modules
 import { LanguageService } from '@shared/services';
-import { FormFieldErrorComponent } from '@shared/components';
+import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { AuthApi } from '../../services';
 
@@ -14,7 +14,7 @@ import { AuthApi } from '../../services';
 @Component({
   standalone : true,
   selector: 'app-register-user',
-  imports: [RouterLink, ReactiveFormsModule, TranslateModule, FormFieldErrorComponent],
+  imports: [RouterLink, ReactiveFormsModule, TranslateModule, FormFieldErrorComponent, SvgIconComponent],
   templateUrl: './register-user-component.html',
 })
 export class RegisterUserComponent { 
