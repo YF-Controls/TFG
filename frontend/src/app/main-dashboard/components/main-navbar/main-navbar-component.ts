@@ -18,7 +18,7 @@ export class MainNavbarComponent {
 
   
   logout () {
-    this.authApi.logoutUser();
+    this.authApi.logoutUser().subscribe();
     this.router.navigateByUrl('/auth/login');
   }
 

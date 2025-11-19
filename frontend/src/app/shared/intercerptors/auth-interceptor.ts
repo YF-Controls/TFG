@@ -1,18 +1,11 @@
 // System
 import { HttpHandlerFn, HttpRequest } from "@angular/common/http";
-import { inject } from "@angular/core";
-// Other modules
-import { AuthApi } from "@auth/services";
-
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
 
-  // Inject the current `AuthApi` and use it to get an authentication token:
-  const token = inject(AuthApi).token();
-
-  // Clone the request to add the authentication header.
+  // Clone the request to include credentials (cookies)
   const newReq = req.clone({
-    headers: req.headers.append('Authorization', `Bearer ${token}`),
+    withCredentials: true
   });
   
   return next(newReq);

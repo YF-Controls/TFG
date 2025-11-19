@@ -17,15 +17,15 @@ type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl;
 const LOGIN_URL: string = `${baseUrl}/auth/login`;
 const REGISTER_URL: string = `${baseUrl}/auth/register`;
+const LOGOUT_URL: string = `${baseUrl}/auth/logout`;
 const USERS_URL: string = `${baseUrl}/auth/users`;
-const CHECK_STATUS_URL: string = `${baseUrl}/auth/check-status`;
+const CHECK_STATUS_URL: string = `${baseUrl}/auth/check-user`;
 
 @Injectable({providedIn: 'root'})
 export class AuthApi {
   
   // Private attributes/properties
   private _user = signal<User | null>(null);
-  private _token = signal<string | null>(localStorage.getItem('token'));
   private _authStatus = signal<AuthStatus>('checking');
   
   private http = inject(HttpClient);
@@ -43,7 +43,6 @@ export class AuthApi {
   });
 
   user = computed<User | null>(() => this._user());
-  token = computed<string | null>(() => this._token());
   isAdmin = computed<boolean>(() => this._user()?.roles.includes(ValidRoles.admin) ?? false);
   isUser = computed<boolean>(() => this._user()?.roles.includes(ValidRoles.user) ?? false);
   
@@ -51,7 +50,7 @@ export class AuthApi {
   // Http request POST
   registerUser(registerUserDto: RegisterUserDto): Observable<string | null> {
     
-    return this.http.post<AuthResponse>(REGISTER_URL, registerUserDto)
+    return this.http.post<AuthResponse>(REGISTER_URL, registerUserDto, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false
@@ -61,7 +60,7 @@ export class AuthApi {
   // Http request POST
   loginUser(loginUserDto: LoginUserDto): Observable<string | null> {
     
-    return this.http.post<AuthResponse>(LOGIN_URL, loginUserDto)
+    return this.http.post<AuthResponse>(LOGIN_URL, loginUserDto, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false
@@ -70,7 +69,7 @@ export class AuthApi {
   
   // Http request PATCH
   updateUser(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
-    return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto)
+    return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => null),
         catchError((error: HttpErrorResponse) => of(error.error.message || 'Error updating user'))
@@ -94,44 +93,42 @@ export class AuthApi {
   
   // Http request GET
   checkUserStatus(): Observable<string | null> {
-    
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      this.logoutUser();
-      return of('Not valid credentials');
-    }
-    
-    // Done with interceptors!
-    //const options = {
-    //  headers: {Authorization: `Bearer ${token}`}
-    //};
-    
-    return this.http.get<AuthResponse>(CHECK_STATUS_URL) // , options)
+    // Token is now in HttpOnly cookie, sent automatically
+    return this.http.get<AuthResponse>(CHECK_STATUS_URL, { withCredentials: true })
       .pipe(
-        map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
-        catchError((error: any) => this.handleAuthError(error)) // Return false
+        map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)),
+        catchError((error: any) => this.handleAuthError(error))
       );
   }
   
-  // No Http
-  logoutUser () {
-    localStorage.removeItem('token');
-    this._token.set(null);
-    this._user.set(null);
-    this._authStatus.set('not-authenticated');
+  // Http request POST
+  logoutUser(): Observable<string | null> {
+    return this.http.post<{ message: string }>(LOGOUT_URL, {}, { withCredentials: true })
+      .pipe(
+        map(() => {
+          this._user.set(null);
+          this._authStatus.set('not-authenticated');
+          return null;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          // Clear state even if request fails
+          this._user.set(null);
+          this._authStatus.set('not-authenticated');
+          return of(error.error?.message || 'Logout failed');
+        })
+      );
   }
 
-  private handleAuthSuccess ({user, token} : AuthResponse): null {
+  private handleAuthSuccess ({user} : AuthResponse): null {
     this._user.set(user);
-    this._token.set(token);
-    localStorage.setItem('token', token);
     this._authStatus.set('authenticated');
     return null;
   }
 
   private handleAuthError(error: HttpErrorResponse): Observable<string> {
-    this.logoutUser();
+    // Clear state directly without HTTP request
+    this._user.set(null);
+    this._authStatus.set('not-authenticated');
     return of(error.error.message);
   }
 }

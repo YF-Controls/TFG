@@ -70,6 +70,13 @@ yarn add @nestjs/websockets @nestjs/platform-socket.io
 yarn add socket.io
 ```
 
+### Cookie Protection
+
+```shell
+yarn add cookie-parser
+yarn add -D @types/cookie-parser
+```
+
 ### PostgreSQL Database
 
 #### Table: `Users`
@@ -180,3 +187,4 @@ npm i @angular/material
 cd frontend
 npm i @ngx-translate/core @ngx-translate/http-loader
 ```
+
