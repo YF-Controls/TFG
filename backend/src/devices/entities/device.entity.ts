@@ -8,6 +8,9 @@ import { DeviceType } from "@device-types/entities";
 @Entity('devices') // Name of this table in database
 export class Device {
 
+  // ##################################
+  // Properties
+  // ##################################
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -25,9 +28,8 @@ export class Device {
   
   @Column('boolean', { default: true, nullable: false })
   isActive: boolean;
-  
-  
-  // Relación con DeviceType
+    
+  // Relation with DeviceType
   @ManyToOne(
     () => DeviceType,
     deviceType => deviceType.devices,
@@ -36,10 +38,13 @@ export class Device {
       eager: true
     }
   )
-  @JoinColumn({ name: 'device_type_id' })
+  @JoinColumn({ name: 'deviceTypeId' })
   deviceType: DeviceType;
 
-  // Relación con DeviceArea
+  @Column({ name: 'deviceTypeId' })
+  deviceTypeId: string;
+
+  // Relation with DeviceArea
   @ManyToOne(
     () => DeviceArea, 
     deviceArea => deviceArea.devices,
@@ -48,9 +53,15 @@ export class Device {
       eager: true
     }
   )
-  @JoinColumn({ name: 'device_area_id' })
+  @JoinColumn({ name: 'deviceAreaId' })
   deviceArea: DeviceArea;
+
+  @Column({ name: 'deviceAreaId' })
+  deviceAreaId: string;
   
+  // ##################################
+  // Methods
+  // ##################################
   @BeforeInsert()
   checkNameBeforeInsert() {
     this.name = this.name.toLowerCase().trim();

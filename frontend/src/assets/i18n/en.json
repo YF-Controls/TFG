@@ -154,7 +154,7 @@
         "CLOSE" : "Close",
         "DELETED" : "User deleted successfully."}
     }
-},
+  },
 
   "DEVICE_AREAS" : {
 
@@ -271,6 +271,63 @@
     }
   },
 
+  "DEVICES" : {
+
+    "CREATE_DEVICE" : {
+      "TITLE" : "Create Device",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Name...",
+        "NUMBER_PLACEHOLDER" : "NNumber...",
+        "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "IS_ACTIVE_LABEL" : "Active"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "FORM_ERROR" : "Form not valid data.",
+        "SUCCESS" : "Device created successfully."
+      }
+    },
+
+    "EDIT_DEVICE" : {
+      "TITLE" : "Edit Device",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Name...",
+        "NUMBER_PLACEHOLDER" : "Number...",
+        "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "IS_ACTIVE_LABEL" : "Active"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "FORM_ERROR" : "Form not valid data.",
+        "SUCCESS" : "Device updated successfully."
+      }
+    },
+
+    "DEVICE_TABLE" : {
+      "TABLE" : {
+        "HEADER" : {
+          "STATUS" : "Status",
+          "NAME" : "Name",
+          "DESCRIPTION" : "Description"
+        },
+        "NO_DATA" : "No devices found."
+      },
+
+      "DELETE_POPUP" : {
+        "TITLE" : "Delete Device",
+        "MESSAGE" : "Are you sure you want to delete this device?"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "DELETED" : "Device deleted successfully."}
+    }
+  },
+  
   "UTILS" : {
     "GET_ERROR_TEXT_FROM_FORM_FIELD" : {
       "CHRARACTERS" : " characters.",

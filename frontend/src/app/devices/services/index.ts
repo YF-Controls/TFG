@@ -1,1 +1,1 @@
-export { DevicesService } from "./devices.service";
+export { DeviceApi } from "./deviceApi";

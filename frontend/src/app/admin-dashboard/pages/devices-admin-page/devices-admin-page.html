@@ -1,12 +1,33 @@
-<h1 class="text-2xl front-bold">
-  Devices
-</h1>
+<!-- Header -->
+<header class="flex flex-2 gap-2 justify-between items-center">
+  <!-- Tile and Subtitle part -->
+  <div>
+    <!-- Title -->
+    <h1 class="text-2xl text-primary font-bold">
+      {{ 'ADMIN_DASHBOARD.DEVICES_ADMIN_PAGE.TITLE' | translate }}
+    </h1>
+    <!--  -->
+    <h2 class="text-lg text-primary/50">
+      {{ 'ADMIN_DASHBOARD.DEVICES_ADMIN_PAGE.TOTAL' | translate }}
+      <span >{{devicesResource.value()?.length}}</span>
+    </h2>
+  </div>
 
-<h2 class="text-lg">
-  Total devices 
-  <span class="text-accent">10</span>
-</h2>
+  <!-- Add button -->
+  <button 
+    class="btn btn-primary"
+    (click)="onAdd()">
+    <!-- Add icon -->
+    <app-svg-icon name="add"/>
+  </button>
+  
+</header>
 
-<div class="divider"></div>
+<!-- Divider -->
+<div class="divider my-0"></div>
 
-<app-device-table [devices]="devices()"/>
+<!-- Table -->
+<app-device-table
+  [devices]="devices()"
+  [deviceTypes]="deviceTypes()"
+  [deviceAreas]="deviceAreas()"/>

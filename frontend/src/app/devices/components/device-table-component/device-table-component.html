@@ -5,17 +5,29 @@
     <thead>
       <tr>
         <!-- col 1 -->
-        <th> <label><input type="checkbox" class="checkbox" /></label></th>
+        <th class="text-white font-bold">
+          Status
+        </th>
         <!-- col 2 -->
-        <th class="text-white font-bold">Is active</th>
+        <th class="text-white font-bold">
+          Number
+        </th>
         <!-- col 3 -->
-        <th class="text-white font-bold">Number</th>
+        <th class="text-white font-bold">
+          Name
+        </th>
         <!-- col 4 -->
-        <th class="text-white font-bold">Name</th>
+        <th class="text-white font-bold">
+          Type
+        </th>
         <!-- col 5 -->
-        <th class="text-white font-bold">Hw ID</th>
+        <th class="text-white font-bold">
+          Area
+        </th>
         <!-- col 6 -->
-        <th class="text-white font-bold">Description</th>
+        <th class="text-white font-bold">
+          Description
+        </th>
         <!-- col 7: Details, no header -->
         <!-- empty -->
       </tr>
@@ -28,15 +40,8 @@
       
         <!-- row x -->
         <tr>
-
-          <!-- Col 1: checkbox -->
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
           
-          <!-- Col 2 -->
+          <!-- Col 1: Status -->
           <th>
             <div class="flex items-center gap-3">
               <div 
@@ -46,7 +51,7 @@
             </div>
           </th>
 
-          <!-- Col 3: Nr -->
+          <!-- Col 2: Nr -->
           <td>
             <div class="flex items-center gap-3">
               <div class="">
@@ -55,7 +60,7 @@
             </div>
           </td>
           
-          <!-- Col 4: Name -->
+          <!-- Col 3: Name -->
           <td>
             <div class="flex items-center gap-3">
               <div class="font-bold">
@@ -64,15 +69,23 @@
             </div>
           </td>
           
-          <!-- Col 5: HW ID -->
+          <!-- Col 4: Type -->
           <td>
             <div class="flex items-center gap-3">
               <div class="text-sm opacity-50">
-                {{ device.hwId }}
+                {{ getDeviceTypeName(device.deviceTypeId) }}
               </div>
             </div>
           </td>
-          
+
+          <!-- Col 5: Area -->
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="text-sm opacity-50">
+                {{ getDeviceAreaName(device.deviceAreaId) }}
+              </div>
+            </div>
+          </td>
           <!-- Col 6: Description -->
           <td>
             <div class="flex items-center gap-3">
@@ -87,7 +100,12 @@
             <a 
               [routerLink]="['/devices', device.id]"
               class="btn btn-ghost text-accent btn-xs">
-              Details
+              <button>
+                <app-svg-icon name="edit"/>
+              </button>
+              <button>
+                <app-svg-icon name="delete" />
+              </button>
             </a>
             
           </th>

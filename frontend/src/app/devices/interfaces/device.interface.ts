@@ -5,4 +5,6 @@ export interface Device {
   hwId : string;
   description : string;
   isActive : boolean;
+  deviceTypeId : string;
+  deviceAreaId : string;
 }

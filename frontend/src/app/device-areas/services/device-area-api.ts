@@ -6,9 +6,9 @@ import { catchError, map, Observable, of, tap } from "rxjs";
 import { environment } from "@env/environment.development";
 import { QueryParamsDto } from "@shared/dto";
 import { OrderDirection } from '@shared/interfaces';
-import { CreateDeviceAreaDto, DeviceAreaResponseDto, UpdateDeviceAreaDto } from "@device-areas/dtos";
 // This module
-import { DeviceArea } from "../interfaces";
+import { CreateDeviceAreaDto, DeviceAreaResponseDto, UpdateDeviceAreaDto } from "@device-areas/dtos";
+import { DeviceArea } from "@device-areas/interfaces";
 
 
 // Constants
@@ -20,16 +20,12 @@ export class DeviceAreaApi {
   // Injections
   private http = inject(HttpClient);
   
-
   // HTTP request GET
   getAll(queryParamsDto: QueryParamsDto) : Observable<DeviceArea[]> {
-    
+    // Get query parameters
     const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
-    
+    // HTTP request
     return this.http.get<DeviceArea[]>(URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
-      //.pipe(
-      //  tap((deviceAreas) => console.log('!DELETE device-areas.service.ts Fetched device areas:', {deviceAreas}))
-      //);
   }
 
   // HTTP request POST

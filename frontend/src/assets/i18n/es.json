@@ -271,6 +271,63 @@
     }
   },
 
+  "DEVICES" : {
+
+    "CREATE_DEVICE" : {
+      "TITLE" : "Crear Dispositivo",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Nombre...",
+        "NUMBER_PLACEHOLDER" : "Número...",
+        "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "IS_ACTIVE_LABEL" : "Activo"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Dispositivo creado exitosamente."
+      }
+    },
+
+    "EDIT_DEVICE" : {
+      "TITLE" : "Editar Dispositivo",
+      
+      "FORM" : {
+        "NAME_PLACEHOLDER" : "Nombre...",
+        "NUMBER_PLACEHOLDER" : "Número...",
+        "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "IS_ACTIVE_LABEL" : "Activo"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "FORM_ERROR" : "Datos del formulario no válidos.",
+        "SUCCESS" : "Dispositivo actualizado exitosamente."
+      }
+    },
+
+    "DEVICE_TABLE" : {
+      "TABLE" : {
+        "HEADER" : {
+          "STATUS" : "Estado",
+          "NAME" : "Nombre",
+          "DESCRIPTION" : "Descripción"
+        },
+        "NO_DATA" : "No se encontraron dispositivos."
+      },
+
+      "DELETE_POPUP" : {
+        "TITLE" : "Eliminar Dispositivo",
+        "MESSAGE" : "¿Estás seguro de que deseas eliminar este dispositivo?"
+      },
+
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "DELETED" : "Dispositivo eliminado exitosamente."}
+    }
+  },
+  
   "UTILS" : {
     "GET_ERROR_TEXT_FROM_FORM_FIELD" : {
       "CHRARACTERS" : " caraters.",
