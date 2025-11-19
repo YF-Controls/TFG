@@ -187,4 +187,3 @@ npm i @angular/material
 cd frontend
 npm i @ngx-translate/core @ngx-translate/http-loader
 ```
-

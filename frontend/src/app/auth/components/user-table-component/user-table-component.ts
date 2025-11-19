@@ -32,6 +32,9 @@ export class UserTableComponent {
   users = input.required<User[]>();
   updateTable = output();
   
+  // Computed
+  protected currentUserId = this.authApi.user()?.id ?? null;
+  
   // Methods
   protected onUpdateOne (user: User) {
     const dialogRef = this.dialog.open(EditUserComponent, {

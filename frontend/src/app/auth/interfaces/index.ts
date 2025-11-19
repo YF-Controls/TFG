@@ -1,3 +1,3 @@
-export { ValidRoles } from './valid-roles.interface';
+export { ValidRoles } from './valid-roles.enum';
 export type { AuthResponse } from './auth-response.interface';
 export type { User } from './user.interface';

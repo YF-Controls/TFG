@@ -12,19 +12,21 @@ import { User, AuthResponse, ValidRoles } from "../interfaces";
 import { LoginUserDto, RegisterUserDto, UpdateUserDto } from "../dtos";
 
 
-
+// Authentication status
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
+
+// URLs
 const baseUrl = environment.baseUrl;
 const LOGIN_URL: string = `${baseUrl}/auth/login`;
 const REGISTER_URL: string = `${baseUrl}/auth/register`;
 const LOGOUT_URL: string = `${baseUrl}/auth/logout`;
+const CHECK_USER_URL: string = `${baseUrl}/auth/check-user`;
 const USERS_URL: string = `${baseUrl}/auth/users`;
-const CHECK_STATUS_URL: string = `${baseUrl}/auth/check-user`;
 
 @Injectable({providedIn: 'root'})
 export class AuthApi {
   
-  // Private attributes/properties
+  // Properties
   private _user = signal<User | null>(null);
   private _authStatus = signal<AuthStatus>('checking');
   
@@ -32,7 +34,7 @@ export class AuthApi {
 
   // Properties
   checkStatusResource = rxResource<string | null, null>({
-    stream: () => this.checkUserStatus(),
+    stream: () => this.checkUser(),
     defaultValue: "Error",
   });
   
@@ -57,6 +59,7 @@ export class AuthApi {
       );
   }
 
+
   // Http request POST
   loginUser(loginUserDto: LoginUserDto): Observable<string | null> {
     
@@ -67,6 +70,7 @@ export class AuthApi {
       );
   }
   
+
   // Http request PATCH
   updateUser(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
     return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto, { withCredentials: true })
@@ -76,6 +80,7 @@ export class AuthApi {
       );
   }
   
+
   // Http request DELETE
   deleteUser(id: string): Observable<string | null> {
     return this.http.delete<void>(`${USERS_URL}/${id}`)
@@ -85,16 +90,18 @@ export class AuthApi {
       );
   }
 
+
   // Http request GET
   getUsers(queryParamsDto: QueryParamsDto): Observable<User[]> {
     const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
     return this.http.get<User[]>(USERS_URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
   }
   
+
   // Http request GET
-  checkUserStatus(): Observable<string | null> {
+  checkUser(): Observable<string | null> {
     // Token is now in HttpOnly cookie, sent automatically
-    return this.http.get<AuthResponse>(CHECK_STATUS_URL, { withCredentials: true })
+    return this.http.get<AuthResponse>(CHECK_USER_URL, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)),
         catchError((error: any) => this.handleAuthError(error))
@@ -119,11 +126,13 @@ export class AuthApi {
       );
   }
 
+
   private handleAuthSuccess ({user} : AuthResponse): null {
     this._user.set(user);
     this._authStatus.set('authenticated');
     return null;
   }
+
 
   private handleAuthError(error: HttpErrorResponse): Observable<string> {
     // Clear state directly without HTTP request
