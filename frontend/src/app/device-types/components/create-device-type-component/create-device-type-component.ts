@@ -44,7 +44,7 @@ export class CreateDeviceTypeComponent {
       const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
-        panelClass: ['toast-container-effect', 'toast-container-error'],
+        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
         horizontalPosition : 'center',
         verticalPosition : 'bottom',
       });
@@ -63,7 +63,7 @@ export class CreateDeviceTypeComponent {
           const action = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
           this.toast.open(errorMessage, action, { 
             duration: 2000,
-            panelClass: ['toast-container-effect', 'toast-container-error'],
+            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
           });
@@ -74,7 +74,7 @@ export class CreateDeviceTypeComponent {
         const action = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
-            panelClass: ['toast-container-effect', 'toast-container-success'],
+            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
           });

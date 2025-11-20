@@ -38,6 +38,7 @@ export class UserTableComponent {
   // Methods
   protected onUpdateOne (user: User) {
     const dialogRef = this.dialog.open(EditUserComponent, {
+      //panelClass : ['w-full', 'max-w-md', 'items-center', 'justify-center'],
       disableClose: false,
       data: {user}
     });
@@ -66,7 +67,7 @@ export class UserTableComponent {
             const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
-              panelClass: ['toast-container-effect', 'toast-container-error'],
+              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
               horizontalPosition : 'center',
               verticalPosition : 'bottom',
             });
@@ -77,7 +78,7 @@ export class UserTableComponent {
           const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
-            panelClass: ['toast-container-effect', 'toast-container-success'],
+            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
           });

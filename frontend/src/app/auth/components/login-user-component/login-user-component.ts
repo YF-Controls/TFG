@@ -45,7 +45,7 @@ export class LoginUserComponent {
 
       this.toast.open(message, action, { 
         duration: 2000,
-        panelClass: ['toast-container-effect', 'toast-container-error'],
+        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
         horizontalPosition : 'center',
         verticalPosition : 'bottom',
       });
@@ -65,7 +65,7 @@ export class LoginUserComponent {
 
           this.toast.open(errorMessage, action, { 
             duration: 2000,
-            panelClass: ['toast-container-effect', 'toast-container-error'],
+            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
           });  
@@ -76,7 +76,7 @@ export class LoginUserComponent {
         const action = this.languageService.getTranslation('AUTH.LOGIN_USER.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
-            panelClass: ['toast-container-effect', 'toast-container-success'],
+            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
           });

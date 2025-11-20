@@ -3,6 +3,12 @@
   themes: light --default, dark --prefersdark, halloween;
 }
 
+
+@import "./styles/app-popup.css";
+@import "./styles/app-form.css";
+@import "./styles/app-table.css";
+@import "./styles/app-toast.css";
+
 @keyframes slideInFromBottom {
   0% {
     transform: translateY(1rem);
@@ -35,75 +41,3 @@ extends : {
   }
 };
 */
-
-
-
-.toast-container-effect {
-  @apply 
-    rounded-lg
-    text-sm
-    shadow-lg
-    transition-all
-    duration-300
-    ease-in-out;
-  animation: slideInFromBottom 0.3s ease-out;
-}
-
-.toast-container-success {
-  @apply
-    bg-green-500
-    text-white;
-}
-
-.toast-container-info {
-  @apply 
-    bg-[#2f96b4]
-    text-white;
-}
-
-.toast-container-warning {
-  @apply 
-    bg-[#f89406]
-    text-white;
-}
-
-.toast-container-error {
-  @apply 
-    bg-[#bd362f]
-    text-white;
-}
-
-.popup-container {
-  @apply
-    bg-gray-900
-    text-white
-    rounded-lg
-    border
-    border-primary;
-}
-
-.popup-header {
-  @apply
-    flex
-    gap-2
-    justify-between
-    items-center
-    border-b
-    border-primary;
-}
-
-.popup-header-title {
-  @apply
-  ml-2  
-    text-2xl
-    font-bold
-    text-primary
-    text-center;
-}
-
-.popup-header-close-button {
-  @apply
-    btn
-    btn-primary
-    m-1;
-}

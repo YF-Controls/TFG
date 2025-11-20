@@ -1,0 +1,36 @@
+
+.app-popup-container {
+  @apply
+    /*max-w-md*/
+    bg-base-300
+    rounded-lg
+    border-2
+    border-primary;
+}
+
+.app-popup-header {
+  @apply
+    flex
+    gap-2
+    justify-between
+    items-center
+    border-b
+    border-primary;
+}
+
+.app-popup-header-title {
+  @apply
+    ml-5  
+    text-xl
+    font-bold
+    text-primary
+    text-center;
+}
+
+.app-popup-header-close-button {
+  @apply btn btn-primary my-2 mx-1;
+}
+
+.app-popup-body {
+  @apply flex flex-col gap-2 m-5;
+}

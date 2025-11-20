@@ -76,6 +76,7 @@
         "FULLNAME_PLACEHOLDER" : "Full name...",
         "EMAIL_PLACEHOLDER" : "Email...",
         "ROLES_LABEL" : "Roles",
+        "STATUS_LABEL" : "Status",
         "IS_ACTIVE_LABEL" : "Active",
         "SUBMIT_BUTTON" : "Save Changes"
       },
@@ -165,6 +166,7 @@
         "NAME_PLACEHOLDER" : "Name...",
         "HWID_PLACEHOLDER" : "Hardware ID...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "STATUS_LABEL" : "Status",
         "IS_ACTIVE_LABEL" : "Active"
       },
 
@@ -182,6 +184,7 @@
         "NAME_PLACEHOLDER" : "Name...",
         "HWID_PLACEHOLDER" : "Hardware ID...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "STATUS_LABEL" : "Status",
         "IS_ACTIVE_LABEL" : "Active"
       },
 
@@ -223,6 +226,7 @@
         "NAME_PLACEHOLDER" : "Name...",
         "HWID_PLACEHOLDER" : "Hardware ID...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "STATUS_LABEL" : "Status",
         "IS_ACTIVE_LABEL" : "Active"
       },
 
@@ -240,6 +244,7 @@
         "NAME_PLACEHOLDER" : "Name...",
         "HWID_PLACEHOLDER" : "Hardware ID...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "STATUS_LABEL" : "Status",
         "IS_ACTIVE_LABEL" : "Active"
       },
 
@@ -280,6 +285,7 @@
         "NAME_PLACEHOLDER" : "Name...",
         "NUMBER_PLACEHOLDER" : "NNumber...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "STATUS_LABEL" : "Status",
         "IS_ACTIVE_LABEL" : "Active"
       },
 
@@ -297,6 +303,7 @@
         "NAME_PLACEHOLDER" : "Name...",
         "NUMBER_PLACEHOLDER" : "Number...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
+        "STATUS_LABEL" : "Status",
         "IS_ACTIVE_LABEL" : "Active"
       },
 
@@ -332,16 +339,16 @@
     "GET_ERROR_TEXT_FROM_FORM_FIELD" : {
       "CHRARACTERS" : " characters.",
       "REQUIRED" : "This field is required.",
-      "EMAIL" : "Not a valid email",
+      "EMAIL" : "Not a valid email.",
       "MIN_LENGTH" : "Minimum length is ",
       "MAX_LENGTH" : "Maximum length is ",
       "MIN" : "Minimum value is ",
       "MAX" : "Maximum value is ",
-      "EMAIL_TAKEN" : "Email is used already in the system",
-      "NO_STRIDER" : "Strider username is not allowed",
-      "EMAIL_PATTERN" : "Input value does not look like an email address",
-      "PATTERN" : "Input value does not match the required pattern",
-      "DEFAULT" : "Unhandled validation error"
+      "EMAIL_TAKEN" : "Email is used already in the system.",
+      "NO_STRIDER" : "Strider username is not allowed.",
+      "EMAIL_PATTERN" : "Input value does not look like an email address.",
+      "PATTERN" : "Input value does not match the required pattern.",
+      "DEFAULT" : "Unhandled validation error."
     }
   }
 

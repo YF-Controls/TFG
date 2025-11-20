@@ -1,1 +1,44 @@
-<p>admin-dashboard-page works!</p>,
+
+<div class="flex flex-col max-w-md  justify-between bg-blue-200 p-5
+  text-black gap-2 border border-red-400">
+
+  <div class="border border-green-400 flex items-center">
+    <span class=" border border-red-600">texto largo uno</span>
+
+  </div>
+
+
+  <div class="border border-green-400 flex flex-row items-center justify-between">
+    <span class=" border border-red-600 flex-1">2</span>
+    <span class=" border border-red-600 flex-1">6</span>
+  </div>
+
+  <!-- isActive field -->
+  <div class="flex flex-row border border-green-500">
+    
+      <div class="flex-1 items-start border border-white">
+        <!-- title -->
+        <span class="text-base text-primary">
+          textp 2
+        </span>
+      </div>
+
+      <div class="flex-1 border border-white">
+        <!-- Checkbox row -->
+        <label class="flex items-center gap-2 cursor-pointer">
+          <!-- Input -->
+          <input
+          class="checkbox bg-primary text-black"
+          type="checkbox"
+          name="isActive"
+          formControlName="isActive"/>
+          <!-- title -->
+          <span class="text-sm text-primary">
+            texto
+          </span>
+
+        </label>
+      </div>
+
+  </div>
+

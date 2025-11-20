@@ -1,110 +1,118 @@
 <!-- Container -->
-<div class="popup-container">
+<div class="app-popup-container">
   <!-- Header -->
-  <header class="popup-header">
+  <header class="app-popup-header">
     <!-- Title -->
-    <h1 class="popup-header-title">
+    <h1 class="app-popup-header-title">
       {{ 'AUTH.EDIT_USER.TITLE' | translate }}
     </h1>
     <!-- Cancel button -->
     <button 
-      class="popup-header-close-button" 
+      class="app-popup-header-close-button" 
       (click)="onCancel()">
       <!-- Icon -->
       <app-svg-icon name="close"/>
     </button>
   </header>
   
-  <!-- Login form -->
-  <form 
-    class="m-5 flex flex-col gap-2"
-    [formGroup]="form"
-    (ngSubmit) = "onSubmit()">
+  <!-- Body -->
+  <div class="app-popup-body">
+    <!-- Login form -->
+    <form 
+      class="app-form-container"
+      [formGroup]="form"
+      (ngSubmit) = "onSubmit()">
 
-    <!-- Fullname field -->
-    <label class="flex items-center gap-2 input input-bordered">
-      <!-- icon -->
-      <app-svg-icon name="user"/>
-      <!-- input -->
-      <input
-        type="text"
-        class="grow"
-        placeholder="{{ 'AUTH.EDIT_USER.FORM.FULLNAME_PLACEHOLDER' | translate }}"
-        formControlName="fullname"/>
+      <!-- Fullname field -->
+      <div  class="app-form-field-input">
+        <label class="input">
+          <!-- icon -->
+          <app-svg-icon name="user"/>
+          <!-- input -->
+          <input
+            type="text"
+            class="grow"
+            placeholder="{{ 'AUTH.EDIT_USER.FORM.FULLNAME_PLACEHOLDER' | translate }}"
+            formControlName="fullname"/>
+        </label>
+      </div>
+      
+      <app-form-field-error  [control]="form.controls['fullname']" />
+      
+      <!-- Email field -->
+      <div  class="app-form-field-input">
+        <label class="input">
+          <!-- icon -->
+          <app-svg-icon name="email"/>
+          <!-- input -->
+          <input
+            type="text"
+            class="grow"
+            placeholder="{{ 'AUTH.EDIT_USER.FORM.EMAIL_PLACEHOLDER' | translate }}"
+            formControlName="email"/>
+        </label>
+      </div>
+      <app-form-field-error  [control]="form.controls['email']" />
 
-    </label>
-
-    <app-form-field-error  [control]="form.controls['fullname']" />
-
-    <!-- Email field -->
-    <label class="flex items-center gap-2 input input-bordered">
-      <!-- icon -->
-      <app-svg-icon name="email"/>
-      <!-- input -->
-      <input
-        type="text"
-        class="grow"
-        placeholder="{{ 'AUTH.EDIT_USER.FORM.EMAIL_PLACEHOLDER' | translate }}"
-        formControlName="email"/>
-    </label>
-
-    <app-form-field-error  [control]="form.controls['email']" />
-
-    <!-- Roles field -->
-    <label 
-      id="roles"
-      class="flex justify-items-center items-center gap-2 p-2">
-      <!-- title -->
-      <span class="text-primary">
-        {{ 'AUTH.EDIT_USER.FORM.ROLES_LABEL' | translate }}
-      </span>
-      <!-- Input -->
-      <div class="flex flex-col gap-2">
-
-        @for (role of availableRoles; track role.value) {
-          <label class="flex items-center gap-2 cursor-pointer">
-            <!-- checkbox-->
+      <!-- Roles field -->
+      <div class="app-form-field-checkbox">
+        <!-- title -->
+        <span class="app-form-field-checkbox-span">
+          {{ 'AUTH.EDIT_USER.FORM.ROLES_LABEL' | translate }}
+        </span>
+        <!-- Checkboxes -->
+        <div class="app-form-field-checkbox-container">
+          @for (role of availableRoles; track role.value) {
+            <!-- Checkbox row -->
+            <label class="app-form-field-checkbox-item">
+              <!-- checkbox-->
+              <input
+                class="app-form-field-checkbox-item-input"
+                type="checkbox"
+                [checked]="hasRole(role.value)"
+                (change)="toggleRole(role.value)"/>
+              <!-- text -->
+              <span class="app-form-field-checkbox-item-text">
+                {{ role.label }}
+              </span>
+            </label>
+          }
+        </div>
+      </div>
+      <app-form-field-error  [control]="form.controls['roles']" />
+      
+      <!-- isActive field -->
+      <div class="app-form-field-checkbox">
+        <!-- title -->
+        <span class="app-form-field-checkbox-span">
+          {{ 'AUTH.EDIT_USER.FORM.STATUS_LABEL' | translate }}
+        </span>
+        <div class="app-form-field-checkbox-container">
+          <!-- Checkbox row -->
+          <label class="app-form-field-checkbox-item">
+            <!-- Input -->
             <input
-              class="checkbox bg-primary text-black"
-              type="checkbox"
-              [checked]="hasRole(role.value)"
-              (change)="toggleRole(role.value)"/>
-            <!-- text -->
-            <span class="text-sm text-primary">
-              {{ role.label }}
+            class="app-form-field-checkbox-item-input"
+            type="checkbox"
+            name="isActive"
+            formControlName="isActive"/>
+            <!-- title -->
+            <span class="app-form-field-checkbox-item-text">
+              {{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.IS_ACTIVE_LABEL' | translate }}
             </span>
           </label>
-        }
+        </div>
       </div>
-    </label>
-    
-    <app-form-field-error  [control]="form.controls['roles']" />
-    
-    <!-- isActive field -->
-    <label 
-      id = "isactive"
-      class="flex justify-items-center items-center gap-2 p-2">
-      <!-- title -->
-      <span class="text-primary">
-        {{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.IS_ACTIVE_LABEL' | translate }}
-      </span>
-      <!-- Input -->
-      <div class="flex flex-col gap-2">
-        <input
-        class="checkbox bg-primary text-black"
-        type="checkbox"
-        id="isActive"
-        name="isActive"
-        formControlName="isActive"/>
+            
+      <!-- Submit button -->
+      <div class="app-form-field-submit">
+        <button 
+          type="submit" 
+          class="app-form-field-submit-button">
+          <app-svg-icon name="edit"/>
+        </button>
       </div>
-    </label>
-    
-    <!-- Submit button -->
-    <button 
-      type="submit" 
-      class="btn btn-primary">
-      <app-svg-icon name="edit"/>
-    </button>
-    
-  </form>
+
+    </form>
+  </div>
 </div>

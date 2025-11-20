@@ -1,88 +1,110 @@
 <!-- Container -->
-<div class="popup-container">
+<div class="app-popup-container">
   <!-- Header -->
-  <header class="popup-header">
+  <header class="app-popup-header">
     <!-- Title -->
-    <h1 class="popup-header-title">
+    <h1 class="app-popup-header-title">
       {{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.TITLE' | translate }}
     </h1>
     <!-- Cancel button -->
     <button 
-      class="popup-header-close-button" 
+      class="app-popup-header-close-button" 
       (click)="onCancel()">
       <!-- Icon -->
       <app-svg-icon name="close"/>
     </button>
   </header>
+  <!-- Body -->
+  <div class="app-popup-body">
+    <!-- Form -->
+    <form 
+      class="app-form-container"
+      [formGroup]="form"
+      (ngSubmit) = "onSubmit()">
 
-  <!-- Form -->
-  <form 
-    class="mx-10 my-5 flex flex-col gap-3 items-center"
-    [formGroup]="form"
-    (ngSubmit) = "onSubmit()">
-    <!-- Name field  -->
-    <label class="flex items-center gap-2 input input-bordered">
-      <!-- Icon -->
-      <app-svg-icon name="device"/>
-      <!--Input -->
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="{{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.NAME_PLACEHOLDER' | translate }}"
-        formControlName="name"/>
-    </label>
-    
-    <app-form-field-error  [control]="form.controls['name']" />
+      <!-- Name field  -->
+      <div class="app-form-field-input">
+        <label class="input">
+          <!-- Icon -->
+          <app-svg-icon name="device"/>
+          <!--Input -->
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="{{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.NAME_PLACEHOLDER' | translate }}"
+            formControlName="name"/>
+        </label>
+      </div>
+      <app-form-field-error  [control]="form.controls['name']" />
 
-    <!-- hwId field  -->
-    <label class="flex items-center gap-2 input input-bordered">
-      <!-- Icon -->
-      <app-svg-icon name="hw"/>
-      <!-- Input -->
-      <input
-        type="text"
-        id="hwId"
-        name="hwId"
-        placeholder="{{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.HWID_PLACEHOLDER' | translate }}"
-        formControlName="hwId"/>
-    </label>
-    
-    <app-form-field-error  [control]="form.controls['hwId']" />
-    
-    <!-- description field -->
-    <label class="flex items-start gap-2 textarea textarea-bordered">
-      <!-- Icon -->
-      <app-svg-icon name="book"/>
-      <!-- Input -->
-      <textarea
-        id="description"
-        name="description"
-        placeholder="{{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.DESCRIPTION_PLACEHOLDER' | translate }}"
-        rows="3"
-        class="grow resize-none"
-        formControlName="description"></textarea>
-    </label>
-    
-    <!-- isActive field -->
-    <label class="flex items-center gap-2">
-      {{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.IS_ACTIVE_LABEL' | translate }}
-      <!-- Input -->
-      <input
-        class="checkbox bg-primary text-black"
-        type="checkbox"
-        id="isActive"
-        name="isActive"
-        formControlName="isActive"/>
-    </label>
-    
-    <!-- Submit button -->      
-    <button 
-      type="submit"
-      class="btn btn-primary mt-5">
-      <!-- Icon -->
-      <app-svg-icon name="edit"/>
-    </button>
+      <!-- hwId field  -->
+      <div class="app-form-field-input">
+        <label class="input">
+          <!-- Icon -->
+          <app-svg-icon name="hw"/>
+          <!-- Input -->
+          <input
+            type="text"
+            id="hwId"
+            name="hwId"
+            placeholder="{{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.HWID_PLACEHOLDER' | translate }}"
+            formControlName="hwId"/>
+        </label>
+      </div>
+      <app-form-field-error  [control]="form.controls['hwId']" />
+      
+      <!-- description field -->
+      <div class="app-form-field-input">
+        <label class="textarea flex ">
+          <!-- Icon -->
+          <app-svg-icon name="book"/>
+          <!-- Input -->
+          <textarea
+            id="description"
+            name="description"
+            placeholder="{{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.DESCRIPTION_PLACEHOLDER' | translate }}"
+            rows="3"
+            class="grow resize-none pl-1"
+            formControlName="description"></textarea>
+        </label>
+      </div>
+      
+      <!-- isActive field -->
+      <div class="app-form-field-checkbox">
+        <!-- title -->
+        <span class="app-form-field-checkbox-span">
+          {{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.STATUS_LABEL' | translate }}
+        </span>
+        <!-- Checkbox container -->
+        <div class="app-form-field-checkbox-container">
+          <!-- Checkbox row -->
+          <label class="app-form-field-checkbox-item">
+            <!-- Input -->
+            <input
+              class="app-form-field-checkbox-item-input"
+              type="checkbox"
+              id="isActive"
+              name="isActive"
+              formControlName="isActive"/>
+            <!-- title -->
+            <span class="app-form-field-checkbox-item-text">
+              {{ 'DEVICE_AREAS.EDIT_DEVICE_AREA.FORM.IS_ACTIVE_LABEL' | translate }}
+            </span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Submit button -->      
+      <div class="app-form-field-submit">
+        <button 
+          type="submit" 
+          class="app-form-field-submit-button">
+          <!-- Icon -->
+          <app-svg-icon name="edit"/>
+        </button>
+      </div>
 
-  </form>
+    </form>
+  </div>
 </div>

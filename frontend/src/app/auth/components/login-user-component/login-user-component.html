@@ -1,72 +1,92 @@
-<!-- Title -->
-<h1 class="tex-2xl font-montserrat font-bold text-primary text-center">
-  {{ 'AUTH.LOGIN_USER.TITLE' | translate }}
-</h1>
-
-<!-- Login form -->
-<form 
-  class="mt-4 flex flex-col gap-2"
-  [formGroup]="form"
-  (ngSubmit) = "onSubmit()">
-
-  <!-- Email field -->
-  <label class="flex items-center gap-2 input input-bordered">
-    <!-- icon -->
-    <app-svg-icon name="email"/>
-    <!-- input -->
-    <input
-      type="text"
-      class="grow"
-      placeholder="{{ 'AUTH.LOGIN_USER.FORM.EMAIL_PLACEHOLDER' | translate }}"
-      formControlName="email"/>
-  </label>
-
-  <app-form-field-error  [control]="form.controls['email']" />
-  
-  <!-- Password field -->
-  <label class="flex items-center gap-2 input input-bordered">
-    <!-- icon -->
-    <app-svg-icon name="key"/>
-    
-
-    <input
-      [type]="showPassword() ? 'text' : 'password'"
-      class="grow"
-      placeholder="{{ 'AUTH.LOGIN_USER.FORM.PASSWORD_PLACEHOLDER' | translate }}"
-      formControlName="password"
-    />
-
-    <!-- Show/hide button -->
-    <button
-      type="button"
-      tabindex="-1"
-      (click)="toggleShowPassword()">
-      <!-- Show/hide icon -->
-      @if (showPassword()) { <app-svg-icon name="eye-show"/> }
-      @else { <app-svg-icon name="eye-hide"/> }
+<!-- Container -->
+<div class="app-popup-container">
+  <!-- Header -->
+  <header class="app-popup-header">
+    <!-- Title -->
+    <h1 class="app-popup-header-title">
+      {{ 'AUTH.LOGIN_USER.TITLE' | translate }}
+    </h1>
+    <!-- Cancel button -->
+    <button 
+      class="app-popup-header-close-button hidden">
+      <!--(click)="onCancel()"-->
+      <!-- Icon -->     
+      <app-svg-icon name="close"/>
     </button>
-  </label>
-    
-  <app-form-field-error  [control]="form.controls['password']" />
+  </header>
+  <!-- Body -->
+  <div class="app-popup-body">
+      <!-- Login form -->
+    <form 
+      class="app-form-container"
+      [formGroup]="form"
+      (ngSubmit) = "onSubmit()">
+
+      <!-- Email field -->
+      <div class="app-form-field-input">
+        <label class="input">
+          <!-- icon -->
+          <app-svg-icon name="email"/>
+          <!-- input -->
+          <input
+            type="text"
+            class="grow"
+            placeholder="{{ 'AUTH.LOGIN_USER.FORM.EMAIL_PLACEHOLDER' | translate }}"
+            formControlName="email"/>
+        </label>
+      </div>
+      
+
+      <app-form-field-error  [control]="form.controls['email']" />
+      
+      <!-- Password field -->
+      <div class="app-form-field-input">
+        <label class="input">
+          <!-- icon -->
+          <app-svg-icon name="key"/>
+          <!-- input -->        
+          <input
+            [type]="showPassword() ? 'text' : 'password'"
+            class="grow"
+            placeholder="{{ 'AUTH.LOGIN_USER.FORM.PASSWORD_PLACEHOLDER' | translate }}"
+            formControlName="password"/>
+          <!-- Show/hide button -->
+          <button
+            type="button"
+            tabindex="-1"
+            (click)="toggleShowPassword()">
+            <!-- Show/hide icon -->
+            @if (showPassword()) { <app-svg-icon name="eye-show"/> }
+            @else { <app-svg-icon name="eye-hide"/> }
+          </button>
+        </label>
+      </div>
+      <app-form-field-error  [control]="form.controls['password']" />
+      
+      <!-- Submit button -->
+      <div class="app-form-field-submit">
+        <button 
+          type="submit" 
+          class="app-form-field-submit-button">
+          {{ 'AUTH.LOGIN_USER.FORM.SUBMIT_BUTTON' | translate }}
+        </button>
+      </div>
+      
+      
+    </form>
+
+    <!-- Register link -->
+    <footer class="app-form-footer">
+      <p class="app-form-footer-text">
+        {{ 'AUTH.LOGIN_USER.REGISTER.TEXT' | translate }}
+
+        <a routerLink="/auth/register"
+          class="app-form-footer-link">
+          {{ 'AUTH.LOGIN_USER.REGISTER.LINK' | translate }}
+        </a>
+      </p>
+    </footer>
+
+  </div>
   
-  <!-- Submit button -->
-  <button 
-    type="submit" 
-    class="btn btn-primary"
-  >
-    {{ 'AUTH.LOGIN_USER.FORM.SUBMIT_BUTTON' | translate }}
-  </button>
-  
-</form>
-
-<!-- Register link -->
-<div class="mt-4 flex flex-col items-center gap-2">
-  <p class="text-slate-700">
-    {{ 'AUTH.LOGIN_USER.REGISTER.TEXT' | translate }}
-
-    <a routerLink="/auth/register" class="text-primary">
-      {{ 'AUTH.LOGIN_USER.REGISTER.LINK' | translate }}
-    </a>
-
-  </p>
 </div>

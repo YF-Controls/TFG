@@ -1,0 +1,56 @@
+
+.app-form-container {
+  @apply flex flex-col gap-2;
+}
+
+.app-form-footer {
+  @apply mt-10 flex flex-col items-center gap-2;
+}
+
+/* Fields level */
+.app-form-field-input {
+  @apply flex-1 flex flex-row items-center justify-center;
+}
+
+.app-form-field-checkbox {
+  @apply flex flex-row items-center;
+}
+
+.app-form-field-submit {
+  @apply flex flex-col items-center py-5;
+}
+
+/* Field checkbox parts*/
+.app-form-field-checkbox-span {
+  @apply flex-1 text-base text-primary;
+}
+
+.app-form-field-checkbox-container {
+  @apply flex-2 flex flex-col items-start gap-1;
+}
+
+.app-form-field-checkbox-item {
+  @apply flex items-center justify-start gap-2 cursor-pointer;
+}
+
+.app-form-field-checkbox-item-input {
+  @apply checkbox bg-primary text-black;
+}
+
+.app-form-field-checkbox-item-text {
+  @apply text-sm text-primary;
+}
+
+/* Field submit parts */
+.app-form-field-submit-button {
+  @apply btn btn-primary;
+}
+
+/* Form footer parts */
+.app-form-footer-text {
+  @apply text-white text-sm;
+}
+
+.app-form-footer-link {
+  @apply text-primary text-sm;
+}

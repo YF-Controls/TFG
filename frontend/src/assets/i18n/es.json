@@ -76,6 +76,7 @@
         "FULLNAME_PLACEHOLDER" : "Nombre completo...",
         "EMAIL_PLACEHOLDER" : "Correo electrónico...",
         "ROLES_LABEL" : "Roles",
+        "STATUS_LABEL" : "Estado",
         "IS_ACTIVE_LABEL" : "Activo",
         "SUBMIT_BUTTON" : "Guardar Cambios"
       },
@@ -165,6 +166,7 @@
         "NAME_PLACEHOLDER" : "Nombre...",
         "HWID_PLACEHOLDER" : "ID de hardware...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "STATUS_LABEL" : "Estado",
         "IS_ACTIVE_LABEL" : "Activo"
       },
 
@@ -182,6 +184,7 @@
         "NAME_PLACEHOLDER" : "Nombre...",
         "HWID_PLACEHOLDER" : "ID de hardware...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "STATUS_LABEL" : "Estado",
         "IS_ACTIVE_LABEL" : "Activo"
       },
 
@@ -223,6 +226,7 @@
         "NAME_PLACEHOLDER" : "Nombre...",
         "HWID_PLACEHOLDER" : "ID de hardware...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "STATUS_LABEL" : "Estado",
         "IS_ACTIVE_LABEL" : "Activo"
       },
 
@@ -240,6 +244,7 @@
         "NAME_PLACEHOLDER" : "Nombre...",
         "HWID_PLACEHOLDER" : "ID de hardware...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "STATUS_LABEL" : "Estado",
         "IS_ACTIVE_LABEL" : "Activo"
       },
 
@@ -280,6 +285,7 @@
         "NAME_PLACEHOLDER" : "Nombre...",
         "NUMBER_PLACEHOLDER" : "Número...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "STATUS_LABEL" : "Estado",
         "IS_ACTIVE_LABEL" : "Activo"
       },
 
@@ -297,6 +303,7 @@
         "NAME_PLACEHOLDER" : "Nombre...",
         "NUMBER_PLACEHOLDER" : "Número...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
+        "STATUS_LABEL" : "Estado",
         "IS_ACTIVE_LABEL" : "Activo"
       },
 
@@ -332,16 +339,16 @@
     "GET_ERROR_TEXT_FROM_FORM_FIELD" : {
       "CHRARACTERS" : " caraters.",
       "REQUIRED" : "Campo requerido.",
-      "EMAIL" : "Correo electrónico no válido",
+      "EMAIL" : "Correo electrónico no válido.",
       "MIN_LENGTH" : "La longitud mínima es ",
       "MAX_LENGTH" : "La longitud máxima es ",
       "MIN" : "El valor mínimo es ",
       "MAX" : "El valor máximo es ",
-      "EMAIL_TAKEN" : "El correo electrónico ya está en uso",
-      "NO_STRIDER" : "El nombre de usuario Strider no está permitido",
-      "EMAIL_PATTERN" : "El valor ingresado no parece una dirección de correo electrónico",
-      "PATTERN" : "El valor ingresado no coincide con el patrón requerido",
-      "DEFAULT" : "Error de validación no manejado"
+      "EMAIL_TAKEN" : "El correo electrónico ya está en uso.",
+      "NO_STRIDER" : "El nombre de usuario Strider no está permitido.",
+      "EMAIL_PATTERN" : "El valor ingresado no parece una dirección de correo electrónico.",
+      "PATTERN" : "El valor ingresado no coincide con el patrón requerido.",
+      "DEFAULT" : "Error de validación no manejado."
     }
   }  
 

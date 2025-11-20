@@ -1,0 +1,37 @@
+
+
+.app-toast-container-effect {
+  @apply 
+    rounded-lg
+    text-sm
+    shadow-lg
+    transition-all
+    duration-300
+    ease-in-out;
+  
+  /*animation: slideInFromBottom 0.3s ease-out;*/
+}
+
+.app-toast-container-success {
+  @apply
+    bg-green-500
+    text-white;
+}
+
+.app-toast-container-info {
+  @apply 
+    bg-[#2f96b4]
+    text-white;
+}
+
+.app-toast-container-warning {
+  @apply 
+    bg-[#f89406]
+    text-white;
+}
+
+.app-toast-container-error {
+  @apply 
+    bg-[#bd362f]
+    text-white;
+}
