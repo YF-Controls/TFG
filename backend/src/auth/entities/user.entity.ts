@@ -7,21 +7,21 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text', { unique: true })
+  @Column('text', { name : 'email', unique: true })
   email: string;
 
-  @Column('text', { unique: true })
+  @Column('text', { name: 'full_name', unique: true })
   fullname: string;
   
-  @Column('text', { select: false })
+  @Column('text', { name: 'password', select: false })
   password?: string;
   
-  @Column('boolean', { default: false })
+  @Column('boolean', { name: 'is_active', default: false })
   isActive: boolean;
   
-  @Column('text', { array: true, default: [MyValidRoles.user] })
+  @Column('text', { name: 'roles', array: true, default: [MyValidRoles.user] })
   roles: string[];
-
+  
   @BeforeInsert()
   checkFieldsBeforeInsert() {
     this.email = this.email.toLowerCase().trim();

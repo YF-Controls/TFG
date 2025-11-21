@@ -10,16 +10,16 @@ export class DeviceArea {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text', { unique : true, nullable: false})
+  @Column('text', { name: 'name', unique : true, nullable: false})
   name: string;
   
-  @Column('varchar', {length: 8, unique: true, nullable: true})
+  @Column('varchar', {name : 'hw_id', length: 8, unique: true, nullable: true})
   hwId: string;
 
-  @Column('text', {default : 'No comment'})
+  @Column('text', {name: 'description', default : 'No comment'})
   description:  string;
   
-  @Column('boolean', { default: true, nullable: false })
+  @Column('boolean', { name: 'is_active', default: true, nullable: false })
   isActive: boolean;
   
   // Relación con Device

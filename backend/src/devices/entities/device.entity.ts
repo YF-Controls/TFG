@@ -14,19 +14,19 @@ export class Device {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text', { unique : true, nullable: false})
+  @Column('text', { name: 'name', unique : true, nullable: false})
   name: string;
   
-  @Column('numeric', {unique: true, nullable: true})
-  nr: number;
+  @Column('numeric', { name: 'number', unique: true, nullable: true})
+  number: number;
 
-  @Column('text', {unique: true, nullable: true})
+  @Column('text', { name: 'hw_id', unique: true, nullable: true})
   hwId: string;
 
-  @Column('text', {default : 'No comment'})
+  @Column('text', { name: 'description', default : 'No comment'})
   description:  string;
   
-  @Column('boolean', { default: true, nullable: false })
+  @Column('boolean', { name: 'is_active', default: true, nullable: false })
   isActive: boolean;
     
   // Relation with DeviceType
@@ -38,10 +38,10 @@ export class Device {
       eager: true
     }
   )
-  @JoinColumn({ name: 'deviceTypeId' })
+  @JoinColumn({ name: 'device_type_id' })
   deviceType: DeviceType;
 
-  @Column({ name: 'deviceTypeId' })
+  @Column({ name: 'device_type_id' })
   deviceTypeId: string;
 
   // Relation with DeviceArea
@@ -53,23 +53,23 @@ export class Device {
       eager: true
     }
   )
-  @JoinColumn({ name: 'deviceAreaId' })
+  @JoinColumn({ name: 'device_area_id' })
   deviceArea: DeviceArea;
 
-  @Column({ name: 'deviceAreaId' })
-  deviceAreaId: string;
+  @Column({ name: 'device_area_id' })
+  deviceAreaId: string;W
   
   // ##################################
   // Methods
   // ##################################
   @BeforeInsert()
+  @BeforeUpdate()
   checkNameBeforeInsert() {
     this.name = this.name.toLowerCase().trim();
+    const number = this.number.toString().padStart(3,'0');
+    const deviceArea = this.deviceArea.hwId.toLowerCase().trim();
+    const deviceType = this.deviceType.hwId.toLowerCase().trim();
+    this.hwId = `${deviceArea}${deviceType}${number}`;
   }
-
-  @BeforeUpdate()
-  checkNameBeforeUpdate() {
-    this.checkNameBeforeInsert();
-  }
-
+  
 }
