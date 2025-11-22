@@ -350,6 +350,16 @@
       "PATTERN" : "Input value does not match the required pattern.",
       "DEFAULT" : "Unhandled validation error."
     }
-  }
+  },
 
+  "SHARED" : {
+
+    "THEME_SERVICE" : {
+      "THEME" : {
+        "LIGHT" : "Light",
+        "DARK" : "Dark",
+        "HALLOWEEN" : "Halloween"
+      }
+    }
+  }
 }

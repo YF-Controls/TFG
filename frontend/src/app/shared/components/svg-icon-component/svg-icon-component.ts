@@ -7,6 +7,7 @@ export type SvgIconName =
   'add' | 'arrow-down' | 'arrow-left' | 'arrow-right' | 'arrow-up' |
   'book' | 'close' | 'content' | 'dashboard' | 'delete' | 'device' | 'edit' | 'email' | 
   'eye-hide' | 'eye-show' | 'folder' | 'house' | 'hw' | 'key' | 'lamp' | 'login' | 'logout' |
+  'theme-sun' | 'theme-moon' |
   'not-valid' | 'ok' | 'padlock' | 'user' | 'users';
 
 @Component({
@@ -134,6 +135,16 @@ export class SvgIconComponent {
       defaultClass: 'size-6 opacity-70'
     },
 
+    'theme-sun': {
+      path: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" /></svg>',
+      defaultClass: ''
+    },
+
+    'theme-moon': {
+      path : '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
+      defaultClass : ''
+    },
+    
     'ok': {
       path: '<svg xmlns="<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" /></svg>',
       defaultClass: 'size-6 opacity-70'

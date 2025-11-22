@@ -350,6 +350,16 @@
       "PATTERN" : "El valor ingresado no coincide con el patrón requerido.",
       "DEFAULT" : "Error de validación no manejado."
     }
-  }  
+  },
 
+  "SHARED" : {
+
+    "THEME_SERVICE" : {
+      "THEME" : {
+        "LIGHT" : "Claro",
+        "DARK" : "Oscuro",
+        "HALLOWEEN" : "Halloween"
+      }
+    }
+  }
 }

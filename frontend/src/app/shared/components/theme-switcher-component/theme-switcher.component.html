@@ -1,17 +1,18 @@
+<!-- Theme Switcher -->
 <div class="relative">
-  <!-- Language button -->
+  <!-- Button trigger -->
   <button 
-    type="button"
-    class="btn btn-primary btn-xs justify-between"
-    (click)="toggleDropdown()">
-    <!-- Text -->  
-    <span class="text-sm">
-      {{ isSidebarCollapsed() ? currentLanguage().code : currentLanguage().name }}
-    </span>
+    class="btn btn-ghost btn-circle"
+    (click)="toggleMenu()">
     <!-- Icon -->
-    <app-svg-icon name="arrow-down"/>
+    <span class="text-xl">
+      {{ this.themeService.currentTheme().icon }}
+    </span>
   </button>
-  
+   
+
+
+
   <!-- Dropdown menu -->
   @if (isOpen()) {
     <ul 
@@ -28,19 +29,21 @@
         border border-primary
         shadow-lg
         min-w-32">
-      <!-- Language list -->
-      @for (lang of languages; track lang.code) {
+      <!-- Theme list -->
+      @for (theme of this.themeService.availableThemes; track theme.code) {
         <li class="border-b border-primary pb-1 my-1">
           <!-- Button -->
-          <button 
+          <button
             type="button"
             class="flex items-center flex-2 justify-between gap-5"
-            [class.text-primary]="lang.code === languageService.currentLang()"
-            (click)="selectLanguage(lang)">
-            <!-- Text -->
-            <span class="text-xs">{{lang.name}}</span>
+            [class.active]="theme.code === themeService.currentTheme().code"
+            (click)="selectTheme(theme)">
             <!-- Icon -->
-            @if (lang.code === languageService.currentLang()) {
+            <span class="text-xs">
+              {{ theme.name + ' ' + theme.icon  }}
+            </span>
+            <!-- Icon -->
+            @if (theme.code === themeService.currentTheme().code) {
               <app-svg-icon name="ok"/>
             }
           </button>

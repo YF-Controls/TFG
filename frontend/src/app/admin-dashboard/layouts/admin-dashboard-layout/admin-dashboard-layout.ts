@@ -5,7 +5,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { ConfirmComponent, SvgIconComponent, SwitchLanguageComponent, SvgIconName } from '@shared/components';
+import { ConfirmComponent, SvgIconComponent, LanguageSwitcherComponent, ThemeSwitcherComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 import { AuthApi } from '@auth/services';
 import { User } from '@auth/interfaces';
@@ -16,7 +16,13 @@ import { LinkButtonComponent } from '../../components';
 @Component({
   standalone : true,
   selector: 'app-admin-dashboard-layout',
-  imports: [TranslateModule, RouterOutlet, LinkButtonComponent, CommonModule, SwitchLanguageComponent, SvgIconComponent],
+  imports: [TranslateModule, 
+            RouterOutlet,
+            LinkButtonComponent,
+            CommonModule,
+            LanguageSwitcherComponent,
+            SvgIconComponent,
+            ThemeSwitcherComponent],
   templateUrl: './admin-dashboard-layout.html',
 })
 export class AdminDashboardLayout implements OnInit {

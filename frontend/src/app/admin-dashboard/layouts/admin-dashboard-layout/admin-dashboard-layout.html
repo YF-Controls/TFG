@@ -68,10 +68,12 @@
       <!-- Divider -->
       <div class="divider my-0"></div>
       
-      <!-- Languge button -->
+      <!-- Option buttons -->
       <div class="flex flex-col items-center my-2">
-        <app-switch-language
-          [isSidebarCollapsed] = "isSidebarCollapsed()"/>
+        <!-- Theme toggle button -->
+        <app-theme-switcher/>
+        <!-- Language button -->
+        <app-language-switcher [isSidebarCollapsed] = "isSidebarCollapsed()"/>
       </div>
 
       <!-- Divider -->

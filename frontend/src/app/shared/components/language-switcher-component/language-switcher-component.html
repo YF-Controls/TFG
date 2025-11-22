@@ -1,0 +1,54 @@
+<!-- Language Switcher -->
+<div class="relative">
+  <!-- Button trigger -->
+  <button 
+    type="button"
+    class="flex-1 btn btn-primary btn-xs justify-between"
+    (click)="toggleMenu()">
+    <!-- Text -->  
+    <span class="text-sm">
+      {{ isSidebarCollapsed() ? this.languageService.currentLang().code  : this.languageService.currentLang().name }}
+    </span>
+    <!-- Icon -->
+    <app-svg-icon name="arrow-down"/>
+  </button>
+  
+  <!-- Dropdown menu -->
+  @if (isOpen()) {
+    <ul 
+      [ngClass]="{
+        'left-20': isSidebarCollapsed(),
+        'left-60': !isSidebarCollapsed(),
+      }"
+      class="
+        fixed z-50
+        top-16
+        mt-1 
+        bg-base-100 menu
+        rounded-lg
+        border border-primary
+        shadow-lg
+        min-w-32">
+      <!-- Language list -->
+      @for (lang of this.languageService.availableLanguages; track lang.code) {
+        <li class="border-b border-primary pb-1 my-1">
+          <!-- Button -->
+          <button 
+            type="button"
+            class="flex items-center flex-2 justify-between gap-5"
+            [class.text-primary]="lang.code === this.languageService.currentLang().code"
+            (click)="selectLanguage(lang)">
+            <!-- Text -->
+            <span class="text-xs">
+              {{lang.name}}
+            </span>
+            <!-- Icon -->
+            @if (lang.code === this.languageService.currentLang().code) {
+              <app-svg-icon name="ok"/>
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>
