@@ -16,7 +16,7 @@ import { EditUserComponent } from '../';
 @Component({
   standalone: true,
   selector: 'app-user-table',
-  imports: [NgClass, TranslateModule, SvgIconComponent],
+  imports: [TranslateModule, SvgIconComponent],
   templateUrl: './user-table-component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

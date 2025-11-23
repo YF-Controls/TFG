@@ -16,7 +16,7 @@ import { EditDeviceTypeComponent } from '..';
 @Component({
   standalone: true,
   selector: 'app-device-type-table',
-  imports: [NgClass, TranslateModule, SvgIconComponent],
+  imports: [TranslateModule, SvgIconComponent],
   templateUrl: './device-type-table-component.html',
 })
 export class DeviceTypeTableComponent { 

@@ -1,44 +1,46 @@
-
-<div class="flex flex-col max-w-md  justify-between bg-blue-200 p-5
-  text-black gap-2 border border-red-400">
-
-  <div class="border border-green-400 flex items-center">
-    <span class=" border border-red-600">texto largo uno</span>
-
+<!-- Header -->
+<header class="flex flex-2 gap-2 justify-between items-center">
+  <!-- Tile and Subtitle part -->
+  <div>
+    <!-- Title -->
+    <h1 class="text-2xl text-primary font-bold">
+      {{ 'ADMIN_DASHBOARD.ADMIN_DASHBOARD_PAGE.TITLE' | translate }}
+    </h1>
+    <!--  -->
+    <h2 class="text-lg text-primary/50">
+      {{ 'ADMIN_DASHBOARD.ADMIN_DASHBOARD_PAGE.SUBTITLE' | translate }}
+    </h2>
   </div>
+</header>
 
+<!-- Divider -->
+<div class="divider my-0"></div>
 
-  <div class="border border-green-400 flex flex-row items-center justify-between">
-    <span class=" border border-red-600 flex-1">2</span>
-    <span class=" border border-red-600 flex-1">6</span>
-  </div>
+<!-- Dashboard Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
+  
+  <!-- Users Chart -->
+  <app-doughnut-chart-component
+    translationBase="ADMIN_DASHBOARD.ADMIN_DASHBOARD_PAGE.USERS_CARD"
+    [total]="usersStats().total"
+    [actives]="usersStats().active"/>
+  
+  <!-- Devices Chart -->
+  <app-doughnut-chart-component
+    translationBase="ADMIN_DASHBOARD.ADMIN_DASHBOARD_PAGE.DEVICES_CARD"
+    [total]="devicesStats().total"
+    [actives]="devicesStats().active"/>
 
-  <!-- isActive field -->
-  <div class="flex flex-row border border-green-500">
-    
-      <div class="flex-1 items-start border border-white">
-        <!-- title -->
-        <span class="text-base text-primary">
-          textp 2
-        </span>
-      </div>
+  <!-- Device Types Chart -->
+  <app-doughnut-chart-component
+    translationBase="ADMIN_DASHBOARD.ADMIN_DASHBOARD_PAGE.DEVICE_TYPES_CARD"
+    [total]="deviceTypesStats().total"
+    [actives]="deviceTypesStats().active"/>
 
-      <div class="flex-1 border border-white">
-        <!-- Checkbox row -->
-        <label class="flex items-center gap-2 cursor-pointer">
-          <!-- Input -->
-          <input
-          class="checkbox bg-primary text-black"
-          type="checkbox"
-          name="isActive"
-          formControlName="isActive"/>
-          <!-- title -->
-          <span class="text-sm text-primary">
-            texto
-          </span>
+  <!-- Device Areas Chart -->
+  <app-doughnut-chart-component
+    translationBase="ADMIN_DASHBOARD.ADMIN_DASHBOARD_PAGE.DEVICE_AREAS_CARD"
+    [total]="deviceAreasStats().total"
+    [actives]="deviceAreasStats().active"/>
 
-        </label>
-      </div>
-
-  </div>
-
+</div>

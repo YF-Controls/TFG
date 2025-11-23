@@ -16,7 +16,7 @@ import { DeviceArea } from '@device-areas/interfaces';
 @Component({
   standalone: true,
   selector: 'app-device-area-table',
-  imports: [NgClass, TranslateModule, SvgIconComponent],
+  imports: [TranslateModule, SvgIconComponent],
   templateUrl: './device-area-table-component.html',
 })
 export class DeviceAreaTableComponent { 

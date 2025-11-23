@@ -187,3 +187,10 @@ npm i @angular/material
 cd frontend
 npm i @ngx-translate/core @ngx-translate/http-loader
 ```
+
+### Charts
+
+```shell
+cd frontend
+npm i chart.js
+```

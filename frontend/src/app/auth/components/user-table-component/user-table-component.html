@@ -31,12 +31,9 @@
         <tr>
           <!-- Col 1: Status -->
           <th>
-            <div class="flex justify-center">
-              <div 
-                class="badge bg-green-500"
-                [ngClass]="user.isActive ? 'bg-green-500' : 'bg-red-500'" >
-              </div>
-            </div>
+            <span class="flex justify-center">
+              {{ user.isActive ? '🟢' : '🟠' }}
+            </span>
           </th>
           <!-- Col 2: Name -->
           <td>

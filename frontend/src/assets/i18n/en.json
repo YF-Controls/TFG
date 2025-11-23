@@ -41,6 +41,39 @@
       }
     },
 
+    "ADMIN_DASHBOARD_PAGE" : {
+      "TITLE": "Administrative Dashboard",
+      "SUBTITLE" : "Overview of system statistics",
+
+      "USERS_CARD" : {
+        "TITLE" : "Users",
+        "ACTIVE" : "Active",
+        "INACTIVE" : "Inactive",
+        "TOTAL" : "Total"
+      },
+
+      "DEVICES_CARD" : {
+        "TITLE" : "Devices",
+        "ACTIVE" : "Active",
+        "INACTIVE" : "Inactive",
+        "TOTAL" : "Total"
+      },
+
+      "DEVICE_AREAS_CARD" : {
+        "TITLE" : "Device Areas",
+        "ACTIVE" : "Active",
+        "INACTIVE" : "Inactive",
+        "TOTAL" : "Total"
+      },
+      
+      "DEVICE_TYPES_CARD" : {
+        "TITLE" : "Device Types",
+        "ACTIVE" : "Active",
+        "INACTIVE" : "Inactive",
+        "TOTAL" : "Total"
+      }
+    },
+
     "DEVICES_ADMIN_PAGE" : {
       "TITLE": "Devices Management",
       "TOTAL" : "Total Devices: "

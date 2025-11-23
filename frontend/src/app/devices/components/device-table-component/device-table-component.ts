@@ -20,7 +20,7 @@ import { DeviceApi } from '@devices/services';
 @Component({
   standalone: true,
   selector: 'app-device-table',
-  imports: [NgClass, TranslateModule, SvgIconComponent],
+  imports: [TranslateModule, SvgIconComponent],
   templateUrl: './device-table-component.html',
 })
 export class DeviceTableComponent { 
