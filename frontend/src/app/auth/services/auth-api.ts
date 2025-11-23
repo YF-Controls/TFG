@@ -48,8 +48,8 @@ export class AuthApi {
   isAdmin = computed<boolean>(() => this._user()?.roles.includes(ValidRoles.admin) ?? false);
   isUser = computed<boolean>(() => this._user()?.roles.includes(ValidRoles.user) ?? false);
   
-  // Methods
-  // Http request POST
+  // CRUD Methods
+  // Create: POST
   registerUser(registerUserDto: RegisterUserDto): Observable<string | null> {
     
     return this.http.post<AuthResponse>(REGISTER_URL, registerUserDto, { withCredentials: true })
@@ -60,18 +60,9 @@ export class AuthApi {
   }
 
 
-  // Http request POST
-  loginUser(loginUserDto: LoginUserDto): Observable<string | null> {
-    
-    return this.http.post<AuthResponse>(LOGIN_URL, loginUserDto, { withCredentials: true })
-      .pipe(
-        map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
-        catchError((error: any) => this.handleAuthError(error)) // Return false
-      );
-  }
   
 
-  // Http request PATCH
+  // Update: PATCH
   updateUser(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
     return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto, { withCredentials: true })
       .pipe(
@@ -81,7 +72,7 @@ export class AuthApi {
   }
   
 
-  // Http request DELETE
+  // Delete: DELETE
   deleteUser(id: string): Observable<string | null> {
     return this.http.delete<void>(`${USERS_URL}/${id}`)
       .pipe(
@@ -91,14 +82,15 @@ export class AuthApi {
   }
 
 
-  // Http request GET
+  // Read: GET
   getUsers(queryParamsDto: QueryParamsDto): Observable<User[]> {
-    const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
-    return this.http.get<User[]>(USERS_URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<User[]>(USERS_URL, {params : params});
   }
   
 
-  // Http request GET
+  // Read: GET
   checkUser(): Observable<string | null> {
     // Token is now in HttpOnly cookie, sent automatically
     return this.http.get<AuthResponse>(CHECK_USER_URL, { withCredentials: true })
@@ -108,7 +100,17 @@ export class AuthApi {
       );
   }
   
-  // Http request POST
+
+  // Login: POST
+  loginUser(loginUserDto: LoginUserDto): Observable<string | null> {
+    return this.http.post<AuthResponse>(LOGIN_URL, loginUserDto, { withCredentials: true })
+      .pipe(
+        map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
+        catchError((error: any) => this.handleAuthError(error)) // Return false
+      );
+  }
+  
+  // Logout: POST
   logoutUser(): Observable<string | null> {
     return this.http.post<{ message: string }>(LOGOUT_URL, {}, { withCredentials: true })
       .pipe(

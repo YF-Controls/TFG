@@ -3,13 +3,15 @@ import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-// Ohter modules
+// Other modules
 import { LanguageService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
-import { DeviceTableComponent } from '@devices/components';
-import { Device } from '@devices/interfaces';
+import { CreateDeviceComponent, DeviceTableComponent } from '@devices/components';
 import { DeviceApi } from '@devices/services';
+import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceArea } from '@device-areas/interfaces';
+import { DeviceTypeApi } from '@device-types/services';
+import { Device } from '@devices/interfaces';
 import { DeviceType } from '@device-types/interfaces';
 
 
@@ -24,20 +26,25 @@ export class DevicesAdminPage {
   // Injections
   private languageService = inject(LanguageService);
   private dialog = inject(Dialog);
-  deviceApi = inject(DeviceApi);
-
-  devices = signal<Device[]>([]);
-  deviceAreas = signal<DeviceArea[]>([]);
-  deviceTypes = signal<DeviceType[]>([]);
-
+  private deviceApi = inject(DeviceApi);
+  private deviceAreaApi = inject(DeviceAreaApi);
+  private deviceTypeApi = inject(DeviceTypeApi);
+  
+  
   // Properties
-  devicesResource = rxResource<DeviceArea[], []>({
+  devicesResource = rxResource<Device[], []>({
     stream  : () => {return this.deviceApi.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'name'})},
+  });
+  deviceAreasResource = rxResource<DeviceArea[], []>({
+    stream  : () => {return this.deviceAreaApi.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'name'})},
+  });
+  deviceTypesResource = rxResource<DeviceType[], []>({
+    stream  : () => {return this.deviceTypeApi.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'name'})},
   });
 
   // Methods
   protected onAdd () {
-    /*
+     
     const dialogRef = this.dialog.open(CreateDeviceComponent, {
       disableClose: true,
     });
@@ -45,12 +52,12 @@ export class DevicesAdminPage {
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) this.onUpdateTable();
     });
-    */
-    console.error('!DELETE device-admin-page.ts onAdd() not implemented yet!');
   }
-  
+    
   protected onUpdateTable() {
     this.devicesResource.reload();
+    this.deviceAreasResource.reload();
+    this.deviceTypesResource.reload();
   }
 
 

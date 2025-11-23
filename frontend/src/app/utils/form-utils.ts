@@ -31,6 +31,8 @@ export class FormUtils {
   // Class methods
   static getErrorTextFromFormField(errors: ValidationErrors, languageService: LanguageService) {
     
+    console.log('!DELETE errors:', errors);
+
     for (const key of Object.keys(errors)) {
       switch (key) {
         
@@ -52,16 +54,20 @@ export class FormUtils {
 
         case 'min':
           return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MIN') +
-                 errors['min'].requiredMin;
-          
+                 errors['min'].min;
+
         case 'max':
           return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MAX') +
-                 errors['max'].requiredMax;
+                 errors['max'].max;
 
         case 'emailTaken':
           return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL_TAKEN');
+
         case 'noStrider':
           return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.NO_STRIDER');
+        
+        case 'isInteger':
+          return languageService.getTranslation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.IS_INTEGER');
           
         case 'pattern':
           if (errors['pattern'].requiredPattern === FormUtils.emailPattern) {
@@ -138,8 +144,22 @@ export class FormUtils {
   */
 
   static notStrider(control: AbstractControl): ValidationErrors | null {
+    // Get value
     const value = control.value;
-
+    // Return check
     return value === 'strider' ? { noStrider: true } : null;
+  }
+
+  static isInteger(control: AbstractControl): ValidationErrors | null {
+    // Get value
+    const value = control.value;
+    // Exists?
+    if (value === null || value === '' || value === undefined) return null;
+    // Convert
+    const numValue = Number(value);
+    // Check
+    if (isNaN(numValue) || !Number.isInteger(numValue)) return { isInteger: true };
+    // Return default
+    return null;
   }
 }

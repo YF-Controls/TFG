@@ -23,13 +23,9 @@ export class DeviceTypeApi {
 
   // HTTP request GET
   getAll(queryParamsDto: QueryParamsDto) : Observable<DeviceType[]> {
-    
-    const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
-    
-    return this.http.get<DeviceType[]>(URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
-      //.pipe(
-      //  tap((deviceTypes) => console.log('!DELETE device-Types.service.ts Fetched device Types:', {deviceTypes}))
-      //);
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<DeviceType[]>(URL, {params : params});
   }
 
   // HTTP request POST

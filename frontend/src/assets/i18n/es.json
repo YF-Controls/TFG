@@ -286,7 +286,9 @@
         "NUMBER_PLACEHOLDER" : "Número...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
         "STATUS_LABEL" : "Estado",
-        "IS_ACTIVE_LABEL" : "Activo"
+        "IS_ACTIVE_LABEL" : "Activo",
+        "DEVICE_TYPE_PLACEHOLDER" : "Seleccione tipo de dispositivo...",
+        "DEVICE_AREA_PLACEHOLDER" : "Seleccione área de dispositivo..."
       },
 
       "TOAST" : {
@@ -304,7 +306,9 @@
         "NUMBER_PLACEHOLDER" : "Número...",
         "DESCRIPTION_PLACEHOLDER" : "Descripción...",
         "STATUS_LABEL" : "Estado",
-        "IS_ACTIVE_LABEL" : "Activo"
+        "IS_ACTIVE_LABEL" : "Activo",
+        "DEVICE_TYPE_PLACEHOLDER" : "Seleccione tipo de dispositivo...",
+        "DEVICE_AREA_PLACEHOLDER" : "Seleccione área de dispositivo..."
       },
 
       "TOAST" : {
@@ -337,11 +341,12 @@
   
   "UTILS" : {
     "GET_ERROR_TEXT_FROM_FORM_FIELD" : {
-      "CHRARACTERS" : " caraters.",
+      "CHRARACTERS" : " caracteres.",
       "REQUIRED" : "Campo requerido.",
       "EMAIL" : "Correo electrónico no válido.",
       "MIN_LENGTH" : "La longitud mínima es ",
       "MAX_LENGTH" : "La longitud máxima es ",
+      "IS_INTEGER"  : "El valor debe ser un número entero.",
       "MIN" : "El valor mínimo es ",
       "MAX" : "El valor máximo es ",
       "EMAIL_TAKEN" : "El correo electrónico ya está en uso.",

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
-// OtHer modules
+// Other modules
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 import { DeviceTypeApi } from '@device-types/services';
@@ -40,8 +40,8 @@ export class CreateDeviceTypeComponent {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       
-      const message = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
+      const message = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.FORM_ERROR');
+      const action = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -82,7 +82,7 @@ export class CreateDeviceTypeComponent {
         this.dialogRef?.close(true);
     });
   }
-
+  
   protected onCancel() {
     this.dialogRef?.close(false);
   }

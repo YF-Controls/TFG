@@ -6,7 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export type SvgIconName =
   'add' | 'arrow-down' | 'arrow-left' | 'arrow-right' | 'arrow-up' |
   'book' | 'close' | 'content' | 'dashboard' | 'delete' | 'device' | 'edit' | 'email' | 
-  'eye-hide' | 'eye-show' | 'folder' | 'house' | 'hw' | 'key' | 'lamp' | 'login' | 'logout' |
+  'eye-hide' | 'eye-show' | 'folder' | 'hash' | 'house' | 'hw' | 'key' | 'lamp' | 'login' | 'logout' |
   'theme-sun' | 'theme-moon' |
   'not-valid' | 'ok' | 'padlock' | 'user' | 'users';
 
@@ -105,6 +105,11 @@ export class SvgIconComponent {
       defaultClass : 'size-6'
     },
 
+    'hash': {
+      path : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.097 1.515a.75.75 0 0 1 .589.882L10.666 7.5h4.47l1.079-5.397a.75.75 0 1 1 1.47.294L16.665 7.5h3.585a.75.75 0 0 1 0 1.5h-3.885l-1.2 6h3.585a.75.75 0 0 1 0 1.5h-3.885l-1.08 5.397a.75.75 0 1 1-1.47-.294l1.02-5.103h-4.47l-1.08 5.397a.75.75 0 1 1-1.47-.294l1.02-5.103H3.75a.75.75 0 0 1 0-1.5h3.885l1.2-6H5.25a.75.75 0 0 1 0-1.5h3.885l1.08-5.397a.75.75 0 0 1 .882-.588ZM10.365 9l-1.2 6h4.47l1.2-6h-4.47Z" clip-rule="evenodd" /></svg>',
+      defaultClass : 'size-6 opacity-70'
+    },
+    
     'house': {
       path : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.006 3.705a.75.75 0 1 0-.512-1.41L6 6.838V3a.75.75 0 0 0-.75-.75h-1.5A.75.75 0 0 0 3 3v4.93l-1.006.365a.75.75 0 0 0 .512 1.41l16.5-6Z" /><path fill-rule="evenodd" d="M3.019 11.114 18 5.667v3.421l4.006 1.457a.75.75 0 1 1-.512 1.41l-.494-.18v8.475h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3v-9.129l.019-.007ZM18 20.25v-9.566l1.5.546v9.02H18Zm-9-6a.75.75 0 0 0-.75.75v4.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75H9Z" clip-rule="evenodd" /></svg>      ',
       defaultClass : 'size-6 opacity-70'

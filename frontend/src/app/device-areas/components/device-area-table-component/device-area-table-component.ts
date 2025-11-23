@@ -1,16 +1,16 @@
 // System
 import { Component, inject, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
+import { Dialog } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 // This module
-import { DeviceAreaApi } from '../../services';
-import { DeviceArea } from '../../interfaces';
-import { EditDeviceAreaComponent } from '../';
+import { EditDeviceAreaComponent } from '@device-areas/components';
+import { DeviceAreaApi } from '@device-areas/services';
+import { DeviceArea } from '@device-areas/interfaces';
 
 
 @Component({

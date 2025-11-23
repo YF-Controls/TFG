@@ -1,6 +1,6 @@
 // System
 import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-// Ohter modules
+// Other modules
 import { DeviceArea } from "@device-areas/entities";
 import { DeviceType } from "@device-types/entities";
 
@@ -14,7 +14,7 @@ export class Device {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text', { name: 'name', unique : true, nullable: false})
+  @Column('text', { name: 'name', unique : false, nullable: false})
   name: string;
   
   @Column('numeric', { name: 'number', unique: true, nullable: true})
@@ -64,12 +64,8 @@ export class Device {
   // ##################################
   @BeforeInsert()
   @BeforeUpdate()
-  checkNameBeforeInsert() {
+  checkBeforeTo() {
     this.name = this.name.toLowerCase().trim();
-    const number = this.number.toString().padStart(3,'0');
-    const deviceArea = this.deviceArea.hwId.toLowerCase().trim();
-    const deviceType = this.deviceType.hwId.toLowerCase().trim();
-    this.hwId = `${deviceArea}${deviceType}${number}`;
   }
   
 }

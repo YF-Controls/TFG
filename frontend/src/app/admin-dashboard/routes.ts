@@ -1,6 +1,6 @@
 // System
 import { Routes } from "@angular/router";
-// Ohter modules
+// Other modules
 import { IsAdminGuard } from "@auth/guards";
 // This module
 import { AdminDashboardLayout } from "./layouts";

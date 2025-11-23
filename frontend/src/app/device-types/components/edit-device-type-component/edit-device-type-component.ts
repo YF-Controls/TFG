@@ -5,7 +5,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
-// OtHer modules
+// Other modules
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 import { DeviceTypeApi } from '@device-types/services';

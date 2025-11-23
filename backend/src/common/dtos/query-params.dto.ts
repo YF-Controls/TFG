@@ -18,7 +18,7 @@ export class QueryParamsDto {
 
   @IsOptional()
   @Type( () => Boolean )
-  withInactives?: boolean;
+  withInactives?: boolean = false;
   
   @IsOptional()
   @Type( () => String ) 

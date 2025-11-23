@@ -5,7 +5,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
-// OtHer modules
+// Other modules
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
@@ -26,7 +26,6 @@ export class EditDeviceAreaComponent implements OnInit {
   private dialogData = inject(DIALOG_DATA);
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
-
   private fb = inject(FormBuilder);
   private deviceAreaApi = inject(DeviceAreaApi);
   

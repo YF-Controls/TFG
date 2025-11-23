@@ -1,7 +1,7 @@
 // System
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// Ohter modules
+// Other modules
 import { AuthModule } from '@auth/auth.module';
 // This module
 import { DeviceArea } from './entities';

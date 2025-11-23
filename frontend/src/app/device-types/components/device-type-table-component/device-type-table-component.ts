@@ -59,7 +59,7 @@ export class DeviceTypeTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageSerivce.getTranslation('DceTypeS.DceType_TABLE.TOAST.CLOSE');
+            const action = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],

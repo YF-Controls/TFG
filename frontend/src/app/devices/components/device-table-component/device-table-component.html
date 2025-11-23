@@ -23,7 +23,7 @@
         <!-- col 5 -->
         <th class="text-white font-bold">
           Area
-        </th>
+        </th> 
         <!-- col 6 -->
         <th class="text-white font-bold">
           Description
@@ -55,17 +55,16 @@
           <td>
             <div class="flex items-center gap-3">
               <div class="">
-                {{ device.nr }}
+                {{ device.number }}
               </div>
             </div>
           </td>
           
           <!-- Col 3: Name -->
           <td>
-            <div class="flex items-center gap-3">
-              <div class="font-bold">
-                {{ device.name }}
-              </div>
+            <div class="flex flex-col items-start">
+              <div class="font-bold">{{ device.name }}</div>
+              <div class="text-sm italic opacity-50">{{ device.hwId }}</div>
             </div>
           </td>
           
@@ -97,16 +96,22 @@
 
           <!-- Col 7: Details button -->
           <th>
-            <a 
-              [routerLink]="['/devices', device.id]"
-              class="btn btn-ghost text-accent btn-xs">
-              <button>
-                <app-svg-icon name="edit"/>
+            <div class="flex justify-end gap-1">
+              <!-- Edit button-->
+              <button
+                class="btn btn-xs btn-primary py-3.5"
+                (click)="onUpdateOne(device)">
+                <!--edit icon-->
+                <app-svg-icon name="edit" />
               </button>
-              <button>
+              <!-- Delete button -->
+              <button 
+                class="btn btn-xs btn-primary py-3.5"
+                (click)="onDeleteOne(device)">
+                <!--delete icon-->
                 <app-svg-icon name="delete" />
               </button>
-            </a>
+            </div>
             
           </th>
           

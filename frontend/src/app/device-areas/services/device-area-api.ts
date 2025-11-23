@@ -22,12 +22,11 @@ export class DeviceAreaApi {
   
   // HTTP request GET
   getAll(queryParamsDto: QueryParamsDto) : Observable<DeviceArea[]> {
-    // Get query parameters
-    const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
-    // HTTP request
-    return this.http.get<DeviceArea[]>(URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<DeviceArea[]>(URL, {params : params});
   }
-
+  
   // HTTP request POST
   create(deviceArea: CreateDeviceAreaDto) : Observable<string | null> {
 

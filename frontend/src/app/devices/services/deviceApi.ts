@@ -20,15 +20,8 @@ export class DeviceApi {
   // Injections
   private http = inject(HttpClient);
 
-  // HTTP request GET
-  getAll(queryParamsDto: QueryParamsDto): Observable<Device[]> {
-    // Get query parameters
-    const {limit = 10, offset = 0, withInactives = false, orderBy = 'id', orderDirection = OrderDirection.ASC} = queryParamsDto;
-    // HTTP request
-    return this.http.get<Device[]>(URL, {params : {limit, offset, withInactives, orderBy, orderDirection}});
-  }
-
-  // HTTP request POST
+  // CRUD Methods
+  // Create: POST
   create(device: CreateDeviceDto) : Observable<string | null> {
 
     return this.http.post<Device>(URL, device)
@@ -37,10 +30,16 @@ export class DeviceApi {
         catchError((error: HttpErrorResponse) => of(error.error.message || 'Error creating device'))
       );
   }
-
-  // HTTP request PATCH
+  
+  //Read: GET
+  getAll(queryParamsDto: QueryParamsDto): Observable<Device[]> {
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<Device[]>(URL, {params : params});
+  }
+  
+  // Update: PATCH
   update(id: string, device: UpdateDeviceDto) : Observable<string | null> {
-    
     return this.http.patch<Device>(`${URL}/${id}`, device)
       .pipe(
         map((resp: Device) => null),
@@ -48,9 +47,8 @@ export class DeviceApi {
       );
   }
 
-  // HTTP request DELETE
+  // Delete: DELETE
   delete(id: string) : Observable<string | null> {
-
     return this.http.delete<any>(`${URL}/${id}`)
       .pipe(
         map((data) => null),

@@ -2,7 +2,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// Ohter modules
+// Other modules
 import { AuthModule } from '@auth/auth.module';
 import { DevicesModule } from '@devices/devices.module';
 import { CommonModule } from '@common/common.module';

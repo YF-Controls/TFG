@@ -283,10 +283,12 @@
       
       "FORM" : {
         "NAME_PLACEHOLDER" : "Name...",
-        "NUMBER_PLACEHOLDER" : "NNumber...",
+        "NUMBER_PLACEHOLDER" : "Number...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
         "STATUS_LABEL" : "Status",
-        "IS_ACTIVE_LABEL" : "Active"
+        "IS_ACTIVE_LABEL" : "Active",
+        "DEVICE_TYPE_PLACEHOLDER" : "Select device type...",
+        "DEVICE_AREA_PLACEHOLDER" : "Select device area..."
       },
 
       "TOAST" : {
@@ -304,7 +306,9 @@
         "NUMBER_PLACEHOLDER" : "Number...",
         "DESCRIPTION_PLACEHOLDER" : "Description...",
         "STATUS_LABEL" : "Status",
-        "IS_ACTIVE_LABEL" : "Active"
+        "IS_ACTIVE_LABEL" : "Active",
+        "DEVICE_TYPE_PLACEHOLDER" : "Select device type...",
+        "DEVICE_AREA_PLACEHOLDER" : "Select device area..."
       },
 
       "TOAST" : {
@@ -342,6 +346,7 @@
       "EMAIL" : "Not a valid email.",
       "MIN_LENGTH" : "Minimum length is ",
       "MAX_LENGTH" : "Maximum length is ",
+      "IS_INTEGER"  : "The value must be an integer.",
       "MIN" : "Minimum value is ",
       "MAX" : "Maximum value is ",
       "EMAIL_TAKEN" : "Email is used already in the system.",

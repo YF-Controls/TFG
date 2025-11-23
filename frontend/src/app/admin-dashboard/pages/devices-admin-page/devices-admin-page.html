@@ -28,6 +28,7 @@
 
 <!-- Table -->
 <app-device-table
-  [devices]="devices()"
-  [deviceTypes]="deviceTypes()"
-  [deviceAreas]="deviceAreas()"/>
+  [devices]="devicesResource.value() ?? []"
+  [deviceTypes]="deviceTypesResource.value() ?? []"
+  [deviceAreas]="deviceAreasResource.value() ?? []"
+  (updateTable)="onUpdateTable()"/>

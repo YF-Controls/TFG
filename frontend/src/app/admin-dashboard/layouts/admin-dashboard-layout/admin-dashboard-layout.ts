@@ -35,7 +35,7 @@ export class AdminDashboardLayout implements OnInit {
 
   // Properties
   user = computed<User | null>(this.authApi.user);
-  isSidebarCollapsed = signal<boolean>(true);
+  isSidebarCollapsed = signal<boolean>(false);
   
 
   // Lifecycle

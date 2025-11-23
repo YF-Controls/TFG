@@ -1,8 +1,9 @@
 export interface CreateDeviceDto {
   name: string;
-  nr: number;
+  number: number;
   description : string;
-
+  isActive: boolean;
+  
   deviceTypeId: string;
   deviceAreaId: string;
 

@@ -2,7 +2,7 @@
 export interface DeviceResponseDto {
   id: string;
   name: string;
-  nr: number;
+  number: number;
   hwId: string;
   description: string;
   isActive: boolean;
