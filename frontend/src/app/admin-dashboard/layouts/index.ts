@@ -1,1 +1,1 @@
-export { AdminDashboardLayout } from "./admin-dashboard-layout/admin-dashboard-layout";
+export * from "./admin-dashboard-layout/admin-dashboard-layout";

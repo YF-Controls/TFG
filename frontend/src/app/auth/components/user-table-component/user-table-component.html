@@ -1,26 +1,22 @@
 <div class=app-table-container>
   <!-- Table -->
-  <table class="table">
+  <table class="app-table">
     <!-- Header -->
     <thead>
       <tr>
         <!-- col 1: Status -->
-        <th class="text-xs md:text-sm font-normal md:font-bold text-white text-center">
+        <th class="app-table-field-header text-center">
           {{ 'AUTH.USER_TABLE.TABLE.HEADER.STATUS' | translate }}
         </th>
         <!-- col 2: Name -->
-        <th class="text-xs md:text-sm font-normal md:font-bold text-white">
+        <th class="app-table-field-header">
           {{ 'AUTH.USER_TABLE.TABLE.HEADER.NAME' | translate }}
         </th>
-        <!-- col 3: Email -->
-        <th class="text-xs md:text-sm font-normal md:font-bold text-white hidden md:visible">
-          {{ 'AUTH.USER_TABLE.TABLE.HEADER.EMAIL' | translate }}
-        </th>
-        <!-- COL 4: Roles -->
-        <th class="text-xs md:text-sm font-normal md:font-bold text-white">
+        <!-- col 3: Roles -->
+        <th class="app-table-field-header">
           {{ 'AUTH.USER_TABLE.TABLE.HEADER.ROLES' | translate }}
         </th>
-        <!-- col 5: Edit and delete buttons -->
+        <!-- col 4: Edit and delete buttons -->
         <!-- empty -->
       </tr>
     </thead>
@@ -31,39 +27,31 @@
         <tr>
           <!-- Col 1: Status -->
           <th>
-            <span class="flex justify-center">
+            <span class="app-table-field-status">
               {{ user.isActive ? '🟢' : '🟠' }}
             </span>
           </th>
           <!-- Col 2: Name -->
           <td>
-            <div class="flex flex-col items-start">
-              <div class=" text-xs md:text-sm">{{ user.fullname }}</div>
-            </div>
-            <div class="visible md:hidden flex flex-col items-start">
-              <div class=" text-xs md:text-sm font-normal italic text-primary/50">{{ user.email }}</div>
+            <div class="app-table-field-left">
+              <span class="app-table-field-text">{{ user.fullname }}</span>
+              <span class="app-table-field-text italic text-primary/50">{{ user.email }}</span>
             </div>
           </td>
-          <!-- Col 3: Email -->
-          <td class="hidden md:block">
-            <div class="flex flex-col items-start">
-              <div class=" text-xs md:text-sm font-normal">{{ user.email }}</div>
-            </div>
-          </td>
-          <!-- Col 4: Roles -->
+          <!-- Col 3: Roles -->
           <td>
-            <div class="flex justify-start gap-1 flex-wrap">
+            <div class="app-table-field-roles">
               @for (role of user.roles; track $index) {
-                <span class="btn btn-xs btn-secondary italic">{{ role }}</span>
+                <span class="app-table-field-role-text">{{ role }}</span>
               }
             </div>
           </td>
           <!-- Col 4: Edit and delete buttons -->
           <th>
-            <div class="flex justify-end gap-1">
+            <div class="app-table-field-buttons">
               <!-- Edit button-->
               <button
-                class="btn btn-xs btn-primary py-3.5"
+                class="app-table-field-buttons-button"
                 (click)="onUpdateOne(user)">
                 <!--edit icon-->
                 <app-svg-icon name="edit"/>
@@ -71,7 +59,7 @@
               <!-- Delete button -->
               <button 
                 [disabled]="user.id === currentUserId"
-                class="btn btn-xs btn-primary py-3.5"
+                class="app-table-field-buttons-button"
                 (click)="onDeleteOne(user)">
                 <!--delete icon-->
                 <app-svg-icon name="delete"/>
@@ -84,14 +72,11 @@
       
       } 
       @empty {
-        <span>
+        <span class="text-secondary">
           {{ 'AUTH.USER_TABLE.TABLE.NO_DATA' | translate }}
         </span>
       }
       
     </tbody>
-
   </table>
 </div>
-
-

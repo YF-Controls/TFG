@@ -1,8 +1,6 @@
 <!-- All screen -->
 <div 
-  class="bg-base-100 overflow-y-scroll w-screen h-screen
-    antialiased text-slate-300 selection:bg-blue-600
-    selection:text-white">
+  class="overflow-y-scroll w-screen h-screen antialiased">
 
 
   <!-- Left side menu position -->
@@ -15,8 +13,9 @@
         'w-60': !isSidebarCollapsed(),
         'w-20': isSidebarCollapsed(),
       }"
-      class="bg-base-300 min-h-screen z-30
-      text-slate-300 fixed left-0 h-screen overflow-y-scroll transition-all duration-300">
+      class="bg-base-300
+        min-h-screen z-30
+        fixed left-0 h-screen overflow-y-scroll transition-all duration-300">
       
       <!-- Title, subtitle -->
       <div
@@ -25,43 +24,22 @@
           'px-0': isSidebarCollapsed(),
           'px-6': !isSidebarCollapsed()
         }">
-        
-        <!-- Collapsed: Only title -->
-        @if (isSidebarCollapsed()) {
-          <!-- Title-->
-          <h1 
-            class="text-lg md:text-2xl
-              font-bold gap-2
-              flex
-              items-center justify-center
-              transition-opacity duration-300">
-            <span class="text-white">H</span>
-            <span class="text-primary">A</span>
-          </h1>
-          <!-- Subtitle -->
-          <p 
-            class="text-transparent text-sm transition-opacity duration-300">
-            ...
-          </p>
-        }
-        <!-- Not Collapsed: Title and subtitle  -->
-        @else {
-          <!-- Title -->
-          <h1 
-            class="text-lg md:text-2xl
-              font-bold
-              flex gap-2
-              transition-opacity duration-300">
-
-            <span class="text-white">Home</span>
-            <span class="text-primary">Assistant</span>
-          </h1>
-          <!-- Subtitle -->
-          <p 
-            class="text-slate-500 text-sm transition-opacity duration-300">
-            {{ 'ADMIN_DASHBOARD.LAYOUT.SUBTITLE' | translate }}
-          </p>
-        }
+        <!-- Title-->
+        <h1 
+          class="text-lg md:text-2xl
+            font-bold gap-2
+            flex
+            items-center justify-center
+            transition-opacity duration-300">
+          <span class="text-base-content">{{ isSidebarCollapsed() ? 'H' : 'Home' }}</span>
+          <span class="text-primary">{{ isSidebarCollapsed() ? 'A' : 'Assistant' }}</span>
+        </h1>
+        <!-- Subtitle -->
+        <p 
+          [ngClass]="{'text-primary/70' : !isSidebarCollapsed(), 'text-transparent' : isSidebarCollapsed()}"
+          class="text-sm transition-opacity duration-300">
+          {{ isSidebarCollapsed() ? '...' : 'ADMIN_DASHBOARD.LAYOUT.SUBTITLE' | translate }}
+        </p>
         
       </div>
       
@@ -93,8 +71,9 @@
           <!-- Full name -->
           <div 
             id ="profile-initials"
-            class="mask mask-circle bg-primary
-            text-black font-bold text-lg
+            class="bg-primary text-primary-content
+            mask mask-circle
+            font-bold text-lg
             w-14 h-14 transition-opacity duration-300 
             flex items-center justify-center
             whitespace-nowrap mx-auto">
@@ -102,15 +81,14 @@
           </div>
         }
         @else  {
-          <p 
-            class="text-slate-500 transition-opacity duration-300">
-            {{ 'ADMIN_DASHBOARD.LAYOUT.WELCOME' | translate }},
+          <p class="text-primary/70 transition-opacity duration-300">
+            {{ 'ADMIN_DASHBOARD.LAYOUT.WELCOME' | translate }}
           </p>
 
           <!-- Full name -->
           <div class="inline-flex space-x-2 items-center">
             <span 
-              class="text-sm md:text-base font-bold text-primary transition-opacity duration-300">
+              class=" text-primary text-sm md:text-base font-bold transition-opacity duration-300">
               {{ user()?.fullname || '???' }}
             </span>
           </div>
@@ -189,7 +167,7 @@
       <button
         (click)="toggleSidebar()"
         class="flex fixed top-1/5 -translate-y-1/2 z-40 
-               bg-primary text-black  py-10 rounded-r-lg shadow-lg
+               bg-primary text-primary-content  py-10 rounded-r-lg shadow-lg
                hover:bg-primary/80 transition-all duration-300
                items-center justify-center"
         [ngClass]="{

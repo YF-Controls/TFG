@@ -1,5 +1,44 @@
-
 .app-table-container {
-  @apply
-    overflow-x-auto; /* w-full;*/
+  @apply overflow-x-auto; /* w-full;*/
+}
+
+.app-table {
+  @apply table;
+}
+
+.app-table-field-header {
+  @apply text-xs md:text-sm font-normal md:font-bold text-primary ;
+}
+
+.app-table-field-status {
+  @apply flex justify-center items-center;
+}
+
+.app-table-field-left {
+  @apply flex flex-col items-start;
+}
+
+.app-table-field-text {
+  @apply text-xs md:text-sm;
+}
+
+
+.app-table-field-roles {
+  @apply flex justify-start gap-1 flex-wrap;
+}
+
+.app-table-field-role-text {
+  @apply btn btn-xs btn-secondary italic;
+}
+
+.app-table-field-buttons {
+  @apply flex justify-end gap-2;
+}
+
+.app-table-field-buttons-button {
+  @apply btn btn-xs btn-primary py-3.5;
+}
+
+.app-dummy {
+  @apply btn btn-primary;
 }

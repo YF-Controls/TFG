@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, halloween;
+  themes: corporate --default, dark --prefersdark, halloween;
 }
 
-
+@import "./styles/app-page.css";
 @import "./styles/app-popup.css";
 @import "./styles/app-form.css";
 @import "./styles/app-table.css";

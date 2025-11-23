@@ -23,56 +23,6 @@
       [formGroup]="form"
       (ngSubmit) = "onSubmit()">
 
-      <!-- Name field  -->
-      <div class="app-form-field-input">
-        <label class="input">
-          <!-- Icon -->
-          <app-svg-icon name="device"/>
-          <!--Input -->
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="{{ 'DEVICES.CREATE_DEVICE.FORM.NAME_PLACEHOLDER' | translate }}"
-            formControlName="name"/>
-        </label>
-      </div>
-      <app-form-field-error  [control]="form.controls['name']" />
-
-      <!-- number field  -->
-      <div class="app-form-field-input">
-        <label class="input">
-          <!-- Icon -->
-          <app-svg-icon name="hash"/>
-          <!-- Input -->
-          <input
-            type="number"
-            id="number"
-            name="number"
-            placeholder="{{ 'DEVICES.CREATE_DEVICE.FORM.NUMBER_PLACEHOLDER' | translate }}"
-            formControlName="number"/>
-        </label>
-      </div>
-      <app-form-field-error  [control]="form.controls['number']" />
-
-      <!-- description field -->
-      <div class="app-form-field-input">
-        <label class="textarea flex ">
-          <!-- Icon -->
-          <app-svg-icon name="book"/>
-          <!-- Input -->
-          <textarea
-            id="description"
-            name="description"
-            placeholder="{{'DEVICES.CREATE_DEVICE.FORM.DESCRIPTION_PLACEHOLDER' | translate}}"
-            rows="3"
-            class="grow resize-none pl-1"
-            formControlName="description">
-          </textarea>
-        </label>
-      </div>
-      <app-form-field-error [control]="form.controls['description']" />
-
       <!-- deviceArea field -->
       <div class="app-form-field-input">
         <label class="select">
@@ -123,6 +73,56 @@
       </div>
       <app-form-field-error [control]="form.controls['deviceTypeId']" />
       
+      <!-- Name field  -->
+      <div class="app-form-field-input">
+        <label class="input">
+          <!-- Icon -->
+          <app-svg-icon name="device"/>
+          <!--Input -->
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="{{ 'DEVICES.CREATE_DEVICE.FORM.NAME_PLACEHOLDER' | translate }}"
+            formControlName="name"/>
+        </label>
+      </div>
+      <app-form-field-error  [control]="form.controls['name']" />
+
+      <!-- number field  -->
+      <div class="app-form-field-input">
+        <label class="input">
+          <!-- Icon -->
+          <app-svg-icon name="hash"/>
+          <!-- Input -->
+          <input
+            type="number"
+            id="number"
+            name="number"
+            placeholder="{{ 'DEVICES.CREATE_DEVICE.FORM.NUMBER_PLACEHOLDER' | translate }}"
+            formControlName="number"/>
+        </label>
+      </div>
+      <app-form-field-error  [control]="form.controls['number']" />
+
+      <!-- description field -->
+      <div class="app-form-field-input">
+        <label class="textarea flex ">
+          <!-- Icon -->
+          <app-svg-icon name="book"/>
+          <!-- Input -->
+          <textarea
+            id="description"
+            name="description"
+            placeholder="{{'DEVICES.CREATE_DEVICE.FORM.DESCRIPTION_PLACEHOLDER' | translate}}"
+            rows="3"
+            class="grow resize-none pl-1"
+            formControlName="description">
+          </textarea>
+        </label>
+      </div>
+      <app-form-field-error [control]="form.controls['description']" />
+
       <!-- isActive field -->
       <div class="app-form-field-checkbox">
         <!-- title -->

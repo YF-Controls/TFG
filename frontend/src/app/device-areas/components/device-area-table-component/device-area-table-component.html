@@ -1,19 +1,19 @@
 <div class=app-table-container>
   <!-- Table -->
-  <table class="table">
+  <table class="app-table">
     <!-- Header -->
     <thead>
       <tr>
         <!-- col 1: Status -->
-        <th class="text-white font-bold text-center">
+        <th class="app-table-field-header text-center">
           {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.HEADER.STATUS' | translate }}
         </th>
         <!-- col 2: Name -->
-        <th class="text-white font-bold">
+        <th class="app-table-field-header">
           {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.HEADER.NAME' | translate }}
         </th>
         <!-- col 3: Description -->
-        <th class="hidden md:block text-white font-bold">
+        <th class="app-table-field-header">
           {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.HEADER.DESCRIPTION' | translate }}
         </th>
         <!-- col 4: Edit and delete buttons -->
@@ -27,38 +27,38 @@
         <tr>
           <!-- Col 1: Status -->
           <th>
-            <span class="flex justify-center">
+            <span class="app-table-field-status">
               {{ deviceArea.isActive ? '🟢' : '🟠' }}
             </span>
           </th>
           <!-- Col 2: Name -->
           <td>
-            <div class="flex flex-col items-start">
-              <div class="font-bold">{{ deviceArea.name }}</div>
-              <div class="text-sm italic opacity-50">{{ deviceArea.hwId }}</div>
+            <div class="app-table-field-left">
+              <div class="app-table-field-text">{{ deviceArea.name }}</div>
+              <div class="app-table-field-text italic text-primary/50">{{ deviceArea.hwId }}</div>
             </div>
           </td>
           <!-- Col 3: Description -->
-          <td class="hidden md:block">
-            <div class="flex items-center">
-              <span class="text-sm italic opacity-50">
+          <td>
+            <div class="app-table-field-left">
+              <span class="app-table-field-text text-primary/50">
                 {{ deviceArea.description }}
               </span>
             </div>
           </td>
           <!-- Col 4: Edit and delete buttons -->
           <th>
-            <div class="flex justify-end gap-1">
+            <div class="app-table-field-buttons">
               <!-- Edit button-->
               <button
-                class="btn btn-xs btn-primary py-3.5"
+                class="app-table-field-buttons-button"
                 (click)="onUpdateOne(deviceArea)">
                 <!--edit icon-->
                 <app-svg-icon name="edit" />
               </button>
               <!-- Delete button -->
               <button 
-                class="btn btn-xs btn-primary py-3.5"
+                class="app-table-field-buttons-button"
                 (click)="onDeleteOne(deviceArea)">
                 <!--delete icon-->
                 <app-svg-icon name="delete" />
@@ -70,14 +70,11 @@
       
       } 
       @empty {
-        <span>
+        <span class="text-secondary">
           {{ 'DEVICE_AREAS.DEVICE_AREA_TABLE.TABLE.NO_DATA' | translate }}
         </span>
       }
       
     </tbody>
-
   </table>
 </div>
-
-

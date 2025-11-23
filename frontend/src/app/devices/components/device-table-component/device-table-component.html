@@ -1,31 +1,31 @@
 <div class=app-table-container>
-  <table class="table">
+  <table class="app-table">
 
     <!-- Header -->
     <thead>
       <tr>
         <!-- col 1 -->
-        <th class="text-white font-bold">
+        <th class="app-table-field-header text-center">
           Status
         </th>
         <!-- col 2 -->
-        <th class="text-white font-bold">
+        <th class="app-table-field-header text-center">
           Number
         </th>
         <!-- col 3 -->
-        <th class="text-white font-bold">
+        <th class="app-table-field-header">
           Name
         </th>
         <!-- col 4 -->
-        <th class="text-white font-bold">
+        <th class="app-table-field-header">
           Type
         </th>
         <!-- col 5 -->
-        <th class="text-white font-bold">
+        <th class="app-table-field-header">
           Area
         </th> 
         <!-- col 6 -->
-        <th class="text-white font-bold">
+        <th class="app-table-field-header">
           Description
         </th>
         <!-- col 7: Details, no header -->
@@ -43,31 +43,29 @@
           
           <!-- Col 1: Status -->
           <th>
-            <span class="flex justify-center">
+            <span class="app-table-field-status">
               {{ device.isActive ? '🟢' : '🟠' }}
             </span>
           </th>
           <!-- Col 2: Nr -->
           <td>
-            <div class="flex items-center gap-3">
-              <div class="">
-                {{ device.number }}
-              </div>
-            </div>
+            <span class="app-table-field-status app-table-field-text">
+              {{ device.number }}
+            </span>
           </td>
           
           <!-- Col 3: Name -->
           <td>
-            <div class="flex flex-col items-start">
-              <div class="font-bold">{{ device.name }}</div>
-              <div class="text-sm italic opacity-50">{{ device.hwId }}</div>
+            <div class="app-table-field-left">
+              <div class="app-table-field-text">{{ device.name }}</div>
+              <div class="app-table-field-text italic text-primary/50">{{ device.hwId }}</div>
             </div>
           </td>
           
           <!-- Col 4: Type -->
           <td>
-            <div class="flex items-center gap-3">
-              <div class="text-sm opacity-50">
+            <div class="app-table-field-left">
+              <div class="app-table-field-text text-primary/50">
                 {{ getDeviceTypeName(device.deviceTypeId) }}
               </div>
             </div>
@@ -75,16 +73,16 @@
 
           <!-- Col 5: Area -->
           <td>
-            <div class="flex items-center gap-3">
-              <div class="text-sm opacity-50">
+            <div class="app-table-field-left">
+              <div class="app-table-field-text text-primary/50">
                 {{ getDeviceAreaName(device.deviceAreaId) }}
               </div>
             </div>
           </td>
           <!-- Col 6: Description -->
           <td>
-            <div class="flex items-center gap-3">
-              <div class="text-sm opacity-50">
+            <div class="app-table-field-left">
+              <div class="app-table-field-text text-primary/50">
                 {{ device.description }}
               </div>
             </div>
@@ -92,20 +90,20 @@
 
           <!-- Col 7: Details button -->
           <th>
-            <div class="flex justify-end gap-1">
+            <div class="app-table-field-buttons">
               <!-- Edit button-->
               <button
-                class="btn btn-xs btn-primary py-3.5"
+                class="app-table-field-buttons-button"
                 (click)="onUpdateOne(device)">
                 <!--edit icon-->
-                <app-svg-icon name="edit" />
+                <app-svg-icon name="edit"/>
               </button>
               <!-- Delete button -->
               <button 
-                class="btn btn-xs btn-primary py-3.5"
+                class="app-table-field-buttons-button"
                 (click)="onDeleteOne(device)">
                 <!--delete icon-->
-                <app-svg-icon name="delete" />
+                <app-svg-icon name="delete"/>
               </button>
             </div>
             
@@ -115,7 +113,9 @@
       
       } 
       @empty {
-        <span>No devices found!</span>
+        <span class="text-secondary">
+          {{ 'DEVICES.DEVICE_TABLE.TABLE.NO_DATA' | translate }}
+        </span>
       }
       
     </tbody>

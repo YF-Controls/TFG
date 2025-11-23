@@ -2,10 +2,7 @@
   [routerLink]="path()"
   routerLinkActive="bg-primary"
   #rla="routerLinkActive"
-  [ngClass]="{
-    'justify-center px-5': isCollapsed(),
-    'justify-start px-2': !isCollapsed()
-  }"
+  [ngClass]="isCollapsed() ? 'justify-center px-5': 'justify-start px-2'"
   class=
     "w-full inline-flex
     items-center
@@ -17,7 +14,7 @@
   
   <!-- Icon -->
   <div
-    [ngClass]="rla.isActive ? 'text-black' : 'text-white'"
+    [ngClass]="rla.isActive ? 'text-primary-content' : 'text-base-content/50'"
     class="flex items-center justify-center">
     <app-svg-icon [name]="svgIconNameComputed()"></app-svg-icon>
   </div>
@@ -28,13 +25,13 @@
     class="flex flex-col ml-4">
     <!-- Title -->
     <span 
-      [ngClass]="rla.isActive ? 'text-black' : 'text-white'"
+      [ngClass]="rla.isActive ? 'text-primary-content' : 'text-base-content/50'"
       class = "text-lg font-bold leading-5">
       {{ title() }}
     </span>
     <!-- Subtitle -->
     <span 
-      [ngClass]="rla.isActive ? 'text-black/50' : 'text-white/50'"
+      [ngClass]="rla.isActive ? 'text-primary-content/50' : 'text-base-content/40'"
       class=" text-sm hidden md:block">
       {{ subtitle() }}
     </span>

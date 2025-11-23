@@ -1,0 +1,25 @@
+
+.app-page-header {
+  @apply
+    flex flex-2 gap-2 justify-between items-center mb-5;
+}
+
+.app-page-header-title {
+  @apply
+    text-2xl text-primary font-bold;
+}
+
+.app-page-header-subtitle {
+  @apply
+    text-lg text-primary/80;
+}
+
+.app-page-header-divider {
+  @apply
+    divider divider-primary my-0;
+}
+
+.app-page-header-button {
+  @apply
+    btn btn-primary;
+}

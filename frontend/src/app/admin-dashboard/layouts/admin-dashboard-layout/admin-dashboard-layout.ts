@@ -1,6 +1,6 @@
 // System
 import { Component, computed, inject, signal, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,13 +10,14 @@ import { LanguageService } from '@shared/services';
 import { AuthApi } from '@auth/services';
 import { User } from '@auth/interfaces';
 // This module
-import { LinkButtonComponent } from '../../components';
+import { LinkButtonComponent } from '@admin/components';
 
 
 @Component({
   standalone : true,
   selector: 'app-admin-dashboard-layout',
-  imports: [TranslateModule, 
+  imports: [NgClass,
+            TranslateModule, 
             RouterOutlet,
             LinkButtonComponent,
             CommonModule,
