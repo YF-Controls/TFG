@@ -25,15 +25,15 @@ export class LanguageService {
   ];
   
   private _currentLang = signal<Lang>(this.getLangFromLocalStorage());
-  currentLang = computed<Lang>(() => {
-    console.log('!DELETE pasa por _currentLang computation:' , this._currentLang());
-    return this._currentLang()});
+  currentLang = computed<Lang>(() => this._currentLang());
+  
+  private _translationsLoaded = signal<boolean>(false);
+  translationsLoaded = computed<boolean>(() => this._translationsLoaded());
 
   // Constructor
   constructor() {
     // Set language
     effect(() => {
-      console.log('!DELETE pasa por constructor effect');
       const lang = this._currentLang();
       this.setLanguage(lang);
     });
@@ -41,52 +41,36 @@ export class LanguageService {
 
   // Methods
   setLanguage(lang: Lang) {
-    console.log('!DELETE pasa por setLanguage:', {lang});
-    this.translate.use(lang.code);
+    this.translate.use(lang.code).subscribe(() => {
+      this._translationsLoaded.set(true);
+    });
     this._currentLang.set(lang);
     localStorage.setItem(LANG_KEY, JSON.stringify(lang));
   }
 
   setDefaultLanguage(): Lang {
-    console.log('!DELETE pasa por setDefaultLanguage');
     const defaultLang = this.availableLanguages[0];
     this.setLanguage(defaultLang);
     return defaultLang;
   }
-  /*
-  private getLang(): Lang {
-    console.log('!DELETE pasa por getLang');
-    // Get language from localStorage
-    const savedLangString = localStorage.getItem(LANG_KEY);
-    // Return if does not exist
-    if (!savedLangString) return this.setDefaultLanguage();
-    // Parse saved language
-    try {
-      const savedLang = JSON.parse(savedLangString) as Lang;
-      return this.availableLanguages.find(lang => lang.code === savedLang.code) || this.setDefaultLanguage();
-    } catch (error) {
-      return this.setDefaultLanguage();   
-    }
-  }
-  */
- 
+  
   private getLangFromLocalStorage(): Lang {
     // Read from localStorage
     const savedLangString = localStorage.getItem(LANG_KEY);
-    // Save if does not exist and return
-    if (!savedLangString) return this.setDefaultLangToLocalStorage();
+    // Return if does not exist
+    if (!savedLangString) return this.setDefaultLangInLocalStorage();
     // Parse saved language
     try {
       const savedLang = JSON.parse(savedLangString) as Lang;
       const foundLang = this.availableLanguages.find(lang => lang.code === savedLang.code);
-      if (!foundLang) return this.setDefaultLangToLocalStorage();
+      if (!foundLang) return this.setDefaultLangInLocalStorage();
       return foundLang;
     } catch (error) {
-      return this.setDefaultLangToLocalStorage();
+      return this.setDefaultLangInLocalStorage();
     }
   }
 
-  private setDefaultLangToLocalStorage(): Lang {
+  private setDefaultLangInLocalStorage(): Lang {
     localStorage.setItem(LANG_KEY, JSON.stringify(this.availableLanguages[0]));
     return this.availableLanguages[0];
   }

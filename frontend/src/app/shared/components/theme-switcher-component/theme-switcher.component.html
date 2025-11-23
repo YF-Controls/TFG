@@ -30,7 +30,7 @@
         shadow-lg
         min-w-32">
       <!-- Theme list -->
-      @for (theme of this.themeService.availableThemes; track theme.code) {
+      @for (theme of this.themeService.availableThemes(); track theme.code) {
         <li class="border-b border-primary pb-1 my-1">
           <!-- Button -->
           <button
