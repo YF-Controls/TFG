@@ -8,7 +8,7 @@ import { DeviceStatusDto } from '@devices/dtos';
 
 @Component({
   selector: 'app-device-monitor',
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './device-monitor-component.html',
 })
 export class DeviceMonitorComponent implements OnInit, OnDestroy {
