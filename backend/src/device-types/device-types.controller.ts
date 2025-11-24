@@ -12,44 +12,45 @@ import { DeviceTypesService } from '@device-types/device-types.service';
 @Controller('device-types')
 export class DeviceTypesController {
 
+  // Constructor
   constructor(private readonly deviceTypesService: DeviceTypesService) {}
-
+  
   // CRUD Methods
-  // POST: Create
+  // Create: POST
   @Post()
   @MyAuth(MyValidRoles.admin)
   createOne(@Body() createDeviceTypeDto: CreateDeviceTypeDto) {
     return this.deviceTypesService.createOne(createDeviceTypeDto);
   }
 
-  // GET: Read
+  // Read: GET
   @Get()
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user)
   findAll( @Query() queryParamsDto:QueryParamsDto ) {
     return this.deviceTypesService.findAll(queryParamsDto);
   }
-
-  // GET: Read
+  
+  // Read: GET
   @Get(':id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
+  @MyAuth(MyValidRoles.admin)
   findOne(
     @Param('id', ParseUUIDPipe) id: string,
     @Query() queryParamsDto: QueryParamsDto) {
     return this.deviceTypesService.findOne(id, queryParamsDto);
   }
-
-  // PATCH: Update
+  
+  // Update: PATCH
   @Patch(':id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
+  @MyAuth(MyValidRoles.admin)
   updateOne(
     @Param('id', ParseUUIDPipe) id: string, 
     @Body() updateDeviceTypeDto: UpdateDeviceTypeDto) {
     return this.deviceTypesService.updateOne(id, updateDeviceTypeDto);
   }
 
-  // DELETE: Delete
+  // Delete: DELETE
   @Delete(':id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user)
+  @MyAuth(MyValidRoles.admin)
   deleteOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.deviceTypesService.deleteOne(id);
   }

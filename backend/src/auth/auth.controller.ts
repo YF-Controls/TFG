@@ -4,46 +4,56 @@ import type { Response, CookieOptions } from 'express';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
 // This module
-import { RegisterUserDto, LoginUserDto, UpdateUserDto } from './dtos';
-import { MyAuth, MyGetUser } from './decorators';
-import { MyValidRoles } from './interfaces';
-import { User } from './entities';
-// This path
-import { AuthService } from './auth.service';
+import { RegisterUserDto, LoginUserDto, UpdateUserDto } from '@auth/dtos';
+import { MyAuth, MyGetUser } from '@auth/decorators';
+import { MyValidRoles } from '@auth/interfaces';
+import { User } from '@auth/entities';
+import { AuthService } from '@auth/auth.service';
 
 
 @Controller('auth')
 export class AuthController {
   
-  // ##################################
-  // Methods
-  // ##################################
+  // Constructor
   constructor(private readonly authService: AuthService){}
 
+  // CRUD Methods
+  // Create: POST
   @Post('register')
-  async registerUser(
+  async registerOne(
     @Body() registerUserDto: RegisterUserDto,
     @Res({ passthrough: true }) response: Response) {
     // Register
-    const result = await this.authService.registerUser(registerUserDto);
+    const result = await this.authService.registerOne(registerUserDto);
     // Set JWT in HttpOnly cookie
     response.cookie('token', result.token, this.buildCookieOptions());
     // Return user
     return { user: result.user };
   }
 
+  // Login: POST
   @Post('login')
-  async loginUser(
+  async loginOne(
     @Body() loginUserDto: LoginUserDto,
     @Res({ passthrough: true }) response: Response) {
     // Login
-    const result = await this.authService.loginUser(loginUserDto);
+    const result = await this.authService.loginOne(loginUserDto);
     // Set JWT in HttpOnly cookie
     response.cookie('token', result.token, this.buildCookieOptions());
     // Return user
     return { user: result.user };
   }
   
+  // Logout: POST
+  @Post('logout')
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user)
+  logoutOne(@Res({ passthrough: true }) response: Response) {
+    // Clear the cookie
+    response.clearCookie('token');
+    return { message: 'Logout successful' };
+  }
+
+  // Read: GET
   @Get('users')
   @MyAuth(MyValidRoles.admin)
   findAll( @Query() queryParamsDto: QueryParamsDto ) {
@@ -51,48 +61,38 @@ export class AuthController {
     return this.authService.findAll( queryParamsDto );
   }
 
-  @Get('roles')
-  @MyAuth(MyValidRoles.admin)
-  getRoles() {
-    return Object.values(MyValidRoles);
-  }
-
-  @Patch('users/:id')
-  @MyAuth(MyValidRoles.admin)
-  updateUser(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateUserDto: UpdateUserDto) {
-    return this.authService.updateUser(id, updateUserDto);
-  }
-
-  @Delete('users/:id')
-  @MyAuth(MyValidRoles.admin)
-  deleteUser(@Param('id', ParseUUIDPipe) id: string) {
-    return this.authService.deleteUser(id);
-  }
-  
+  // Read: GET
   @Get('check-user')
   @MyAuth(MyValidRoles.admin, MyValidRoles.user)
   async checkUser(
     @MyGetUser() user: User,
     @Res({ passthrough: true }) response: Response) {
     // Check
-    const result = await this.authService.checkAuthStatus(user);
+    const result = await this.authService.checkUser(user);
     // Renew JWT in HttpOnly cookie
     response.cookie('token', result.token, this.buildCookieOptions());
     // Return user
     return { user: result.user };
   }
 
-  @Post('logout')
-  @MyAuth(MyValidRoles.admin, MyValidRoles.user)
-  logoutUser(@Res({ passthrough: true }) response: Response) {
-    // Clear the cookie
-    response.clearCookie('token');
-    return { message: 'Logout successful' };
+  // Update: PATCH
+  @Patch('users/:id')
+  @MyAuth(MyValidRoles.admin)
+  updateOne(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateUserDto: UpdateUserDto) {
+    return this.authService.updateOne(id, updateUserDto);
   }
-
-
+  
+  // Delete: DELETE
+  @Delete('users/:id')
+  @MyAuth(MyValidRoles.admin)
+  deleteOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.authService.deleteOne(id);
+  }
+  
+  // Helper Methods
+  // Build Cookie Options
   private buildCookieOptions(): CookieOptions {
     return {
       httpOnly: true,

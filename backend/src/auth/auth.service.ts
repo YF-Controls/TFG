@@ -7,10 +7,9 @@ import * as bcrypt from 'bcrypt';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
 // This module
-import { RegisterUserDto, LoginUserDto, UpdateUserDto } from './dtos';
-import { User } from './entities';
-import { MyJwtPayload } from './interfaces';
-// This path
+import { RegisterUserDto, LoginUserDto, UpdateUserDto } from '@auth/dtos';
+import { User } from '@auth/entities';
+import { MyJwtPayload } from '@auth/interfaces';
 
 
 @Injectable()
@@ -26,8 +25,9 @@ export class AuthService {
     private readonly jwtService : JwtService,
   ) {}
 
-  // Methods
-  async registerUser(registerUserDto: RegisterUserDto) {
+  // CRUD Methods
+  // Create: save()
+  async registerOne(registerUserDto: RegisterUserDto) {
     try {
       // password, email, fullName...
       const { password, ...userData } = registerUserDto;
@@ -48,7 +48,8 @@ export class AuthService {
     } catch (error) {this.handleDBErrors( error );}
   }
   
-  async loginUser( loginUserDto : LoginUserDto) {
+  // Read: findOne()
+  async loginOne( loginUserDto : LoginUserDto) {
     // Get data
     const {email, password} = loginUserDto;
     // Find user
@@ -68,35 +69,8 @@ export class AuthService {
       token : this.generateJwt({id: user.id})
     };
   }
-  
-  async updateUser(id: string, updateUserDto: UpdateUserDto) {
-    // Query
-    const result = await this.repository.update(
-      {id},
-      {...updateUserDto}
-    );
-    // Result
-    if (result.affected === 0)
-      throw new NotFoundException(`User with ID ${id} was not found`);
-  }
 
-
-  async deleteUser(id: string) {
-    // Return
-    return await this.repository.delete({id});
-  }
-
-
-  async checkAuthStatus(user: User) {
-    // Delete password to send response
-    delete user.password;
-    // Return user info
-    return {
-      user,
-      token : this.generateJwt({id: user.id})
-    };
-  }
-  
+  // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
     // Check query parametes
     const {
@@ -114,10 +88,42 @@ export class AuthService {
     });
   }
   
+  // Read: user
+  async checkUser(user: User) {
+    // Delete password to send response
+    delete user.password;
+    // Return user info
+    return {
+      user,
+      token : this.generateJwt({id: user.id})
+    };
+  }
+  
+  // Update: update()
+  async updateOne(id: string, updateUserDto: UpdateUserDto) {
+    // Query
+    const result = await this.repository.update(
+      {id},
+      {...updateUserDto}
+    );
+    // Result
+    if (result.affected === 0)
+      throw new NotFoundException(`User with ID ${id} was not found`);
+  }
+  
+  // Delete: delete()
+  async deleteOne(id: string) {
+    // Return
+    return await this.repository.delete({id});
+  }
+  
+  // Helper Methods
+  // Generate JWT
   private generateJwt(payload : MyJwtPayload): String {
     return this.jwtService.sign(payload);
   }
   
+  // Handle DB Errors
   private handleDBErrors( error: any ): never {
     if ( error.code === '23505' ) 
       throw new BadRequestException( error.detail );

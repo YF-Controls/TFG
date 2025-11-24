@@ -2,49 +2,56 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
 // Oteher modules
 import { QueryParamsDto } from '@common/dtos';
-
-
+import { MyAuth } from '@auth/decorators';
+import { MyValidRoles } from '@auth/interfaces';
 // This module
-import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from './dtos';
-// This path
-import { DeviceAreasService } from './device-areas.service';
+import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from '@device-areas/dtos';
+import { DeviceAreasService } from '@device-areas/device-areas.service';
 
 
 @Controller('device-areas')
 export class DeviceAreasController {
 
+  // Constructor
   constructor(private readonly deviceAreasService: DeviceAreasService) {}
 
+  // CRUD Methods
+  // Create: POST
   @Post()
-  create(@Body() createDeviceAreaDto: CreateDeviceAreaDto) {
-    return this.deviceAreasService.create(createDeviceAreaDto);
+  @MyAuth(MyValidRoles.admin)
+  createOne(@Body() createDeviceAreaDto: CreateDeviceAreaDto) {
+    return this.deviceAreasService.createOne(createDeviceAreaDto);
   }
 
-  @Get()
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
-  findAll( @Query() queryParamsDto: QueryParamsDto ) {
-    return this.deviceAreasService.findAll(queryParamsDto);
-  }
-  
-  @Get('/:id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
+  // Read: GET
+  @Get(':id')
+  @MyAuth(MyValidRoles.admin)
   findOne(
     @Param('id', ParseUUIDPipe) id: string,
     @Query() queryParamsDto: QueryParamsDto ) {
     return this.deviceAreasService.findOne(id, queryParamsDto);
   }
+
+  // Read: GET
+  @Get()
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user)
+  findAll( @Query() queryParamsDto: QueryParamsDto ) {
+    return this.deviceAreasService.findAll(queryParamsDto);
+  }
   
+  // Update: PATCH
   @Patch(':id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
-  update(
+  @MyAuth(MyValidRoles.admin)
+  updateOne(
     @Param('id', ParseUUIDPipe) id: string, 
     @Body() updateDeviceAreaDto: UpdateDeviceAreaDto) {
-    return this.deviceAreasService.update(id, updateDeviceAreaDto);
+    return this.deviceAreasService.updateOne(id, updateDeviceAreaDto);
   }
 
+  // Delete: DELETE
   @Delete(':id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user)
-  remove(@Param('id', ParseUUIDPipe) id: string) {
-    return this.deviceAreasService.remove(id);
+  @MyAuth(MyValidRoles.admin)
+  deleteOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.deviceAreasService.deleteOne(id);
   }
 }

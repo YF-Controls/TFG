@@ -7,8 +7,8 @@ import { QueryParamsDto } from '@common/dtos';
 import { DeviceType } from '@device-types/entities';
 import { DeviceArea } from '@device-areas/entities';
 // This module
-import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
-import { Device } from './entities';
+import { CreateDeviceDto, UpdateDeviceDto } from '@devices/dtos';
+import { Device } from '@devices/entities';
 
 
 @Injectable()
@@ -21,28 +21,27 @@ export class DevicesService {
     @InjectRepository(DeviceArea) private readonly deviceAreaRepository: Repository<DeviceArea>,
   ) {}
 
-  // Methods
-  async create(createDeviceDto: CreateDeviceDto) {
+  // CRUD Methods
+  // Create: save()
+  async createOne(createDeviceDto: CreateDeviceDto) {
     // Check device type
     const deviceType = await this.deviceTypeRepository.findOne({where : {id: createDeviceDto.deviceTypeId}});
     if (!deviceType) throw new NotFoundException(`Device type with ID ${createDeviceDto.deviceTypeId} was not found`);
     if (!deviceType.isActive) throw new UnauthorizedException(`Device type with ID ${createDeviceDto.deviceTypeId} is not active`);
-
     // Check device area
     const deviceArea = await this.deviceAreaRepository.findOne({where : {id : createDeviceDto.deviceAreaId}});
     if (!deviceArea) throw new NotFoundException(`Device area with ID ${createDeviceDto.deviceAreaId} was not found`);
     if (!deviceArea.isActive) throw new UnauthorizedException(`Device area with ID ${createDeviceDto.deviceAreaId} is not active`);
-
     // Create device
     const device = this.deviceRepository.create(createDeviceDto);
-    
     // Build hwId
     device.hwId = this.buildHwId(deviceArea.hwId, deviceType.hwId, device.number);
-    
+    // Save    
     await this.deviceRepository.save(device);
     return device;
   }
 
+  // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
     // Check query parametes
     const {
@@ -60,6 +59,7 @@ export class DevicesService {
     });
   }
 
+  // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
     // Check query parameters
     const { withInactives = false } = queryParamsDto;
@@ -72,7 +72,8 @@ export class DevicesService {
     });
   }
   
-  async update(id: string, updateDeviceDto: UpdateDeviceDto) {
+  // Update: update()
+  async updateOne(id: string, updateDeviceDto: UpdateDeviceDto) {
     // Get
     const device = await this.deviceRepository.findOne({
       where: { id },
@@ -115,7 +116,8 @@ export class DevicesService {
     return await this.deviceRepository.save(device);
   }
 
-  async remove(id: string) {
+  // Delete: delete()
+  async deleteOne(id: string) {
     const device = await this.deviceRepository.findOne({where: {id}});
     if (!device) throw new NotFoundException(`Device with ID ${id} was not found`);
     await this.deviceRepository.remove(device);

@@ -5,8 +5,8 @@ import { Repository } from 'typeorm';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
 // This module
-import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from './dtos';
-import { DeviceArea } from './entities';
+import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from '@device-areas/dtos';
+import { DeviceArea } from '@device-areas/entities';
 
 
 @Injectable()
@@ -18,8 +18,9 @@ export class DeviceAreasService {
     private readonly repository: Repository<DeviceArea>,
   ) {}
   
-  // Methods
-  async create(createDeviceAreaDto: CreateDeviceAreaDto) {
+  // CRUD Methods
+  // Create: save()
+  async createOne(createDeviceAreaDto: CreateDeviceAreaDto) {
     // Create
     const item = this.repository.create(createDeviceAreaDto);
     // Query
@@ -28,6 +29,7 @@ export class DeviceAreasService {
     return item;
   }
 
+  // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
     // Check query parametes
     const {
@@ -45,6 +47,7 @@ export class DeviceAreasService {
     });
   }
 
+  // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
     // Check query parameters
     const { withInactives = false } = queryParamsDto;
@@ -57,7 +60,8 @@ export class DeviceAreasService {
     });
   }
   
-  async update(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto) {
+  // Update: update()
+  async updateOne(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto) {
     // Query
     const result = await this.repository.update(
       {id},
@@ -68,7 +72,8 @@ export class DeviceAreasService {
       throw new NotFoundException(`Device Area with ID ${id} was not found`);
   }
   
-  async remove(id: string) {
+  // Delete: delete()
+  async deleteOne(id: string) {
     // Return
     return await this.repository.delete({id});
   }

@@ -5,46 +5,53 @@ import { QueryParamsDto } from '@common/dtos';
 import { MyAuth } from '@auth/decorators';
 import { MyValidRoles } from '@auth/interfaces';
 // This module
-import { CreateDeviceDto, UpdateDeviceDto } from './dtos';
-// This path
-import { DevicesService } from './devices.service';
+import { CreateDeviceDto, UpdateDeviceDto } from '@devices/dtos';
+import { DevicesService } from '@devices/devices.service';
+
 
 @Controller('devices')
 export class DevicesController {
   
+  // Constructor
   constructor(private readonly devicesService: DevicesService) {}
 
+  // CRUD Methods
+  // Create: POST
   @Post()
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user)
-  create(@Body() createDeviceDto: CreateDeviceDto) {
-    return this.devicesService.create(createDeviceDto);
+  @MyAuth(MyValidRoles.admin)
+  createOne(@Body() createDeviceDto: CreateDeviceDto) {
+    return this.devicesService.createOne(createDeviceDto);
   }
   
-  @Get()
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
-  findAll( @Query() queryParamsDto:QueryParamsDto ) {
-    return this.devicesService.findAll(queryParamsDto);
-  }
-  
+  // Read: GET
   @Get(':id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user, MyValidRoles.guest)
+  @MyAuth(MyValidRoles.admin)
   findOne(
     @Param('id', ParseUUIDPipe) id: string,
     @Query() queryParamsDto: QueryParamsDto ) {
     return this.devicesService.findOne(id, queryParamsDto);
   }
 
-  @Patch(':id')
-  //@MyAuth(MyValidRoles.admin, MyValidRoles.user)
-  update(
-    @Param( 'id', ParseUUIDPipe ) id: string,
-    @Body() UpdateDeviceDto: UpdateDeviceDto) {
-    return this.devicesService.update(id, UpdateDeviceDto);
+  // Read: GET
+  @Get()
+  @MyAuth(MyValidRoles.admin, MyValidRoles.user)
+  findAll( @Query() queryParamsDto:QueryParamsDto ) {
+    return this.devicesService.findAll(queryParamsDto);
   }
   
+  // Update: PATCH
+  @Patch(':id')
+  //@MyAuth(MyValidRoles.admin, MyValidRoles.user)
+  updateOne(
+    @Param( 'id', ParseUUIDPipe ) id: string,
+    @Body() updateDeviceDto: UpdateDeviceDto) {
+    return this.devicesService.updateOne(id, updateDeviceDto);
+  }
+  
+  // Delete: DELETE
   @Delete(':id')
   //@MyAuth(MyValidRoles.admin, MyValidRoles.user)
-  remove(@Param( 'id', ParseUUIDPipe ) id: string,) {
-    return this.devicesService.remove(id);
+  deleteOne(@Param( 'id', ParseUUIDPipe ) id: string,) {
+    return this.devicesService.deleteOne(id);
   }
 }
