@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '@auth/auth.module';
 import { DeviceTypesModule } from '@device-types/device-types.module';
 import { DeviceAreasModule } from '@device-areas/device-areas.module';
+import { IOSystemModule } from '@io-system/io-system.module';
 import { DeviceType } from '@device-types/entities';
 import { DeviceArea } from '@device-areas/entities';
 // This module
@@ -21,6 +22,7 @@ import { DevicesGateway } from './devices.gateway';
     AuthModule,
     DeviceTypesModule,
     DeviceAreasModule,
+    IOSystemModule,
     TypeOrmModule.forFeature([Device, DeviceType, DeviceArea]),
   ],
   exports: [TypeOrmModule, DevicesService]

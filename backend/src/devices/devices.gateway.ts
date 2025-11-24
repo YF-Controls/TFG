@@ -11,10 +11,10 @@ import {
 import { Logger, UnauthorizedException } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { JwtService } from '@nestjs/jwt';
-// Other moduules
+// Other modules
 import { MyJwtPayload } from '@auth/interfaces';
+import { IOSystemService } from '@io-system/io-system.service';
 // This module
-import { DevicesService } from './devices.service';
 import { type DeviceStatusDto, type DeviceControlDto } from './dtos';
 
 
@@ -32,7 +32,7 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   private readonly logger = new Logger(DevicesGateway.name);
 
   private intervalId: NodeJS.Timeout | null = null;
-  private lampToggle: boolean = false;
+  
 
 
   // ####################################
@@ -42,8 +42,13 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   // Constructor
   constructor(
     private readonly jwtService: JwtService,
-    private readonly devicesService: DevicesService,
-  ) {}
+    private readonly ioSystemService: IOSystemService
+  ) {
+    // Subscribe to IO-System device status updates
+    this.ioSystemService.onDeviceStatus((status: DeviceStatusDto) => {
+      this.emitDeviceStatus(status);
+    });
+  }
   
   // OnGatewayConnection implements this method
   async handleConnection(client: Socket) {
@@ -84,8 +89,9 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   // ####################################
 
   // Emit device data to all connected clients
-  emitDeviceData(data: DeviceStatusDto) {
+  async emitDeviceStatus(data: DeviceStatusDto) {
     this.server.emit('device-status-channel', data);
+    this.logger.debug(`!DELETE Emitted device status: ${JSON.stringify(data)}`);
   }
 
   // Emit to specific device room
@@ -101,46 +107,28 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   @SubscribeMessage('device-command-channel')
   async handleReceivedDeviceCommand(
     @MessageBody() data: DeviceControlDto, @ConnectedSocket() client: Socket) {
-    
+    // Try to send command to IO-System
     try {
-      // Get user info
-      const user: MyJwtPayload = client.data.user;
-      const device = await this.devicesService.findOne(data.id, { withInactives: false });
-      // Device not found
-      if (!device) {
-        client.emit('device-ack-channel', {type: 'error', message: `Device with id ${data.id} not found`});
-        return;
-      }
-      // hwId mismatch
-      if (device.hwId !== data.hwId) {
-        client.emit('device-ack-channel', {type: 'error', message: `Device hwId mismatch for id ${data.id}`});
-        return;
-      }
+      const done = this.ioSystemService.sendDeviceControl(data);
+      
+      this.logger.debug(`!DELETE Received device command from client ${client.id}: ${JSON.stringify(data)}, sent to IO-System: ${done}`);
+
       // Broadcast to all connected clients (or specific room)
       //this.server.emit('device-ack-channel', {message: `Device hwId ${data.hwId} command received`});
-      // Success
-      client.emit('device-ack-channel', {type: 'success', message: `Device hwId ${data.hwId} command received`  });
 
-      
-      
-      this.intervalId = setInterval(() => {
-
-        this.lampToggle = !this.lampToggle;
-        
-        client.emit('device-status-channel', { 
-          id: device.id,
-          hwId: device.hwId,
-          status: this.lampToggle ? 'isOn' : 'isOff'
-         });
-
-      }, 3000);
-      
-
+      // Error
+      if (!done) {
+        client.emit('device-ack-channel', {hwId: data.hwId, type: 'error', message: 'IO-System no connected'});
+        return;
+      }
+      // Done
+      client.emit('device-ack-channel', {hwId: data.hwId, type: 'success', message: 'IO-System received command'});
+    // Sending error
     } catch (error) {
-      client.emit('device-ack-channel', {type: 'error', message: error.message});
+      client.emit('device-ack-channel', {hwId: data.hwId, type: 'error', message: error.message});
     }
   }
-
+  
   /*
   // Subscribe to device updates
   @SubscribeMessage('subscribe-device')

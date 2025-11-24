@@ -1,2 +1,3 @@
 export * from './device.interface';
-export * from './device-data-exchange.enum';
+export * from './device-command-enum';
+export * from './device-status-enum';

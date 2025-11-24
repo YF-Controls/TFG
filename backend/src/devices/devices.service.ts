@@ -72,6 +72,19 @@ export class DevicesService {
     });
   }
   
+  // Read: findOneByHwId()
+  async findOneByHwId(hwId: string, queryParamsDto: QueryParamsDto) {
+    // Check query parameters
+    const { withInactives = false } = queryParamsDto;
+    // Query and return
+    return await this.deviceRepository.findOne({
+      where : {
+        hwId,
+        ...(!withInactives && { isActive : true })
+      }
+    });
+  }
+  
   // Update: update()
   async updateOne(id: string, updateDeviceDto: UpdateDeviceDto) {
     // Get

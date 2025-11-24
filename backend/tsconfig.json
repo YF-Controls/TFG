@@ -8,6 +8,7 @@
       "@device-areas/*" : ["src/device-areas/*"],
       "@device-types/*" : ["src/device-types/*"],
       "@devices/*" : ["src/devices/*"],
+      "@io-system/*" : ["src/io-system/*"],
     },
     "module": "nodenext",
     "moduleResolution": "nodenext",

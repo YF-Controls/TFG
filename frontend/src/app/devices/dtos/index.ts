@@ -1,4 +1,5 @@
-export type { CreateDeviceDto } from './create-device-dto';
-export type { DeviceResponseDto } from './device-response-dto';
-export type { UpdateDeviceDto } from './update-device-dto';
-export * from './device-data-exchange-dto';
+export * from './create-device-dto';
+export * from './device-response-dto';
+export * from './update-device-dto';
+export * from './device-status-dto';
+export * from './device-control-dto';

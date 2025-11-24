@@ -8,6 +8,7 @@ import { DevicesModule } from '@devices/devices.module';
 import { CommonModule } from '@common/common.module';
 import { DeviceTypesModule } from '@device-types/device-types.module';
 import { DeviceAreasModule } from '@device-areas/device-areas.module';
+import { IOSystemModule } from '@io-system/io-system.module';
 
 
 @Module({
@@ -30,6 +31,7 @@ import { DeviceAreasModule } from '@device-areas/device-areas.module';
     DeviceTypesModule,
     DeviceAreasModule,
     CommonModule,
+    IOSystemModule,
   ],
 })
 export class AppModule {}
