@@ -8,21 +8,34 @@
   -->
   <div class="card-body">
     <h2 class="card-title">
-      {{ inName() }}
-
+      
       <div
         class="badge"
         [ngClass]="{
-          'bg-white' : inStatus() === 'unknown',
-          'bg-gray-500' : inStatus() === 'off',
-          'bg-green-500' : inStatus() === 'on'}"></div>
+          'bg-white' : status() === DeviceStatus.unknown,
+          'bg-gray-500' : status() === DeviceStatus.isOff,
+          'bg-green-500' : status() === DeviceStatus.isOn}">
+      </div>
+
+      {{ this.device().name }}
     </h2>
     
-    <p>{{ inDescription() }}</p>
+    <span>
+      {{ this.isConnected() ? 'Connected' : 'Disconnected' }}
+    </span>
+
+    <p>{{ this.device().description }}</p>
     
     <div class="card-actions justify-end">
-      <button class="btn btn-primary" (mousedown)="setOff()" (mouseup)="clear()">OFF</button>
-      <button class="btn btn-primary" (mousedown)="setOn()" (mouseup)="clear()">ON</button>
+      
+      <button class="btn btn-primary" (click)="setOff()">
+        OFF
+      </button>
+      
+      <button class="btn btn-primary" (click)="setOn()">
+        ON
+      </button>
+
     </div>
   </div>
 </div>

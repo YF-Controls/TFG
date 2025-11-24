@@ -1,6 +1,9 @@
 // System
-import { Component, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
+// This module
+import { Device, DeviceCommand, DeviceStatus } from '@devices/interfaces';
+import { DeviceWebSocketService } from '@devices/services';
 
 
 @Component({
@@ -9,22 +12,55 @@ import { NgClass } from '@angular/common';
   imports: [NgClass],
   templateUrl: './device-control-component.html',
 })
-export class DeviceControlComponent {
+export class DeviceControlComponent implements OnInit {
 
-  inName = input.required<string>();
-  inDescription = input.required<string>();
-  inStatus = input.required<'unknown' | 'off' | 'on'>();
+  // Injections
+  private deviceWebSocketService = inject(DeviceWebSocketService);
   
+  // Properties
+  device = input.required<Device>();
+  protected isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());
+  protected status = signal<DeviceStatus>(DeviceStatus.unknown);
+  protected readonly DeviceStatus = DeviceStatus;
   
+  // Constructor
+  constructor () {
+    effect(() => {
+      
+      const data = this.deviceWebSocketService.deviceStatus();
+      
+      if (!data) return;
+      if (data.hwId !== this.device().hwId) return;
+
+      this.status.set(data.status);
+      
+    });
+    
+  }
+
+  ngOnInit(): void {
+    if (!this.isConnected()) return;
+    this.deviceWebSocketService.sendCommand({
+      id: this.device().id,
+      hwId: this.device().hwId,
+      command: DeviceCommand.getStatus});
+  }
+
+  // Methods
   setOn () {
-    console.log(`${this.inName()} sets ON`);
+    if (!this.isConnected()) return;
+    this.deviceWebSocketService.sendCommand({
+      id: this.device().id,
+      hwId: this.device().hwId,
+      command: DeviceCommand.on});
   }
 
   setOff () {
-    console.log(`${this.inName()} sets OFF`);
+    if (!this.isConnected()) return;
+    this.deviceWebSocketService.sendCommand({
+      id: this.device().id,
+      hwId: this.device().hwId,
+      command: DeviceCommand.off});
   }
-
-  clear() {
-    console.log(`${this.inName()} clear`);
-  }
+  
  }

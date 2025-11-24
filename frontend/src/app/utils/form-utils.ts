@@ -31,8 +31,6 @@ export class FormUtils {
   // Class methods
   static getErrorTextFromFormField(errors: ValidationErrors, languageService: LanguageService) {
     
-    console.log('!DELETE errors:', errors);
-
     for (const key of Object.keys(errors)) {
       switch (key) {
         

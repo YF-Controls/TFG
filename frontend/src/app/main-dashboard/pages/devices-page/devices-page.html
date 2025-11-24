@@ -1,16 +1,7 @@
 
-<!--
-<app-device-control 
-  inName="Luz techo"
-  inDescription="Alguna descripción muy gorda para ver cómo entra en el texto"
-  inStatus="unknown"/>
+@for (device of devicesResource.value(); track $index) {
 
-<app-device-control 
-  inName="Luz pasillo"
-  inDescription="Alguna descripción chiki"
-  inStatus="unknown"/>
+  <app-device-control 
+  [device]="device"/>
 
--->
-<!--
-  <app-device-monitor></app-device-monitor>
--->
+}

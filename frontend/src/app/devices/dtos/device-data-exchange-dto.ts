@@ -1,12 +1,15 @@
 // This module
+import { DeviceCommand, DeviceStatus } from "@devices/interfaces";
+
+
 export interface DeviceStatusDto {
   id: string;
   hwId: string;
-  status: string;
+  status: DeviceStatus;
 }
 
 export interface DeviceControlDto {
   id: string;
   hwId: string;
-  command: string;
+  command: DeviceCommand
 }

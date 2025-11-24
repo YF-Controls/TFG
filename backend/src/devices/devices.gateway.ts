@@ -19,7 +19,7 @@ import { type DeviceStatusDto, type DeviceControlDto } from './dtos';
 
 
 @WebSocketGateway({
-  namespace: '/devices',
+  namespace: 'ws/devices', // process.env.WS_NAMESPACE_DEVICES,
   cors: {
     origin: process.env.FRONTEND_URL,
     credentials: true,
@@ -32,7 +32,7 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   private readonly logger = new Logger(DevicesGateway.name);
 
   private intervalId: NodeJS.Timeout | null = null;
-  private i: number = 0;
+  private lampToggle: boolean = false;
 
 
   // ####################################
@@ -101,8 +101,6 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   @SubscribeMessage('device-command-channel')
   async handleReceivedDeviceCommand(
     @MessageBody() data: DeviceControlDto, @ConnectedSocket() client: Socket) {
-    // Log
-    this.logger.log(`!DELETE handleReceivedDeviceCommand() called > data : ${JSON.stringify(data)}, client.id: ${client.id}`);
     
     try {
       // Get user info
@@ -123,23 +121,20 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
       // Success
       client.emit('device-ack-channel', {type: 'success', message: `Device hwId ${data.hwId} command received`  });
 
-      // Loop
+      
+      
       this.intervalId = setInterval(() => {
 
-        if (this.i > 100) this.i = 0;
-        this.logger.warn(`!DELETE i=${this.i} emitted for device hwId: ${device.hwId}`);
-
+        this.lampToggle = !this.lampToggle;
+        
         client.emit('device-status-channel', { 
           id: device.id,
           hwId: device.hwId,
-          status: `${this.i}%`
+          status: this.lampToggle ? 'isOn' : 'isOff'
          });
 
-        this.i++;
-        
-      }, 1000);
-
-
+      }, 3000);
+      
 
     } catch (error) {
       client.emit('device-ack-channel', {type: 'error', message: error.message});
