@@ -10,3 +10,5 @@ export interface DeviceControlDto {
   hwId: string;
   command: string;
 }
+
+

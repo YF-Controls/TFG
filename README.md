@@ -66,8 +66,8 @@ yarn add -D @types/passport-jwt
 ### Web Sockets
 
 ```shell
-yarn add @nestjs/websockets @nestjs/platform-socket.io
-yarn add socket.io
+yarn add @nestjs/websockets @nestjs/platform-socket.io socket.io
+yarn add -D @types/socket.io
 ```
 
 ### Cookie Protection
@@ -193,4 +193,11 @@ npm i @ngx-translate/core @ngx-translate/http-loader
 ```shell
 cd frontend
 npm i chart.js
+```
+
+### WebSockets
+
+```shell
+cd frontend
+npm i socket.io-client
 ```

@@ -1,1 +1,3 @@
-export { DeviceApi } from "./deviceApi";
+export * from "./device-api";
+export * from "./device-websocket-service";
+

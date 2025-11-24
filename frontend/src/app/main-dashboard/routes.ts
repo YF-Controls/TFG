@@ -13,7 +13,7 @@ export const mainDashboardRoutes: Routes = [
     component: MainDashboardLayout,
     children : [
       {path: '', component: HomePage},
-      {path: 'devices/:type', component: DevicesPage, canMatch : [IsUserGuard],},
+      {path: 'devices', component: DevicesPage, canMatch : [IsUserGuard],},
       {path: '**', component: NotFoundPage},
     ],
   },

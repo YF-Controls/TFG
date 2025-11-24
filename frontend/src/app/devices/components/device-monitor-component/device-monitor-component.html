@@ -1,0 +1,36 @@
+<div class="p-2 w-max">
+
+  <h2 class="py-4 text-lg font-bold">Device Monitor</h2>
+  
+  <div class="py-4">
+    <span
+      class="alert py-3"
+      [class.alert-success]="wsService.isConnected()" 
+      [class.alert-error]="!wsService.isConnected()">
+      {{ wsService.isConnected() ? 'Connected: ' + wsService.socketId() : 'Disconnected' }}
+    </span>
+  </div>
+  
+
+  @if (wsService.connectionError()) {
+    <div class="py-4">
+      <span class="alert alert-error">
+        {{ wsService.connectionError() }}
+      </span>
+    </div>
+  }
+
+  <div class="flex flex-row gap-2">
+    <button class="flex-1 btn btn-primary" (click)="connect()">Connect</button>
+    <button class="flex-1 btn btn-secondary" (click)="disconnect()">Disconnect</button>
+    <button class="flex-1 btn btn-accent" (click)="sendData()">Send Test Data</button>
+  </div>
+  
+
+
+  <div class="mt-4 border border-primary rounded-lg p-3">
+    <h3>Received Data:</h3>
+    <pre>status: {{ receivedData()?.status || '?%' }}</pre>
+  </div>
+  
+</div>

@@ -11,19 +11,19 @@ import { DeviceArea } from '@device-areas/entities';
 import { Device } from './entities';
 import { DevicesService } from './devices.service';
 import { DevicesController } from './devices.controller';
-// This path
+import { DevicesGateway } from './devices.gateway';
 
 
 @Module({
   controllers: [DevicesController],
-  providers: [DevicesService],
+  providers: [DevicesService, DevicesGateway],
   imports : [
     AuthModule,
     DeviceTypesModule,
     DeviceAreasModule,
     TypeOrmModule.forFeature([Device, DeviceType, DeviceArea]),
   ],
-  exports: [TypeOrmModule]
+  exports: [TypeOrmModule, DevicesService]
 
 })
 export class DevicesModule {}

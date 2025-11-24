@@ -1,2 +1,3 @@
-export { CreateDeviceDto } from "./create-device.dto";
-export { UpdateDeviceDto } from "./update-device.dto";
+export * from "./create-device.dto";
+export * from "./update-device.dto";
+export * from "./device-data-exchange.dto";
