@@ -31,7 +31,12 @@ import { IOSystemModule } from '@io-system/io-system.module';
     DeviceTypesModule,
     DeviceAreasModule,
     CommonModule,
-    IOSystemModule,
+    IOSystemModule.forRoot({
+      host: process.env.IO_SYSTEM_HOST || 'localhost',
+      port: parseInt(process.env.IO_SYSTEM_PORT || '2000', 10),
+      maxReconnectAttempts: 10,
+      reconnectDelay: 5000,
+    }),
   ],
 })
 export class AppModule {}

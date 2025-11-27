@@ -1,9 +1,12 @@
 // System
-import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit, OnModuleDestroy, Inject } from '@nestjs/common';
 import { Socket } from 'net';
 // Other modules
 import { DeviceControlDto, DeviceStatusDto } from '@devices/dtos';
 import { DeviceCommand, DeviceStatus } from '@devices/interfaces';
+// This module
+import type { IOSystemModuleOptions } from './interfaces';
+import { IO_SYSTEM_OPTIONS } from './constants';
 
 
 
@@ -15,14 +18,24 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
   private client: Socket | null = null;
   private reconnectInterval: NodeJS.Timeout | null = null;
   private reconnectAttempts = 0;
-  private maxReconnectAttempts = 10;
-  private reconnectDelay = 5000; // 5 seconds
+  private maxReconnectAttempts: number;
+  private reconnectDelay: number;
   private isConnecting = false;
   // Configuration
-  private readonly host = process.env.IO_SYSTEM_HOST || 'localhost';
-  private readonly port = parseInt(process.env.IO_SYSTEM_PORT || '2000', 10);
+  private readonly host: string;
+  private readonly port: number;
   // Callbacks for received data
   private onDeviceStatusReceived: ((status: DeviceStatusDto) => void) | null = null;
+
+  // Constructor
+  constructor(
+    @Inject(IO_SYSTEM_OPTIONS) private options: IOSystemModuleOptions,
+  ) {
+    this.host = options.host;
+    this.port = options.port;
+    this.maxReconnectAttempts = options.maxReconnectAttempts ?? 10;
+    this.reconnectDelay = options.reconnectDelay ?? 5000;
+  }
 
   // ####################################
   // Methods from OnModuleInit, OnModuleDestroy

@@ -22,6 +22,7 @@ import { type DeviceStatusDto, type DeviceControlDto } from './dtos';
   namespace: 'ws/devices', // process.env.WS_NAMESPACE_DEVICES,
   cors: {
     origin: process.env.FRONTEND_URL,
+    //origin: true, // Allow all origins - adjust for production!
     credentials: true,
   },
 })

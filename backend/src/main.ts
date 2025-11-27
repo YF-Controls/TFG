@@ -15,6 +15,7 @@ async function bootstrap() {
   // Enable CORS to use cookies from frontend
   app.enableCors({
     origin: 'http://localhost:4200',
+    //origin: true, // Allow all origins - adjust for production!
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true, // Important for cookies!
   });
