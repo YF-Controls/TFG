@@ -92,7 +92,7 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   // Emit device data to all connected clients
   async emitDeviceStatus(data: DeviceStatusDto) {
     this.server.emit('device-status-channel', data);
-    this.logger.debug(`!DELETE Emitted device status: ${JSON.stringify(data)}`);
+    //this.logger.debug(`!DELETE Emitted device status: ${JSON.stringify(data)}`);
   }
 
   // Emit to specific device room
@@ -112,8 +112,8 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
     try {
       const done = this.ioSystemService.sendDeviceControl(data);
       
-      this.logger.debug(`!DELETE Received device command from client ${client.id}: ${JSON.stringify(data)}, sent to IO-System: ${done}`);
-
+      //this.logger.debug(`!DELETE Received device command from client ${client.id}: ${JSON.stringify(data)}, sent to IO-System: ${done}`);
+      
       // Broadcast to all connected clients (or specific room)
       //this.server.emit('device-ack-channel', {message: `Device hwId ${data.hwId} command received`});
 

@@ -95,7 +95,7 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
       // Parse JSON (assuming IO-System sends JSON)
       const data = buffer.toString('utf-8');
       const status: DeviceStatusDto = this.binaryToDeviceStatus(data);
-      this.logger.debug(`!DELETE received: ${data} parsed: ${JSON.stringify(status)}`);
+      //this.logger.debug(`!DELETE received: ${data} parsed: ${JSON.stringify(status)}`);
       // Call callback if registered
       if (this.onDeviceStatusReceived) this.onDeviceStatusReceived(status);
     });
@@ -191,7 +191,7 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
    // Split buffer and parse
     const parts = buffer.replace('(', '').replace(')', '').split(':');
     // Expecting format: (hwId,status)
-    if (parts.length !== 2) return {id: '', hwId: '', status: DeviceStatus.unknown};
+    if (parts.length !== 2) return {hwId: '', status: DeviceStatus.unknown};
     // Convert status code to DeviceStatus enum
     const status = parts[1] === DeviceStatusCoded.isOff ? DeviceStatus.isOff :
                    parts[1] === DeviceStatusCoded.isOn ? DeviceStatus.isOn :
@@ -199,7 +199,7 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
                    parts[1] === DeviceStatusCoded.isGoingDown ? DeviceStatus.isGoingDown :
                    parts[1] === DeviceStatusCoded.isGoingUp ? DeviceStatus.isGoingUp : DeviceStatus.unknown;
     // Return DTO
-    return {id: '', hwId: parts[0], status: status};
+    return {hwId: parts[0], status: status};
   }
 
   private deviceCommandToBinary(data: DeviceControlDto): string {

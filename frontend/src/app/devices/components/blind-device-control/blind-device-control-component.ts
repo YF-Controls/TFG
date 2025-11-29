@@ -45,7 +45,6 @@ export class BlindDeviceControlComponent implements OnInit {
   ngOnInit(): void {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
-      id: this.device().id,
       hwId: this.device().hwId,
       command: DeviceCommand.getStatus});
   }
@@ -54,7 +53,6 @@ export class BlindDeviceControlComponent implements OnInit {
   setUp () {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
-      id: this.device().id,
       hwId: this.device().hwId,
       command: DeviceCommand.up});
   }
@@ -62,7 +60,6 @@ export class BlindDeviceControlComponent implements OnInit {
   setDown () {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
-      id: this.device().id,
       hwId: this.device().hwId,
       command: DeviceCommand.down});
   }
@@ -70,7 +67,6 @@ export class BlindDeviceControlComponent implements OnInit {
   setStop () {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
-      id: this.device().id,
       hwId: this.device().hwId,
       command: DeviceCommand.stop});
   }

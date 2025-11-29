@@ -45,7 +45,6 @@ export class CommonDeviceControlComponent implements OnInit {
   ngOnInit(): void {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
-      id: this.device().id,
       hwId: this.device().hwId,
       command: DeviceCommand.getStatus});
   }
@@ -54,7 +53,6 @@ export class CommonDeviceControlComponent implements OnInit {
   setOn () {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
-      id: this.device().id,
       hwId: this.device().hwId,
       command: DeviceCommand.on});
   }
@@ -62,7 +60,6 @@ export class CommonDeviceControlComponent implements OnInit {
   setOff () {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
-      id: this.device().id,
       hwId: this.device().hwId,
       command: DeviceCommand.off});
   }

@@ -21,7 +21,7 @@ export class DeviceWebSocketService {
   
   isConnected = signal<boolean>(false);
   connectionError = signal<string | null>(null);
-  deviceStatus = signal<DeviceStatusDto>({id: '', hwId: '', status: DeviceStatus.unknown});
+  deviceStatus = signal<DeviceStatusDto>({hwId: '', status: DeviceStatus.unknown});
   lastAck = signal<string | null>(null);
   //socketId = signal<string | null>(null);
 
