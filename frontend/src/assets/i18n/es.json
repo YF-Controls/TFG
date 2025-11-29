@@ -95,6 +95,59 @@
     }
   },
   
+  "MAIN_DASHBOARD" : {
+
+    "LAYOUT" : {
+      "SUBTITLE" : "Panel de Control del Sistema",
+      "WELCOME" : "Bienvenido de nuevo, ",
+
+      "NAV_BUTTONS" : {
+        "DASHBOARD" : {
+          "TITLE" : "Dashboard",
+          "SUBTITLE" : "Resumen de datos"
+        },
+
+        "DEVICES" : {
+          "TITLE" : "Dispositivos",
+          "SUBTITLE" : "Gestionar dispositivos"
+        },
+
+        "DEVICE_AREAS" : {
+          "TITLE" : "Áreas de Dispositivos",
+          "SUBTITLE" : "Gestionar áreas de dispositivos"
+        },
+
+        "DEVICE_TYPES" : {
+          "TITLE" : "Tipos de Dispositivos  ",
+          "SUBTITLE" : "Gestionar tipos de dispositivos"
+        },
+
+        "USERS" : {
+          "TITLE" : "Usuarios",
+          "SUBTITLE" : "Gestionar usuarios"
+        }
+      },
+      
+      "LOGOUT" : {
+        "BUTTON" : "Cerrar sesión",
+        "POPUP" : {
+          "TITLE" : "Confirmar cierre de sesión",
+          "MESSAGE" : "¿Estás seguro de que deseas cerrar sesión?"
+        }
+      }
+    },
+
+    "DEVICES_PAGE" : {
+      "TITLE": "Control de Dispositivos",
+      "TOTAL" : "Total de Dispositivos: "
+    },
+
+    "USER_PAGE" : {
+      "TITLE": "Usuario",
+      "TOTAL" : "Perfil de Usuario: "
+    }
+  },
+  
   "AUTH" : {
 
     "LAYOUT" : {
@@ -355,8 +408,11 @@
       "TABLE" : {
         "HEADER" : {
           "STATUS" : "Estado",
+          "NUMBER" : "Número",
           "NAME" : "Nombre",
-          "DESCRIPTION" : "Descripción"
+          "TYPE" : "Tipo",
+          "AREA" : "Área",
+          "DESCRIPTION" : "Descripción" 
         },
         "NO_DATA" : "No se encontraron dispositivos."
       },

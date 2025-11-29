@@ -4,6 +4,5 @@ export enum DeviceStatus {
   isStopped = 'isStopped',
   isOn = 'isOn',
   isOff = 'isOff',
-  isStoppered = 'isStopped',
   unknown = 'unknown'
 }

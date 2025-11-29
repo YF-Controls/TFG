@@ -3,7 +3,7 @@ import { Injectable, Logger, OnModuleInit, OnModuleDestroy, Inject } from '@nest
 import { Socket } from 'net';
 // Other modules
 import { DeviceControlDto, DeviceStatusDto } from '@devices/dtos';
-import { DeviceCommand, DeviceStatus } from '@devices/interfaces';
+import { DeviceCommand, DeviceCommandCoded, DeviceStatus, DeviceStatusCoded } from '@devices/interfaces';
 // This module
 import type { IOSystemModuleOptions } from './interfaces';
 import { IO_SYSTEM_OPTIONS } from './constants';
@@ -109,7 +109,7 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
 
     // Connection error
     this.client.on('error', (error) => {
-      this.logger.error(`IO-System connection error: ${error.message}`);
+      this.logger.error(`IO-System connection error: ${JSON.stringify(error)}`);
       this.isConnecting = false;
     });
     // ####################################
@@ -189,29 +189,29 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
 
   private binaryToDeviceStatus(buffer: string): DeviceStatusDto {
    // Split buffer and parse
-    const parts = buffer.replace('(', '').replace(')', '').split(',');
+    const parts = buffer.replace('(', '').replace(')', '').split(':');
     // Expecting format: (hwId,status)
     if (parts.length !== 2) return {id: '', hwId: '', status: DeviceStatus.unknown};
     // Convert status code to DeviceStatus enum
-    const status = parts[1] === '0' ? DeviceStatus.isStopped :
-                   parts[1] === '1' ? DeviceStatus.isOff :
-                   parts[1] === '2' ? DeviceStatus.isOn :
-                   parts[1] === '3' ? DeviceStatus.isGoingDown :
-                   parts[1] === '4' ? DeviceStatus.isGoingUp : DeviceStatus.unknown;
+    const status = parts[1] === DeviceStatusCoded.isOff ? DeviceStatus.isOff :
+                   parts[1] === DeviceStatusCoded.isOn ? DeviceStatus.isOn :
+                   parts[1] === DeviceStatusCoded.isStopped ? DeviceStatus.isStopped :
+                   parts[1] === DeviceStatusCoded.isGoingDown ? DeviceStatus.isGoingDown :
+                   parts[1] === DeviceStatusCoded.isGoingUp ? DeviceStatus.isGoingUp : DeviceStatus.unknown;
     // Return DTO
     return {id: '', hwId: parts[0], status: status};
   }
 
   private deviceCommandToBinary(data: DeviceControlDto): string {
     // Map command to code
-    const command = data.command === DeviceCommand.stop ? '0' :
-                    data.command === DeviceCommand.off ? '1' :
-                    data.command === DeviceCommand.on ? '2' :
-                    data.command === DeviceCommand.down ? '3' :
-                    data.command === DeviceCommand.up ? '4' :
-                    data.command === DeviceCommand.getStatus ? 'g' : '!';
+    const command = data.command === DeviceCommand.off ? DeviceCommandCoded.off :
+                    data.command === DeviceCommand.on ? DeviceCommandCoded.on :
+                    data.command === DeviceCommand.stop ? DeviceCommandCoded.stop :
+                    data.command === DeviceCommand.down ? DeviceCommandCoded.down :
+                    data.command === DeviceCommand.up ? DeviceCommandCoded.up :
+                    data.command === DeviceCommand.getStatus ? 'gs' : '!!';
     // Return formatted string
-    return `(${data.hwId},${command})`;    
+    return `(${data.hwId}:${command})`;    
 
   }
 }

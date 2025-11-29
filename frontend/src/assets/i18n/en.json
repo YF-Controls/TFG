@@ -95,6 +95,59 @@
     }
   },
 
+  "MAIN_DASHBOARD" : {
+
+    "LAYOUT" : {
+      "SUBTITLE" : "System Control Panel",
+      "WELCOME" : "Welcome back, ",
+
+      "NAV_BUTTONS" : {
+        "DASHBOARD" : {
+          "TITLE" : "Dashboard",
+          "SUBTITLE" : "Data overview"
+        },
+
+        "DEVICES" : {
+          "TITLE" : "Devices",
+          "SUBTITLE" : "Manage devices"
+        },
+
+        "DEVICE_AREAS" : {
+          "TITLE" : "Device Areas",
+          "SUBTITLE" : "Manage device areas"
+        },
+
+        "DEVICE_TYPES" : {
+          "TITLE" : "Device Types",
+          "SUBTITLE" : "Manage device types"
+        },
+
+        "USERS" : {
+          "TITLE" : "Users",
+          "SUBTITLE" : "Manage users"
+        }
+      },
+      
+      "LOGOUT" : {
+        "BUTTON" : "Logout",
+        "POPUP" : {
+          "TITLE" : "Confirm Logout",
+          "MESSAGE" : "Are you sure you want to logout?"
+        }
+      }
+    },
+
+    "DEVICES_PAGE" : {
+      "TITLE": "Device Control",
+      "TOTAL" : "Total Devices: "
+    },
+
+    "USER_PAGE" : {
+      "TITLE": "User",
+      "TOTAL" : "User profile: "
+    }
+  },
+  
   "AUTH" : {
 
     "LAYOUT" : {
@@ -355,7 +408,10 @@
       "TABLE" : {
         "HEADER" : {
           "STATUS" : "Status",
+          "NUMBER" : "Number",
           "NAME" : "Name",
+          "TYPE" : "Type",
+          "AREA" : "Area",
           "DESCRIPTION" : "Description"
         },
         "NO_DATA" : "No devices found."

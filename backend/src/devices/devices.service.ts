@@ -139,7 +139,7 @@ export class DevicesService {
 
 
   private buildHwId(deviceAreaHwId: string, deviceTypeHwId: string, number: number): string {
-    return `${deviceAreaHwId.toLowerCase().trim()}-${deviceTypeHwId.toLowerCase().trim()}-${number.toString().padStart(3, '0') }`;
+    return `${deviceAreaHwId.toLowerCase().trim()}-${deviceTypeHwId.toLowerCase().trim()}-${number.toString().padStart(4, '0') }`;
   }
   
 }

@@ -13,7 +13,7 @@ export class DeviceArea {
   @Column('text', { name: 'name', unique : true, nullable: false})
   name: string;
   
-  @Column('varchar', {name : 'hw_id', length: 8, unique: true, nullable: true})
+  @Column('char', {name : 'hw_id', length: 4, unique: true, nullable: true})
   hwId: string;
 
   @Column('text', {name: 'description', default : 'No comment'})

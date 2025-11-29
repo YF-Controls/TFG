@@ -29,7 +29,7 @@ export class CreateDeviceAreaComponent {
   // Properties
   protected form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    hwId: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
+    hwId: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
     description: ['....', [Validators.required, Validators.minLength(4)]],
     isActive: [true, [Validators.required]],
   });

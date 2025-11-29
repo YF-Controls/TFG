@@ -1,26 +1,96 @@
 // System
-import { Component, computed, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, computed, inject, signal, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { CommonModule, NgClass } from '@angular/common';
+import { Router, RouterOutlet } from '@angular/router';
+import { Dialog } from '@angular/cdk/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 // Other modules
+import { ConfirmComponent, SvgIconComponent, LanguageSwitcherComponent, ThemeSwitcherComponent } from '@shared/components';
+import { LanguageService } from '@shared/services';
 import { AuthApi } from '@auth/services';
+import { User } from '@auth/interfaces';
 
 
 @Component({
   standalone: true,
   selector: 'app-main-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [NgClass,
+            TranslateModule, 
+            RouterOutlet,
+            //LinkButtonComponent,
+            CommonModule,
+            LanguageSwitcherComponent,
+            SvgIconComponent,
+            ThemeSwitcherComponent],
   templateUrl: './main-navbar-component.html',
 })
 export class MainNavbarComponent {
-  // Attributes
-  authApi = inject(AuthApi);
-  router = inject(Router);
-
   
-  logout () {
-    this.authApi.logoutUser().subscribe();
-    this.router.navigateByUrl('/auth/login');
+  // Injections
+  private languageService = inject(LanguageService);
+  private dialog = inject(Dialog);
+  private authApi = inject(AuthApi);
+  private router = inject(Router);
+
+    // Properties
+  user = computed<User | null>(this.authApi.user);
+  isSidebarCollapsed = signal<boolean>(false);
+  
+  // Lifecycle
+  ngOnInit() {
+    this.checkScreenSize();
   }
 
+  // Listen to window resize events
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  // Check screen size and auto-collapse on tablet and below
+  private checkScreenSize() {
+    const width = window.innerWidth;
+    // Tablet breakpoint: 1024px (Tailwind's lg breakpoint)
+    if (width < 1024) {
+      this.isSidebarCollapsed.set(true);
+    }
+  }
+  
+  // Methods
+  protected toggleSidebar() {
+    this.isSidebarCollapsed.set(!this.isSidebarCollapsed());
+  }
+  
+  protected get fullNameInitials(): string {
+    const fullname = this.user()?.fullname || '';
+    return fullname
+      .split(' ')
+      .map(namePart => namePart.charAt(0).toUpperCase())
+      .join('');
+  }
+
+
+
+
+
+  // Methods
+  protected logout() {
+
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      disableClose: true,
+      data: {
+        title: this.languageService.getTranslation('ADMIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.TITLE'),
+        message: this.languageService.getTranslation('ADMIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.MESSAGE') 
+      }
+    });
+
+    dialogRef.closed.subscribe((confirmed) => {
+      if (confirmed) {
+        this.authApi.logoutUser().subscribe();
+        this.router.navigateByUrl('/auth/login');
+      };
+    });
+  }
+  
   
 }

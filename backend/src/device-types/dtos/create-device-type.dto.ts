@@ -10,7 +10,7 @@ export class CreateDeviceTypeDto {
   
   @IsString()
   @MinLength(4)
-  @MaxLength(8)
+  @MaxLength(4)
   hwId: string;
   
   @IsString()

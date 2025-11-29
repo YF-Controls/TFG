@@ -1,6 +1,7 @@
 // System
 import { Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
-import { NgClass } from '@angular/common';
+// Other modules
+import { SvgIconComponent } from '@shared/components';
 // This module
 import { Device, DeviceCommand, DeviceStatus } from '@devices/interfaces';
 import { DeviceWebSocketService } from '@devices/services';
@@ -8,17 +9,20 @@ import { DeviceWebSocketService } from '@devices/services';
 
 @Component({
   standalone : true,
-  selector: 'app-device-control',
-  imports: [NgClass],
-  templateUrl: './device-control-component.html',
+  selector: 'app-blind-device-control',
+  imports: [SvgIconComponent],
+  templateUrl: './blind-device-control-component.html',
 })
-export class DeviceControlComponent implements OnInit {
+export class BlindDeviceControlComponent implements OnInit {
 
   // Injections
   private deviceWebSocketService = inject(DeviceWebSocketService);
   
   // Properties
   device = input.required<Device>();
+  deviceType = input.required<string>();
+  deviceArea = input.required<string>();
+
   protected isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());
   protected status = signal<DeviceStatus>(DeviceStatus.unknown);
   protected readonly DeviceStatus = DeviceStatus;
@@ -47,20 +51,28 @@ export class DeviceControlComponent implements OnInit {
   }
 
   // Methods
-  setOn () {
+  setUp () {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
       id: this.device().id,
       hwId: this.device().hwId,
-      command: DeviceCommand.on});
+      command: DeviceCommand.up});
   }
 
-  setOff () {
+  setDown () {
     if (!this.isConnected()) return;
     this.deviceWebSocketService.sendCommand({
       id: this.device().id,
       hwId: this.device().hwId,
-      command: DeviceCommand.off});
+      command: DeviceCommand.down});
+  }
+  
+  setStop () {
+    if (!this.isConnected()) return;
+    this.deviceWebSocketService.sendCommand({
+      id: this.device().id,
+      hwId: this.device().hwId,
+      command: DeviceCommand.stop});
   }
   
  }

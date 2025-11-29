@@ -1,5 +1,5 @@
 // System
-import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Max, MaxLength, Min, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Length, Max, MaxLength, Min, MinLength } from "class-validator";
 
 export class CreateDeviceDto {
 
@@ -12,6 +12,11 @@ export class CreateDeviceDto {
   @Min(1)
   @Max(9999)
   number: number;
+
+  @IsString()
+  @IsOptional()
+  @Length(14, 14)
+  hwId?: string;
   
   @IsString()
   @IsOptional()

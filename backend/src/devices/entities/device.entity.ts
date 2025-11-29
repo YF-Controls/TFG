@@ -20,7 +20,7 @@ export class Device {
   @Column('numeric', { name: 'number', unique: true, nullable: true})
   number: number;
 
-  @Column('text', { name: 'hw_id', unique: true, nullable: true})
+  @Column('char', { name: 'hw_id', length: 14, unique: true, nullable: true})
   hwId: string;
 
   @Column('text', { name: 'description', default : 'No comment'})

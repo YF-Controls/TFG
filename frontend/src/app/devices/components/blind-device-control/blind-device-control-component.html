@@ -1,0 +1,49 @@
+<div class="card bg-base-300/20 border border-primary m-2">
+
+  <div class="card-body">
+    
+    <h2 class="card-title">
+      <!-- status -->
+      @switch (status()) {
+        @case (DeviceStatus.isStopped) {
+          <app-svg-icon name="circle-solid-stop" customClass="text-grey-500"/>
+      }
+        @case (DeviceStatus.isGoingDown) {
+          <app-svg-icon name="circle-solid-down" customClass="text-green-500"/>
+        }
+        @case (DeviceStatus.isGoingUp) {
+          <app-svg-icon name="circle-solid-up" customClass="text-green-500"/>
+          
+        }
+        @default {
+          <div class="badge bg-white"></div>
+        }
+      } 
+      
+      <!-- title -->
+      {{ this.device().name }}
+
+      
+    </h2>
+    
+    <p class="text-sm italic text-primary/50">{{ this.deviceArea() }}</p>
+
+    <div class="card-actions justify-end">
+      
+      <button class="btn btn-primary w-10" (click)="setDown()">
+        <app-svg-icon name="arrow-down"/>
+      </button>
+
+      <button class="btn btn-primary w-10" (click)="setStop()">
+        <app-svg-icon name="solid-stop"/>
+      </button>
+
+      <button class="btn btn-primary w-10" (click)="setUp()">
+        <app-svg-icon name="arrow-up"/>
+      </button>
+      
+      
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="card bg-base-300/20 border border-primary m-2">
+
+  <div class="card-body">
+    
+    <div class="card-title">
+      <!-- status -->
+      @switch (status()) {
+        @case (DeviceStatus.isOn) {
+          <app-svg-icon name="lamp" customClass="text-green-500"/>
+        }
+        @case (DeviceStatus.isOff) {
+          <app-svg-icon name="lamp" customClass="text-grey-500"/>
+        }
+        @default {
+          <app-svg-icon name="lamp" customClass="text-white"/>
+        }
+      } 
+    
+      <!-- title -->
+      <h2>{{ this.device().name }}</h2>
+
+      
+    </div>
+    
+    <p class="text-sm italic text-primary/50">{{ this.deviceArea() }}</p>
+    
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary w-10" (click)="setOff()">
+        OFF
+      </button>
+      <button class="btn btn-primary w-10" (click)="setOn()">
+        ON
+      </button>
+    </div>
+
+    
+
+  </div>
+</div>

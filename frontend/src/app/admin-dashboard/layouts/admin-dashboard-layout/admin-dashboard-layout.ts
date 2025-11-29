@@ -79,8 +79,8 @@ export class AdminDashboardLayout implements OnInit {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageService.getTranslation('ADMIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.TITLE'),
-        message: this.languageService.getTranslation('ADMIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.MESSAGE') 
+        title: this.languageService.getTranslation('MAIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.TITLE'),
+        message: this.languageService.getTranslation('MAIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.MESSAGE') 
       }
     });
 
@@ -91,4 +91,5 @@ export class AdminDashboardLayout implements OnInit {
       };
     });
   }
+
  }
