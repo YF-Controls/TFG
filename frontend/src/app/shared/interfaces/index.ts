@@ -1,1 +1,1 @@
-export { OrderDirection } from "./order-direction.enum";
+export * from "./order-direction.enum";

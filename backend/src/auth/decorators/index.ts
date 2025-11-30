@@ -1,6 +1,4 @@
-export { MyAuth } from "./auth.decorator";
-export { MyGetUser } from "./get-user.decorator";
-export { MyRawHeaders } from "./raw-headers.decorator";
-export { META_ROLES } from "./role-protected.decorator";
-export { MyRoleProtected } from "./role-protected.decorator";
-
+export * from "./auth.decorator";
+export * from "./get-user.decorator";
+export * from "./raw-headers.decorator";
+export * from "./role-protected.decorator";

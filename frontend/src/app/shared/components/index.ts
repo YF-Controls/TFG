@@ -1,5 +1,5 @@
-export { ConfirmComponent } from "./confirm-component/confirm-component";
-export { FormFieldErrorComponent } from "./form-field-error-component/form-field-error-component";
-export { SvgIconComponent, type SvgIconName } from './svg-icon-component/svg-icon-component';
-export { LanguageSwitcherComponent } from './language-switcher-component/language-switcher-component';
-export { ThemeSwitcherComponent } from './theme-switcher-component/theme-switcher.component';
+export * from "./confirm-component/confirm-component";
+export * from "./form-field-error-component/form-field-error-component";
+export * from './svg-icon-component/svg-icon-component';
+export * from './language-switcher-component/language-switcher-component';
+export * from './theme-switcher-component/theme-switcher.component';

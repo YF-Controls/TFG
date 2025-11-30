@@ -1,1 +1,1 @@
-export { DeviceArea } from "./decive-area.entity";
+export * from "./decive-area.entity";

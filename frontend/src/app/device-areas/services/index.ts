@@ -1,1 +1,1 @@
-export { DeviceAreaApi } from "./device-area-api";
+export * from "./device-area-api";

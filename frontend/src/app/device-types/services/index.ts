@@ -1,2 +1,1 @@
-export { DeviceTypeApi } from "./device-type-api";
-
+export * from "./device-type-api";

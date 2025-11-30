@@ -1,4 +1,2 @@
-export { MyValidRoles } from './valid-roles.interface';
-export { type MyJwtPayload } from './jwt-payload.insterface';
-
-
+export * from './valid-roles.interface';
+export * from './jwt-payload.insterface';

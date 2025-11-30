@@ -1,1 +1,1 @@
-export { DeviceType } from "./device-type.entity";
+export * from "./device-type.entity";

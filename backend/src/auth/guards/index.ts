@@ -1,1 +1,2 @@
-export { MyUserRoleGuard } from "./user-role.guard";
+export * from "./user-role.guard";
+

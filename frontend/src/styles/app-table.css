@@ -1,13 +1,17 @@
 .app-table-container {
-  @apply overflow-x-auto; /* w-full;*/
+  @apply overflow-x-auto;
 }
 
 .app-table {
   @apply table;
 }
 
+.app-table-header {
+  @apply bg-primary;
+}
+
 .app-table-field-header {
-  @apply text-xs md:text-sm font-normal md:font-bold text-primary ;
+  @apply text-sm md:text-base font-normal md:font-bold text-primary-content;
 }
 
 .app-table-field-status {
