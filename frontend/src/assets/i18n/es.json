@@ -8,7 +8,7 @@
       "NAV_BUTTONS" : {
 
         "MAIN_DEVICES" : {
-          "TITLE" : "Control de Dispositivos",
+          "TITLE" : "Panel de Control",
           "SUBTITLE" : "Panel de Control de Dispositivos"
         },
 
@@ -104,7 +104,7 @@
   "MAIN_DASHBOARD" : {
 
     "LAYOUT" : {
-      "SUBTITLE" : "Panel de Control del Sistema",
+      "SUBTITLE" : "Panel de Control",
       "WELCOME" : "Bienvenido de nuevo, ",
 
       "NAV_BUTTONS" : {
@@ -112,11 +112,6 @@
         "ADMIN" : {
           "TITLE" : "Panel Administrativo",
           "SUBTITLE" : "Gestionar todo"
-        },
-
-        "DASHBOARD" : {
-          "TITLE" : "Dashboard",
-          "SUBTITLE" : "Resumen de datos"
         },
 
         "DEVICES" : {
@@ -165,7 +160,21 @@
     "LAYOUT" : {
       "TITLE" : "Bienvenido al Panel Administrativo"
     },
-  
+
+    "IS_ADMIN_GUARD" : {
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "MESSAGE" : "No tienes permiso para acceder a esta área."
+      }
+    },
+
+    "IS_USER_GUARD" : {
+      "TOAST" : {
+        "CLOSE" : "Cerrar",
+        "MESSAGE" : "No tienes permiso para acceder a esta área."
+      }
+    },
+
     "EDIT_USER" : {
 
       "TITLE" : "Editar usuario",

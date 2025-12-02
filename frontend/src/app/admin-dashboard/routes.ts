@@ -18,7 +18,6 @@ export const adminDeashboardRouters: Routes = [
   {
     path : '',
     component : AdminDashboardLayout,
-    canMatch : [IsAdminGuard],
     children : [
       {path : 'dashboard', component : AdminDashboardPage},
       {path : 'users', component : UsersAdminPage},

@@ -2,24 +2,56 @@
 import { inject } from "@angular/core";
 import { CanMatchFn, Route, Router, UrlSegment } from "@angular/router";
 import { firstValueFrom } from "rxjs";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { TranslateService } from "@ngx-translate/core";
 // This module
-import { AuthApi } from '../services';
+import { AuthApi, AuthStatus } from '@auth/services';
+import { AppPaths } from "src/app/app.paths";
 
 
 export const IsUserGuard: CanMatchFn = async (
   route: Route,
   segements: UrlSegment[]
 ) => {
-
+  // Injections
   const authApi = inject(AuthApi);
+  const toast = inject(MatSnackBar);
+  const router = inject(Router);
+  const translate = inject(TranslateService);
   
-  await firstValueFrom(authApi.checkUser());
-  
-  if (!authApi.isUser()) {
-    const router = inject(Router);
-    router.navigateByUrl('/auth/login');
+  // Get auth status
+  try {
+    await firstValueFrom(authApi.checkUser());
+  } catch (error) {
+    router.navigateByUrl(AppPaths.FULL_LOGIN);
     return false;
   }
 
+  // Check authentication
+  if (authApi.status() !== AuthStatus.authenticated) {
+    router.navigateByUrl(AppPaths.FULL_LOGIN);
+    return false;
+  }
+
+  // Check user role
+  if (!authApi.isUser()) {
+    // Show toast
+    const message = translate.instant('AUTH.IS_USER_GUARD.TOAST.MESSAGE');
+    const action = translate.instant('AUTH.IS_USER_GUARD.TOAST.CLOSE');
+    toast.open(message, action, { 
+      duration: 3000,
+      panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+    // Go to login page
+    setTimeout(() => {
+      router.navigateByUrl(AppPaths.FULL_LOGIN);
+    }, 100);
+    // Return
+    return false;
+  }
+
+  // All good
   return true;
 }

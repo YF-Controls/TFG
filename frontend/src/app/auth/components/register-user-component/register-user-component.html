@@ -6,15 +6,16 @@
     <h1 class="app-popup-header-title">
       {{ 'AUTH.REGISTER_USER.TITLE' | translate }}
     </h1>
-    <!-- Cancel button 
-    <button 
-      class="app-popup-header-close-button hidden"
-      tabindex="7">
-      <!--(click)="onCancel()"
-      <!-- Icon 
-      <app-svg-icon name="close"/>
-    </button>
-    -->
+    <!-- Cancel button -->
+    @if (isPopup()) {
+      <button 
+        class="app-popup-header-close-button hidden"
+        tabindex="7">
+        (click)="onCancel()"
+        <!-- Icon -->
+        <app-svg-icon name="close"/>
+      </button>
+    }
   </header>
   <!-- Body -->
   <div class="app-popup-body">

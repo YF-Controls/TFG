@@ -12,14 +12,10 @@ export const mainDashboardRoutes: Routes = [
     path : '',
     component: MainDashboardLayout,
     children : [
-      {path: '', component: HomePage},
-      {path: 'devices', component: DevicesPage, canMatch : [IsUserGuard],},
-      {path: '**', component: NotFoundPage},
+      {path: '', pathMatch: 'full', redirectTo: 'devices'},
+      {path: 'devices', component: DevicesPage},
+      {path: '**', redirectTo: 'devices'},
     ],
-  },
-  {
-    path : '**',
-    redirectTo: '',
   },
 ];
 

@@ -1,6 +1,6 @@
 // System
 import { Component, computed, inject, signal, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,6 +9,7 @@ import { ConfirmComponent, SvgIconComponent, LanguageSwitcherComponent, ThemeSwi
 import { LanguageService } from '@shared/services';
 import { AuthApi } from '@auth/services';
 import { User } from '@auth/interfaces';
+import { AppPaths } from 'src/app/app.paths';
 // This module
 
 
@@ -16,8 +17,7 @@ import { User } from '@auth/interfaces';
 @Component({
   standalone : true,
   selector: 'app-admin-dashboard-layout',
-  imports: [NgClass,
-            TranslateModule, 
+  imports: [TranslateModule, 
             RouterOutlet,
             LinkButtonComponent,
             CommonModule,
@@ -86,8 +86,10 @@ export class AdminDashboardLayout implements OnInit {
 
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {
-        this.authApi.logoutUser().subscribe();
-        this.router.navigateByUrl('/auth/login');
+        this.authApi.logoutUser()
+          .subscribe(() => {
+            this.router.navigateByUrl(AppPaths.FULL_LOGIN);
+          });
       };
     });
   }

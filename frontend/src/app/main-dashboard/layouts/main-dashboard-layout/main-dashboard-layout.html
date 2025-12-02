@@ -1,8 +1,7 @@
 <!-- All screen -->
 <div 
   class="overflow-y-scroll w-screen h-screen antialiased">
-
-
+  
   <!-- Left side menu position -->
   <div class="flex flex-col relative w-screen">
 
@@ -20,10 +19,8 @@
       <!-- Title, subtitle -->
       <div
         class="my-2 transition-all duration-300"
-        [ngClass]="{
-          'px-0': isSidebarCollapsed(),
-          'px-6': !isSidebarCollapsed()
-        }">
+        [class.px-0]="isSidebarCollapsed()"
+        [class.px-6]="!isSidebarCollapsed()">
         <!-- Title-->
         <h1 
           class="text-lg md:text-2xl
@@ -36,24 +33,31 @@
         </h1>
         <!-- Subtitle -->
         <p 
-          [ngClass]="{'text-primary/70' : !isSidebarCollapsed(), 'text-transparent' : isSidebarCollapsed()}"
-          class="text-sm transition-opacity duration-300">
+          class="text-sm transition-opacity duration-300"  
+          [class.text-primary/70]="!isSidebarCollapsed()"
+          [class.text-transparent]="isSidebarCollapsed()">
           {{ isSidebarCollapsed() ? '...' : 'MAIN_DASHBOARD.LAYOUT.SUBTITLE' | translate }}
         </p>
-        
       </div>
       
       <!-- Divider -->
       <div class="divider my-0"></div>
       
-      <!-- Option buttons -->
-      <div class="flex flex-col items-center my-2">
+      <!-- Option buttons >-->
+      <div
+        class="flex flex-row items-center my-2"
+        [class.flex-row]="!isSidebarCollapsed()"
+        [class.flex-col]="isSidebarCollapsed()">
         <!-- Theme toggle button -->
-        <app-theme-switcher
-          [isSidebarCollapsed] = "isSidebarCollapsed()"/>
+        <div class="flex-2 flex justify-center">
+          <app-theme-switcher 
+            [isSidebarCollapsed] = "isSidebarCollapsed()"/>
+        </div>
         <!-- Language button -->
-        <app-language-switcher
-          [isSidebarCollapsed] = "isSidebarCollapsed()"/>
+        <div class="flex-5 flex justify-center">
+          <app-language-switcher
+            [isSidebarCollapsed] = "isSidebarCollapsed()"/>
+        </div>
       </div>
 
       <!-- Divider -->
@@ -63,10 +67,8 @@
       <div 
         id="profile" 
         class="py-2 transition-all duration-300"
-        [ngClass]="{
-          'px-0': isSidebarCollapsed(),
-          'px-6': !isSidebarCollapsed()
-        }">
+        [class.px-0]="isSidebarCollapsed()"
+        [class.px-6]="!isSidebarCollapsed()">
 
         <!-- Not collapsed: Show welcome message -->
         @if (isSidebarCollapsed()) {
@@ -103,7 +105,7 @@
       <!-- Navigation buttons -->
       <div id="nav" class="w-full px-3">
 
-        <!-- Admin button -->
+        <!-- Admin Panel button -->
         @if (isAdmin()) {
           <app-link-button
             title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.TITLE' | translate }}"
@@ -111,6 +113,8 @@
             path="/admin/dashboard"
             [isCollapsed]="isSidebarCollapsed()"
             svgIconName="tools"/>
+
+          <div class="divider my-0"></div>
         }
 
         <!-- Devices button -->
@@ -121,47 +125,43 @@
           [isCollapsed]="isSidebarCollapsed()"
           svgIconName="lamp"/>
 
-        <!-- Dashboard button --
-        <app-link-button
-          title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DASHBOARD.TITLE' | translate }}"
-          subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DASHBOARD.SUBTITLE' | translate }}"
-          path="/admin/dashboard"
-          [isCollapsed]="isSidebarCollapsed()"
-          svgIconName="dashboard"/>
-        
-        
-        
-        <!-- Device areas button --
-        <app-link-button
-          title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_AREAS.TITLE' | translate }}"
-          subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_AREAS.SUBTITLE' | translate }}"
-          path="/admin/device-areas"
-          [isCollapsed]="isSidebarCollapsed()"
-          svgIconName="house"/>
-        
-        <!-- Device types button --
-        <app-link-button
-          title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_TYPES.TITLE' | translate }}"
-          subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_TYPES.SUBTITLE' | translate }}"
-          path="/admin/device-types"
-          [isCollapsed]="isSidebarCollapsed()"
-          svgIconName="folder"/>
-        
-        <!-- Users button --
-        <app-link-button
-          title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.USERS.TITLE' | translate }}"
-          subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.USERS.SUBTITLE' | translate }}"
-          path="/admin/users"
-          [isCollapsed]="isSidebarCollapsed()"
-          svgIconName="users"/>
-        -->
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div> 
 
       <!-- Logout button -->
       <div class="flex flex-col items-center pt-20">
         <button
-          [ngClass]="{'justify-center': isSidebarCollapsed()}"
           class="btn btn-primary flex rounded-lg"
+          [class.justify-center]="isSidebarCollapsed()"
           (click)="logout()">
           <!-- Elements -->
           <div class="flex justify-between items-center">
@@ -184,10 +184,8 @@
                bg-primary text-primary-content  py-10 rounded-r-lg shadow-lg
                hover:bg-primary/80 transition-all duration-300
                items-center justify-center"
-        [ngClass]="{
-          'left-20': isSidebarCollapsed(),
-          'left-60': !isSidebarCollapsed()
-        }">
+        [class.left-20]="isSidebarCollapsed()"
+        [class.left-60]="!isSidebarCollapsed()">
         <!-- Expand icon (when collapsed) -->
         @if (isSidebarCollapsed()) {
           <app-svg-icon name="arrow-right"/>
@@ -204,10 +202,8 @@
   <!-- Main content -->
   <div 
     class="flex-1 pt-5 px-5 transition-all duration-300"
-    [ngClass]="{
-      'ml-25': isSidebarCollapsed(),
-      'ml-65': !isSidebarCollapsed()
-    }">
+    [class.ml-25]="isSidebarCollapsed()"
+    [class.ml-65]="!isSidebarCollapsed()">
     <router-outlet/>
   </div>
   

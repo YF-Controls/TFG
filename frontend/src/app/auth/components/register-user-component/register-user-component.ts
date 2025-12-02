@@ -1,14 +1,16 @@
 // System
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 // Other modules
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { AuthApi } from '../../services';
+import { AppPaths } from 'src/app/app.paths';
 
 
 @Component({
@@ -21,12 +23,13 @@ export class RegisterUserComponent {
   
   // Injections
   protected languageService = inject(LanguageService);
+  private dialogData = inject(DIALOG_DATA, { optional: true });
+  private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
-
   private fb = inject(FormBuilder);
   private authApi = inject(AuthApi);
-  router = inject(Router);
-
+  private router = inject(Router);
+  
   // Properties
   protected form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email ]],
@@ -36,7 +39,8 @@ export class RegisterUserComponent {
   });
   showPassword1 = signal<boolean>(false);
   showPassword2 = signal<boolean>(false);
-  
+  protected isPopup = signal<boolean>(!!this.dialogData?.isPopup);
+
   // Methods
   onSubmit () {
     // Check form and show toast
@@ -94,16 +98,29 @@ export class RegisterUserComponent {
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
           });
-        
-        this.router.navigateByUrl('/auth/login');
+
+        console.log('!DELETE data', this.dialogData?.isPopup);
+        console.log('!DELETE input', this.isPopup());
+
+
+        // Check if popup or full page
+        if (this.isPopup()) {
+          this.dialogRef?.close(true);
+          return;
+        }
+        this.router.navigateByUrl(AppPaths.FULL_LOGIN);
       });
   }
   
-  toggleShowPassword1 () {
+  protected onCancel() {
+    this.dialogRef?.close(false);
+  }
+  
+  protected toggleShowPassword1 () {
     this.showPassword1.update(v => !v);
   }
 
-  toggleShowPassword2 () {
+  protected toggleShowPassword2 () {
     this.showPassword2.update(v => !v);
   }
       

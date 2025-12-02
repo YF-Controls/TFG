@@ -23,13 +23,15 @@ export class EditUserComponent implements OnInit {
   
   // Injections
   protected languageService = inject(LanguageService);
-  private dialogData = inject(DIALOG_DATA);
+  private dialogData = inject(DIALOG_DATA, { optional: true });
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
-
   private fb = inject(FormBuilder);
   private authApi = inject(AuthApi);
   
+  // IO
+  user = input<User>(this.dialogData.user);
+
   // Properties
   protected readonly availableRoles = [
     { value: 'user', label: 'User' },
@@ -43,7 +45,6 @@ export class EditUserComponent implements OnInit {
     isActive: [true, [Validators.required]],
   });
   
-  user = input<User>(this.dialogData.user);
 
   // Lifecycle
   ngOnInit(): void {

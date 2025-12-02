@@ -1,14 +1,14 @@
 {
   "ADMIN_DASHBOARD" : {
 
-    "LAYOUT" : {
+    "LAYOUT" : { 
       "SUBTITLE" : "Administrative Panel",
       "WELCOME" : "Welcome back, ",
 
       "NAV_BUTTONS" : {
 
         "MAIN_DEVICES" : {
-          "TITLE" : "Devices Control",
+          "TITLE" : "Control Panel",
           "SUBTITLE" : "Device Control Panel"
         },
 
@@ -104,7 +104,7 @@
   "MAIN_DASHBOARD" : {
 
     "LAYOUT" : {
-      "SUBTITLE" : "System Control Panel",
+      "SUBTITLE" : "Control Panel",
       "WELCOME" : "Welcome back, ",
 
       "NAV_BUTTONS" : {
@@ -159,6 +159,20 @@
 
     "LAYOUT" : {
       "TITLE" : "Welcome to the Administrative Panel"
+    },
+
+    "IS_ADMIN_GUARD" : {
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "MESSAGE" : "You do not have permission to access this area."
+      }
+    },
+
+    "IS_USER_GUARD" : {
+      "TOAST" : {
+        "CLOSE" : "Close",
+        "MESSAGE" : "You do not have permission to access this area."
+      }
     },
 
     "EDIT_USER" : {

@@ -30,7 +30,7 @@ export class EditDeviceComponent implements OnInit {
 
   // Injections
   protected languageService = inject(LanguageService);
-  private dialogData = inject(DIALOG_DATA);
+  private dialogData = inject(DIALOG_DATA, { optional: true });
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
   private fb = inject(FormBuilder);

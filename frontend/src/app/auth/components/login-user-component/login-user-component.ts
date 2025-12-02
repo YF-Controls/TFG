@@ -9,6 +9,7 @@ import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { AuthApi } from '../../services';
+import { AppPaths } from 'src/app/app.paths';
 
 
 @Component({
@@ -22,10 +23,9 @@ export class LoginUserComponent {
   // Injections
   protected languageService = inject(LanguageService);
   private toast = inject(MatSnackBar);
-
   private fb = inject(FormBuilder);
   private authApi = inject(AuthApi);
-  router = inject(Router);
+  private router = inject(Router);
     
   // Properties
   protected form: FormGroup = this.fb.group({
@@ -81,7 +81,7 @@ export class LoginUserComponent {
             verticalPosition : 'bottom',
           });
         
-        this.router.navigateByUrl('/devices');
+        this.router.navigateByUrl(AppPaths.DEVICES);
     });
   }
     

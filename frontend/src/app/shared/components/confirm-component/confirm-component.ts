@@ -14,7 +14,7 @@ import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 export class ConfirmComponent { 
   
   // Properties
-  private dialogData = inject(DIALOG_DATA);
+  private dialogData = inject(DIALOG_DATA, { optional: true });
   private dialogRef = inject(DialogRef, { optional: true });
   title = input<string>(this.dialogData.title || '?');
   message = input<string>(this.dialogData.message || '?');

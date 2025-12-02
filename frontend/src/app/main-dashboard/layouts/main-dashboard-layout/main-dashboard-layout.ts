@@ -1,21 +1,21 @@
 // System
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, LanguageSwitcherComponent, LinkButtonComponent, SvgIconComponent, ThemeSwitcherComponent } from '@shared/components';
-import { User, ValidRoles } from '@auth/interfaces';
 import { LanguageService } from '@shared/services';
+import { User, ValidRoles } from '@auth/interfaces';
 import { AuthApi } from '@auth/services';
+import { AppPaths } from 'src/app/app.paths';
 
 
 @Component({
   standalone: true,
   selector: 'app-main-dashboard-layout',
-  imports: [NgClass,
-            TranslateModule, 
+  imports: [TranslateModule, 
             RouterOutlet,
             LinkButtonComponent,
             CommonModule,
@@ -88,8 +88,10 @@ export class MainDashboardLayout {
 
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {
-        this.authApi.logoutUser().subscribe();
-        this.router.navigateByUrl('/auth/login');
+        this.authApi.logoutUser()
+          .subscribe(() => {
+            this.router.navigateByUrl(AppPaths.FULL_LOGIN);
+          });
       };
     });
   }

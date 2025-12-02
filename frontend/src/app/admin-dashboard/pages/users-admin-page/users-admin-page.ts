@@ -5,7 +5,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
-import { UserTableComponent } from '@auth/components';
+import { RegisterUserComponent, UserTableComponent } from '@auth/components';
 import { User } from '@auth/interfaces';
 import { AuthApi } from '@auth/services';
 import { SvgIconComponent } from '@shared/components';
@@ -26,23 +26,22 @@ export class UsersAdminPage {
 
   // Properties
   usersResource = rxResource<User[], []>({
-    stream  : () => {return this.authApi.getUsers({limit: 100, offset: 0, withInactives: true, orderBy: 'fullname'})},
+    stream  : () => {return this.authApi.getUsers({withInactives: true, orderBy: 'fullname'})},
   });
 
   // Methods
   protected onAdd () {
-    console.error('!DELETE onAdd in users-admin-page.ts and implement user creation logic!');
-  }
-  /*
-    const dialogRef = this.dialog.open(RegisterComponent, {
-      disableClose: true,
+    
+    const dialogRef = this.dialog.open(RegisterUserComponent, {
+      disableClose: true, 
+      data: { isPopup: true }
     });
 
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) this.onUpdateTable();
     });
   }
-  */
+  
   protected onUpdateTable() {
     this.usersResource.reload();
   }

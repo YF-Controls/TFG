@@ -13,7 +13,10 @@ import { LoginUserDto, RegisterUserDto, UpdateUserDto } from "../dtos";
 
 
 // Authentication status
-type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
+export enum AuthStatus {
+  checking = 'checking',
+  authenticated = 'authenticated',
+  notAuthenticated = 'not-authenticated'};
 
 // URLs
 const baseUrl = environment.baseUrl;
@@ -28,7 +31,7 @@ export class AuthApi {
   
   // Properties
   private _user = signal<User | null>(null);
-  private _authStatus = signal<AuthStatus>('checking');
+  private _status = signal<AuthStatus>(AuthStatus.checking);
   
   private http = inject(HttpClient);
 
@@ -37,14 +40,12 @@ export class AuthApi {
     stream: () => this.checkUser(),
     defaultValue: "Error",
   });
-  
-  authStatus = computed<AuthStatus>(() => {
-    if (this._authStatus() === 'checking') return 'checking';
-    if (this._user()) return 'authenticated';
-    return 'not-authenticated';
-  });
-
   user = computed<User | null>(() => this._user());
+  status = computed<AuthStatus>(() => {
+    if (this._status() === AuthStatus.checking) return AuthStatus.checking;
+    if (this._user()) return AuthStatus.authenticated;
+    return AuthStatus.notAuthenticated;
+  });
   isAdmin = computed<boolean>(() => this._user()?.roles.includes(ValidRoles.admin) ?? false);
   isUser = computed<boolean>(() => this._user()?.roles.includes(ValidRoles.user) ?? false);
   
@@ -59,7 +60,7 @@ export class AuthApi {
       );
   }
 
-  
+
   // Update: PATCH
   updateUser(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
     return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto, { withCredentials: true })
@@ -114,13 +115,13 @@ export class AuthApi {
       .pipe(
         map(() => {
           this._user.set(null);
-          this._authStatus.set('not-authenticated');
+          this._status.set(AuthStatus.notAuthenticated);
           return null;
         }),
         catchError((error: HttpErrorResponse) => {
           // Clear state even if request fails
           this._user.set(null);
-          this._authStatus.set('not-authenticated');
+          this._status.set(AuthStatus.notAuthenticated);
           return of(error.error?.message || 'Logout failed');
         })
       );
@@ -129,15 +130,15 @@ export class AuthApi {
 
   private handleAuthSuccess ({user} : AuthResponse): null {
     this._user.set(user);
-    this._authStatus.set('authenticated');
+    this._status.set(AuthStatus.authenticated);
     return null;
   }
-
+  
 
   private handleAuthError(error: HttpErrorResponse): Observable<string> {
     // Clear state directly without HTTP request
     this._user.set(null);
-    this._authStatus.set('not-authenticated');
+    this._status.set(AuthStatus.notAuthenticated);
     return of(error.error.message);
   }
 }
