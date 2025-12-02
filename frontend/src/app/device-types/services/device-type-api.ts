@@ -1,7 +1,7 @@
 // System
 import { inject, Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { catchError, map, Observable, of } from "rxjs";
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { catchError, map, Observable, of, tap } from "rxjs";
 // Other modules
 import { environment } from "@env/environment.development";
 import { QueryParamsDto } from "@shared/dto";
@@ -32,14 +32,20 @@ export class DeviceTypeApi {
   // Read: GET
   getAll(queryParamsDto: QueryParamsDto) : Observable<DeviceType[]> {
     const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
+    // Remove undefined/null properties
+    Object.keys(params).forEach(key => {
+      if (params[key] === undefined || params[key] === null) delete params[key];
+    });
     return this.http.get<DeviceType[]>(URL, {params : params});
   }
 
   // Read: GET
   getOne(id: string, queryParamsDto: QueryParamsDto) : Observable<DeviceType> {
     const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
+    // Remove undefined/null properties
+    Object.keys(params).forEach(key => {
+      if (params[key] === undefined || params[key] === null) delete params[key];
+    });
     return this.http.get<DeviceType>(`${URL}/${id}`, {params : params});
   }
   

@@ -63,14 +63,20 @@ export class UserApi {
   // Read: GET
   getAll(queryParamsDto: QueryParamsDto): Observable<User[]> {
     const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
+    // Remove undefined/null properties
+    Object.keys(params).forEach(key => {
+      if (params[key] === undefined || params[key] === null) delete params[key];
+    });
     return this.http.get<User[]>(USERS_URL, {params : params});
   }
 
   // Read: GET
   getOne(id: string, queryParamsDto: QueryParamsDto): Observable<User> {
     const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
+    // Remove undefined/null properties
+    Object.keys(params).forEach(key => {
+      if (params[key] === undefined || params[key] === null) delete params[key];
+    });
     return this.http.get<User>(`${USERS_URL}/${id}`, {params : params});
   }
 

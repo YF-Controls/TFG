@@ -45,7 +45,7 @@ export class EditDeviceTypeComponent implements OnInit {
   // Lifecycle
   ngOnInit(): void {
 
-    this.deviceTypeApi.getOne(this.deviceTypeId(), { withInactives: true })
+    this.deviceTypeApi.getOne(this.deviceTypeId(), {})
       .subscribe({
         next: (deviceType: DeviceType) => {
           this.form.setValue({

@@ -73,7 +73,6 @@ export class AuthService {
 
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
-    console.log('!DELETE auth.findAll - Query Params:', queryParamsDto);
     // Check query parametes
     const {
       limit = null,

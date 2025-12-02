@@ -24,9 +24,9 @@ export class DeviceControlTableComponent implements OnInit, OnDestroy {
   // Properties
   isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());
   protected devicesResource = rxResource<Device[], []>({
-    stream  : () => this.deviceApi.getAll({orderBy: 'number'}),
+    stream  : () => this.deviceApi.getAll({orderBy: 'number', filterBy: ['isActive'], filterValue: ['true']}),
   });
-
+  
   // Methods
   // Lifecycle
   ngOnInit(): void {

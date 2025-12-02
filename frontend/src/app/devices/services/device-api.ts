@@ -32,14 +32,20 @@ export class DeviceApi {
   // Read: GET
   getAll(queryParamsDto: QueryParamsDto): Observable<Device[]> {
     const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
+    // Remove undefined/null properties
+    Object.keys(params).forEach(key => {
+      if (params[key] === undefined || params[key] === null) delete params[key];
+    });
     return this.http.get<Device[]>(URL, {params : params});
   }
   
   // Read: GET
   getOne(id: string, queryParamsDto: QueryParamsDto): Observable<Device> {
     const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
+    // Remove undefined/null properties
+    Object.keys(params).forEach(key => {
+      if (params[key] === undefined || params[key] === null) delete params[key];
+    });
     return this.http.get<Device>(`${URL}/${id}`, {params : params});
   }
 

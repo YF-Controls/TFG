@@ -35,14 +35,12 @@ export class DeviceAreasService {
 
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
-    console.log('!DELETE deviceAreas.findAll - Query Params:', queryParamsDto);
     // Check query parametes
     const {
       limit = null,
       offset = 0,
       orderBy = 'id',
       orderDirection = 'ASC' } = queryParamsDto;
-
     // Query and return
     return await this.repository.find({
       ...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
@@ -54,7 +52,6 @@ export class DeviceAreasService {
 
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
-    console.log('!DELETE deviceAreas.findOne - ID:', id);
     // Query and return
     return await this.repository.findOne({
       where : buildWhereClauseFn(queryParamsDto, id),

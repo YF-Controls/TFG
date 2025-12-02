@@ -45,7 +45,7 @@ export class EditDeviceAreaComponent implements OnInit {
   // Lifecycle
   ngOnInit(): void {
 
-    this.deviceAreaApi.getOne(this.deviceAreaId(), { withInactives: true })
+    this.deviceAreaApi.getOne(this.deviceAreaId(), {})
       .subscribe(
         {
           next: (deviceArea: DeviceArea) => {

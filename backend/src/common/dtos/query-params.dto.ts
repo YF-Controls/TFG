@@ -1,6 +1,6 @@
 // System
-import { Type } from 'class-transformer';
-import { IsEnum, IsOptional, IsPositive, Min } from 'class-validator';
+import { Type, Transform } from 'class-transformer';
+import { IsEnum, IsOptional, IsPositive, Min, IsArray, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 // This module
 import { OrderDirection } from '../interfaces';
@@ -27,16 +27,7 @@ export class QueryParamsDto {
   @Min(0)
   @Type( () => Number ) 
   offset?: number;
-
-  @ApiProperty({
-    required: false,
-    default: false,
-    description: 'Whether to include inactive items in the results'
-  })
-  @IsOptional()
-  @Type( () => Boolean )
-  withInactives?: boolean = false;
-  
+    
   @ApiProperty({
     required: false,
     default: 'id',
@@ -57,17 +48,25 @@ export class QueryParamsDto {
   
   @ApiProperty({
     required: false,
-    description: 'Filter by field name'
+    description: 'Filter by field name(s). Can be single value or array.',
+    type: [String],
+    isArray: true
   })
   @IsOptional()
-  @Type( () => String )
-  filterBy?: string;
+  @Transform(({ value }) => Array.isArray(value) ? value : [value])
+  @IsArray()
+  @IsString({ each: true })
+  filterBy?: string[];
 
   @ApiProperty({
     required: false,
-    description: 'Value to be filtered by'
+    description: 'Value(s) to be filtered by. Can be single value or array.',
+    type: [String],
+    isArray: true
   })
   @IsOptional()
-  @Type( () => String )
-  filterValue?: string;
+  @Transform(({ value }) => Array.isArray(value) ? value : [value])
+  @IsArray()
+  @IsString({ each: true })
+  filterValue?: string[];
 }

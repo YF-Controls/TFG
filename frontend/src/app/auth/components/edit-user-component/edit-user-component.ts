@@ -50,7 +50,7 @@ export class EditUserComponent implements OnInit {
   // Lifecycle
   ngOnInit(): void {
 
-    this.userApi.getOne(this.userId(), { withInactives: true })
+    this.userApi.getOne(this.userId(), {})
       .subscribe({
         next: (user: User) => {
           this.form.setValue({

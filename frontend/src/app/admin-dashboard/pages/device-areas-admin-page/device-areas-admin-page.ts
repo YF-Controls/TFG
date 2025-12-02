@@ -26,7 +26,7 @@ export class DeviceAreasAdminPage {
 
   // Properties
   deviceAreasResource = rxResource<DeviceArea[], []>({
-    stream  : () => this.deviceAreaApi.getAll({withInactives: true, orderBy: 'name'}),
+    stream  : () => this.deviceAreaApi.getAll({orderBy: 'name'}),
   });
   
   // Methods

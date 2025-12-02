@@ -9,6 +9,7 @@ import { DeviceTypeApi } from '@device-types/services';
 import { DeviceAreaApi } from '@device-areas/services';
 // This module
 import { DoughnutChartComponent } from '@admin/components';
+import { QueryParamsDto } from '@shared/dto';
 
 
 interface DashboardStats {
@@ -45,29 +46,30 @@ export class AdminDashboardPage implements OnInit {
 
   // Methods
   private loadStats(): void {
+    
     // Load Users
-    this.userApi.getAll({ withInactives: true }).subscribe(users => {
+    this.userApi.getAll({}).subscribe(users => {
       const active = users.filter(u => u.isActive).length;
       const inactive = users.filter(u => !u.isActive).length;
       this.usersStats.set({ active, inactive, total: users.length });
     });
 
     // Load Devices
-    this.deviceApi.getAll({ withInactives: true }).subscribe(devices => {
+    this.deviceApi.getAll({}).subscribe(devices => {
       const active = devices.filter(d => d.isActive).length;
       const inactive = devices.filter(d => !d.isActive).length;
       this.devicesStats.set({ active, inactive, total: devices.length });
     });
 
     // Load Device Types
-    this.deviceTypeApi.getAll({ withInactives: true }).subscribe(types => {
+    this.deviceTypeApi.getAll({}).subscribe(types => {
       const active = types.filter(t => t.isActive).length;
       const inactive = types.filter(t => !t.isActive).length;
       this.deviceTypesStats.set({ active, inactive, total: types.length });
     });
 
     // Load Device Areas
-    this.deviceAreaApi.getAll({ withInactives: true }).subscribe(areas => {
+    this.deviceAreaApi.getAll({}).subscribe(areas => {
       const active = areas.filter(a => a.isActive).length;
       const inactive = areas.filter(a => !a.isActive).length;
       this.deviceAreasStats.set({ active, inactive, total: areas.length });

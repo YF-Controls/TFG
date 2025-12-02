@@ -58,7 +58,7 @@ export class EditDeviceComponent implements OnInit {
 
     this.loadDeviceAreas();
     this.loadDeviceTypes();
-    this.deviceApi.getOne(this.deviceId(), { withInactives: true })
+    this.deviceApi.getOne(this.deviceId(), {})
       .subscribe(
         {
           next: (device) => {

@@ -27,7 +27,7 @@ export class DeviceTypesAdminPage {
 
   // Properties
   deviceTypesResource = rxResource<DeviceType[], []>({
-    stream  : () => this.deviceTypeApi.getAll({withInactives: true, orderBy: 'name'}),
+    stream  : () => this.deviceTypeApi.getAll({orderBy: 'name'}),
   });
   
   // Methods

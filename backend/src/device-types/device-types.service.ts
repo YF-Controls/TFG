@@ -32,7 +32,6 @@ export class DeviceTypesService {
 
     // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
-    console.log('!DELETE deviceTypes.findAll - Query Params:', queryParamsDto);
     // Check query parametes
     const {
       limit = null,
@@ -53,7 +52,6 @@ export class DeviceTypesService {
 
   // Read: findeOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
-    console.log('!DELETE deviceTypes.findOne - ID:', id);
     // Query and return
     const result = await this.repository.findOne({
       where : buildWhereClauseFn(queryParamsDto, id),

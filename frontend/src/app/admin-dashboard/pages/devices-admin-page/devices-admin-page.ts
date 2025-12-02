@@ -33,7 +33,7 @@ export class DevicesAdminPage {
   
   // Properties
   devicesResource = rxResource<Device[], []>({
-    stream  : () => this.deviceApi.getAll({ withInactives: true, orderBy: 'number'}),
+    stream  : () => this.deviceApi.getAll({orderBy: 'number'}),
   });
   
   // Methods

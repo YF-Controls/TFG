@@ -48,7 +48,6 @@ export class DevicesService {
 
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
-    console.log('!DELETE devices.findAll - Query Params:', queryParamsDto);
     // Check query parametes for limit, offset and order
     const {
       limit = null,
@@ -68,7 +67,6 @@ export class DevicesService {
 
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
-    console.log('!DELETE devices.findOne - ID:', id);
     // Query and return
     return await this.deviceRepository.findOne({
       where : buildWhereClauseFn(queryParamsDto, id),
@@ -77,14 +75,10 @@ export class DevicesService {
   
   // Read: findOneByHwId()
   async findOneByHwId(hwId: string, queryParamsDto: QueryParamsDto) {
-    // Check query parameters
-    const { withInactives = false } = queryParamsDto;
     // Query and return
     return await this.deviceRepository.findOne({
       where : {
-        hwId,
-        ...(!withInactives && { isActive : true })
-      }
+        ...buildWhereClauseFn(queryParamsDto, null, hwId)}
     });
   }
   
@@ -149,28 +143,5 @@ export class DevicesService {
     return `${deviceAreaHwId.toLowerCase().trim()}-${deviceTypeHwId.toLowerCase().trim()}-${number.toString().padStart(4, '0') }`;
   }
   
-  /*
-  private buildWhereClause(queryParamsDto: QueryParamsDto): any {
-    // Check query parametes
-    const {
-      withInactives = false,
-      filterBy = null,
-      filterValue = null } = queryParamsDto;
-    
-    // Build where clause
-    const whereClause: any = {
-      ...(!withInactives && { isActive: true }),
-    };
-
-    // Add filter if provided
-    if (filterBy && filterValue) {
-      if (filterValue.includes('%'))
-        whereClause[filterBy] = Like(filterValue.replace(/%/g, '%'));
-      else
-        whereClause[filterBy] = filterValue;
-    }
-    
-    console.log('!DELETE Where Clause:', whereClause);
-    return whereClause;
-  }*/
+ 
 }
