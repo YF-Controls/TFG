@@ -24,9 +24,11 @@ export class EditDeviceTypeComponent implements OnInit {
   private dialogData = inject(DIALOG_DATA, { optional: true });
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
-
   private fb = inject(FormBuilder);
   private deviceTypeApi = inject(DeviceTypeApi);
+  
+  // IO
+  deviceType = input<DeviceType>(this.dialogData.deviceType);
   
   // Properties
   protected form: FormGroup = this.fb.group({
@@ -36,8 +38,7 @@ export class EditDeviceTypeComponent implements OnInit {
     isActive: [true, [Validators.required]],
   });
 
-  deviceType = input<DeviceType>(this.dialogData.deviceType);
-  
+  // Methods  
   // Lifecycle
   ngOnInit(): void {
     this.form.setValue({
@@ -48,7 +49,6 @@ export class EditDeviceTypeComponent implements OnInit {
     });
   }
 
-  // Methods
   protected onSubmit() {
     // Exit with toast if invalid form
     if (this.form.invalid) {

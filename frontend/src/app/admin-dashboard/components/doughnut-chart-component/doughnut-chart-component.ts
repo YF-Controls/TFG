@@ -19,11 +19,13 @@ export class DoughnutChartComponent implements AfterViewInit {
   // Injections
   private languageService = inject(LanguageService);
 
-  // Properties
+  // IO
   translationBase = input.required<string>();
   total = input.required<number>();
   actives = input.required<number>()
   inactives = computed<number>(() => this.total() - this.actives());
+
+  // Properties
   titleKey = computed<string>(() => this.translationBase() + '.TITLE');
   @ViewChild('chartNameRef') chartRef! : ElementRef<HTMLCanvasElement>;  
   private chart: Chart | null = null;

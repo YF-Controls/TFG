@@ -29,6 +29,9 @@ export class EditDeviceAreaComponent implements OnInit {
   private fb = inject(FormBuilder);
   private deviceAreaApi = inject(DeviceAreaApi);
   
+  // IO
+  deviceArea = input<DeviceArea>(this.dialogData.deviceArea);
+  
   // Properties
   protected form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -37,8 +40,7 @@ export class EditDeviceAreaComponent implements OnInit {
     isActive: [true, [Validators.required]],
   });
 
-  deviceArea = input<DeviceArea>(this.dialogData.deviceArea);
-  
+  // Methods
   // Lifecycle
   ngOnInit(): void {
     this.form.setValue({

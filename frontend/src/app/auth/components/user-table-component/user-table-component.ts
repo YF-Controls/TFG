@@ -28,11 +28,11 @@ export class UserTableComponent {
   private toast = inject(MatSnackBar);
   private authApi = inject(AuthApi);
 
-  // Properties
+  // IO
   users = input.required<User[]>();
   updateTable = output();
   
-  // Computed
+  // Properties
   protected currentUserId = this.authApi.user()?.id ?? null;
   
   // Methods

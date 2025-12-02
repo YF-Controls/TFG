@@ -1,36 +1,27 @@
 // System
 import { inject, Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { catchError, map, Observable, of, tap } from "rxjs";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { catchError, map, Observable, of } from "rxjs";
 // Other modules
 import { environment } from "@env/environment.development";
 import { QueryParamsDto } from "@shared/dto";
-import { OrderDirection } from '@shared/interfaces';
-import { CreateDeviceTypeDto, DeviceTypeResponseDto, UpdateDeviceTypeDto } from "@device-types/dtos";
 // This module
-import { DeviceType } from "../interfaces";
+import { CreateDeviceTypeDto, DeviceTypeResponseDto, UpdateDeviceTypeDto } from "@device-types/dtos";
+import { DeviceType } from "@device-types/interfaces";
 
 
 // Constants
 const URL: string = `${environment.baseUrl}/device-types`;
-
+ 
 @Injectable({  providedIn: 'root' })
 export class DeviceTypeApi {
   
   // Injections
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
   
-
-  // HTTP request GET
-  getAll(queryParamsDto: QueryParamsDto) : Observable<DeviceType[]> {
-    const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
-    return this.http.get<DeviceType[]>(URL, {params : params});
-  }
-
-  // HTTP request POST
+  // CRUD Methods
+  // Create: POST
   create(deviceType: CreateDeviceTypeDto) : Observable<string | null> {
-
     return this.http.post<DeviceTypeResponseDto>(URL, deviceType)
       .pipe(
         map((resp: DeviceTypeResponseDto) => null),
@@ -38,9 +29,22 @@ export class DeviceTypeApi {
       );
   }
 
-  // HTTP request PATCH
+  // Read: GET
+  getAll(queryParamsDto: QueryParamsDto) : Observable<DeviceType[]> {
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<DeviceType[]>(URL, {params : params});
+  }
+
+  // Read: GET
+  getOne(id: string, queryParamsDto: QueryParamsDto) : Observable<DeviceType> {
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<DeviceType>(`${URL}/${id}`, {params : params});
+  }
+  
+  // Update: PATCH
   update(id: string, deviceType: UpdateDeviceTypeDto) : Observable<string | null> {
-    
     return this.http.patch<DeviceTypeResponseDto>(`${URL}/${id}`, deviceType)
       .pipe(
         map((resp: DeviceTypeResponseDto) => null),
@@ -48,9 +52,8 @@ export class DeviceTypeApi {
       );
   }
 
-  // HTTP request DELETE
+  // Delete: DELETE
   delete(id: string) : Observable<string | null> {
-
     return this.http.delete<any>(`${URL}/${id}`)
       .pipe(
         map((data) => null),

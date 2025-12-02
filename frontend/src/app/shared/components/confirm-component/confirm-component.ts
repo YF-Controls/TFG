@@ -16,6 +16,8 @@ export class ConfirmComponent {
   // Properties
   private dialogData = inject(DIALOG_DATA, { optional: true });
   private dialogRef = inject(DialogRef, { optional: true });
+  
+  // IO
   title = input<string>(this.dialogData.title || '?');
   message = input<string>(this.dialogData.message || '?');
   

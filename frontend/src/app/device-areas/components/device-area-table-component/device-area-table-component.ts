@@ -27,9 +27,9 @@ export class DeviceAreaTableComponent {
   private toast = inject(MatSnackBar);
   private deviceAreaApi = inject(DeviceAreaApi);
 
-  // Properties
+  // IO
   deviceAreas = input.required<DeviceArea[]>();
-  updateTable = output();
+  updateTable = output(); 
   
   // Methods
   protected onUpdateOne (deviceArea: DeviceArea) {

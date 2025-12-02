@@ -39,7 +39,7 @@ export class EditDeviceComponent implements OnInit {
   private deviceTypeApi = inject(DeviceTypeApi);
 
   // IO
-  protected deviceId = input<string>(this.dialogData.deviceId);
+  deviceId = input<string>(this.dialogData.deviceId);
 
   // Properties
   protected deviceAreas = signal<DeviceArea[]>([]);

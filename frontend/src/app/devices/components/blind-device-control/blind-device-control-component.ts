@@ -18,16 +18,17 @@ export class BlindDeviceControlComponent implements OnInit {
   // Injections
   private deviceWebSocketService = inject(DeviceWebSocketService);
   
-  // Properties
+  // IO
   device = input.required<Device>();
   deviceType = input.required<string>();
   deviceArea = input.required<string>();
 
+  // Properties
   protected isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());
   protected status = signal<DeviceStatus>(DeviceStatus.unknown);
   protected readonly DeviceStatus = DeviceStatus;
   
-  // Constructor
+  // Methods
   constructor () {
     effect(() => {
       

@@ -29,12 +29,13 @@ const USERS_URL: string = `${baseUrl}/auth/users`;
 @Injectable({providedIn: 'root'})
 export class AuthApi {
   
+  // Injections
+  private readonly http = inject(HttpClient);
+  
   // Properties
   private _user = signal<User | null>(null);
   private _status = signal<AuthStatus>(AuthStatus.checking);
   
-  private http = inject(HttpClient);
-
   // Properties
   checkStatusResource = rxResource<string | null, null>({
     stream: () => this.checkUser(),
@@ -59,8 +60,7 @@ export class AuthApi {
         catchError((error: any) => this.handleAuthError(error)) // Return false
       );
   }
-
-
+  
   // Update: PATCH
   updateUser(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
     return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto, { withCredentials: true })
@@ -70,7 +70,6 @@ export class AuthApi {
       );
   }
   
-
   // Delete: DELETE
   deleteUser(id: string): Observable<string | null> {
     return this.http.delete<void>(`${USERS_URL}/${id}`)

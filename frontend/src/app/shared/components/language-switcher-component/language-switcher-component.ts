@@ -18,7 +18,7 @@ export class LanguageSwitcherComponent {
   
   // IO
   isSidebarCollapsed = input.required<boolean>();
-
+  
   // Properties
   protected isOpen = signal(false);
   

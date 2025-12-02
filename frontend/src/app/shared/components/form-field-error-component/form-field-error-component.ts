@@ -20,9 +20,10 @@ export class FormFieldErrorComponent {
   private cdr = inject(ChangeDetectorRef);
   private languageService = inject(LanguageService);
 
-  // Properties
+  // IO
   control = input.required<AbstractControl>();
   
+  // Methods
   constructor() {
     // Subscribe to control changes
     effect(() => {

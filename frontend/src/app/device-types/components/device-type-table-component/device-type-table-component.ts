@@ -27,7 +27,7 @@ export class DeviceTypeTableComponent {
   private toast = inject(MatSnackBar);
   private deviceTypeApi = inject(DeviceTypeApi);
 
-  // Properties
+  // IO
   deviceTypes = input.required<DeviceType[]>();
   updateTable = output();
   

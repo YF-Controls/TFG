@@ -5,7 +5,6 @@ import { catchError, map, Observable, of } from "rxjs";
 // Other modules
 import { environment } from "@env/environment";
 import { QueryParamsDto } from "@shared/dto";
-import { OrderDirection } from '@shared/interfaces';
 // This module
 import { CreateDeviceDto, UpdateDeviceDto } from "@devices/dtos";
 import { Device } from "@devices/interfaces";
@@ -18,12 +17,11 @@ const URL: string = `${environment.baseUrl}/devices`;
 export class DeviceApi {
   
   // Injections
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   // CRUD Methods
   // Create: POST
   create(device: CreateDeviceDto) : Observable<string | null> {
-
     return this.http.post<Device>(URL, device)
       .pipe(
         map((resp: Device) => null),
@@ -62,5 +60,4 @@ export class DeviceApi {
         catchError((error: HttpErrorResponse) => of(error.error.message || 'Error deleting device'))
       );
   }
-
 }

@@ -14,13 +14,14 @@ import { SvgIconComponent, SvgIconName } from '@shared/components';
 })
 export class LinkButtonComponent { 
 
-  // Properties
+  // IO
   title = input.required<string>();
   subtitle = input.required<string>();
   path = input.required<string>();
   svgIconName = input<SvgIconName>('dashboard');
   isCollapsed = input<boolean>(false);
   
+  // Properties
   svgIconNameComputed = computed<SvgIconName>(() => this.svgIconName());
   
 }
