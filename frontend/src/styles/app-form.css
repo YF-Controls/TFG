@@ -9,7 +9,9 @@
 
 /* Fields level */
 .app-form-field-input {
-  @apply flex-1 flex flex-row items-center justify-center;
+  @apply
+    flex-1
+    flex flex-row items-center justify-center;
 }
 
 .app-form-field-checkbox {
@@ -42,15 +44,28 @@
 }
 
 /* Field submit parts */
-.app-form-field-submit-button {
-  @apply btn btn-primary;
+.app-form-field-submit-button { 
+  @apply
+    btn
+    btn-primary
+    text-xs md:text-base
+    focus-visible:outline-2
+    focus-visible:outline-offset-4
+    focus-visible:outline-primary;
 }
 
 /* Form footer parts */
 .app-form-footer-text {
-  @apply text-white text-sm;
+  @apply text-base-content text-sm;
 }
 
 .app-form-footer-link {
-  @apply text-primary text-sm;
+  @apply 
+    text-primary
+    text-sm
+    ml-1 px-1
+    rounded-lg
+    focus-visible:outline-2
+    focus-visible:outline-offset-2
+    focus-visible:outline-primary;
 }

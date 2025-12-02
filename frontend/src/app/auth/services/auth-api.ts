@@ -59,9 +59,7 @@ export class AuthApi {
       );
   }
 
-
   
-
   // Update: PATCH
   updateUser(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
     return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto, { withCredentials: true })

@@ -20,7 +20,8 @@
 
 .app-popup-header-title {
   @apply
-    ml-5  
+    ml-3
+    py-4
     text-xl
     font-bold
     text-primary
@@ -28,7 +29,7 @@
 }
 
 .app-popup-header-close-button {
-  @apply btn btn-primary my-2 mx-1;
+  @apply btn btn-primary m-2;
 }
 
 .app-popup-body {

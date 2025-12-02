@@ -8,18 +8,17 @@ import { LanguageService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
 import { CreateDeviceComponent, DeviceTableComponent } from '@devices/components';
 import { DeviceApi } from '@devices/services';
+import { Device } from '@devices/interfaces';
 import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceArea } from '@device-areas/interfaces';
 import { DeviceTypeApi } from '@device-types/services';
-import { Device } from '@devices/interfaces';
 import { DeviceType } from '@device-types/interfaces';
-import { RouterLink } from "@angular/router";
 
 
 @Component({
   standalone : true,
   selector: 'app-devices-admin-page',
-  imports: [TranslateModule, DeviceTableComponent, SvgIconComponent, RouterLink],
+  imports: [TranslateModule, DeviceTableComponent, SvgIconComponent ],
   templateUrl: './devices-admin-page.html',
 })
 export class DevicesAdminPage {
@@ -34,13 +33,13 @@ export class DevicesAdminPage {
   
   // Properties
   devicesResource = rxResource<Device[], []>({
-    stream  : () => {return this.deviceApi.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'number'})},
+    stream  : () => {return this.deviceApi.getAll({offset: 0, withInactives: true, orderBy: 'number'})},
   });
   deviceAreasResource = rxResource<DeviceArea[], []>({
-    stream  : () => {return this.deviceAreaApi.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'name'})},
+    stream  : () => {return this.deviceAreaApi.getAll({offset: 0, withInactives: true, orderBy: 'name'})},
   });
   deviceTypesResource = rxResource<DeviceType[], []>({
-    stream  : () => {return this.deviceTypeApi.getAll({limit: 100, offset: 0, withInactives: true, orderBy: 'name'})},
+    stream  : () => {return this.deviceTypeApi.getAll({offset: 0, withInactives: true, orderBy: 'name'})},
   });
 
   // Methods

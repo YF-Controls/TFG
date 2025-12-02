@@ -6,13 +6,15 @@
     <h1 class="app-popup-header-title">
       {{ 'AUTH.REGISTER_USER.TITLE' | translate }}
     </h1>
-    <!-- Cancel button -->
+    <!-- Cancel button 
     <button 
-      class="app-popup-header-close-button hidden">
-      <!--(click)="onCancel()"-->
-      <!-- Icon -->     
+      class="app-popup-header-close-button hidden"
+      tabindex="7">
+      <!--(click)="onCancel()"
+      <!-- Icon 
       <app-svg-icon name="close"/>
     </button>
+    -->
   </header>
   <!-- Body -->
   <div class="app-popup-body">
@@ -29,8 +31,10 @@
           <app-svg-icon name="user"/>
           <!-- input -->
           <input
+            class="grow"  
+            tabindex="1"
             type="text"
-            class="grow"
+            autofocus
             placeholder="{{ 'AUTH.REGISTER_USER.FORM.FULLNAME_PLACEHOLDER' | translate }}"
             formControlName="fullname"/>
         </label>
@@ -44,8 +48,9 @@
           <app-svg-icon name="email"/>
           <!-- input -->
           <input
+            class="grow"  
+            tabindex="2"
             type="text"
-            class="grow"
             placeholder="{{ 'AUTH.REGISTER_USER.FORM.EMAIL_PLACEHOLDER' | translate }}"
             formControlName="email"/>
         </label>
@@ -59,8 +64,9 @@
           <app-svg-icon name="key"/>
           <!-- input -->
           <input
-            [type]="showPassword1() ? 'text' : 'password'"
             class="grow"
+            tabindex="3"
+            [type]="showPassword1() ? 'text' : 'password'"
             placeholder="{{ 'AUTH.REGISTER_USER.FORM.PASSWORD_PLACEHOLDER' | translate }}"
             formControlName="password1"/>
           <!-- show/hide button -->
@@ -83,8 +89,9 @@
           <app-svg-icon name="key"/>
           <!-- input -->
           <input
-            [type]="showPassword2() ? 'text' : 'password'"
             class="grow"
+            tabindex="4"
+            [type]="showPassword2() ? 'text' : 'password'"
             placeholder="{{ 'AUTH.REGISTER_USER.FORM.REPEAT_PASSWORD_PLACEHOLDER' | translate }}"
             formControlName="password2"/>
           <!-- Show/hide button -->
@@ -103,8 +110,9 @@
       <!-- Submit button -->
       <div class="app-form-field-submit">
         <button 
-          type="submit" 
-          class="app-form-field-submit-button">
+          class="app-form-field-submit-button"
+          tabindex="5"
+          type="submit">
           {{ 'AUTH.REGISTER_USER.FORM.SUBMIT_BUTTON' | translate }}
         </button>
       </div>
@@ -116,7 +124,8 @@
       <p class="app-form-footer-text">
         {{ 'AUTH.REGISTER_USER.LOGIN.TEXT' | translate }}
         <a routerLink="/auth/login"
-          class="app-form-footer-link">
+          class="app-form-footer-link"
+          tabindex="6">
           {{ 'AUTH.REGISTER_USER.LOGIN.LINK' | translate }}
         </a>
       </p>
