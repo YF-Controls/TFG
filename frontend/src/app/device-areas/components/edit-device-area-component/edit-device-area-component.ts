@@ -1,6 +1,7 @@
 // System
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { DialogRef } from '@angular/cdk/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -30,7 +31,7 @@ export class EditDeviceAreaComponent implements OnInit {
   private deviceAreaApi = inject(DeviceAreaApi);
   
   // IO
-  deviceArea = input<DeviceArea>(this.dialogData.deviceArea);
+  deviceAreaId = input<string>(this.dialogData.deviceAreaId);
   
   // Properties
   protected form: FormGroup = this.fb.group({
@@ -43,15 +44,36 @@ export class EditDeviceAreaComponent implements OnInit {
   // Methods
   // Lifecycle
   ngOnInit(): void {
-    this.form.setValue({
-      name: this.deviceArea().name,
-      hwId: this.deviceArea().hwId,
-      description: this.deviceArea().description,
-      isActive: this.deviceArea().isActive,
-    });
-  }
 
-  // Methods
+    this.deviceAreaApi.getOne(this.deviceAreaId(), { withInactives: true })
+      .subscribe(
+        {
+          next: (deviceArea: DeviceArea) => {
+            this.form.setValue({
+              name: deviceArea.name,
+              hwId: deviceArea.hwId,
+              description: deviceArea.description,
+              isActive: deviceArea.isActive,
+            });
+          },
+          error: (error: HttpErrorResponse) => {
+            // Toast
+            const message = error.message;
+            const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+            this.toast.open(message, action, { 
+              duration: 2000,
+              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
+              horizontalPosition : 'center',
+              verticalPosition : 'bottom',
+            });
+            // Close dialog
+            if (this.dialogRef)
+              this.dialogRef.close(true);
+          }
+        }
+      );
+  }
+  
   protected onSubmit() {
     // Exit with toast if invalid form
     if (this.form.invalid) {
@@ -71,7 +93,7 @@ export class EditDeviceAreaComponent implements OnInit {
     // Get form data
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
     // Send to api
-    this.deviceAreaApi.update(this.deviceArea().id, { name, hwId, description, isActive })
+    this.deviceAreaApi.updateOne(this.deviceAreaId(), { name, hwId, description, isActive })
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
@@ -84,7 +106,7 @@ export class EditDeviceAreaComponent implements OnInit {
           });
           return;
         }
-        // Success
+        // Done
         const message = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.SUCCESS');
         const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
         this.toast.open(message, action, { 
@@ -101,6 +123,4 @@ export class EditDeviceAreaComponent implements OnInit {
   protected onCancel() {
     this.dialogRef?.close(false);
   }
-
-
 }

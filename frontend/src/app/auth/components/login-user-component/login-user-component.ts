@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
-import { AuthApi } from '../../services';
+import { UserApi } from '../../services';
 import { AppPaths } from 'src/app/app.paths';
 
 
@@ -24,7 +24,7 @@ export class LoginUserComponent {
   protected languageService = inject(LanguageService);
   private toast = inject(MatSnackBar);
   private fb = inject(FormBuilder);
-  private authApi = inject(AuthApi);
+  private userApi = inject(UserApi);
   private router = inject(Router);
     
   // Properties
@@ -56,7 +56,7 @@ export class LoginUserComponent {
     const {email = '', password = ''} = this.form.value;
     
     // Send to api
-    this.authApi.loginUser({email, password})
+    this.userApi.login({email, password})
       .subscribe(errorMessage => {
         
         if (errorMessage) {

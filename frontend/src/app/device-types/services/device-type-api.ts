@@ -44,7 +44,7 @@ export class DeviceTypeApi {
   }
   
   // Update: PATCH
-  update(id: string, deviceType: UpdateDeviceTypeDto) : Observable<string | null> {
+  updateOne(id: string, deviceType: UpdateDeviceTypeDto) : Observable<string | null> {
     return this.http.patch<DeviceTypeResponseDto>(`${URL}/${id}`, deviceType)
       .pipe(
         map((resp: DeviceTypeResponseDto) => null),

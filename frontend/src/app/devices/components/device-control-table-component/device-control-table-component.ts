@@ -27,12 +27,12 @@ export class DeviceControlTableComponent implements OnInit, OnDestroy {
     stream  : () => this.deviceApi.getAll({orderBy: 'number'}),
   });
 
-    
+  // Methods
   // Lifecycle
   ngOnInit(): void {
     this.deviceWebSocketService.connect();
   }
-
+  
   // On destroy
   ngOnDestroy(): void {
     this.deviceWebSocketService.disconnect();

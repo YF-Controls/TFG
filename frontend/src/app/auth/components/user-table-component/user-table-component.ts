@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 // This module
-import { AuthApi } from '../../services';
+import { UserApi } from '../../services';
 import { User } from '../../interfaces';
 import { EditUserComponent } from '../';
 
@@ -26,21 +26,21 @@ export class UserTableComponent {
   protected languageSerivce = inject(LanguageService);
   private dialog = inject(Dialog);
   private toast = inject(MatSnackBar);
-  private authApi = inject(AuthApi);
+  private userApi = inject(UserApi);
 
   // IO
   users = input.required<User[]>();
   updateTable = output();
   
   // Properties
-  protected currentUserId = this.authApi.user()?.id ?? null;
+  protected currentUserId = this.userApi.user()?.id ?? null;
   
   // Methods
   protected onUpdateOne (user: User) {
     const dialogRef = this.dialog.open(EditUserComponent, {
       //panelClass : ['w-full', 'max-w-md', 'items-center', 'justify-center'],
       disableClose: false,
-      data: {user}
+      data: {userId : user.id}
     });
 
     dialogRef.closed.subscribe((confirmed) => {
@@ -60,7 +60,7 @@ export class UserTableComponent {
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
-      this.authApi.deleteUser(user.id)
+      this.userApi.deleteOne(user.id)
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {

@@ -9,8 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
-import { AuthApi } from '../../services';
+import { UserApi } from '../../services';
 import { User } from '@auth/interfaces';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -27,10 +28,10 @@ export class EditUserComponent implements OnInit {
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
   private fb = inject(FormBuilder);
-  private authApi = inject(AuthApi);
+  private userApi = inject(UserApi);
   
   // IO
-  user = input<User>(this.dialogData.user);
+  userId = input<string>(this.dialogData.userId);
 
   // Properties
   protected readonly availableRoles = [
@@ -45,18 +46,38 @@ export class EditUserComponent implements OnInit {
     isActive: [true, [Validators.required]],
   });
   
-
+  // Methods
   // Lifecycle
   ngOnInit(): void {
-    this.form.setValue({
-      email: this.user().email,
-      fullname: this.user().fullname,
-      roles: this.user().roles,
-      isActive: this.user().isActive,
-    });
+
+    this.userApi.getOne(this.userId(), { withInactives: true })
+      .subscribe({
+        next: (user: User) => {
+          this.form.setValue({
+            email: user.email,
+            fullname: user.fullname,
+            roles: user.roles,
+            isActive: user.isActive,
+          });
+        },
+        error: (error: HttpErrorResponse) => {
+          // Toast
+          const message = error.message;
+          const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
+          this.toast.open(message, action, { 
+            duration: 2000,
+            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
+            horizontalPosition : 'center',
+            verticalPosition : 'bottom',
+          });
+        
+          // Close dialog
+          if (this.dialogRef)
+            this.dialogRef.close(true);
+        }
+      });
   }
 
-  // Methods
   protected onSubmit () {
     // Exit with toast if invalid form
     if (this.form.invalid) {
@@ -76,7 +97,7 @@ export class EditUserComponent implements OnInit {
     // Get form data
     const {email = '', fullname = '', roles = ['ROLE_USER'], isActive = false} = this.form.value;
     // Send to api
-    this.authApi.updateUser(this.user().id, {email, fullname, roles, isActive})
+    this.userApi.updateOne(this.userId(), {email, fullname, roles, isActive})
       .subscribe(errorMessage => {
         // Error
         if (errorMessage) {

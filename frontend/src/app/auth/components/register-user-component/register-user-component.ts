@@ -9,7 +9,7 @@ import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { LanguageService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
-import { AuthApi } from '../../services';
+import { UserApi } from '../../services';
 import { AppPaths } from 'src/app/app.paths';
 
 
@@ -27,7 +27,7 @@ export class RegisterUserComponent {
   private dialogRef = inject(DialogRef, { optional: true });
   private toast = inject(MatSnackBar);
   private fb = inject(FormBuilder);
-  private authApi = inject(AuthApi);
+  private userApi = inject(UserApi);
   private router = inject(Router);
   
   // Properties
@@ -75,7 +75,7 @@ export class RegisterUserComponent {
     }
     
     // Send to api
-    this.authApi.registerUser({email, fullname, password: password1})
+    this.userApi.createOne({email, fullname, password: password1})
       .subscribe(errorMessage => {
         if (errorMessage) {
           

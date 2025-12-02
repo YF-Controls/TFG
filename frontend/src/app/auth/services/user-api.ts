@@ -27,7 +27,7 @@ const CHECK_USER_URL: string = `${baseUrl}/auth/check-user`;
 const USERS_URL: string = `${baseUrl}/auth/users`;
 
 @Injectable({providedIn: 'root'})
-export class AuthApi {
+export class UserApi {
   
   // Injections
   private readonly http = inject(HttpClient);
@@ -52,17 +52,30 @@ export class AuthApi {
   
   // CRUD Methods
   // Create: POST
-  registerUser(registerUserDto: RegisterUserDto): Observable<string | null> {
-    
+  createOne(registerUserDto: RegisterUserDto): Observable<string | null> {
     return this.http.post<AuthResponse>(REGISTER_URL, registerUserDto, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
         catchError((error: any) => this.handleAuthError(error)) // Return false
       );
   }
-  
+
+  // Read: GET
+  getAll(queryParamsDto: QueryParamsDto): Observable<User[]> {
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<User[]>(USERS_URL, {params : params});
+  }
+
+  // Read: GET
+  getOne(id: string, queryParamsDto: QueryParamsDto): Observable<User> {
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<User>(`${USERS_URL}/${id}`, {params : params});
+  }
+
   // Update: PATCH
-  updateUser(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
+  updateOne(id: string, updateUserDto: UpdateUserDto): Observable<string | null> {
     return this.http.patch<AuthResponse>(`${USERS_URL}/${id}`, updateUserDto, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => null),
@@ -71,23 +84,14 @@ export class AuthApi {
   }
   
   // Delete: DELETE
-  deleteUser(id: string): Observable<string | null> {
+  deleteOne(id: string): Observable<string | null> {
     return this.http.delete<void>(`${USERS_URL}/${id}`)
       .pipe(
         map(() => null),
         catchError((error: HttpErrorResponse) => of(error.error.message || 'Error deleting user'))
       );
   }
-
-
-  // Read: GET
-  getUsers(queryParamsDto: QueryParamsDto): Observable<User[]> {
-    const params: any = { ...queryParamsDto };
-    if (params.withInactives !== true) delete params.withInactives;
-    return this.http.get<User[]>(USERS_URL, {params : params});
-  }
   
-
   // Read: GET
   checkUser(): Observable<string | null> {
     // Token is now in HttpOnly cookie, sent automatically
@@ -98,9 +102,8 @@ export class AuthApi {
       );
   }
   
-
   // Login: POST
-  loginUser(loginUserDto: LoginUserDto): Observable<string | null> {
+  login(loginUserDto: LoginUserDto): Observable<string | null> {
     return this.http.post<AuthResponse>(LOGIN_URL, loginUserDto, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true
@@ -109,7 +112,7 @@ export class AuthApi {
   }
   
   // Logout: POST
-  logoutUser(): Observable<string | null> {
+  logout(): Observable<string | null> {
     return this.http.post<{ message: string }>(LOGOUT_URL, {}, { withCredentials: true })
       .pipe(
         map(() => {
@@ -126,14 +129,12 @@ export class AuthApi {
       );
   }
 
-
   private handleAuthSuccess ({user} : AuthResponse): null {
     this._user.set(user);
     this._status.set(AuthStatus.authenticated);
     return null;
   }
   
-
   private handleAuthError(error: HttpErrorResponse): Observable<string> {
     // Clear state directly without HTTP request
     this._user.set(null);

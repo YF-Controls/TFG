@@ -16,8 +16,6 @@ import { DeviceType } from '@device-types/interfaces';
 import { DeviceTypeApi } from '@device-types/services';
 // This module
 import { DeviceApi } from '@devices/services';
-import { Device } from '@devices/interfaces';
-
 
 
 @Component({
@@ -52,8 +50,9 @@ export class EditDeviceComponent implements OnInit {
     isActive: [true, [Validators.required]],
     deviceTypeId: ['', [Validators.required]],
     deviceAreaId: ['', [Validators.required]]
-  });
+  }); 
   
+  // Methods
   // Lifecycle
   ngOnInit(): void {
 
@@ -73,14 +72,23 @@ export class EditDeviceComponent implements OnInit {
             });
           },
           error: (error: HttpErrorResponse) => {
+            // Toast
+            const message = error.message;
+            const action = this.languageService.getTranslation('DEVICES.EDIT_DEVICE.TOAST.CLOSE');
+            this.toast.open(message, action, { 
+              duration: 2000,
+              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
+              horizontalPosition : 'center',
+              verticalPosition : 'bottom',
+            });
             // Close dialog
-            this.dialogRef?.close(true);
+            if (this.dialogRef)
+              this.dialogRef.close(true);
           },
         }
       );
   }
-
-  // Methods
+  
   protected onSubmit() {
     // Exit with toast if invalid form
     if (this.form.invalid) {
@@ -103,7 +111,7 @@ export class EditDeviceComponent implements OnInit {
     const numericNumber = Number(number);
     
     // Send to api
-    this.deviceApi.update(this.deviceId(), { name, number: numericNumber, description, isActive, deviceTypeId,  deviceAreaId })
+    this.deviceApi.updateOne(this.deviceId(), { name, number: numericNumber, description, isActive, deviceTypeId,  deviceAreaId })
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {

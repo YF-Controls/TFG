@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '@shared/services';
 import { RegisterUserComponent, UserTableComponent } from '@auth/components';
 import { User } from '@auth/interfaces';
-import { AuthApi } from '@auth/services';
+import { UserApi } from '@auth/services';
 import { SvgIconComponent } from '@shared/components';
 
 
@@ -22,11 +22,11 @@ export class UsersAdminPage {
   // Injections
   private languageService = inject(LanguageService);
   private dialog = inject(Dialog);
-  private authApi = inject(AuthApi);
+  private userApi = inject(UserApi);
 
   // Properties
   usersResource = rxResource<User[], []>({
-    stream  : () => this.authApi.getUsers({withInactives: true, orderBy: 'fullname'}),
+    stream  : () => this.userApi.getAll({withInactives: true, orderBy: 'fullname'}),
   });
 
   // Methods

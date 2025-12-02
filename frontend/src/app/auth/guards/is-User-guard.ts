@@ -5,7 +5,7 @@ import { firstValueFrom } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TranslateService } from "@ngx-translate/core";
 // This module
-import { AuthApi, AuthStatus } from '@auth/services';
+import { UserApi, AuthStatus } from '@auth/services';
 import { AppPaths } from "src/app/app.paths";
 
 
@@ -14,27 +14,27 @@ export const IsUserGuard: CanMatchFn = async (
   segements: UrlSegment[]
 ) => {
   // Injections
-  const authApi = inject(AuthApi);
+  const userApi = inject(UserApi);
   const toast = inject(MatSnackBar);
   const router = inject(Router);
   const translate = inject(TranslateService);
   
   // Get auth status
   try {
-    await firstValueFrom(authApi.checkUser());
+    await firstValueFrom(userApi.checkUser());
   } catch (error) {
     router.navigateByUrl(AppPaths.FULL_LOGIN);
     return false;
   }
 
   // Check authentication
-  if (authApi.status() !== AuthStatus.authenticated) {
+  if (userApi.status() !== AuthStatus.authenticated) {
     router.navigateByUrl(AppPaths.FULL_LOGIN);
     return false;
   }
 
   // Check user role
-  if (!authApi.isUser()) {
+  if (!userApi.isUser()) {
     // Show toast
     const message = translate.instant('AUTH.IS_USER_GUARD.TOAST.MESSAGE');
     const action = translate.instant('AUTH.IS_USER_GUARD.TOAST.CLOSE');

@@ -56,7 +56,7 @@ export class CreateDeviceAreaComponent {
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
     
     // Send to api
-    this.deviceAreaApi.create({ name, hwId, description, isActive })
+    this.deviceAreaApi.createOne({ name, hwId, description, isActive })
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {

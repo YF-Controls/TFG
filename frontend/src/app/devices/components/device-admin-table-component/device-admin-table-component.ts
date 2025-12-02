@@ -55,7 +55,7 @@ export class DeviceAdminTableComponent {
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
-      this.deviceApi.delete(device.id)
+      this.deviceApi.deleteOne(device.id)
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {

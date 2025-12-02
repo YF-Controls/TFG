@@ -44,7 +44,7 @@ export class DeviceApi {
   }
 
   // Update: PATCH
-  update(id: string, device: UpdateDeviceDto) : Observable<string | null> {
+  updateOne(id: string, device: UpdateDeviceDto) : Observable<string | null> {
     return this.http.patch<Device>(`${URL}/${id}`, device)
       .pipe(
         map((resp: Device) => null),
@@ -53,7 +53,7 @@ export class DeviceApi {
   }
 
   // Delete: DELETE
-  delete(id: string) : Observable<string | null> {
+  deleteOne(id: string) : Observable<string | null> {
     return this.http.delete<any>(`${URL}/${id}`)
       .pipe(
         map((data) => null),

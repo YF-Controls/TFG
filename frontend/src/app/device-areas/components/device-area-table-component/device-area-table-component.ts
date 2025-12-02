@@ -35,7 +35,7 @@ export class DeviceAreaTableComponent {
   protected onUpdateOne (deviceArea: DeviceArea) {
     const dialogRef = this.dialog.open(EditDeviceAreaComponent, {
       disableClose: false,
-      data: {deviceArea}
+      data: {deviceAreaId: deviceArea.id},
     });
 
     dialogRef.closed.subscribe((confirmed) => {
@@ -55,7 +55,7 @@ export class DeviceAreaTableComponent {
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
-      this.deviceAreaApi.delete(deviceArea.id)
+      this.deviceAreaApi.deleteOne(deviceArea.id)
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {

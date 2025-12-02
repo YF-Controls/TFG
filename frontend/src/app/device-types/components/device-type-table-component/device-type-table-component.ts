@@ -35,7 +35,7 @@ export class DeviceTypeTableComponent {
   protected onUpdateOne (deviceType: DeviceType) {
     const dialogRef = this.dialog.open(EditDeviceTypeComponent, {
       disableClose: false,
-      data: {deviceType}
+      data: {deviceTypeId: deviceType.id}
     });
 
     dialogRef.closed.subscribe((confirmed) => {

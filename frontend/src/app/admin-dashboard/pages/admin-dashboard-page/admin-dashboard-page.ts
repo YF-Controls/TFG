@@ -3,7 +3,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
-import { AuthApi } from '@auth/services';
+import { UserApi } from '@auth/services';
 import { DeviceApi } from '@devices/services';
 import { DeviceTypeApi } from '@device-types/services';
 import { DeviceAreaApi } from '@device-areas/services';
@@ -27,7 +27,7 @@ export class AdminDashboardPage implements OnInit {
   
   // Injections
   private languageService = inject(LanguageService);
-  private authApi = inject(AuthApi);
+  private userApi = inject(UserApi);
   private deviceApi = inject(DeviceApi);
   private deviceTypeApi = inject(DeviceTypeApi);
   private deviceAreaApi = inject(DeviceAreaApi);
@@ -46,7 +46,7 @@ export class AdminDashboardPage implements OnInit {
   // Methods
   private loadStats(): void {
     // Load Users
-    this.authApi.getUsers({ withInactives: true }).subscribe(users => {
+    this.userApi.getAll({ withInactives: true }).subscribe(users => {
       const active = users.filter(u => u.isActive).length;
       const inactive = users.filter(u => !u.isActive).length;
       this.usersStats.set({ active, inactive, total: users.length });

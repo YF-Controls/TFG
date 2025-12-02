@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmComponent, LanguageSwitcherComponent, LinkButtonComponent, SvgIconComponent, ThemeSwitcherComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 import { User, ValidRoles } from '@auth/interfaces';
-import { AuthApi } from '@auth/services';
+import { UserApi } from '@auth/services';
 import { AppPaths } from 'src/app/app.paths';
 
 
@@ -28,11 +28,11 @@ export class MainDashboardLayout {
   // Injections
   private languageService = inject(LanguageService);
   private dialog = inject(Dialog);
-  private authApi = inject(AuthApi);
+  private userApi = inject(UserApi);
   private router = inject(Router);
 
     // Properties
-  user = computed<User | null>(this.authApi.user);
+  user = computed<User | null>(this.userApi.user);
   isSidebarCollapsed = signal<boolean>(false);
 
   // Lifecycle
@@ -88,7 +88,7 @@ export class MainDashboardLayout {
 
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {
-        this.authApi.logoutUser()
+        this.userApi.logout()
           .subscribe(() => {
             this.router.navigateByUrl(AppPaths.FULL_LOGIN);
           });

@@ -21,7 +21,7 @@ export class DeviceAreaApi {
   
   // CRUD Methods
   // Create: POST
-  create(deviceArea: CreateDeviceAreaDto) : Observable<string | null> {
+  createOne(deviceArea: CreateDeviceAreaDto) : Observable<string | null> {
     return this.http.post<DeviceAreaResponseDto>(URL, deviceArea)
       .pipe(
         map((resp: DeviceAreaResponseDto) => null),
@@ -44,7 +44,7 @@ export class DeviceAreaApi {
   }
   
   // Update: PATCH
-  update(id: string, deviceArea: UpdateDeviceAreaDto) : Observable<string | null> {
+  updateOne(id: string, deviceArea: UpdateDeviceAreaDto) : Observable<string | null> {
     return this.http.patch<DeviceAreaResponseDto>(`${URL}/${id}`, deviceArea)
       .pipe(
         map((resp: DeviceAreaResponseDto) => null),
@@ -53,7 +53,7 @@ export class DeviceAreaApi {
   }
 
   // Delete: DELETE
-  delete(id: string) : Observable<string | null> {
+  deleteOne(id: string) : Observable<string | null> {
     return this.http.delete<any>(`${URL}/${id}`)
       .pipe(
         map((data) => null),
