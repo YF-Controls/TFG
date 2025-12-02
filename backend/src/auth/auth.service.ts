@@ -10,7 +10,8 @@ import { QueryParamsDto } from '@common/dtos';
 import { RegisterUserDto, LoginUserDto, UpdateUserDto } from '@auth/dtos';
 import { User } from '@auth/entities';
 import { MyJwtPayload } from '@auth/interfaces';
-
+import { buildWhereClauseFn } from '@common/buildWhereClauseFn';
+import { OrderDirection } from '@common/interfaces';
 
 @Injectable()
 export class AuthService {
@@ -72,19 +73,20 @@ export class AuthService {
 
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
+    console.log('!DELETE auth.findAll - Query Params:', queryParamsDto);
     // Check query parametes
     const {
-      limit = 10,
+      limit = null,
       offset = 0,
-      withInactives = false,
       orderBy = 'id',
-      orderDirection = 'ASC' } = queryParamsDto;
+      orderDirection = OrderDirection.ASC } = queryParamsDto;
             
+    // Query and return
     return await this.repository.find({
-      take : limit,
+      ...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
       skip : offset,
       order : { [orderBy] : orderDirection },
-      ...(!withInactives && { where : { isActive : true } })
+      where: buildWhereClauseFn(queryParamsDto),
     });
   }
   

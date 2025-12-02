@@ -1,5 +1,5 @@
 // System
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // Other modules
@@ -7,10 +7,15 @@ import { QueryParamsDto } from '@common/dtos';
 // This module
 import { CreateDeviceTypeDto, UpdateDeviceTypeDto } from '@device-types/dtos';
 import { DeviceType } from '@device-types/entities';
+import { buildWhereClauseFn } from '@common/buildWhereClauseFn';
+import { OrderDirection } from '@common/interfaces';
 
 
 @Injectable()
 export class DeviceTypesService {
+  
+  // Properties
+  private readonly logger = new Logger(DeviceTypesService.name);
   
   // Constructor
   constructor (
@@ -21,29 +26,26 @@ export class DeviceTypesService {
   // CRUD Methods
   // Create: save()
   async createOne(createDeviceTypeDto: CreateDeviceTypeDto) {
-    // Create
     const item = this.repository.create(createDeviceTypeDto);
-    // Query
-    await this.repository.save(item);
-    // Return
-    return item;
+    return this.repository.save(item);
   }
 
     // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
+    console.log('!DELETE deviceTypes.findAll - Query Params:', queryParamsDto);
     // Check query parametes
     const {
-      limit = 10,
+      limit = null,
       offset = 0,
-      withInactives = false,
       orderBy = 'id',
       orderDirection = 'ASC' } = queryParamsDto;
+
     // Query and return
     const result = await this.repository.find({
-      take : limit,
+      ...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
       skip : offset,
       order : { [orderBy] : orderDirection },
-      ...(!withInactives && { where : { isActive : true } })
+      where: buildWhereClauseFn(queryParamsDto),
     });
     // Result
     return result;
@@ -51,14 +53,10 @@ export class DeviceTypesService {
 
   // Read: findeOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
-    // Check query parametes
-    const { withInactives = false } = queryParamsDto;
+    console.log('!DELETE deviceTypes.findOne - ID:', id);
     // Query and return
     const result = await this.repository.findOne({
-      where : {
-        id,
-        ...(!withInactives && { isActive : true })
-      }
+      where : buildWhereClauseFn(queryParamsDto, id),
     });
     // Return
     return result;

@@ -98,11 +98,6 @@ export class RegisterUserComponent {
             horizontalPosition : 'center',
             verticalPosition : 'bottom',
           });
-
-        console.log('!DELETE data', this.dialogData?.isPopup);
-        console.log('!DELETE input', this.isPopup());
-
-
         // Check if popup or full page
         if (this.isPopup()) {
           this.dialogRef?.close(true);

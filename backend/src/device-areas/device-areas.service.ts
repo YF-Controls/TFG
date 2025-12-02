@@ -1,5 +1,5 @@
 // System
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 // Other modules
@@ -7,11 +7,15 @@ import { QueryParamsDto } from '@common/dtos';
 // This module
 import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from '@device-areas/dtos';
 import { DeviceArea } from '@device-areas/entities';
+import { buildWhereClauseFn } from '@common/buildWhereClauseFn';
 
 
 @Injectable()
 export class DeviceAreasService {
 
+  // Properties
+  private readonly logger = new Logger(DeviceAreasService.name);
+  
   // Constructor
   constructor (
     @InjectRepository(DeviceArea)
@@ -31,35 +35,32 @@ export class DeviceAreasService {
 
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
+    console.log('!DELETE deviceAreas.findAll - Query Params:', queryParamsDto);
     // Check query parametes
     const {
-      limit = 10,
+      limit = null,
       offset = 0,
-      withInactives = false,
       orderBy = 'id',
       orderDirection = 'ASC' } = queryParamsDto;
+
     // Query and return
     return await this.repository.find({
-      take : limit,
+      ...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
       skip : offset,
       order : { [orderBy] : orderDirection },
-      ...(!withInactives && { where : { isActive : true } })
+      where: buildWhereClauseFn(queryParamsDto),
     });
   }
 
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
-    // Check query parameters
-    const { withInactives = false } = queryParamsDto;
+    console.log('!DELETE deviceAreas.findOne - ID:', id);
     // Query and return
     return await this.repository.findOne({
-      where : {
-        id,
-        ...(!withInactives && { isActive : true })
-      }
+      where : buildWhereClauseFn(queryParamsDto, id),
     });
   }
-  
+    
   // Update: update()
   async updateOne(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto) {
     // Query

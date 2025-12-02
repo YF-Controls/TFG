@@ -57,7 +57,7 @@ export class Device {
   deviceArea: DeviceArea;
 
   @Column({ name: 'device_area_id' })
-  deviceAreaId: string;W
+  deviceAreaId: string;
   
   // ##################################
   // Methods

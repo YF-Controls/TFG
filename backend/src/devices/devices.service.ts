@@ -1,7 +1,7 @@
 // System
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Like } from 'typeorm';
+import { Repository, Like, SaveOptions } from 'typeorm';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
 import { OrderDirection } from '@common/interfaces';
@@ -10,11 +10,15 @@ import { DeviceArea } from '@device-areas/entities';
 // This module
 import { CreateDeviceDto, UpdateDeviceDto } from '@devices/dtos';
 import { Device } from '@devices/entities';
+import { buildWhereClauseFn } from '@common/buildWhereClauseFn';
 
 
 @Injectable()
 export class DevicesService {
-  
+   
+  // Properties
+  private readonly logger = new Logger(DevicesService.name);
+
   // Constructor
   constructor (
     @InjectRepository(Device) private readonly deviceRepository: Repository<Device>,
@@ -38,13 +42,13 @@ export class DevicesService {
     // Build hwId
     device.hwId = this.buildHwId(deviceArea.hwId, deviceType.hwId, device.number);
     // Save    
-    await this.deviceRepository.save(device);
-    return device;
+    return await this.deviceRepository.save(device);
   }
 
 
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
+    console.log('!DELETE devices.findAll - Query Params:', queryParamsDto);
     // Check query parametes for limit, offset and order
     const {
       limit = null,
@@ -57,22 +61,17 @@ export class DevicesService {
       ...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
       skip : offset,
       order : { [orderBy] : orderDirection },
-      where: this.buildWhereClause(queryParamsDto),
+      where: buildWhereClauseFn(queryParamsDto),
     });
   }
   
 
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
-    // Check query parametes for limit, offset and order
-    const {
-      orderBy = 'id',
-      orderDirection = OrderDirection.ASC } = queryParamsDto;
-
+    console.log('!DELETE devices.findOne - ID:', id);
     // Query and return
     return await this.deviceRepository.findOne({
-      order : { [orderBy] : orderDirection },
-      where : this.buildWhereClause(queryParamsDto),
+      where : buildWhereClauseFn(queryParamsDto, id),
     });
   }
   
@@ -123,13 +122,17 @@ export class DevicesService {
     // Update fields
     Object.assign(device, updateDeviceDto);
     
+    // Update relations explicitly
+    device.deviceType = deviceType;
+    device.deviceArea = deviceArea;
+    
     // Rebuild hwId
     if (device.number !== deviceNumber) deviceNumber = device.number;
     if (deviceType.hwId !== deviceTypeHwId ) deviceTypeHwId = deviceType.hwId;
     if (deviceArea.hwId !== deviceAreaHwId ) deviceAreaHwId = deviceArea.hwId;
     device.hwId = this.buildHwId(deviceAreaHwId, deviceTypeHwId, deviceNumber);
     
-    // Update
+    // Update and return a Device
     return await this.deviceRepository.save(device);
   }
 
@@ -141,11 +144,12 @@ export class DevicesService {
     return {status : 200, message : 'Removed'};
   }
 
-
+  // Private methods
   private buildHwId(deviceAreaHwId: string, deviceTypeHwId: string, number: number): string {
     return `${deviceAreaHwId.toLowerCase().trim()}-${deviceTypeHwId.toLowerCase().trim()}-${number.toString().padStart(4, '0') }`;
   }
   
+  /*
   private buildWhereClause(queryParamsDto: QueryParamsDto): any {
     // Check query parametes
     const {
@@ -168,5 +172,5 @@ export class DevicesService {
     
     console.log('!DELETE Where Clause:', whereClause);
     return whereClause;
-  }
+  }*/
 }
