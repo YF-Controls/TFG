@@ -1,12 +1,12 @@
 // System
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
-import { CreateDeviceComponent, DeviceTableComponent } from '@devices/components';
+import { CreateDeviceComponent, DeviceAdminTableComponent } from '@devices/components';
 import { DeviceApi } from '@devices/services';
 import { Device } from '@devices/interfaces';
 import { DeviceAreaApi } from '@device-areas/services';
@@ -18,7 +18,7 @@ import { DeviceType } from '@device-types/interfaces';
 @Component({
   standalone : true,
   selector: 'app-devices-admin-page',
-  imports: [TranslateModule, DeviceTableComponent, SvgIconComponent ],
+  imports: [TranslateModule, DeviceAdminTableComponent, SvgIconComponent ],
   templateUrl: './devices-admin-page.html',
 })
 export class DevicesAdminPage {
@@ -33,15 +33,9 @@ export class DevicesAdminPage {
   
   // Properties
   devicesResource = rxResource<Device[], []>({
-    stream  : () => {return this.deviceApi.getAll({offset: 0, withInactives: true, orderBy: 'number'})},
+    stream  : () => this.deviceApi.getAll({ withInactives: true, orderBy: 'number'}),
   });
-  deviceAreasResource = rxResource<DeviceArea[], []>({
-    stream  : () => {return this.deviceAreaApi.getAll({offset: 0, withInactives: true, orderBy: 'name'})},
-  });
-  deviceTypesResource = rxResource<DeviceType[], []>({
-    stream  : () => {return this.deviceTypeApi.getAll({offset: 0, withInactives: true, orderBy: 'name'})},
-  });
-
+  
   // Methods
   protected onAdd () {
      
@@ -56,8 +50,6 @@ export class DevicesAdminPage {
     
   protected onUpdateTable() {
     this.devicesResource.reload();
-    this.deviceAreasResource.reload();
-    this.deviceTypesResource.reload();
   }
 
 

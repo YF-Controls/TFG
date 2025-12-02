@@ -27,8 +27,6 @@
 <div class="app-page-header-divider"></div>
 
 <!-- Table -->
-<app-device-table
+<app-device-admin-table
   [devices]="devicesResource.value() ?? []"
-  [deviceTypes]="deviceTypesResource.value() ?? []"
-  [deviceAreas]="deviceAreasResource.value() ?? []"
   (updateTable)="onUpdateTable()"/>

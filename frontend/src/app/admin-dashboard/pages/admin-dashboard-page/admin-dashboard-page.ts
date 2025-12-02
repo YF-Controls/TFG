@@ -46,28 +46,28 @@ export class AdminDashboardPage implements OnInit {
   // Methods
   private loadStats(): void {
     // Load Users
-    this.authApi.getUsers({ limit: 1000, withInactives: true }).subscribe(users => {
+    this.authApi.getUsers({ withInactives: true }).subscribe(users => {
       const active = users.filter(u => u.isActive).length;
       const inactive = users.filter(u => !u.isActive).length;
       this.usersStats.set({ active, inactive, total: users.length });
     });
 
     // Load Devices
-    this.deviceApi.getAll({ limit: 1000, withInactives: true }).subscribe(devices => {
+    this.deviceApi.getAll({ withInactives: true }).subscribe(devices => {
       const active = devices.filter(d => d.isActive).length;
       const inactive = devices.filter(d => !d.isActive).length;
       this.devicesStats.set({ active, inactive, total: devices.length });
     });
 
     // Load Device Types
-    this.deviceTypeApi.getAll({ limit: 1000, withInactives: true }).subscribe(types => {
+    this.deviceTypeApi.getAll({ withInactives: true }).subscribe(types => {
       const active = types.filter(t => t.isActive).length;
       const inactive = types.filter(t => !t.isActive).length;
       this.deviceTypesStats.set({ active, inactive, total: types.length });
     });
 
     // Load Device Areas
-    this.deviceAreaApi.getAll({ limit: 1000, withInactives: true }).subscribe(areas => {
+    this.deviceAreaApi.getAll({ withInactives: true }).subscribe(areas => {
       const active = areas.filter(a => a.isActive).length;
       const inactive = areas.filter(a => !a.isActive).length;
       this.deviceAreasStats.set({ active, inactive, total: areas.length });

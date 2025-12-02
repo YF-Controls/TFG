@@ -31,13 +31,20 @@ export class DeviceApi {
       );
   }
   
-  //Read: GET
+  // Read: GET
   getAll(queryParamsDto: QueryParamsDto): Observable<Device[]> {
     const params: any = { ...queryParamsDto };
     if (params.withInactives !== true) delete params.withInactives;
     return this.http.get<Device[]>(URL, {params : params});
   }
   
+  // Read: GET
+  getOne(id: string, queryParamsDto: QueryParamsDto): Observable<Device> {
+    const params: any = { ...queryParamsDto };
+    if (params.withInactives !== true) delete params.withInactives;
+    return this.http.get<Device>(`${URL}/${id}`, {params : params});
+  }
+
   // Update: PATCH
   update(id: string, device: UpdateDeviceDto) : Observable<string | null> {
     return this.http.patch<Device>(`${URL}/${id}`, device)

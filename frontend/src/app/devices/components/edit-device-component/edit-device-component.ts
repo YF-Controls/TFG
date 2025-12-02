@@ -38,6 +38,9 @@ export class EditDeviceComponent implements OnInit {
   private deviceAreaApi = inject(DeviceAreaApi);
   private deviceTypeApi = inject(DeviceTypeApi);
 
+  // IO
+  protected deviceId = input<string>(this.dialogData.deviceId);
+
   // Properties
   protected deviceAreas = signal<DeviceArea[]>([]);
   protected deviceTypes = signal<DeviceType[]>([]);
@@ -50,24 +53,31 @@ export class EditDeviceComponent implements OnInit {
     deviceTypeId: ['', [Validators.required]],
     deviceAreaId: ['', [Validators.required]]
   });
-
   
-  protected device = input<Device>(this.dialogData.device);
-
   // Lifecycle
   ngOnInit(): void {
 
     this.loadDeviceAreas();
     this.loadDeviceTypes();
-
-    this.form.setValue({
-      name: this.device().name,
-      number: this.device().number,
-      description: this.device().description,
-      isActive: this.device().isActive,
-      deviceTypeId: this.device().deviceTypeId,
-      deviceAreaId: this.device().deviceAreaId,
-    });
+    this.deviceApi.getOne(this.deviceId(), { withInactives: true })
+      .subscribe(
+        {
+          next: (device) => {
+            this.form.setValue({
+              name: device.name,
+              number: device.number,
+              description: device.description,
+              isActive: device.isActive,
+              deviceTypeId: device.deviceTypeId,
+              deviceAreaId: device.deviceAreaId,
+            });
+          },
+          error: (error: HttpErrorResponse) => {
+            // Close dialog
+            this.dialogRef?.close(true);
+          },
+        }
+      );
   }
 
   // Methods
@@ -93,7 +103,7 @@ export class EditDeviceComponent implements OnInit {
     const numericNumber = Number(number);
     
     // Send to api
-    this.deviceApi.update(this.device().id, { name, number: numericNumber, description, isActive, deviceTypeId,  deviceAreaId })
+    this.deviceApi.update(this.deviceId(), { name, number: numericNumber, description, isActive, deviceTypeId,  deviceAreaId })
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
@@ -125,7 +135,7 @@ export class EditDeviceComponent implements OnInit {
   }
 
   private loadDeviceAreas(): void {
-    this.deviceAreaApi.getAll({ limit: 100, offset: 0})
+    this.deviceAreaApi.getAll({})
       .subscribe({
         next: (areas) => this.deviceAreas.set(areas),
         error: (error: HttpErrorResponse) => {
@@ -144,7 +154,7 @@ export class EditDeviceComponent implements OnInit {
   }
 
   private loadDeviceTypes(): void {
-    this.deviceTypeApi.getAll({ limit: 100, offset: 0})
+    this.deviceTypeApi.getAll({})
       .subscribe({
         next: (types) => this.deviceTypes.set(types),
         error: (error : HttpErrorResponse) => {

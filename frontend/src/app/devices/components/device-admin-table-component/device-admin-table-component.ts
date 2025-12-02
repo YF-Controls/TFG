@@ -7,10 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
-import { DeviceAreaApi } from '@device-areas/services';
-import { DeviceArea } from '@device-areas/interfaces';
-import { DeviceTypeApi } from '@device-types/services';
-import { DeviceType } from '@device-types/interfaces';
 // This modules
 import { EditDeviceComponent } from '@devices/components';
 import { Device } from '@devices/interfaces';
@@ -19,31 +15,27 @@ import { DeviceApi } from '@devices/services';
 
 @Component({
   standalone: true,
-  selector: 'app-device-table',
+  selector: 'app-device-admin-table',
   imports: [TranslateModule, SvgIconComponent],
-  templateUrl: './device-table-component.html',
+  templateUrl: './device-admin-table-component.html',
 })
-export class DeviceTableComponent { 
+export class DeviceAdminTableComponent { 
 
   // Injections
   protected languageSerivce = inject(LanguageService);
   private dialog = inject(Dialog);
   private toast = inject(MatSnackBar);
   private deviceApi = inject(DeviceApi);
-  private deviceAreaApi = inject(DeviceAreaApi);
-  private deviceTypeApi = inject(DeviceTypeApi);
-
-  // Properties
+  
+  // IO
   devices = input.required<Device[]>();
-  deviceTypes = input.required<DeviceType[]>();
-  deviceAreas = input.required<DeviceArea[]>();
   updateTable = output();
- 
+  
   // Methods
   protected onUpdateOne (device: Device) {
     const dialogRef = this.dialog.open(EditDeviceComponent, {
       disableClose: false,
-      data: {device}
+      data: {deviceId: device.id}
     });
 
     dialogRef.closed.subscribe((confirmed) => {
@@ -91,15 +83,4 @@ export class DeviceTableComponent {
     });
   }
   
-  protected getDeviceTypeName (id: string): string {
-    const deviceType = this.deviceTypes().find(dt => dt.id === id);
-    return deviceType ? deviceType.name : '?';
-  }
-
-  protected getDeviceAreaName (id: string): string {
-    const deviceArea = this.deviceAreas().find(da => da.id === id);
-    return deviceArea ? deviceArea.name : '?';
-  }
 }
-
-

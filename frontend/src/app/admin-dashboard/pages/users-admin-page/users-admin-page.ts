@@ -26,7 +26,7 @@ export class UsersAdminPage {
 
   // Properties
   usersResource = rxResource<User[], []>({
-    stream  : () => {return this.authApi.getUsers({withInactives: true, orderBy: 'fullname'})},
+    stream  : () => this.authApi.getUsers({withInactives: true, orderBy: 'fullname'}),
   });
 
   // Methods

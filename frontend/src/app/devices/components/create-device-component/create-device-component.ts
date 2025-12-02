@@ -107,7 +107,7 @@ export class CreateDeviceComponent implements OnInit {
   }
 
   private loadDeviceAreas(): void {
-    this.deviceAreaApi.getAll({ limit: 100, offset: 0, withInactives: false, orderBy: 'name'})
+    this.deviceAreaApi.getAll({withInactives: false, orderBy: 'name'})
       .subscribe({
         next: (areas) => this.deviceAreas.set(areas),
         error: (error: HttpErrorResponse) => {
@@ -126,7 +126,7 @@ export class CreateDeviceComponent implements OnInit {
   }
 
   private loadDeviceTypes(): void {
-    this.deviceTypeApi.getAll({ limit: 100, offset: 0, withInactives: false, orderBy: 'name' })
+    this.deviceTypeApi.getAll({withInactives: false, orderBy: 'name' })
       .subscribe({
         next: (types) => this.deviceTypes.set(types),
         error: (error : HttpErrorResponse) => {

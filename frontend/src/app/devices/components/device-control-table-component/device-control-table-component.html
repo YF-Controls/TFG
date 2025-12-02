@@ -1,0 +1,18 @@
+<section class="grid  grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+
+  @for (device of devicesResource.value(); track $index) {
+
+    @if (device.hwId.includes('blnd')) {
+      <app-blind-device-control 
+        [device]="device"
+        [deviceType]="device.deviceType?.name || '???'"
+        [deviceArea]="device.deviceArea?.name || '???'"/>
+    }
+    @else {
+      <app-common-device-control 
+        [device]="device"
+        [deviceType]="device.deviceType?.name || '???'"
+        [deviceArea]="device.deviceArea?.name || '???'"/>
+    }
+  }
+</section>
