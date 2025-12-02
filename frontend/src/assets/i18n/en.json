@@ -6,6 +6,12 @@
       "WELCOME" : "Welcome back, ",
 
       "NAV_BUTTONS" : {
+
+        "MAIN_DEVICES" : {
+          "TITLE" : "Devices Control",
+          "SUBTITLE" : "Device Control Panel"
+        },
+
         "DASHBOARD" : {
           "TITLE" : "Dashboard",
           "SUBTITLE" : "Data overview"
@@ -102,9 +108,10 @@
       "WELCOME" : "Welcome back, ",
 
       "NAV_BUTTONS" : {
-        "DASHBOARD" : {
-          "TITLE" : "Dashboard",
-          "SUBTITLE" : "Data overview"
+
+        "ADMIN" : {
+          "TITLE" : "Administrative Panel",
+          "SUBTITLE" : "Manage everything"
         },
 
         "DEVICES" : {

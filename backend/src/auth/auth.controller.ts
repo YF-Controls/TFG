@@ -1,6 +1,7 @@
 // System
 import { Controller, Get, Post, Body, Patch, Delete, Query, ParseUUIDPipe, Param, Res } from '@nestjs/common';
 import type { Response, CookieOptions } from 'express';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
 // This module
@@ -11,6 +12,8 @@ import { User } from '@auth/entities';
 import { AuthService } from '@auth/auth.service';
 
 
+
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
   
@@ -20,6 +23,9 @@ export class AuthController {
   // CRUD Methods
   // Create: POST
   @Post('register')
+  @ApiResponse({ status: 201, description: 'User registered successfully.', type: User })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
   async registerOne(
     @Body() registerUserDto: RegisterUserDto,
     @Res({ passthrough: true }) response: Response) {

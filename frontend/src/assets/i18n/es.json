@@ -6,6 +6,12 @@
       "WELCOME" : "Bienvenido de nuevo, ",
 
       "NAV_BUTTONS" : {
+
+        "MAIN_DEVICES" : {
+          "TITLE" : "Control de Dispositivos",
+          "SUBTITLE" : "Panel de Control de Dispositivos"
+        },
+
         "DASHBOARD" : {
           "TITLE" : "Dashboard",
           "SUBTITLE" : "Resumen de datos"
@@ -102,6 +108,12 @@
       "WELCOME" : "Bienvenido de nuevo, ",
 
       "NAV_BUTTONS" : {
+
+        "ADMIN" : {
+          "TITLE" : "Panel Administrativo",
+          "SUBTITLE" : "Gestionar todo"
+        },
+
         "DASHBOARD" : {
           "TITLE" : "Dashboard",
           "SUBTITLE" : "Resumen de datos"

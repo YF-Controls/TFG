@@ -1,25 +1,23 @@
+<!-- Button trigger -->
+<button 
+  type="button"
+  class="btn btn-primary btn-xs justify-between"
+  (click)="toggleMenu()">
+  <!-- Text -->  
+  <span class="text-sm">
+    {{ isSidebarCollapsed() ? this.languageService.currentLang().code  : this.languageService.currentLang().name }}
+  </span>
+  <!-- Icon -->
+  <app-svg-icon name="arrow-down"/>
+</button>
+
 <!-- Language Switcher -->
-<div class="relative">
-  <!-- Button trigger -->
-  <button 
-    type="button"
-    class="flex-1 btn btn-primary btn-xs justify-between"
-    (click)="toggleMenu()">
-    <!-- Text -->  
-    <span class="text-sm">
-      {{ isSidebarCollapsed() ? this.languageService.currentLang().code  : this.languageService.currentLang().name }}
-    </span>
-    <!-- Icon -->
-    <app-svg-icon name="arrow-down"/>
-  </button>
-  
+@if (isOpen()) {
+  <div class="relative">
   <!-- Dropdown menu -->
-  @if (isOpen()) {
     <ul 
-      [ngClass]="{
-        'left-20': isSidebarCollapsed(),
-        'left-60': !isSidebarCollapsed(),
-      }"
+      [class.left-20]="isSidebarCollapsed()"
+      [class.left-60]="!isSidebarCollapsed()"
       class="
         fixed z-50
         top-16
@@ -50,5 +48,5 @@
         </li>
       }
     </ul>
-  }
-</div>
+  </div>
+}

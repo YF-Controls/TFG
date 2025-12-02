@@ -7,4 +7,6 @@ export interface QueryParamsDto {
   withInactives?: boolean;
   orderBy?: string;
   orderDirection?: OrderDirection;
+  filterBy?: string;
+  filterValue?: string;
 }

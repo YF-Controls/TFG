@@ -1,9 +1,10 @@
 // System
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
+import { OrderDirection } from '@common/interfaces';
 import { DeviceType } from '@device-types/entities';
 import { DeviceArea } from '@device-areas/entities';
 // This module
@@ -41,34 +42,37 @@ export class DevicesService {
     return device;
   }
 
+
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
-    // Check query parametes
+    // Check query parametes for limit, offset and order
     const {
-      limit = 10,
+      limit = null,
       offset = 0,
-      withInactives = false,
       orderBy = 'id',
-      orderDirection = 'ASC' } = queryParamsDto;
+      orderDirection = OrderDirection.ASC } = queryParamsDto;
+
     // Query and return
     return await this.deviceRepository.find({
-      take : limit,
+      ...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
       skip : offset,
       order : { [orderBy] : orderDirection },
-      ...(!withInactives && { where : { isActive : true } })
+      where: this.buildWhereClause(queryParamsDto),
     });
   }
+  
 
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
-    // Check query parameters
-    const { withInactives = false } = queryParamsDto;
+    // Check query parametes for limit, offset and order
+    const {
+      orderBy = 'id',
+      orderDirection = OrderDirection.ASC } = queryParamsDto;
+
     // Query and return
     return await this.deviceRepository.findOne({
-      where : {
-        id,
-        ...(!withInactives && { isActive : true })
-      }
+      order : { [orderBy] : orderDirection },
+      where : this.buildWhereClause(queryParamsDto),
     });
   }
   
@@ -142,4 +146,27 @@ export class DevicesService {
     return `${deviceAreaHwId.toLowerCase().trim()}-${deviceTypeHwId.toLowerCase().trim()}-${number.toString().padStart(4, '0') }`;
   }
   
+  private buildWhereClause(queryParamsDto: QueryParamsDto): any {
+    // Check query parametes
+    const {
+      withInactives = false,
+      filterBy = null,
+      filterValue = null } = queryParamsDto;
+    
+    // Build where clause
+    const whereClause: any = {
+      ...(!withInactives && { isActive: true }),
+    };
+
+    // Add filter if provided
+    if (filterBy && filterValue) {
+      if (filterValue.includes('%'))
+        whereClause[filterBy] = Like(filterValue.replace(/%/g, '%'));
+      else
+        whereClause[filterBy] = filterValue;
+    }
+    
+    console.log('!DELETE Where Clause:', whereClause);
+    return whereClause;
+  }
 }

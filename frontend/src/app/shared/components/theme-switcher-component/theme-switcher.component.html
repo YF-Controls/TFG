@@ -1,25 +1,21 @@
+<!-- Button trigger -->
+<button 
+  type="button"
+  class="btn btn-ghost btn-circle"
+  (click)="toggleMenu()">
+  <!-- Icon -->
+  <span class="text-xl">
+    {{ this.themeService.currentTheme().icon }}
+  </span>
+</button>
+
 <!-- Theme Switcher -->
-<div class="relative">
-  <!-- Button trigger -->
-  <button 
-    class="btn btn-ghost btn-circle"
-    (click)="toggleMenu()">
-    <!-- Icon -->
-    <span class="text-xl">
-      {{ this.themeService.currentTheme().icon }}
-    </span>
-  </button>
-   
-
-
-
-  <!-- Dropdown menu -->
-  @if (isOpen()) {
-    <ul 
-      [ngClass]="{
-        'left-20': isSidebarCollapsed(),
-        'left-60': !isSidebarCollapsed(),
-      }"
+@if (isOpen()) {
+  <div class="relative">
+    <!-- Dropdown menu -->
+    <ul
+      [class.left-20]="isSidebarCollapsed()"
+      [class.left-60]="!isSidebarCollapsed()"
       class="
         fixed z-50
         top-16
@@ -50,5 +46,6 @@
         </li>
       }
     </ul>
-  }
-</div>
+  
+  </div>
+}

@@ -13,13 +13,24 @@
     </h2>
   </div>
 
-  <!-- Add button -->
-  <button 
-    class="app-page-header-button"
-    (click)="onAdd()">
-    <!-- Add icon -->
-    <app-svg-icon name="add"/>
-  </button>
+  <!-- buttons -->
+  <div class="flex flex-row gap-2">
+    <!-- main/device button -->
+    <button
+      routerLink="/devices"
+      class = "app-page-header-button">
+      Devices
+    </button>
+
+    <!-- Add button -->
+    <button 
+      class="app-page-header-button"
+      (click)="onAdd()">
+      <!-- Add icon -->
+      <app-svg-icon name="add"/>
+    </button>
+  </div>
+  
   
 </header>
 

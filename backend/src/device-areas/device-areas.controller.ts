@@ -1,5 +1,6 @@
 // System
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 // Oteher modules
 import { QueryParamsDto } from '@common/dtos';
 import { MyAuth } from '@auth/decorators';
@@ -9,6 +10,7 @@ import { CreateDeviceAreaDto, UpdateDeviceAreaDto } from '@device-areas/dtos';
 import { DeviceAreasService } from '@device-areas/device-areas.service';
 
 
+@ApiTags('Device Areas')
 @Controller('device-areas')
 export class DeviceAreasController {
 

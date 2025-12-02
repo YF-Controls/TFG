@@ -111,6 +111,12 @@ Create nest resource:
 nest g red devices --no-spec
 ```
 
+* Swagger - Documentation Open Api
+
+```shell
+yarn add @nestjs/swagger
+```
+
 ## Frontend
 
 ```shell

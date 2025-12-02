@@ -1,5 +1,6 @@
 // System
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseUUIDPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 // Other modules
 import { QueryParamsDto } from '@common/dtos';
 import { MyAuth } from '@auth/decorators';
@@ -9,6 +10,7 @@ import { CreateDeviceTypeDto, UpdateDeviceTypeDto } from '@device-types/dtos';
 import { DeviceTypesService } from '@device-types/device-types.service';
 
 
+@ApiTags('Device Types')
 @Controller('device-types')
 export class DeviceTypesController {
 

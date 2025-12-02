@@ -1,6 +1,7 @@
 // System
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 // This path
 import { AppModule } from './app.module';
@@ -10,6 +11,7 @@ async function bootstrap() {
   // Create app  
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
+
   // Enable cookie parser
   app.use(cookieParser(process.env.COOKIE_SECRET)); // It's redundant
   // Enable CORS to use cookies from frontend
@@ -29,6 +31,18 @@ async function bootstrap() {
       //transform: true,
     })
   );
+  // Set Swagger
+  const config = new DocumentBuilder()
+    .setTitle('Home Assistant RESTFul API')
+    .setDescription('Home Assistant endpoints documentation')
+    .setVersion('1.0')
+    //.addTag('home-assistant')
+    .build();
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, documentFactory);
+
+
+
   // Listen
   await app.listen(process.env.PORT!);
   // Log

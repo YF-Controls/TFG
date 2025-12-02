@@ -13,12 +13,13 @@ import { DeviceArea } from '@device-areas/interfaces';
 import { DeviceTypeApi } from '@device-types/services';
 import { Device } from '@devices/interfaces';
 import { DeviceType } from '@device-types/interfaces';
+import { RouterLink } from "@angular/router";
 
 
 @Component({
   standalone : true,
   selector: 'app-devices-admin-page',
-  imports: [TranslateModule, DeviceTableComponent, SvgIconComponent],
+  imports: [TranslateModule, DeviceTableComponent, SvgIconComponent, RouterLink],
   templateUrl: './devices-admin-page.html',
 })
 export class DevicesAdminPage {

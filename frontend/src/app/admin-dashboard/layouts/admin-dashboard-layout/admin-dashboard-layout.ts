@@ -5,12 +5,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { ConfirmComponent, SvgIconComponent, LanguageSwitcherComponent, ThemeSwitcherComponent } from '@shared/components';
+import { ConfirmComponent, SvgIconComponent, LanguageSwitcherComponent, ThemeSwitcherComponent, LinkButtonComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 import { AuthApi } from '@auth/services';
 import { User } from '@auth/interfaces';
 // This module
-import { LinkButtonComponent } from '@admin/components';
+
 
 
 @Component({
