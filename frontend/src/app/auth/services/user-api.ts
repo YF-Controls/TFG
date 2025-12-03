@@ -30,7 +30,7 @@ const USERS_URL: string = `${baseUrl}/auth/users`;
 export class UserApi {
   
   // Injections
-  private readonly http = inject(HttpClient);
+  protected readonly http = inject(HttpClient);
   
   // Properties
   private _user = signal<User | null>(null);

@@ -20,9 +20,9 @@ import { DeviceAreaApi } from '@device-areas/services';
 export class DeviceAreasAdminPage { 
 
   // Injections
-  private languageService = inject(LanguageService);
-  private dialog = inject(Dialog);
-  private deviceAreaApi = inject(DeviceAreaApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialog = inject(Dialog);
+  protected readonly deviceAreaApi = inject(DeviceAreaApi);
 
   // Properties
   deviceAreasResource = rxResource<DeviceArea[], []>({

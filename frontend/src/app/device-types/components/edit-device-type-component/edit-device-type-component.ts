@@ -23,12 +23,12 @@ import { DeviceType } from '@device-types/interfaces';
 export class EditDeviceTypeComponent implements OnInit {
   
   // Injections
-  protected languageService = inject(LanguageService);
-  private dialogData = inject(DIALOG_DATA, { optional: true });
-  private dialogRef = inject(DialogRef, { optional: true });
-  private toast = inject(MatSnackBar);
-  private fb = inject(FormBuilder);
-  private deviceTypeApi = inject(DeviceTypeApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
+  protected readonly dialogRef = inject(DialogRef, { optional: true });
+  protected readonly toast = inject(MatSnackBar);
+  protected readonly fb = inject(FormBuilder);
+  protected readonly deviceTypeApi = inject(DeviceTypeApi);
   
   // IO
   deviceTypeId = input<string>(this.dialogData.deviceTypeId);

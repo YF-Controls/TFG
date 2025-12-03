@@ -19,12 +19,11 @@ import { DeviceAreaApi } from '@device-areas/services';
 export class CreateDeviceAreaComponent {
 
   // Injections
-  protected languageService = inject(LanguageService);
-  private dialogRef = inject(DialogRef, { optional: true });
-  private toast = inject(MatSnackBar);
-  private deviceAreaApi = inject(DeviceAreaApi);
-  private fb = inject(FormBuilder);
-  
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialogRef = inject(DialogRef, { optional: true });
+  protected readonly toast = inject(MatSnackBar);
+  protected readonly deviceAreaApi = inject(DeviceAreaApi);
+  protected readonly fb = inject(FormBuilder);
   
   // Properties
   protected form: FormGroup = this.fb.group({

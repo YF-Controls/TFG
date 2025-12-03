@@ -17,7 +17,7 @@ const URL: string = `${environment.baseUrl}/device-areas`;
 export class DeviceAreaApi {
   
   // Injections
-  private readonly http = inject(HttpClient);
+  protected readonly http = inject(HttpClient);
   
   // CRUD Methods
   // Create: POST

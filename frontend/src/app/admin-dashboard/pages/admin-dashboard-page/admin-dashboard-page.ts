@@ -27,12 +27,12 @@ interface DashboardStats {
 export class AdminDashboardPage implements OnInit {
   
   // Injections
-  private languageService = inject(LanguageService);
-  private userApi = inject(UserApi);
-  private deviceApi = inject(DeviceApi);
-  private deviceTypeApi = inject(DeviceTypeApi);
-  private deviceAreaApi = inject(DeviceAreaApi);
-
+  protected readonly languageService = inject(LanguageService);
+  protected readonly userApi = inject(UserApi);
+  protected readonly deviceApi = inject(DeviceApi);
+  protected readonly deviceTypeApi = inject(DeviceTypeApi);
+  protected readonly deviceAreaApi = inject(DeviceAreaApi);
+  
   // Properties
   usersStats = signal<DashboardStats>({ active: 0, inactive: 0, total: 0 });
   devicesStats = signal<DashboardStats>({ active: 0, inactive: 0, total: 0 });

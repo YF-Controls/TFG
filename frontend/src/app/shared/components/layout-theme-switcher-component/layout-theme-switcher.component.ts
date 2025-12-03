@@ -15,7 +15,7 @@ import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 export class LayoutThemeSwitcherComponent {
   
   // Injections
-  protected themeService = inject(ThemeService);
+  protected readonly themeService = inject(ThemeService);
   
   // IO
   isSidebarCollapsed = input.required<boolean>();

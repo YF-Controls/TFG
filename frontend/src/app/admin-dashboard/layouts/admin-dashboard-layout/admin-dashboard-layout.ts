@@ -1,6 +1,5 @@
 // System
 import { Component, computed, HostListener, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
@@ -23,7 +22,6 @@ import { User } from '@auth/interfaces';
   standalone : true,
   selector: 'app-admin-dashboard-layout',
   imports: [
-    CommonModule,
     TranslateModule, 
     RouterOutlet,
     LayoutBrandNameComponent,
@@ -41,11 +39,11 @@ import { User } from '@auth/interfaces';
 export class AdminDashboardLayout implements OnInit {
   
   // Injections
-  private userApi = inject(UserApi);
+  protected readonly userApi = inject(UserApi);
   
   // Properties
-  user = computed<User | null>(this.userApi.user);
-  isSidebarCollapsed = signal<boolean>(false);
+  protected user = this.userApi.user;
+  protected isSidebarCollapsed = signal<boolean>(false);
   
   // Methods
   // Lifecycle
@@ -59,7 +57,6 @@ export class AdminDashboardLayout implements OnInit {
     this.checkScreenSize();
   }
 
-  // Check screen size and auto-collapse on tablet and below
   private checkScreenSize() {
     const width = window.innerWidth;
     // Tablet breakpoint: 1024px (Tailwind's lg breakpoint)

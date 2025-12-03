@@ -26,13 +26,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CreateDeviceComponent implements OnInit {
 
   // Injections
-  protected languageService = inject(LanguageService);
-  private dialogRef = inject(DialogRef, { optional: true });
-  private toast = inject(MatSnackBar);
-  private deviceApi = inject(DeviceApi);
-  private deviceAreaApi = inject(DeviceAreaApi);
-  private deviceTypeApi = inject(DeviceTypeApi);
-  private fb = inject(FormBuilder);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialogRef = inject(DialogRef, { optional: true });
+  protected readonly toast = inject(MatSnackBar);
+  protected readonly deviceApi = inject(DeviceApi);
+  protected readonly deviceAreaApi = inject(DeviceAreaApi);
+  protected readonly deviceTypeApi = inject(DeviceTypeApi);
+  protected readonly fb = inject(FormBuilder);
   
   // Properties
   protected deviceAreas = signal<DeviceArea[]>([]);

@@ -23,7 +23,7 @@ export type SvgIconName =
 export class SvgIconComponent {
 
   // Injections
-  private sanitizer = inject(DomSanitizer);
+  protected readonly sanitizer = inject(DomSanitizer);
 
   // Inputs
   name = input.required<SvgIconName>();

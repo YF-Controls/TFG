@@ -20,9 +20,9 @@ import { SvgIconComponent } from '@shared/components';
 export class UsersAdminPage {
 
   // Injections
-  private languageService = inject(LanguageService);
-  private dialog = inject(Dialog);
-  private userApi = inject(UserApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialog = inject(Dialog);
+  protected readonly userApi = inject(UserApi);
 
   // Properties
   usersResource = rxResource<User[], []>({

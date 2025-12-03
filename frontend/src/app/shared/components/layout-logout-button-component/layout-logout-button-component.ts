@@ -19,10 +19,10 @@ import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 export class LayoutLogoutButtonComponent {
 
   // Injections
-  private languageService = inject(LanguageService);
-  private dialog = inject(Dialog);
-  private userApi = inject(UserApi);
-  private router = inject(Router);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialog = inject(Dialog);
+  protected readonly userApi = inject(UserApi);
+  protected readonly router = inject(Router);
   
   // IO
   isSidebarCollapsed = input.required<boolean>();

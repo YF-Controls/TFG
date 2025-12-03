@@ -14,7 +14,7 @@ import { SvgIconComponent } from '@shared/components';
 export class LayoutLanguageSwitcherComponent { 
   
   // Injections
-  protected languageService = inject(LanguageService);
+  protected readonly languageService = inject(LanguageService);
   
   // IO
   isSidebarCollapsed = input.required<boolean>();

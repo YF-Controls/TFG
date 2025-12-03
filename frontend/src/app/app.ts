@@ -14,8 +14,8 @@ import { RouterOutlet } from '@angular/router';
 export class App implements OnInit{
   
   // Injections
-  titleService = inject(Title);
-
+  protected readonly titleService = inject(Title);
+  
   // Properties
   protected readonly title = signal('HOME Assisstant');
 

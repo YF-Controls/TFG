@@ -23,10 +23,10 @@ import { EditUserComponent } from '../';
 export class UserTableComponent { 
 
   // Injections
-  protected languageSerivce = inject(LanguageService);
-  private dialog = inject(Dialog);
-  private toast = inject(MatSnackBar);
-  private userApi = inject(UserApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialog = inject(Dialog);
+  protected readonly toast = inject(MatSnackBar);
+  protected readonly userApi = inject(UserApi);
 
   // IO
   users = input.required<User[]>();
@@ -52,8 +52,8 @@ export class UserTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
@@ -64,7 +64,7 @@ export class UserTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
+            const action = this.languageService.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -74,8 +74,8 @@ export class UserTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.DELETED');
-          const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
+          const message = this.languageService.getTranslation('AUTH.USER_TABLE.TOAST.DELETED');
+          const action = this.languageService.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

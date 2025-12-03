@@ -19,8 +19,8 @@ import { Device } from '@devices/interfaces';
 export class DevicesControlPage { 
 
   // Injections
-  private languageService = inject(LanguageService);
-  private deviceApi = inject(DeviceApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly deviceApi = inject(DeviceApi);
   
     // Properties
   devicesResource = rxResource<Device[], []>({

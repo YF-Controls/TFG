@@ -17,9 +17,9 @@ import { DeviceApi, DeviceWebSocketService } from '@devices/services';
 export class DeviceControlTableComponent implements OnInit, OnDestroy {
   
   // Injections
-  private languageService = inject(LanguageService);
-  private deviceWebSocketService = inject(DeviceWebSocketService);
-  protected deviceApi = inject(DeviceApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly deviceWebSocketService = inject(DeviceWebSocketService);
+  protected readonly deviceApi = inject(DeviceApi);
 
   // Properties
   isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());

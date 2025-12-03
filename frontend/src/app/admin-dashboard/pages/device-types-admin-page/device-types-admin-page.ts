@@ -21,9 +21,9 @@ import { SvgIconComponent } from '@shared/components';
 export class DeviceTypesAdminPage { 
 
   // Injections
-  private languageService = inject(LanguageService);
-  private dialog = inject(Dialog);
-  private deviceTypeApi = inject(DeviceTypeApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialog = inject(Dialog);
+  protected readonly deviceTypeApi = inject(DeviceTypeApi);
 
   // Properties
   deviceTypesResource = rxResource<DeviceType[], []>({

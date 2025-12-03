@@ -17,7 +17,7 @@ const THEME_KEY = 'theme';
 export class ThemeService {
   
   // Injections
-  private languageService = inject(LanguageService);
+  protected readonly languageService = inject(LanguageService);
 
   // Properties
   availableThemes = computed<Theme[]>(() => {

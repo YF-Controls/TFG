@@ -17,8 +17,8 @@ import { LanguageService } from '../../services/language.service';
 export class FormFieldErrorComponent { 
 
   // Injections
-  private cdr = inject(ChangeDetectorRef);
-  private languageService = inject(LanguageService);
+  protected readonly cdr = inject(ChangeDetectorRef);
+  protected readonly languageService = inject(LanguageService);
 
   // IO
   control = input.required<AbstractControl>();

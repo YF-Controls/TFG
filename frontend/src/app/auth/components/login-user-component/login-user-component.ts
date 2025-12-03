@@ -21,11 +21,11 @@ import { AppPaths } from 'src/app/app.paths';
 export class LoginUserComponent {
 
   // Injections
-  protected languageService = inject(LanguageService);
-  private toast = inject(MatSnackBar);
-  private fb = inject(FormBuilder);
-  private userApi = inject(UserApi);
-  private router = inject(Router);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly toast = inject(MatSnackBar);
+  protected readonly fb = inject(FormBuilder);
+  protected readonly userApi = inject(UserApi);
+  protected readonly router = inject(Router);
     
   // Properties
   protected form: FormGroup = this.fb.group({

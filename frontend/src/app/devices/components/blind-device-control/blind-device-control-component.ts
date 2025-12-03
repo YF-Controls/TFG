@@ -16,7 +16,7 @@ import { DeviceWebSocketService } from '@devices/services';
 export class BlindDeviceControlComponent implements OnInit {
 
   // Injections
-  private deviceWebSocketService = inject(DeviceWebSocketService);
+  protected readonly deviceWebSocketService = inject(DeviceWebSocketService);
   
   // IO
   device = input.required<Device>();

@@ -16,7 +16,7 @@ import { SvgIconComponent } from '@shared/components';
 export class CommonDeviceControlComponent implements OnInit {
 
   // Injections
-  private deviceWebSocketService = inject(DeviceWebSocketService);
+  protected readonly deviceWebSocketService = inject(DeviceWebSocketService);
   
   // IO
   device = input.required<Device>();

@@ -21,10 +21,10 @@ import { EditDeviceTypeComponent } from '..';
 export class DeviceTypeAdminTableComponent { 
 
   // Injections
-  protected languageSerivce = inject(LanguageService);
-  private dialog = inject(Dialog);
-  private toast = inject(MatSnackBar);
-  private deviceTypeApi = inject(DeviceTypeApi);
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialog = inject(Dialog);
+  protected readonly toast = inject(MatSnackBar);
+  protected readonly deviceTypeApi = inject(DeviceTypeApi);
 
   // IO
   deviceTypes = input.required<DeviceType[]>();
@@ -46,8 +46,8 @@ export class DeviceTypeAdminTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
@@ -58,7 +58,7 @@ export class DeviceTypeAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
+            const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -68,8 +68,8 @@ export class DeviceTypeAdminTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.DELETED');
-          const action = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
+          const message = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.DELETED');
+          const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

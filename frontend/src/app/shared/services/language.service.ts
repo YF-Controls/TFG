@@ -16,7 +16,7 @@ const LANG_KEY = 'lang';
 export class LanguageService {
   
   // Injections
-  private translate = inject(TranslateService);
+  protected readonly translate = inject(TranslateService);
   
   // Properties - availableLanguages debe estar ANTES de _currentLang
   readonly availableLanguages: Lang[] = [

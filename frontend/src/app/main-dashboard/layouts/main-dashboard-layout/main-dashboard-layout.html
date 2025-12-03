@@ -1,138 +1,99 @@
 <!-- All screen -->
 <div 
-  class="overflow-y-scroll w-screen h-screen antialiased">
+  class="w-screen h-screen flex antialiased overflow-hidden">
   <!-- Left side menu position -->
   <header
     class="
-      relative w-screen
-      flex flex-col">
-    <!-- Left side menu id="menu"-->
+      shrink-0
+      h-screen overflow-y-auto
+      bg-base-300
+      transition-all duration-300"
+    [class.w-20]="isSidebarCollapsed()"
+    [class.w-60]="!isSidebarCollapsed()">
+    <!-- Title, subtitle -->
     <section
-      class="
-        min-h-screen z-30  
-        fixed left-0 h-screen overflow-y-scroll 
-        bg-base-300
-        transition-all duration-300"
-      [class.w-20]="isSidebarCollapsed()"
-      [class.w-60]="!isSidebarCollapsed()">
-      <!-- Title, subtitle -->
-      <section
-        class="my-2 transition-all duration-300"
-        [class.px-0]="isSidebarCollapsed()"
-        [class.px-6]="!isSidebarCollapsed()">
-        <!-- Title-->
-        <app-layout-brand-name
-          [isSidebarCollapsed]="isSidebarCollapsed()"/>
-        <!-- Subtitle -->
-        <app-layout-subtitle
-          [isSidebarCollapsed]="isSidebarCollapsed()"
-          subtitle="MAIN_DASHBOARD.LAYOUT.SUBTITLE"/>
-      </section>
-
-      <!-- Divider -->
-      <div class="divider my-0"></div>
-      
-      <!-- Option buttons -->
-      <section
-        class="flex flex-row items-center my-2"
-        [class.flex-row]="!isSidebarCollapsed()"
-        [class.flex-col]="isSidebarCollapsed()">
-        <!-- Theme toggle button -->
-        <div class="flex-2 flex justify-center">
-          <app-layout-theme-switcher 
-            [isSidebarCollapsed] = "isSidebarCollapsed()"/>
-        </div>
-        <!-- Language button -->
-        <div class="flex-5 flex justify-center">
-          <app-layout-language-switcher
-            [isSidebarCollapsed] = "isSidebarCollapsed()"/>
-        </div>
-      </section>
-
-      <!-- Divider -->
-      <div class="divider my-0"></div>
-
-      <!-- User name -->
-      <app-layout-user-name
-        [isSidebarCollapsed]="isSidebarCollapsed()"
-        [fullname]="user()?.fullname || '???'"
-        welcomeText="MAIN_DASHBOARD.LAYOUT.WELCOME"/>
-      
-      <!-- Divider -->
-      <div class="divider my-0"></div>
-
-      <!-- Navigation buttons -->
-      <nav class="w-full px-3">
-
-        <!-- Admin Panel button -->
-        @if (userApi.isAdmin()) {
-          <app-layout-link-button-secondary
-            title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.TITLE' | translate }}"
-            subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.SUBTITLE' | translate }}"
-            path="/admin/dashboard"
-            [isCollapsed]="isSidebarCollapsed()"
-            svgIconName="tools"/>
-
-          <div class="divider my-0"></div>
-        }
-
-        <!-- Devices button -->
-        <app-layout-link-button-primary
-          title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.TITLE' | translate }}"
-          subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.SUBTITLE' | translate }}"
-          path="/devices"
-          [isCollapsed]="isSidebarCollapsed()"
-          svgIconName="lamp"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      </nav> 
-
-      <!-- Logout button -->
-      <app-layout-logout-button
+      class="my-2 transition-all duration-300"
+      [class.px-0]="isSidebarCollapsed()"
+      [class.px-6]="!isSidebarCollapsed()">
+      <!-- Title-->
+      <app-layout-brand-name
         [isSidebarCollapsed]="isSidebarCollapsed()"/>
-      
-      <!-- Toggle sidebar button -->
-      <app-layout-toggle-sidebar-button
+      <!-- Subtitle -->
+      <app-layout-subtitle
         [isSidebarCollapsed]="isSidebarCollapsed()"
-        (toggleSidebar)="toggleSidebar()"/>
-
+        subtitle="MAIN_DASHBOARD.LAYOUT.SUBTITLE"/>
     </section>
+
+    <!-- Divider -->
+    <div class="divider my-0"></div>
+      
+    <!-- Option buttons -->
+    <section
+      class="flex items-center my-2"
+      [class.flex-col]="isSidebarCollapsed()">
+      <!-- Theme toggle button -->
+      <div class="flex-2 flex justify-center">
+        <app-layout-theme-switcher 
+          [isSidebarCollapsed]="isSidebarCollapsed()"/>
+      </div>
+      <!-- Language button -->
+      <div class="flex-5 flex justify-center">
+        <app-layout-language-switcher
+          [isSidebarCollapsed]="isSidebarCollapsed()"/>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="divider my-0"></div>
+
+    <!-- User name -->
+    <app-layout-user-name
+      [isSidebarCollapsed]="isSidebarCollapsed()"
+      [fullname]="user()?.fullname || '???'"
+      welcomeText="MAIN_DASHBOARD.LAYOUT.WELCOME"/>
+      
+    <!-- Divider -->
+    <div class="divider my-0"></div>
+
+    <!-- Navigation buttons -->
+    <nav class="w-full px-3">
+
+      <!-- Admin Panel button -->
+      @if (userApi.isAdmin()) {
+        <app-layout-link-button-secondary
+          title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.TITLE' | translate }}"
+          subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.SUBTITLE' | translate }}"
+          path="/admin/dashboard"
+          [isCollapsed]="isSidebarCollapsed()"
+          svgIconName="tools"/>
+
+        <div class="divider my-0"></div>
+      }
+
+      <!-- Devices button -->
+      <app-layout-link-button-primary
+        title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.TITLE' | translate }}"
+        subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.SUBTITLE' | translate }}"
+        path="/devices"
+        [isCollapsed]="isSidebarCollapsed()"
+        svgIconName="lamp"/>
+
+    </nav> 
+
+    <!-- Logout button -->
+    <app-layout-logout-button
+      [isSidebarCollapsed]="isSidebarCollapsed()"/>
+      
+    <!-- Toggle sidebar button -->
+    <app-layout-toggle-sidebar-button
+      [isSidebarCollapsed]="isSidebarCollapsed()"
+      (toggleSidebar)="toggleSidebar()"/>
+  
   </header>
 
   <!-- Main content -->
   <main 
-    class="flex-1 pt-5 px-5 transition-all duration-300"
-    [class.ml-25]="isSidebarCollapsed()"
-    [class.ml-65]="!isSidebarCollapsed()">
+    class="flex-1 overflow-auto px-5 py-5">
     <router-outlet/>
   </main>
   

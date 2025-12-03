@@ -20,10 +20,10 @@ import { Device } from '@devices/interfaces';
 export class DevicesAdminPage {
 
   // Injections
-  private languageService = inject(LanguageService);
-  private dialog = inject(Dialog);
-  private deviceApi = inject(DeviceApi);
-    
+  protected readonly languageService = inject(LanguageService);
+  protected readonly dialog = inject(Dialog);
+  protected readonly deviceApi = inject(DeviceApi);
+  
   // Properties
   devicesResource = rxResource<Device[], []>({
     stream  : () => this.deviceApi.getAll({orderBy: 'number'}),

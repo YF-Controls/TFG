@@ -17,7 +17,7 @@ Chart.register(...registerables);
 export class DoughnutChartComponent implements AfterViewInit { 
 
   // Injections
-  private languageService = inject(LanguageService);
+  protected readonly languageService = inject(LanguageService);
 
   // IO
   translationBase = input.required<string>();
