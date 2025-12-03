@@ -1,0 +1,54 @@
+// System
+import { Component, inject, input } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { Dialog } from '@angular/cdk/dialog';
+// Other modules
+import { AppPaths } from 'src/app/app.paths';
+import { UserApi } from '@auth/services';
+// This moudule
+import { LanguageService } from '@shared/services';
+import { ConfirmComponent, SvgIconComponent } from '@shared/components';
+
+
+
+@Component({
+  selector: 'app-logout-button',
+  imports: [TranslateModule, SvgIconComponent],
+  templateUrl: './logout-button-component.html',
+})
+export class LogoutButtonComponent {
+
+  // Injections
+  private languageService = inject(LanguageService);
+  private dialog = inject(Dialog);
+  private userApi = inject(UserApi);
+  private router = inject(Router);
+  
+  // IO
+  isSidebarCollapsed = input.required<boolean>();
+
+  // Properties
+
+  // Methods
+  protected logout() {
+  
+    const dialogRef = this.dialog.open(ConfirmComponent, {
+      disableClose: true,
+      data: {
+        title: this.languageService.getTranslation('SHARED.LOGOUT_BUTTON.POPUP.TITLE'),
+        message: this.languageService.getTranslation('SHARED.LOGOUT_BUTTON.POPUP.MESSAGE') 
+      }
+    });
+
+    dialogRef.closed.subscribe((confirmed) => {
+      if (confirmed) {
+        this.userApi.logout()
+          .subscribe(() => {
+            this.router.navigateByUrl(AppPaths.FULL_LOGIN);
+          });
+      };
+    });
+  }
+
+ }

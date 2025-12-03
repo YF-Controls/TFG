@@ -1,7 +1,6 @@
 // System
 import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
+import { Dialog } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules

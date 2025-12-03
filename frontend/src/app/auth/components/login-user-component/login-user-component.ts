@@ -47,7 +47,7 @@ export class LoginUserComponent {
         duration: 2000,
         panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
         horizontalPosition : 'center',
-        verticalPosition : 'bottom',
+        verticalPosition : 'bottom', 
       });
       return;
     }

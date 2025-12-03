@@ -8,18 +8,18 @@ import { SvgIconComponent, SvgIconName } from '@shared/components';
 
 @Component({
   standalone : true,
-  selector: 'app-link-button',
+  selector: 'app-link-button-primary',
   imports: [RouterLink, RouterLinkActive, CommonModule, SvgIconComponent],
-  templateUrl: './link-button-component.html',
+  templateUrl: './link-button-primary-component.html',
 })
-export class LinkButtonComponent { 
+export class LinkButtonPrimaryComponent { 
 
   // IO
   title = input.required<string>();
   subtitle = input.required<string>();
   path = input.required<string>();
-  svgIconName = input<SvgIconName>('dashboard');
-  isCollapsed = input<boolean>(false);
+  svgIconName = input.required<SvgIconName>();
+  isCollapsed = input.required<boolean>();
   
   // Properties
   svgIconNameComputed = computed<SvgIconName>(() => this.svgIconName());

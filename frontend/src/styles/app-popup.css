@@ -1,37 +1,40 @@
-
+/* Level 0: Container */
 .app-popup-container {
   @apply
     /*max-w-md*/
     bg-base-300
     rounded-lg
-    border-2
-    border-primary;
+    shadow-lg
+    border-2 border-primary/70;
 }
 
+/* Level 1: Header */
 .app-popup-header {
   @apply
     flex
-    gap-2
-    justify-between
-    items-center
-    border-b
-    border-primary;
+    justify-between items-center gap-2
+    border-b border-primary;
 }
 
+/* Level 2: Header - Title */
 .app-popup-header-title {
   @apply
-    ml-3
-    py-4
-    text-xl
-    font-bold
+    ml-3 py-4
     text-primary
-    text-center;
+    text-base md:text-lg font-bold text-center;
 }
 
+/* Level 2: Header - Close Button */
 .app-popup-header-close-button {
-  @apply btn btn-primary m-2;
+  @apply
+    m-2
+    btn btn-primary
+    hover:btn-secondary;
 }
 
+/* Level 1: Body */
 .app-popup-body {
-  @apply flex flex-col gap-2 m-5;
+  @apply
+    flex flex-col gap-2
+    m-5;
 }

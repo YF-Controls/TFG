@@ -68,6 +68,16 @@ export class AuthController {
   }
 
   // Read: GET
+  @Get('users/:id')
+  @MyAuth(MyValidRoles.admin)
+  findOne(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() queryParamsDto: QueryParamsDto ) {
+    // Return all users
+    return this.authService.findOne( id, queryParamsDto);
+  }
+  
+  // Read: GET
   @Get('check-user')
   @MyAuth(MyValidRoles.admin, MyValidRoles.user)
   async checkUser(

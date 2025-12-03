@@ -71,7 +71,7 @@ export class AuthService {
     };
   }
 
-  // Read: find()
+  // Read: findAll()
   async findAll(queryParamsDto: QueryParamsDto) {
     // Check query parametes
     const {
@@ -86,6 +86,14 @@ export class AuthService {
       skip : offset,
       order : { [orderBy] : orderDirection },
       where: buildWhereClauseFn(queryParamsDto),
+    });
+  }
+  
+  // Read: findOne()
+  async findOne(id: string, queryParamsDto: QueryParamsDto) {
+    // Query and return
+    return await this.repository.findOne({
+      where : buildWhereClauseFn(queryParamsDto, id),
     });
   }
   

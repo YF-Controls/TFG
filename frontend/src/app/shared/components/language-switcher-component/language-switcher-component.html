@@ -1,12 +1,15 @@
 <!-- Button trigger -->
 <button 
   type="button"
+  class="
+    justify-between
+    btn btn-primary
+    hover:btn-secondary"
   [class.btn-xs]="isSidebarCollapsed()"
   [class.btn-sm]="!isSidebarCollapsed()"
-  class="btn btn-primary justify-between"
   (click)="toggleMenu()">
   <!-- Text -->  
-  <span class="text-sm">
+  <span class="text-sm md:text-base">
     {{ isSidebarCollapsed() ? this.languageService.currentLang().code  : this.languageService.currentLang().name }}
   </span>
   <!-- Icon -->
@@ -39,7 +42,7 @@
             [class.text-primary]="lang.code === this.languageService.currentLang().code"
             (click)="selectLanguage(lang)">
             <!-- Text -->
-            <span class="text-xs">
+            <span class="text-sm md:text-base">
               {{lang.name}}
             </span>
             <!-- Icon -->

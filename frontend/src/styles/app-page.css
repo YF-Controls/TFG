@@ -5,12 +5,15 @@
 
 .app-page-header-title {
   @apply
-    text-2xl text-primary font-bold;
+    text-primary 
+    text-2xl
+    font-bold;
 }
 
 .app-page-header-subtitle {
   @apply
-    text-lg text-primary/80;
+    text-primary/80
+    text-lg;
 }
 
 .app-page-header-divider {

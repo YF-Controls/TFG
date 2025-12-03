@@ -46,7 +46,7 @@ export class DevicesService {
   }
 
 
-  // Read: find()
+  // Read: findAll()
   async findAll(queryParamsDto: QueryParamsDto) {
     // Check query parametes for limit, offset and order
     const {

@@ -460,6 +460,16 @@
         "DARK" : "Dark",
         "HALLOWEEN" : "Halloween"
       }
+    },
+
+    "LOGOUT_BUTTON" : {
+
+      "TITLE" : "Logout",
+
+      "POPUP" : {
+        "TITLE" : "Confirm Logout",
+        "MESSAGE" : "Are you sure you want to logout?"
+      }
     }
   }
 }

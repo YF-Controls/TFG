@@ -1,15 +1,13 @@
 // System
 import { CommonModule } from '@angular/common';
 import { Component, computed, HostListener, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
-import { Dialog } from '@angular/cdk/dialog';
+import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { ConfirmComponent, LanguageSwitcherComponent, LinkButtonComponent, SvgIconComponent, ThemeSwitcherComponent } from '@shared/components';
-import { LanguageService } from '@shared/services';
+import { LanguageSwitcherComponent, LinkButtonPrimaryComponent, LinkButtonSecondaryComponent, LogoutButtonComponent, ThemeSwitcherComponent, ToggleSidebarButtonComponent } from '@shared/components';
 import { User, ValidRoles } from '@auth/interfaces';
 import { UserApi } from '@auth/services';
-import { AppPaths } from 'src/app/app.paths';
+// This module
 
 
 @Component({
@@ -17,24 +15,24 @@ import { AppPaths } from 'src/app/app.paths';
   selector: 'app-main-dashboard-layout',
   imports: [TranslateModule, 
             RouterOutlet,
-            LinkButtonComponent,
+            LinkButtonPrimaryComponent,
+            LinkButtonSecondaryComponent,
             CommonModule,
             LanguageSwitcherComponent,
-            SvgIconComponent,
+            LogoutButtonComponent,
+            ToggleSidebarButtonComponent,
             ThemeSwitcherComponent],
   templateUrl: './main-dashboard-layout.html',
 })
 export class MainDashboardLayout {
   // Injections
-  private languageService = inject(LanguageService);
-  private dialog = inject(Dialog);
   private userApi = inject(UserApi);
-  private router = inject(Router);
-
+  
     // Properties
   user = computed<User | null>(this.userApi.user);
   isSidebarCollapsed = signal<boolean>(false);
 
+  // Methods
   // Lifecycle
   ngOnInit() {
     this.checkScreenSize();
@@ -55,7 +53,6 @@ export class MainDashboardLayout {
     }
   }
   
-  // Methods
   protected toggleSidebar() {
     this.isSidebarCollapsed.set(!this.isSidebarCollapsed());
   }
@@ -67,35 +64,9 @@ export class MainDashboardLayout {
       .map(namePart => namePart.charAt(0).toUpperCase())
       .join('');
   }
-
-
+  
   protected isAdmin (): boolean {
     const roles = this.user()?.roles || [];
     return roles.includes(ValidRoles.admin);
   }
-
-
-  // Methods
-  protected logout() {
-
-    const dialogRef = this.dialog.open(ConfirmComponent, {
-      disableClose: true,
-      data: {
-        title: this.languageService.getTranslation('MAIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.TITLE'),
-        message: this.languageService.getTranslation('MAIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.MESSAGE') 
-      }
-    });
-
-    dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) {
-        this.userApi.logout()
-          .subscribe(() => {
-            this.router.navigateByUrl(AppPaths.FULL_LOGIN);
-          });
-      };
-    });
-  }
-  
-
-  
- }
+}

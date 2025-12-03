@@ -460,6 +460,16 @@
         "DARK" : "Oscuro",
         "HALLOWEEN" : "Halloween"
       }
+    },
+
+    "LOGOUT_BUTTON" : {
+
+      "TITLE" : "Logout",
+
+      "POPUP" : {
+        "TITLE" : "Confirmar cierre de sesión",
+        "MESSAGE" : "¿Estás seguro de que deseas cerrar sesión?"
+      }
     }
   }
 }

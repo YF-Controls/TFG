@@ -1,32 +1,41 @@
-<!-- Window -->
-<div class="flex items-center justify-center min-h-screen">
+<!-- Header -->
+<header
+  class=" 
+    sticky top-0 z-20
+    bg-base-300
+    flex justify-between items-center
+    border-b-2 border-primary
+    px-2 py-2">
+  <!--Logo -->
+   <h1 
+    class="
+      flex-1
+      flex justify-start items-center gap-1
+      text-lg md:text-3xl font-bold
+      transition-opacity duration-300">
+    <span class="text-base-content">Home</span>
+    <span class="text-primary">Assistant</span>
+  </h1>
+  
+  <!-- Language Switcher button -->
+  <section
+    class="
+      flex-1
+      flex flex-row justify-end items-center gap-1 md:gap-5">
+    <app-theme-switcher
+      [isSidebarCollapsed]="false"/>
+    <app-language-switcher
+      [isSidebarCollapsed]="false"/>
+  </section>
 
-  <!-- Container -->
-  <div class="w-full max-w-md bg-base-100 shadow-2xl rounded-lg p-5">
+</header>
 
-    <!-- Header -->
-    <div class="flex flex-1 justify-between items-center my-5">
-
-      <!--Title -->
-      <div class="flex justify-center items-center">
-        <h1 class="text-2xl font-montserrat font-bold text-primary text-center m-5">
-          {{ 'AUTH.LAYOUT.TITLE' | translate }}
-        </h1>
-      </div>
-      
-      <!-- Language Switcher button -->
-      <div class="flex justify-end items-center gap-2">
-        <app-theme-switcher
-          [isSidebarCollapsed]="false"/>
-        <app-language-switcher
-          [isSidebarCollapsed]="false"/>
-      </div>
-
-    </div>
-   
-    <!-- Page -->
-    <router-outlet/>  
-
-  </div>
-
-</div>
+<!-- Main -->
+<main
+  class="
+    flex-1 overflow-auto
+    flex justify-center items-center">
+  
+  <router-outlet/>  
+    
+</main>

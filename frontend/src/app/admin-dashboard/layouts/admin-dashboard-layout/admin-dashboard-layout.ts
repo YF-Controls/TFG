@@ -1,15 +1,12 @@
 // System
 import { Component, computed, inject, signal, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
-import { Dialog } from '@angular/cdk/dialog';
+import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { ConfirmComponent, SvgIconComponent, LanguageSwitcherComponent, ThemeSwitcherComponent, LinkButtonComponent } from '@shared/components';
-import { LanguageService } from '@shared/services';
+import { LanguageSwitcherComponent, ThemeSwitcherComponent, LinkButtonPrimaryComponent, LinkButtonSecondaryComponent, LogoutButtonComponent, ToggleSidebarButtonComponent } from '@shared/components';
 import { UserApi } from '@auth/services';
 import { User } from '@auth/interfaces';
-import { AppPaths } from 'src/app/app.paths';
 // This module
 
 
@@ -19,26 +16,25 @@ import { AppPaths } from 'src/app/app.paths';
   selector: 'app-admin-dashboard-layout',
   imports: [TranslateModule, 
             RouterOutlet,
-            LinkButtonComponent,
+            LinkButtonPrimaryComponent,
+            LinkButtonSecondaryComponent,
             CommonModule,
             LanguageSwitcherComponent,
-            SvgIconComponent,
+            LogoutButtonComponent,
+            ToggleSidebarButtonComponent,
             ThemeSwitcherComponent],
   templateUrl: './admin-dashboard-layout.html',
 })
 export class AdminDashboardLayout implements OnInit {
   
   // Injections
-  private languageService = inject(LanguageService);
-  private dialog = inject(Dialog);
   private userApi = inject(UserApi);
-  private router = inject(Router);
-
+  
   // Properties
   user = computed<User | null>(this.userApi.user);
   isSidebarCollapsed = signal<boolean>(false);
   
-
+  // Methods
   // Lifecycle
   ngOnInit() {
     this.checkScreenSize();
@@ -59,7 +55,6 @@ export class AdminDashboardLayout implements OnInit {
     }
   }
   
-  // Methods
   protected toggleSidebar() {
     this.isSidebarCollapsed.set(!this.isSidebarCollapsed());
   }
@@ -71,27 +66,4 @@ export class AdminDashboardLayout implements OnInit {
       .map(namePart => namePart.charAt(0).toUpperCase())
       .join('');
   }
-
-
-  // Methods
-  protected logout() {
-
-    const dialogRef = this.dialog.open(ConfirmComponent, {
-      disableClose: true,
-      data: {
-        title: this.languageService.getTranslation('MAIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.TITLE'),
-        message: this.languageService.getTranslation('MAIN_DASHBOARD.LAYOUT.LOGOUT.POPUP.MESSAGE') 
-      }
-    });
-
-    dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) {
-        this.userApi.logout()
-          .subscribe(() => {
-            this.router.navigateByUrl(AppPaths.FULL_LOGIN);
-          });
-      };
-    });
-  }
-
- }
+}

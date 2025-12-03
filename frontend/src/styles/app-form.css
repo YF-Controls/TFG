@@ -1,6 +1,6 @@
 
 .app-form-container {
-  @apply flex flex-col gap-2;
+  @apply flex flex-col gap-2 px-7;
 }
 
 .app-form-footer {
@@ -36,19 +36,22 @@
 }
 
 .app-form-field-checkbox-item-input {
-  @apply checkbox bg-primary text-black;
+  @apply checkbox bg-primary text-primary-content;
 }
 
 .app-form-field-checkbox-item-text {
-  @apply text-sm text-primary;
+  @apply
+    text-primary
+    text-sm md:text-base;
 }
 
 /* Field submit parts */
 .app-form-field-submit-button { 
   @apply
-    btn
-    btn-primary
+    btn btn-xl btn-primary
     text-xs md:text-base
+    shadow-lg
+    hover:btn-secondary
     focus-visible:outline-2
     focus-visible:outline-offset-4
     focus-visible:outline-primary;
@@ -56,15 +59,19 @@
 
 /* Form footer parts */
 .app-form-footer-text {
-  @apply text-base-content text-sm;
+  @apply
+    text-base-content
+    text-xs md:text-sm;
 }
 
 .app-form-footer-link {
   @apply 
+    ml-1 px-1  
     text-primary
-    text-sm
-    ml-1 px-1
+    text-xs md:text-sm
+    font-bold
     rounded-lg
+    hover:text-secondary
     focus-visible:outline-2
     focus-visible:outline-offset-2
     focus-visible:outline-primary;

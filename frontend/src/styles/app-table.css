@@ -11,7 +11,9 @@
 }
 
 .app-table-field-header {
-  @apply text-sm md:text-base font-normal md:font-bold text-primary-content;
+  @apply
+    text-base md:text-lg font-normal md:font-bold text-primary-content
+    border border-primary-content;
 }
 
 .app-table-field-status {
@@ -23,16 +25,19 @@
 }
 
 .app-table-field-text {
-  @apply text-xs md:text-sm;
+  @apply text-sm md:text-base;
 }
 
 
 .app-table-field-roles {
-  @apply flex justify-start gap-1 flex-wrap;
+  @apply flex justify-start gap-1;
 }
 
 .app-table-field-role-text {
-  @apply btn btn-xs btn-secondary italic;
+  @apply
+    btn btn-xs btn-secondary
+    text-sm md:text-base
+    italic font-normal;
 }
 
 .app-table-field-buttons {
@@ -40,7 +45,9 @@
 }
 
 .app-table-field-buttons-button {
-  @apply btn btn-xs btn-primary py-3.5;
+  @apply
+    py-3.5
+    btn btn-xs btn-primary hover:btn-secondary;
 }
 
 .app-dummy {

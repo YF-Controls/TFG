@@ -1,13 +1,31 @@
+<!-- Card container -->
 <div class="card bg-base-200 border rounded-lg border-primary">
+  <!-- Card body -->
   <div class="card-body p-4">
-
-    <h2 class="text-center text-lg text-primary font-semibold mb-2">
+    <!-- Title -->
+    <h2
+      class="
+        text-primary
+        text-lg
+        font-semibold
+        text-center
+        mb-2">
       {{ translationBase() + '.TITLE' | translate }}: {{ total() }}
     </h2>
-    <span class="text-left text-base text-[#00ff00]">
+    <!-- Active -->
+    <span
+      class="
+        text-base
+        text-[#00ff00]
+        text-left">
       {{ translationBase() + '.ACTIVE' | translate }}: {{ actives() }}
     </span>
-    <span class="text-left text-base text-[#ff0000]">
+    <!-- Inactive -->
+    <span
+      class="
+        text-base
+        text-[#ff0000]
+        text-left">
       {{ translationBase() + '.INACTIVE' | translate }}: {{ inactives() }}
     </span>
 

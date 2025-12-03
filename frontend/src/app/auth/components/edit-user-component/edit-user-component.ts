@@ -1,6 +1,7 @@
 // System
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { DialogRef } from '@angular/cdk/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,7 +12,6 @@ import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { UserApi } from '../../services';
 import { User } from '@auth/interfaces';
-import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -65,7 +65,7 @@ export class EditUserComponent implements OnInit {
           const message = error.message;
           const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
           this.toast.open(message, action, { 
-            duration: 2000,
+            duration: 4000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
             horizontalPosition : 'center',
             verticalPosition : 'bottom',

@@ -1,0 +1,18 @@
+<div class="flex flex-col items-center pt-20">
+  <button
+    class="btn btn-primary hover:btn-secondary flex rounded-lg"
+    [class.justify-center]="isSidebarCollapsed()"
+    (click)="logout()">
+    <!-- Elements -->
+    <div class="flex justify-between items-center">
+      <!-- logout icon -->
+      <app-svg-icon name="logout"/>
+      <!-- logout text -->
+      @if (!isSidebarCollapsed()) {
+        <span class="ml-2">
+          {{ 'SHARED.LOGOUT_BUTTON.TITLE' | translate }}
+        </span>
+      }
+    </div>
+  </button>
+</div> 

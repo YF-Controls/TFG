@@ -1,0 +1,17 @@
+<button
+  (click)="toggleSidebar.emit()"
+  class="flex fixed top-1/5 -translate-y-1/2 z-40 
+          bg-primary text-primary-content  py-10 rounded-r-lg shadow-lg
+          hover:bg-primary/80 transition-all duration-300
+          items-center justify-center"
+  [class.left-20]="isSidebarCollapsed()"
+  [class.left-60]="!isSidebarCollapsed()">
+  <!-- Expand icon (when collapsed) -->
+  @if (isSidebarCollapsed()) {
+    <app-svg-icon name="arrow-right"/>
+  }
+  <!-- Collapse icon (when expanded) -->
+  @else {
+    <app-svg-icon name="arrow-left"/>
+  }
+</button>

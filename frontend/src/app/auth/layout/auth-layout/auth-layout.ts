@@ -12,6 +12,9 @@ import { LanguageSwitcherComponent, ThemeSwitcherComponent } from '@shared/compo
   selector: 'app-auth-layout',
   imports: [RouterOutlet, TranslateModule, LanguageSwitcherComponent, ThemeSwitcherComponent ],
   templateUrl: './auth-layout.html',
+  host: {
+    class: 'h-screen flex flex-col overflow-hidden' 
+  }
 })
 export class AuthLayout {
   

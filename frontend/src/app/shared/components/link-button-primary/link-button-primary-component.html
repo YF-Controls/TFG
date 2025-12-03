@@ -1,0 +1,47 @@
+<a 
+  [routerLink]="path()"
+  routerLinkActive="bg-primary"
+  #rla="routerLinkActive"
+  class=
+    "w-full inline-flex
+    items-center
+    py-3
+    rounded-lg
+    border-b border-slate-700
+    hover:bg-white/5
+    transition ease-linear duration-150"
+  [class.justify-center]="isCollapsed()"
+  [class.px-5]="isCollapsed()"
+  [class.justify-start]="!isCollapsed()"
+  [class.px-2]="!isCollapsed()">
+  
+  <!-- Icon -->
+  <div
+    class="flex items-center justify-center"
+    [class.text-primary-content]="rla.isActive"
+    [class.text-base-content/50]="!rla.isActive">
+    <app-svg-icon [name]="svgIconNameComputed()"/>
+  </div>
+  
+  @if (!isCollapsed()) {
+  <!-- Text block -->
+  <div 
+    class="flex flex-col ml-4">
+    <!-- Title -->
+    <span 
+      class = "text-base md:text-lg font-bold leading-5"
+      [class.text-primary-content]="rla.isActive"
+      [class.text-base-content/50]="!rla.isActive">
+      {{ title() }}
+    </span>
+    <!-- Subtitle -->
+    <span 
+      class=" text-xs md:text-sm"
+      [class.text-primary-content]="rla.isActive"
+      [class.text-base-content/50]="!rla.isActive">
+      {{ subtitle() }}
+    </span>
+  </div>
+  }
+  
+</a>

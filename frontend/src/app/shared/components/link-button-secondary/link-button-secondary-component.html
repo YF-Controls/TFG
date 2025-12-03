@@ -1,7 +1,7 @@
+<!-- routerLinkActive="bg-primary"
+#rla="routerLinkActive" -->
 <a 
   [routerLink]="path()"
-  routerLinkActive="bg-primary"
-  #rla="routerLinkActive"
   class=
     "w-full inline-flex
     items-center
@@ -9,7 +9,8 @@
     rounded-lg
     border-b border-slate-700
     hover:bg-white/5
-    transition ease-linear duration-150"
+    transition ease-linear duration-150
+    bg-secondary"
   [class.justify-center]="isCollapsed()"
   [class.px-5]="isCollapsed()"
   [class.justify-start]="!isCollapsed()"
@@ -17,9 +18,7 @@
   
   <!-- Icon -->
   <div
-    class="flex items-center justify-center"
-    [class.text-primary-content]="rla.isActive"
-    [class.text-base-content/50]="!rla.isActive">
+    class="flex items-center justify-center text-secondary-content">
     <app-svg-icon [name]="svgIconNameComputed()"/>
   </div>
   
@@ -29,16 +28,12 @@
     class="flex flex-col ml-4">
     <!-- Title -->
     <span 
-      class = "text-lg font-bold leading-5"
-      [class.text-primary-content]="rla.isActive"
-      [class.text-base-content/50]="!rla.isActive">
+      class = "text-base md:text-lg font-bold leading-5 text-secondary-content">
       {{ title() }}
     </span>
     <!-- Subtitle -->
     <span 
-      class=" text-sm hidden md:block"
-      [class.text-primary-content]="rla.isActive"
-      [class.text-base-content/50]="!rla.isActive">
+      class=" text-xs md:text-sm text-secondary-content/50">
       {{ subtitle() }}
     </span>
   </div>
