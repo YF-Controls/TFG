@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
-import { CreateDeviceAreaComponent, DeviceAreaTableComponent } from '@device-areas/components';
+import { CreateDeviceAreaComponent, DeviceAreaAdminTableComponent } from '@device-areas/components';
 import { DeviceArea } from '@device-areas/interfaces';
 import { DeviceAreaApi } from '@device-areas/services';
 
@@ -14,7 +14,7 @@ import { DeviceAreaApi } from '@device-areas/services';
 @Component({
   standalone : true,
   selector: 'app-device-areas-admin-page',
-  imports: [TranslateModule, DeviceAreaTableComponent, SvgIconComponent],
+  imports: [TranslateModule, DeviceAreaAdminTableComponent, SvgIconComponent],
   templateUrl: './device-areas-admin-page.html',
 })
 export class DeviceAreasAdminPage { 

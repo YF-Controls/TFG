@@ -1,5 +1,5 @@
 // System
-import { Component, computed, inject, signal, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, computed, inject, signal, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { Dialog } from '@angular/cdk/dialog';

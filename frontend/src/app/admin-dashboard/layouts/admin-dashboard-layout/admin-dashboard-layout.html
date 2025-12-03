@@ -8,13 +8,11 @@
     <!-- Left side menu -->
     <div
       id="menu"
-      [ngClass]="{
-        'w-60': !isSidebarCollapsed(),
-        'w-20': isSidebarCollapsed(),
-      }"
       class="bg-base-300
         min-h-screen z-30
-        fixed left-0 h-screen overflow-y-scroll transition-all duration-300">
+        fixed left-0 h-screen overflow-y-scroll transition-all duration-300"
+      [class.w-20]="isSidebarCollapsed()"
+      [class.w-60]="!isSidebarCollapsed()">
       
       <!-- Title, subtitle -->
       <div

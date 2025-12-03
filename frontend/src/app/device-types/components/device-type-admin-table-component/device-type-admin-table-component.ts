@@ -1,6 +1,5 @@
 // System
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { Component, inject, input, output } from '@angular/core';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
@@ -8,39 +7,34 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 // This module
-import { UserApi } from '../../services';
-import { User } from '../../interfaces';
-import { EditUserComponent } from '../';
+import { DeviceTypeApi } from '../../services';
+import { DeviceType } from '../../interfaces';
+import { EditDeviceTypeComponent } from '..';
 
 
 @Component({
   standalone: true,
-  selector: 'app-user-table',
+  selector: 'app-device-type-admin-table',
   imports: [TranslateModule, SvgIconComponent],
-  templateUrl: './user-table-component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './device-type-admin-table-component.html',
 })
-export class UserTableComponent { 
+export class DeviceTypeAdminTableComponent { 
 
   // Injections
   protected languageSerivce = inject(LanguageService);
   private dialog = inject(Dialog);
   private toast = inject(MatSnackBar);
-  private userApi = inject(UserApi);
+  private deviceTypeApi = inject(DeviceTypeApi);
 
   // IO
-  users = input.required<User[]>();
+  deviceTypes = input.required<DeviceType[]>();
   updateTable = output();
   
-  // Properties
-  protected currentUserId = this.userApi.user()?.id ?? null;
-  
   // Methods
-  protected onUpdateOne (user: User) {
-    const dialogRef = this.dialog.open(EditUserComponent, {
-      //panelClass : ['w-full', 'max-w-md', 'items-center', 'justify-center'],
+  protected onUpdateOne (deviceType: DeviceType) {
+    const dialogRef = this.dialog.open(EditDeviceTypeComponent, {
       disableClose: false,
-      data: {userId : user.id}
+      data: {deviceTypeId: deviceType.id}
     });
 
     dialogRef.closed.subscribe((confirmed) => {
@@ -48,23 +42,23 @@ export class UserTableComponent {
     });
   }
   
-  protected onDeleteOne (user: User) {
+  protected onDeleteOne (deviceType: DeviceType) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
-      this.userApi.deleteOne(user.id)
+      this.deviceTypeApi.delete(deviceType.id)
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
+            const action = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -74,8 +68,8 @@ export class UserTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.DELETED');
-          const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
+          const message = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.DELETED');
+          const action = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
@@ -87,5 +81,5 @@ export class UserTableComponent {
         });
     });
   }
-  
+
 }

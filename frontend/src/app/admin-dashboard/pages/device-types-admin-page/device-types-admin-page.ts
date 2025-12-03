@@ -5,7 +5,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
-import { CreateDeviceTypeComponent, DeviceTypeTableComponent } from '@device-types/components';
+import { CreateDeviceTypeComponent, DeviceTypeAdminTableComponent } from '@device-types/components';
 import { DeviceType } from '@device-types/interfaces';
 import { DeviceTypeApi } from '@device-types/services';
 import { SvgIconComponent } from '@shared/components';
@@ -15,7 +15,7 @@ import { SvgIconComponent } from '@shared/components';
 @Component({
   standalone : true,
   selector: 'app-device-types-admin-page',
-  imports: [TranslateModule, DeviceTypeTableComponent, SvgIconComponent],
+  imports: [TranslateModule, DeviceTypeAdminTableComponent, SvgIconComponent],
   templateUrl: './device-types-admin-page.html',
 })
 export class DeviceTypesAdminPage { 

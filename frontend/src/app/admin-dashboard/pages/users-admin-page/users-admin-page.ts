@@ -5,7 +5,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { LanguageService } from '@shared/services';
-import { RegisterUserComponent, UserTableComponent } from '@auth/components';
+import { RegisterUserComponent, UserAdminTableComponent } from '@auth/components';
 import { User } from '@auth/interfaces';
 import { UserApi } from '@auth/services';
 import { SvgIconComponent } from '@shared/components';
@@ -14,7 +14,7 @@ import { SvgIconComponent } from '@shared/components';
 @Component({
   standalone : true,
   selector: 'app-users-admin-page',
-  imports: [TranslateModule, UserTableComponent, SvgIconComponent],
+  imports: [TranslateModule, UserAdminTableComponent, SvgIconComponent],
   templateUrl: './users-admin-page.html',
 })
 export class UsersAdminPage {

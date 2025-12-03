@@ -1,41 +1,46 @@
 // System
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Dialog } from '@angular/cdk/dialog';
+import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 // This module
-import { EditDeviceAreaComponent } from '@device-areas/components';
-import { DeviceAreaApi } from '@device-areas/services';
-import { DeviceArea } from '@device-areas/interfaces';
+import { UserApi } from '../../services';
+import { User } from '../../interfaces';
+import { EditUserComponent } from '../';
 
 
 @Component({
   standalone: true,
-  selector: 'app-device-area-table',
+  selector: 'app-user-table',
   imports: [TranslateModule, SvgIconComponent],
-  templateUrl: './device-area-table-component.html',
+  templateUrl: './user-admin-table-component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DeviceAreaTableComponent { 
+export class UserTableComponent { 
 
   // Injections
   protected languageSerivce = inject(LanguageService);
   private dialog = inject(Dialog);
   private toast = inject(MatSnackBar);
-  private deviceAreaApi = inject(DeviceAreaApi);
+  private userApi = inject(UserApi);
 
   // IO
-  deviceAreas = input.required<DeviceArea[]>();
-  updateTable = output(); 
+  users = input.required<User[]>();
+  updateTable = output();
+  
+  // Properties
+  protected currentUserId = this.userApi.user()?.id ?? null;
   
   // Methods
-  protected onUpdateOne (deviceArea: DeviceArea) {
-    const dialogRef = this.dialog.open(EditDeviceAreaComponent, {
+  protected onUpdateOne (user: User) {
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      //panelClass : ['w-full', 'max-w-md', 'items-center', 'justify-center'],
       disableClose: false,
-      data: {deviceAreaId: deviceArea.id},
+      data: {userId : user.id}
     });
 
     dialogRef.closed.subscribe((confirmed) => {
@@ -43,23 +48,23 @@ export class DeviceAreaTableComponent {
     });
   }
   
-  protected onDeleteOne (deviceArea: DeviceArea) {
+  protected onDeleteOne (user: User) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
-      this.deviceAreaApi.deleteOne(deviceArea.id)
+      this.userApi.deleteOne(user.id)
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.CLOSE');
+            const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -69,8 +74,8 @@ export class DeviceAreaTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.DELETED');
-          const action = this.languageSerivce.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.CLOSE');
+          const message = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.DELETED');
+          const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
@@ -82,5 +87,5 @@ export class DeviceAreaTableComponent {
         });
     });
   }
-
+  
 }

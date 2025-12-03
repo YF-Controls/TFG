@@ -1,5 +1,5 @@
 // System
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,34 +8,39 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
 // This module
-import { DeviceTypeApi } from '../../services';
-import { DeviceType } from '../../interfaces';
-import { EditDeviceTypeComponent } from '..';
+import { UserApi } from '../../services';
+import { User } from '../../interfaces';
+import { EditUserComponent } from '..';
 
 
 @Component({
   standalone: true,
-  selector: 'app-device-type-table',
+  selector: 'app-user-admin-table',
   imports: [TranslateModule, SvgIconComponent],
-  templateUrl: './device-type-table-component.html',
+  templateUrl: './user-admin-table-component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DeviceTypeTableComponent { 
+export class UserAdminTableComponent { 
 
   // Injections
   protected languageSerivce = inject(LanguageService);
   private dialog = inject(Dialog);
   private toast = inject(MatSnackBar);
-  private deviceTypeApi = inject(DeviceTypeApi);
+  private userApi = inject(UserApi);
 
   // IO
-  deviceTypes = input.required<DeviceType[]>();
+  users = input.required<User[]>();
   updateTable = output();
   
+  // Properties
+  protected currentUserId = this.userApi.user()?.id ?? null;
+  
   // Methods
-  protected onUpdateOne (deviceType: DeviceType) {
-    const dialogRef = this.dialog.open(EditDeviceTypeComponent, {
+  protected onUpdateOne (user: User) {
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      //panelClass : ['w-full', 'max-w-md', 'items-center', 'justify-center'],
       disableClose: false,
-      data: {deviceTypeId: deviceType.id}
+      data: {userId : user.id}
     });
 
     dialogRef.closed.subscribe((confirmed) => {
@@ -43,23 +48,23 @@ export class DeviceTypeTableComponent {
     });
   }
   
-  protected onDeleteOne (deviceType: DeviceType) {
+  protected onDeleteOne (user: User) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageSerivce.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
-      this.deviceTypeApi.delete(deviceType.id)
+      this.userApi.deleteOne(user.id)
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
+            const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -69,8 +74,8 @@ export class DeviceTypeTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.DELETED');
-          const action = this.languageSerivce.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
+          const message = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.DELETED');
+          const action = this.languageSerivce.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
@@ -82,5 +87,5 @@ export class DeviceTypeTableComponent {
         });
     });
   }
-
+  
 }
