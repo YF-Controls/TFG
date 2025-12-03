@@ -8,9 +8,10 @@
     py-3
     rounded-lg
     border-b border-slate-700
-    hover:bg-white/5
+    bg-secondary hover:bg-primary
+    group
     transition ease-linear duration-150
-    bg-secondary"
+    "
   [class.justify-center]="isCollapsed()"
   [class.px-5]="isCollapsed()"
   [class.justify-start]="!isCollapsed()"
@@ -19,7 +20,9 @@
   <!-- Icon -->
   <div
     class="flex items-center justify-center text-secondary-content">
-    <app-svg-icon [name]="svgIconNameComputed()"/>
+    <app-svg-icon
+      customClass="group-hover:text-primary-content"
+      [name]="svgIconNameComputed()"/>
   </div>
   
   @if (!isCollapsed()) {
@@ -28,12 +31,17 @@
     class="flex flex-col ml-4">
     <!-- Title -->
     <span 
-      class = "text-base md:text-lg font-bold leading-5 text-secondary-content">
+      class = "
+        text-base md:text-lg font-bold leading-5
+        text-secondary-content group-hover:text-primary-content">
       {{ title() }}
     </span>
     <!-- Subtitle -->
     <span 
-      class=" text-xs md:text-sm text-secondary-content/50">
+      class="
+        pt-1
+        text-xs md:text-sm italic
+         text-secondary-content/40 group-hover:text-primary-content/50">
       {{ subtitle() }}
     </span>
   </div>

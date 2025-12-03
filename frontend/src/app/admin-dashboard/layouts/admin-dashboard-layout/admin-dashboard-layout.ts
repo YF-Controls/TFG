@@ -1,28 +1,41 @@
 // System
-import { Component, computed, inject, signal, OnInit, HostListener } from '@angular/core';
+import { Component, computed, HostListener, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageSwitcherComponent, ThemeSwitcherComponent, LinkButtonPrimaryComponent, LinkButtonSecondaryComponent, LogoutButtonComponent, ToggleSidebarButtonComponent } from '@shared/components';
+import { 
+  LayoutBrandNameComponent,
+  LayoutLanguageSwitcherComponent,
+  LayoutLinkButtonPrimaryComponent,
+  LayoutLinkButtonSecondaryComponent,
+  LayoutLogoutButtonComponent,
+  LayoutSubtitleComponent,
+  LayoutThemeSwitcherComponent,
+  LayoutToggleSidebarButtonComponent,
+  LayoutUserNameComponent, } from '@shared/components';
 import { UserApi } from '@auth/services';
 import { User } from '@auth/interfaces';
 // This module
 
 
-
 @Component({
   standalone : true,
   selector: 'app-admin-dashboard-layout',
-  imports: [TranslateModule, 
-            RouterOutlet,
-            LinkButtonPrimaryComponent,
-            LinkButtonSecondaryComponent,
-            CommonModule,
-            LanguageSwitcherComponent,
-            LogoutButtonComponent,
-            ToggleSidebarButtonComponent,
-            ThemeSwitcherComponent],
+  imports: [
+    CommonModule,
+    TranslateModule, 
+    RouterOutlet,
+    LayoutBrandNameComponent,
+    LayoutLanguageSwitcherComponent,
+    LayoutLinkButtonPrimaryComponent,
+    LayoutLinkButtonSecondaryComponent,
+    LayoutLogoutButtonComponent,
+    LayoutSubtitleComponent,
+    LayoutThemeSwitcherComponent,
+    LayoutToggleSidebarButtonComponent,
+    LayoutUserNameComponent,
+  ],
   templateUrl: './admin-dashboard-layout.html',
 })
 export class AdminDashboardLayout implements OnInit {
@@ -58,12 +71,5 @@ export class AdminDashboardLayout implements OnInit {
   protected toggleSidebar() {
     this.isSidebarCollapsed.set(!this.isSidebarCollapsed());
   }
-  
-  protected get fullNameInitials(): string {
-    const fullname = this.user()?.fullname || '';
-    return fullname
-      .split(' ')
-      .map(namePart => namePart.charAt(0).toUpperCase())
-      .join('');
-  }
+
 }

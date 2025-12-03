@@ -1,62 +1,50 @@
 <!-- All screen -->
 <div 
   class="overflow-y-scroll w-screen h-screen antialiased">
-  
   <!-- Left side menu position -->
-  <header class="flex flex-col relative w-screen">
-
-    <!-- Left side menu -->
-    <div
-      id="menu"
-      class="bg-base-300
-        min-h-screen z-30
-        fixed left-0 h-screen overflow-y-scroll transition-all duration-300"
+  <header
+    class="
+      relative w-screen
+      flex flex-col">
+    <!-- Left side menu id="menu"-->
+    <section
+      class="
+        min-h-screen z-30  
+        fixed left-0 h-screen overflow-y-scroll 
+        bg-base-300
+        transition-all duration-300"
       [class.w-20]="isSidebarCollapsed()"
       [class.w-60]="!isSidebarCollapsed()">
-      
       <!-- Title, subtitle -->
       <section
         class="my-2 transition-all duration-300"
         [class.px-0]="isSidebarCollapsed()"
         [class.px-6]="!isSidebarCollapsed()">
         <!-- Title-->
-        <h1 
-          class="
-            flex items-center justify-center gap-2
-            text-lg md:text-2xl
-            font-bold
-            transition-opacity duration-300">
-          <span class="text-base-content">{{ isSidebarCollapsed() ? 'H' : 'Home' }}</span>
-          <span class="text-primary">{{ isSidebarCollapsed() ? 'A' : 'Assistant' }}</span>
-        </h1>
+        <app-layout-brand-name
+          [isSidebarCollapsed]="isSidebarCollapsed()"/>
         <!-- Subtitle -->
-        <p 
-          class="
-            text-sm
-            font-bold
-            transition-opacity duration-300"
-          [class.text-primary/70]="!isSidebarCollapsed()"
-          [class.text-transparent]="isSidebarCollapsed()">
-          {{ isSidebarCollapsed() ? '...' : 'ADMIN_DASHBOARD.LAYOUT.SUBTITLE' | translate }}
-        </p>
+        <app-layout-subtitle
+          [isSidebarCollapsed]="isSidebarCollapsed()"
+          subtitle="ADMIN_DASHBOARD.LAYOUT.SUBTITLE"/>
       </section>
 
       <!-- Divider -->
       <div class="divider my-0"></div>
       
-      <!-- Option buttons >-->
+      <!-- Option buttons -->
       <section
         class="flex flex-row items-center my-2"
         [class.flex-row]="!isSidebarCollapsed()"
         [class.flex-col]="isSidebarCollapsed()">
         <!-- Theme toggle button -->
         <div class="flex-2 flex justify-center">
-          <app-theme-switcher 
+          <app-layout-theme-switcher 
             [isSidebarCollapsed] = "isSidebarCollapsed()"/>
         </div>
         <!-- Language button -->
         <div class="flex-5 flex justify-center">
-          <app-language-switcher
+          <app-layout-language-switcher
             [isSidebarCollapsed] = "isSidebarCollapsed()"/>
         </div>
       </section>
@@ -64,51 +52,12 @@
       <!-- Divider -->
       <div class="divider my-0"></div>
 
-      <!-- Administrator info-->
-      <section 
-        id="profile" 
-        class="py-2 transition-all duration-300"
-        [class.px-0]="isSidebarCollapsed()"
-        [class.px-6]="!isSidebarCollapsed()">
-
-        <!-- Not collapsed: Show welcome message -->
-        @if (isSidebarCollapsed()) {
-          <!-- Full name -->
-          <div 
-            id ="profile-initials"
-            class="bg-primary text-primary-content
-            mask mask-circle
-            text-base md:text-lg
-            font-bold
-            w-14 h-14 transition-opacity duration-300 
-            flex items-center justify-center
-            whitespace-nowrap mx-auto">
-            {{ fullNameInitials }}
-          </div>
-        }
-        @else  {
-          <p
-            class="
-            text-primary/70
-            text-sm md:text-base
-            transition-opacity duration-300">
-            {{ 'ADMIN_DASHBOARD.LAYOUT.WELCOME' | translate }}
-          </p>
-
-          <!-- Full name -->
-          <div class="inline-flex space-x-2 items-center">
-            <span 
-              class="
-                text-primary
-                text-base md:text-lg
-                font-bold
-                transition-opacity duration-300">
-              {{ user()?.fullname || '???' }}
-            </span>
-          </div>
-        }
-      </section>
-
+      <!-- User name -->
+      <app-layout-user-name
+        [isSidebarCollapsed]="isSidebarCollapsed()"
+        [fullname]="user()?.fullname || '???'"
+        welcomeText="ADMIN_DASHBOARD.LAYOUT.WELCOME"/>
+      
       <!-- Divider -->
       <div class="divider my-0"></div>
 
@@ -116,7 +65,7 @@
       <nav class="w-full px-3">
 
          <!-- Main Panel button -->
-        <app-link-button-secondary
+        <app-layout-link-button-secondary
           title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.MAIN_DEVICES.TITLE' | translate }}"
           subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.MAIN_DEVICES.SUBTITLE' | translate }}"
           path="/devices"
@@ -126,7 +75,7 @@
         <div class="divider my-0"></div>
 
         <!-- Dashboard button -->
-        <app-link-button-primary
+        <app-layout-link-button-primary
           title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DASHBOARD.TITLE' | translate }}"
           subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DASHBOARD.SUBTITLE' | translate }}"
           path="/admin/dashboard"
@@ -134,7 +83,7 @@
           svgIconName="dashboard"/>
         
         <!-- Devices button -->
-        <app-link-button-primary
+        <app-layout-link-button-primary
           title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.TITLE' | translate }}"
           subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.SUBTITLE' | translate }}"
           path="/admin/devices"
@@ -142,7 +91,7 @@
           svgIconName="lamp"/>
         
         <!-- Device areas button -->
-        <app-link-button-primary
+        <app-layout-link-button-primary
           title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_AREAS.TITLE' | translate }}"
           subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_AREAS.SUBTITLE' | translate }}"
           path="/admin/device-areas"
@@ -150,7 +99,7 @@
           svgIconName="house"/>
         
         <!-- Device types button -->
-        <app-link-button-primary
+        <app-layout-link-button-primary
           title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_TYPES.TITLE' | translate }}"
           subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_TYPES.SUBTITLE' | translate }}"
           path="/admin/device-types"
@@ -158,7 +107,7 @@
           svgIconName="folder"/>
         
         <!-- Users button -->
-        <app-link-button-primary
+        <app-layout-link-button-primary
           title="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.USERS.TITLE' | translate }}"
           subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.USERS.SUBTITLE' | translate }}"
           path="/admin/users"
@@ -168,15 +117,15 @@
       </nav>
 
       <!-- Logout button -->
-      <app-logout-button
+      <app-layout-logout-button
         [isSidebarCollapsed]="isSidebarCollapsed()"/>
       
       <!-- Toggle sidebar button -->
-      <app-toggle-sidebar-button
+      <app-layout-toggle-sidebar-button
         [isSidebarCollapsed]="isSidebarCollapsed()"
         (toggleSidebar)="toggleSidebar()"/>
       
-    </div>
+    </section>
   </header>
 
   <!-- Main content -->

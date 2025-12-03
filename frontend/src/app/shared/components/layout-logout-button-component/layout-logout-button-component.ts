@@ -11,13 +11,12 @@ import { LanguageService } from '@shared/services';
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 
 
-
 @Component({
-  selector: 'app-logout-button',
+  selector: 'app-layout-logout-button',
   imports: [TranslateModule, SvgIconComponent],
-  templateUrl: './logout-button-component.html',
+  templateUrl: './layout-logout-button-component.html',
 })
-export class LogoutButtonComponent {
+export class LayoutLogoutButtonComponent {
 
   // Injections
   private languageService = inject(LanguageService);

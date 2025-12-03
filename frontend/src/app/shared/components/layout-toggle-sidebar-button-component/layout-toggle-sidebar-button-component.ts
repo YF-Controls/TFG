@@ -6,12 +6,11 @@ import { SvgIconComponent } from '@shared/components';
 
 @Component({
   standalone : true,
-  selector: 'app-toggle-sidebar-button',
+  selector: 'app-layout-toggle-sidebar-button',
   imports: [SvgIconComponent],
-  templateUrl: './toggle-sidebar-button-component.html',
+  templateUrl: './layout-toggle-sidebar-button-component.html',
 })
-export class ToggleSidebarButtonComponent {
-
+export class LayoutToggleSidebarButtonComponent {
   // Injections
 
   // IO

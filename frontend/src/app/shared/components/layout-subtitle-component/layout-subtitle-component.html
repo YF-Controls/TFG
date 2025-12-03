@@ -1,0 +1,9 @@
+<h2 
+  class="
+    text-sm
+    font-bold
+    transition-opacity duration-300"
+  [class.text-primary/70]="!isSidebarCollapsed()"
+  [class.text-transparent]="isSidebarCollapsed()">
+  {{ isSidebarCollapsed() ? '...' : subtitle() | translate }}
+</h2>

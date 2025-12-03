@@ -1,5 +1,5 @@
 // System
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 // Other modules
 import { Lang, LanguageService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
@@ -7,11 +7,11 @@ import { SvgIconComponent } from '@shared/components';
 
 @Component({
   standalone : true,
-  selector: 'app-language-switcher',
+  selector: 'app-layout-language-switcher',
   imports: [SvgIconComponent ],
-  templateUrl: './language-switcher-component.html',
+  templateUrl: './layout-language-switcher-component.html',
 })
-export class LanguageSwitcherComponent { 
+export class LayoutLanguageSwitcherComponent { 
   
   // Injections
   protected languageService = inject(LanguageService);

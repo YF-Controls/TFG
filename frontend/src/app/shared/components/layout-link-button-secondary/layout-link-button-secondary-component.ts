@@ -1,18 +1,18 @@
 // System
 import { Component, computed, input } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 // Other modules
 import { SvgIconComponent, SvgIconName } from '@shared/components';
 
 
 @Component({
   standalone : true,
-  selector: 'app-link-button-primary',
-  imports: [RouterLink, RouterLinkActive, CommonModule, SvgIconComponent],
-  templateUrl: './link-button-primary-component.html',
+  selector: 'app-layout-link-button-secondary',
+  imports: [RouterLink, CommonModule, SvgIconComponent],
+  templateUrl: './layout-link-button-secondary-component.html',
 })
-export class LinkButtonPrimaryComponent { 
+export class LayoutLinkButtonSecondaryComponent { 
 
   // IO
   title = input.required<string>();

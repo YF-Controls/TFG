@@ -7,12 +7,12 @@ import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 
 @Component({
   standalone: true,
-  selector: 'app-theme-switcher',
+  selector: 'app-layout-theme-switcher',
   imports: [SvgIconComponent],
-  templateUrl: './theme-switcher.component.html',
+  templateUrl: './layout-theme-switcher.component.html',
   //styles: [`:host {display: contents;}`],
 })
-export class ThemeSwitcherComponent {
+export class LayoutThemeSwitcherComponent {
   
   // Injections
   protected themeService = inject(ThemeService);

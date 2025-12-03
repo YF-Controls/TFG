@@ -1,0 +1,41 @@
+<section 
+  class="py-2 transition-all duration-300"
+  [class.px-0]="isSidebarCollapsed()"
+  [class.px-6]="!isSidebarCollapsed()">
+
+  <!-- Sidebar collapsed -->
+  @if (isSidebarCollapsed()) {
+   <!-- Full name initials -->
+    <h2 
+      class="bg-primary text-primary-content
+      mask mask-circle
+      text-base md:text-lg
+      font-bold
+      w-14 h-14 transition-opacity duration-300 
+      flex items-center justify-center
+      whitespace-nowrap mx-auto">
+      {{ fullNameInitials() }}
+    </h2>
+  }
+  <!-- Not collapsed -->
+  @else  {
+    <p
+      class="
+      text-primary/70
+      text-sm md:text-base
+      transition-opacity duration-300">
+      {{ welcomeText() | translate }}
+    </p>
+    <!-- Full name -->
+    <div class="inline-flex space-x-2 items-center">
+      <h2 
+        class="
+          text-primary
+          text-base md:text-lg
+          font-bold
+          transition-opacity duration-300">
+        {{ fullname() }}
+      </h2>
+    </div>
+  }
+</section>

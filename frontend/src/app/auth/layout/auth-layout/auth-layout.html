@@ -7,24 +7,17 @@
     border-b-2 border-primary
     px-2 py-2">
   <!--Logo -->
-   <h1 
-    class="
-      flex-1
-      flex justify-start items-center gap-1
-      text-lg md:text-3xl font-bold
-      transition-opacity duration-300">
-    <span class="text-base-content">Home</span>
-    <span class="text-primary">Assistant</span>
-  </h1>
+  <app-layout-brand-name
+    [isSidebarCollapsed]="false"/>
   
   <!-- Language Switcher button -->
   <section
     class="
       flex-1
       flex flex-row justify-end items-center gap-1 md:gap-5">
-    <app-theme-switcher
+    <app-layout-theme-switcher
       [isSidebarCollapsed]="false"/>
-    <app-language-switcher
+    <app-layout-language-switcher
       [isSidebarCollapsed]="false"/>
   </section>
 
