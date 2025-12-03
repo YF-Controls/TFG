@@ -117,21 +117,6 @@
         "DEVICES" : {
           "TITLE" : "Dispositivos",
           "SUBTITLE" : "Gestionar dispositivos"
-        },
-
-        "DEVICE_AREAS" : {
-          "TITLE" : "Áreas de Dispositivos",
-          "SUBTITLE" : "Gestionar áreas de dispositivos"
-        },
-
-        "DEVICE_TYPES" : {
-          "TITLE" : "Tipos de Dispositivos  ",
-          "SUBTITLE" : "Gestionar tipos de dispositivos"
-        },
-
-        "USERS" : {
-          "TITLE" : "Usuarios",
-          "SUBTITLE" : "Gestionar usuarios"
         }
       },
       
@@ -144,7 +129,7 @@
       }
     },
 
-    "DEVICES_PAGE" : {
+    "DEVICES_CONTROL_PAGE" : {
       "TITLE": "Control de Dispositivos",
       "TOTAL" : "Total de Dispositivos: "
     },

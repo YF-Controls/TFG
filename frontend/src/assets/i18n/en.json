@@ -117,21 +117,6 @@
         "DEVICES" : {
           "TITLE" : "Devices",
           "SUBTITLE" : "Manage devices"
-        },
-
-        "DEVICE_AREAS" : {
-          "TITLE" : "Device Areas",
-          "SUBTITLE" : "Manage device areas"
-        },
-
-        "DEVICE_TYPES" : {
-          "TITLE" : "Device Types",
-          "SUBTITLE" : "Manage device types"
-        },
-
-        "USERS" : {
-          "TITLE" : "Users",
-          "SUBTITLE" : "Manage users"
         }
       },
       
@@ -144,7 +129,7 @@
       }
     },
 
-    "DEVICES_PAGE" : {
+    "DEVICES_CONTROL_PAGE" : {
       "TITLE": "Device Control",
       "TOTAL" : "Total Devices: "
     },

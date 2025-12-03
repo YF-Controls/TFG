@@ -4,7 +4,7 @@ import { Routes } from "@angular/router";
 import { IsUserGuard } from "@auth/guards";
 // This module
 import { MainDashboardLayout } from "./layouts";
-import { DevicesPage, HomePage, NotFoundPage } from "./pages";
+import { DevicesControlPage } from "./pages";
 
 
 export const mainDashboardRoutes: Routes = [
@@ -13,7 +13,7 @@ export const mainDashboardRoutes: Routes = [
     component: MainDashboardLayout,
     children : [
       {path: '', pathMatch: 'full', redirectTo: 'devices'},
-      {path: 'devices', component: DevicesPage},
+      {path: 'devices', component: DevicesControlPage},
       {path: '**', redirectTo: 'devices'},
     ],
   },
