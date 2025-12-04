@@ -1,7 +1,7 @@
 <section class="pt-2 sticky top-25.5 z-30 bg-base-100">
 
   <button 
-    class="btn btn-primary md:hidden mb-2"
+    class="btn btn-primary md:hidden hover:btn-secondary mb-2"
     (click)="toggleMenu()">
     <app-svg-icon name="adjustment-vertical"/>
   </button>
@@ -10,7 +10,7 @@
     class="
       fixed md:sticky
       bg-base-100/80 md:bg-base-100
-      p-5 md:p-0
+      p-5 md:p-0   
       border md:border-0 border-primary rounded-lg"
     [class.hidden]="!showMenu()">
 
@@ -25,7 +25,7 @@
           </span>
         </button>
 
-      @for (deviceArea of devicesAreasResource.value(); track $index) {
+      @for (deviceArea of deviceAreas.value(); track $index) {
         <button
           class="btn btn-primary hover:btn-secondary"
           [class.btn-secondary]="deviceArea.id === filterByAreaId()"
@@ -52,7 +52,7 @@
           </span>
         </button>
 
-      @for (deviceType of devicesTypesResource.value(); track $index) {
+      @for (deviceType of deviceTypes.value(); track $index) {
         <button
           class="btn btn-primary hover:btn-secondary"
           [class.btn-secondary]="deviceType.id === filterByTypeId()"
@@ -71,7 +71,7 @@
 
 <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
 
-  @for (device of devicesResource.value(); track $index) {
+  @for (device of devices.value(); track $index) {
 
     @if (device.hwId.includes('blnd')) {
       <app-blind-device-control 

@@ -2,7 +2,7 @@
   @apply
     flex justify-between items-center gap-2 
     py-5
-    sticky  top-0 z-40
+    sticky top-0 z-40
     bg-base-100
     border-b-2 border-primary;
 }
@@ -27,5 +27,5 @@
 
 .app-page-header-button {
   @apply
-    btn btn-primary;
+    btn btn-primary hover:btn-secondary;
 }

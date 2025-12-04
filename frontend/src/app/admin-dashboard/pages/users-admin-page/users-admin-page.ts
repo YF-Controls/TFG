@@ -1,14 +1,10 @@
 // System
-import { Component, inject } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
-import { RegisterUserComponent, UserAdminTableComponent } from '@auth/components';
-import { User } from '@auth/interfaces';
-import { UserApi } from '@auth/services';
 import { SvgIconComponent } from '@shared/components';
+import { RegisterUserComponent, UserAdminTableComponent } from '@auth/components';
 
 
 @Component({
@@ -20,31 +16,24 @@ import { SvgIconComponent } from '@shared/components';
 export class UsersAdminPage {
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialog = inject(Dialog);
-  protected readonly userApi = inject(UserApi);
-
-  // Properties
-  usersResource = rxResource<User[], []>({
-    stream  : () => this.userApi.getAll({orderBy: 'fullname'}),
-  });
+  
+  // ViewChild
+  @ViewChild(UserAdminTableComponent) table!: UserAdminTableComponent;
+  
+  // IO
+  protected total = signal<number>(0);
 
   // Methods
   protected onAdd () {
-    
+    // Open popup
     const dialogRef = this.dialog.open(RegisterUserComponent, {
-      disableClose: true, 
+      disableClose: false, 
       data: { isPopup: true }
     });
-
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.onUpdateTable();
+      if (confirmed) this.table?.updateTable();
     });
   }
-  
-  protected onUpdateTable() {
-    this.usersResource.reload();
-  }
-  
-
 }

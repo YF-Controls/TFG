@@ -1,6 +1,8 @@
 // System
-import { Component, inject, input, output } from '@angular/core';
-import { Dialog, DialogRef } from '@angular/cdk/dialog';
+import { Component, inject, output } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs/internal/operators/tap';
+import { Dialog } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
@@ -27,30 +29,48 @@ export class DeviceTypeAdminTableComponent {
   protected readonly deviceTypeApi = inject(DeviceTypeApi);
 
   // IO
-  deviceTypes = input.required<DeviceType[]>();
-  updateTable = output();
+  totalChanged = output<number>();
   
+    // Properties
+  public deviceTypes = rxResource<DeviceType[], []>({
+    stream: () => {
+      
+      return this.deviceTypeApi.getAll({
+        orderBy: 'name',
+        //limit: null,
+        offset: 0
+      }).pipe(tap(deviceTypes => this.totalChanged.emit(deviceTypes.length)));
+    },
+  });
+
   // Methods
+  public updateTable(): void {
+    this.deviceTypes.reload();
+  }
+
   protected onUpdateOne (deviceType: DeviceType) {
+    // Open popup
     const dialogRef = this.dialog.open(EditDeviceTypeComponent, {
       disableClose: false,
-      data: {deviceTypeId: deviceType.id}
+      data: { isPopup: true, deviceTypeId: deviceType.id}
     });
-
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.updateTable.emit();      
+      if (confirmed) this.updateTable();      
     });
   }
   
   protected onDeleteOne (deviceType: DeviceType) {
+    // Confirm popup
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      disableClose: true,
+      disableClose: false,
       data: {
+        isPopup: true,
         title: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.TITLE'),
         message: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
-    
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
@@ -77,9 +97,8 @@ export class DeviceTypeAdminTableComponent {
             verticalPosition : 'bottom',
           });
           // Return
-          this.updateTable.emit();
+          this.updateTable();
         });
     });
   }
-
 }

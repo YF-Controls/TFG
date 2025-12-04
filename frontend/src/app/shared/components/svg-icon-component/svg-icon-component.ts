@@ -9,7 +9,9 @@ export type SvgIconName =
   'book' | 'close' | 'content' | 'circle-up' | 'circle-down' | 'circle-stop' |
   'circle-solid-down' | 'circle-solid-up' | 'circle-solid-stop' |
   'dashboard' | 'delete' | 'device' | 'edit' | 'email' | 
-  'eye-hide' | 'eye-show' | 'folder' | 'hash' | 'house' | 'hw' | 'key' | 'lamp' | 'login' | 'logout' |
+  'eye-hide' | 'eye-show' |
+  'filter' | 'folder' | 
+  'hash' | 'house' | 'hw' | 'key' | 'lamp' | 'login' | 'logout' |
   'solid-stop' |
   'theme-sun' | 'theme-moon' |
   'not-valid' | 'ok' | 'padlock' | 'user' | 'users' |
@@ -137,6 +139,11 @@ export class SvgIconComponent {
     'eye-show': {
       path: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>',
       defaultClass: 'size-6'
+    },
+    
+    'filter': {
+      path: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z" clip-rule="evenodd" /></svg>',
+      defaultClass : 'size-6'
     },
     
     'folder' : {

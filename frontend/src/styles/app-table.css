@@ -1,6 +1,6 @@
 /* Level 0: Container */
 .app-table-container {
-  @apply overflow-x-auto;
+  @apply bg-base-100;
 }
 
 /* Level 1: Table */
@@ -10,7 +10,7 @@
 
 /* Level 2: Table Header */
 .app-table-header {
-  @apply bg-primary;
+  @apply bg-primary; /*sticky top-27.5 z-50;*/
 }
 
 /* Level 2: Table Body */
@@ -22,7 +22,7 @@
 .app-table-header-row-field {
   @apply
     text-base md:text-lg font-normal md:font-bold text-primary-content
-    border-r border-base-100;
+    border border-base-100;
 }
 
 /* Level 4: Table Body Row Field*/

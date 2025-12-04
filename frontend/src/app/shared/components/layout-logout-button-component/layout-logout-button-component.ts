@@ -31,15 +31,16 @@ export class LayoutLogoutButtonComponent {
 
   // Methods
   protected logout() {
-  
+    // Confirm popup
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      disableClose: true,
+      disableClose: false,
       data: {
+        isPopup: true,
         title: this.languageService.getTranslation('SHARED.LOGOUT_BUTTON.POPUP.TITLE'),
         message: this.languageService.getTranslation('SHARED.LOGOUT_BUTTON.POPUP.MESSAGE') 
       }
     });
-
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {
         this.userApi.logout()

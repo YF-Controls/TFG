@@ -1,14 +1,10 @@
 // System
-import { Component, inject } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
 import { CreateDeviceAreaComponent, DeviceAreaAdminTableComponent } from '@device-areas/components';
-import { DeviceArea } from '@device-areas/interfaces';
-import { DeviceAreaApi } from '@device-areas/services';
 
 
 @Component({
@@ -18,30 +14,26 @@ import { DeviceAreaApi } from '@device-areas/services';
   templateUrl: './device-areas-admin-page.html',
 })
 export class DeviceAreasAdminPage { 
-
+ 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialog = inject(Dialog);
-  protected readonly deviceAreaApi = inject(DeviceAreaApi);
 
-  // Properties
-  deviceAreasResource = rxResource<DeviceArea[], []>({
-    stream  : () => this.deviceAreaApi.getAll({orderBy: 'name'}),
-  });
+  // ViewChild
+  @ViewChild(DeviceAreaAdminTableComponent) table!: DeviceAreaAdminTableComponent;
+  
+  // IO
+  protected total = signal<number>(0);
   
   // Methods
   protected onAdd () {
+    // Open popup
     const dialogRef = this.dialog.open(CreateDeviceAreaComponent, {
-      disableClose: true,
+      disableClose: false,
+      data: { isPopup: true }
     });
-
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.onUpdateTable();
+      if (confirmed) this.table?.updateTable();
     });
   }
-  
-  protected onUpdateTable() {
-    this.deviceAreasResource.reload();
-  }
-
 }

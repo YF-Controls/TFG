@@ -1,9 +1,152 @@
-<section class=app-table-container>
-  <table class="app-table">
+<!-- Main -->
+<main class="app-table-container">
 
+  <!-- Pagination
+  <section class="py-2 flex justify-between gap-2">
+    <!-- Page size div -- 
+    <div class="flex-1 flex flex-row justify-start gap-2">
+      <button
+        #btnPageSizes
+        class="flex btn btn-primary hover:btn-secondary"
+        (click)="toggleShowPageSizes($event)">
+        <span class="text-sm md:text-base">{{ pageSize() || 'All' }}</span>
+        <app-svg-icon [name]="showPopup() === 'pageSizes' ? 'arrow-up': 'arrow-down'"/>
+      </button>
+    </div>
+    <!-- Page navigation div --
+    <div
+      class="flex-1 flex flex-row justify-center gap-2">
+      <!-- Prev --
+      <button class="btn btn-primary hover:btn-secondary">
+        <
+      </button>
+      <!-- Page number --
+      <button class="btn btn-primary hover:btn-secondary">
+        100
+      </button>
+      <!-- Next --
+      <button class="btn btn-primary hover:btn-secondary">
+        >
+      </button>
+    </div>
+    <!-- Filter div --
+    <div
+      class="flex-1 flex flex-row justify-end  gap-2">
+      <!-- Filter by types --
+      <button
+        #btnTypes
+        class="btn btn-primary hover:btn-secondary"
+        (click)="toggleShowTypes($event)">
+        <span class="text-sm md:text-base">Tipos</span>
+        <app-svg-icon [name]="showPopup() === 'types' ? 'arrow-up': 'arrow-down'"/>
+      </button>
+      <!-- Filter by areas --
+      <button
+        #btnAreas
+        class="btn btn-primary hover:btn-secondary"
+        (click)="toggleShowAreas($event)">
+        <span class="text-sm md:text-base">
+          Areas
+        </span>
+        <app-svg-icon [name]="showPopup() === 'areas' ? 'arrow-up': 'arrow-down'"/>
+      </button>
+    </div>
+
+  </section>
+
+  <!-- Page zice listbox--
+  @if (showPopup() === 'pageSizes') {
+    <div 
+      id="popup-page-size"
+      class="fixed z-60 border border-primary"
+      [style.left.px]="popupX()"
+      [style.top.px]="popupY()" >
+      <ul class="menu bg-base-200 w-20">
+        @for (size of pageSizes; track $index) {
+          <li
+            class="rounded-lg"
+            [class.bg-primary]="pageSize() === size">
+            <button
+              class="text-center block"
+              (click)="onChangePageSize(size)">
+              {{ size ?? 'All' }}
+            </button></li>
+        }
+      </ul>
+    </div>
+  }
+  @else if (showPopup() === 'types') {
+    <!-- Container --
+    <div 
+      id="popup-types"  
+      class="fixed z-60 border border-primary"
+      [style.left.px]="popupX()"
+      [style.top.px]="popupY()">
+      <!-- List 
+      <ul class="menu bg-base-200 w-40">
+        <!-- All button -
+        <li
+          class="rounded-lg"
+          [class.bg-primary]="filterByTypeId() === null">
+          <button
+            class="text-center block" 
+            (click)="onChangeFilterByTypeId(null)">
+            All
+          </button></li>
+        <!-- List -
+        @for (deviceType of deviceTypes.value(); track deviceType.id) {
+          <li
+            class="rounded-lg"
+            [class.bg-primary]="filterByTypeId() === deviceType.id">
+            <button
+              class="text-center block"
+              (click)="onChangeFilterByTypeId(deviceType.id)">
+              {{ deviceType.name }}
+            </button></li>
+        }
+      </ul>
+    </div>
+  }
+  @else if (showPopup() === 'areas') {
+    <!-- Container 
+    <div
+      id="popup-areas"
+      class="fixed z-60 border border-primary"
+      [style.left.px]="popupX()"
+      [style.top.px]="popupY()">
+      <!-- List -
+      <ul class="menu bg-base-200 w-40">
+        <!-- All button -
+        <li
+          class="rounded-lg"
+          [class.bg-primary]="filterByAreaId() === null">
+          <button
+            class="text-center block" 
+            (click)="onChangeFilterByAreaId(null)">
+            All
+          </button></li>
+        <!-- List -
+        @for (deviceArea of deviceAreas.value(); track deviceArea.id) {
+          <li
+            class="rounded-lg"
+            [class.bg-primary]="filterByAreaId() === deviceArea.id">
+            <button
+              class="text-center block"
+              (click)="onChangeFilterByAreaId(deviceArea.id)">
+              {{ deviceArea.name }}
+            </button></li>
+        }
+      </ul>
+    </div>
+  }
+ -->
+  
+  <!-- Table -->
+  <table class="app-table"> <!-- app-table -->
     <!-- Header -->
-    <thead class="app-table-header">
-      <tr>
+    <thead class="app-table-header"> 
+      <!-- Head row -->
+      <tr class="">
         <!-- col 1 -->
         <th class="app-table-header-row-field text-center w-1">
           {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.STATUS' | translate }}
@@ -17,11 +160,11 @@
           {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.NAME' | translate }}
         </th>
         <!-- col 4 -->
-        <th class="app-table-header-row-field text-center w-1">
+        <th class="app-table-header-row-field text-center">
           {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.TYPE' | translate }}
         </th>
         <!-- col 5 -->
-        <th class="app-table-header-row-field text-center w-1">
+        <th class="app-table-header-row-field text-center">
           {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.AREA' | translate }}
         </th> 
         <!-- col 6 -->
@@ -37,12 +180,9 @@
 
     <!-- Rows -->
     <tbody>
-
-      @for (device of devices(); track device.id) {
-      
+      @for (device of devices.value(); track device.id) {
         <!-- row x -->
         <tr>
-          
           <!-- Col 1: Status -->
           <td class="app-table-body-row-field">
             <span class="app-table-body-row-field-status">
@@ -122,4 +262,5 @@
       
     </tbody>
   </table>
-</section>
+
+</main>

@@ -1,5 +1,7 @@
 // System
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs/internal/operators/tap';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,7 +19,6 @@ import { EditUserComponent } from '..';
   selector: 'app-user-admin-table',
   imports: [TranslateModule, SvgIconComponent],
   templateUrl: './user-admin-table-component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserAdminTableComponent { 
 
@@ -28,34 +29,50 @@ export class UserAdminTableComponent {
   protected readonly userApi = inject(UserApi);
 
   // IO
-  users = input.required<User[]>();
-  updateTable = output();
+  totalChanged = output<number>();
   
-  // Properties
-  protected currentUserId = this.userApi.user()?.id ?? null;
+    // Properties
+  public users = rxResource<User[], []>({
+    stream: () => {
+      
+      return this.userApi.getAll({
+        orderBy: 'fullname',
+        //limit: null,
+        offset: 0
+      }).pipe(tap(users => this.totalChanged.emit(users.length)));
+    },
+  });
+  protected currentUserId = signal<string>(this.userApi.user()?.id || '');
   
-  // Methods
-  protected onUpdateOne (user: User) {
-    const dialogRef = this.dialog.open(EditUserComponent, {
-      //panelClass : ['w-full', 'max-w-md', 'items-center', 'justify-center'],
-      disableClose: false,
-      data: {userId : user.id}
-    });
 
+  // Methods
+  public updateTable(): void {
+    this.users.reload();
+  }
+
+  protected onUpdateOne (user: User) {
+    // Open popup
+    const dialogRef = this.dialog.open(EditUserComponent, {
+      disableClose: false,
+      data: { isPopup: true, userId : user.id}
+    });
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.updateTable.emit();      
+      if (confirmed) this.updateTable();      
     });
   }
   
   protected onDeleteOne (user: User) {
+    // Confirm popup
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      disableClose: true,
+      disableClose: false,
       data: {
+        isPopup: true,
         title: this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.TITLE'),
         message: this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
-    });
-    
+    }); 
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
       if (!confirmed) return;
       // Delete
@@ -82,9 +99,8 @@ export class UserAdminTableComponent {
             verticalPosition : 'bottom',
           });
           // Return
-          this.updateTable.emit();
+          this.updateTable();
         });
     });
   }
-  
 }

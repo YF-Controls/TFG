@@ -1,9 +1,10 @@
 // System
 import { Component, inject, input, output } from '@angular/core';
-import { NgClass } from '@angular/common';
 import { Dialog } from '@angular/cdk/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs/internal/operators/tap';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
 import { LanguageService } from '@shared/services';
@@ -28,25 +29,41 @@ export class DeviceAreaAdminTableComponent {
   protected readonly deviceAreaApi = inject(DeviceAreaApi);
 
   // IO
-  deviceAreas = input.required<DeviceArea[]>();
-  updateTable = output(); 
+  totalChanged = output<number>();
+
+    // Properties
+  public deviceAreas = rxResource<DeviceArea[], []>({
+    stream: () => {
+      
+      return this.deviceAreaApi.getAll({
+        orderBy: 'name',
+        //limit: null,
+        offset: 0
+      }).pipe(tap(deviceAreas => this.totalChanged.emit(deviceAreas.length)));
+    },
+  });
   
   // Methods
+  public updateTable(): void {
+    this.deviceAreas.reload();
+  }
+
   protected onUpdateOne (deviceArea: DeviceArea) {
     const dialogRef = this.dialog.open(EditDeviceAreaComponent, {
       disableClose: false,
-      data: {deviceAreaId: deviceArea.id},
+      data: { isPopup: true, deviceAreaId: deviceArea.id},
     });
 
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.updateTable.emit();      
+      if (confirmed) this.updateTable();      
     });
   }
   
   protected onDeleteOne (deviceArea: DeviceArea) {
     const dialogRef = this.dialog.open(ConfirmComponent, {
-      disableClose: true,
+      disableClose: false,
       data: {
+        isPopup: true,
         title: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.TITLE'),
         message: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
@@ -78,9 +95,8 @@ export class DeviceAreaAdminTableComponent {
             verticalPosition : 'bottom',
           });
           // Return
-          this.updateTable.emit();
+          this.updateTable();
         });
     });
   }
-
 }

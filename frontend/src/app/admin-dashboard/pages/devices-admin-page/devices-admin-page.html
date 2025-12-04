@@ -6,13 +6,12 @@
     <h1 class="app-page-header-title">
       {{ 'ADMIN_DASHBOARD.DEVICES_ADMIN_PAGE.TITLE' | translate }}
     </h1>
-    <!--  -->
+    <!-- Subtitle -->
     <h2 class="app-page-header-subtitle">
       {{ 'ADMIN_DASHBOARD.DEVICES_ADMIN_PAGE.TOTAL' | translate }}
-      <span >{{devicesResource.value()?.length}}</span>
+      <span >{{ total() }}</span>
     </h2>
   </div>
-
   <!-- Add button -->
   <button 
     class="app-page-header-button"
@@ -20,13 +19,8 @@
     <!-- Add icon -->
     <app-svg-icon name="add"/>
   </button>
-  
 </header>
 
-<!-- Divider -->
-<div class="app-page-header-divider"></div>
-
-<!-- Table -->
+<!--Main -->
 <app-device-admin-table
-  [devices]="devicesResource.value() ?? []"
-  (updateTable)="onUpdateTable()"/>
+  (totalChanged)="total.set($event)"/>

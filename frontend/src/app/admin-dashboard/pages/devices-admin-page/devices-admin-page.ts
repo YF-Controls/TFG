@@ -1,14 +1,10 @@
 // System
-import { Component, inject } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
 import { CreateDeviceComponent, DeviceAdminTableComponent } from '@devices/components';
-import { DeviceApi } from '@devices/services';
-import { Device } from '@devices/interfaces';
 
 
 @Component({
@@ -20,31 +16,24 @@ import { Device } from '@devices/interfaces';
 export class DevicesAdminPage {
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialog = inject(Dialog);
-  protected readonly deviceApi = inject(DeviceApi);
   
-  // Properties
-  devicesResource = rxResource<Device[], []>({
-    stream  : () => this.deviceApi.getAll({orderBy: 'number'}),
-  });
+  // ViewChild
+  @ViewChild(DeviceAdminTableComponent) table!: DeviceAdminTableComponent;
   
+  // IO
+  protected total = signal<number>(0);
+
   // Methods
   protected onAdd () {
-     
+    // Open popup
     const dialogRef = this.dialog.open(CreateDeviceComponent, {
-      disableClose: true,
+      disableClose: false,
+      data: { isPopup: true }
     });
-
+    // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.onUpdateTable();
+      if (confirmed) this.table?.updateTable();
     });
   }
-    
-  protected onUpdateTable() {
-    this.devicesResource.reload();
-  }
-
-
 }
-
