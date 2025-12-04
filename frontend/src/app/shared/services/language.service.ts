@@ -16,7 +16,7 @@ const LANG_KEY = 'lang';
 export class LanguageService {
   
   // Injections
-  protected readonly translate = inject(TranslateService);
+  protected readonly translateService = inject(TranslateService);
   
   // Properties - availableLanguages debe estar ANTES de _currentLang
   readonly availableLanguages: Lang[] = [
@@ -41,7 +41,7 @@ export class LanguageService {
 
   // Methods
   setLanguage(lang: Lang) {
-    this.translate.use(lang.code).subscribe(() => {
+    this.translateService.use(lang.code).subscribe(() => {
       this._translationsLoaded.set(true);
     });
     this._currentLang.set(lang);
@@ -75,8 +75,8 @@ export class LanguageService {
     return this.availableLanguages[0];
   }
   
-  getTranslation(key: string, params?: any): string {
-    return this.translate.instant(key, params);
+  public translate(key: string, params?: any): string {
+    return this.translateService.instant(key, params);
   }
   
 }

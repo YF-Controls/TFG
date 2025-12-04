@@ -40,8 +40,8 @@ export class LoginUserComponent {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       
-      const message = this.languageService.getTranslation('AUTH.LOGIN_USER.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('AUTH.LOGIN_USER.TOAST.CLOSE');
+      const message = this.languageService.translate('AUTH.LOGIN_USER.TOAST.FORM_ERROR');
+      const action = this.languageService.translate('AUTH.LOGIN_USER.TOAST.CLOSE');
 
       this.toast.open(message, action, { 
         duration: 2000,
@@ -61,7 +61,7 @@ export class LoginUserComponent {
         
         if (errorMessage) {
         
-          const action = this.languageService.getTranslation('AUTH.LOGIN_USER.TOAST.CLOSE');
+          const action = this.languageService.translate('AUTH.LOGIN_USER.TOAST.CLOSE');
 
           this.toast.open(errorMessage, action, { 
             duration: 2000,
@@ -72,8 +72,8 @@ export class LoginUserComponent {
           return;
         }
         // Done
-        const message = this.languageService.getTranslation('AUTH.LOGIN_USER.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('AUTH.LOGIN_USER.TOAST.CLOSE');
+        const message = this.languageService.translate('AUTH.LOGIN_USER.TOAST.SUCCESS');
+        const action = this.languageService.translate('AUTH.LOGIN_USER.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

@@ -46,7 +46,7 @@ export class UserAdminTableComponent {
   
 
   // Methods
-  public updateTable(): void {
+  public onUpdateTable(): void {
     this.users.reload();
   }
 
@@ -58,7 +58,7 @@ export class UserAdminTableComponent {
     });
     // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.updateTable();      
+      if (confirmed) this.onUpdateTable();      
     });
   }
   
@@ -68,8 +68,8 @@ export class UserAdminTableComponent {
       disableClose: false,
       data: {
         isPopup: true,
-        title: this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.translate('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.translate('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
     }); 
     // After closed
@@ -80,7 +80,7 @@ export class UserAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
+            const action = this.languageService.translate('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -90,8 +90,8 @@ export class UserAdminTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.TOAST.DELETED');
-          const action = this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
+          const message = this.languageService.translate('AUTH.USER_ADMIN_TABLE.TOAST.DELETED');
+          const action = this.languageService.translate('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
@@ -99,7 +99,7 @@ export class UserAdminTableComponent {
             verticalPosition : 'bottom',
           });
           // Return
-          this.updateTable();
+          this.onUpdateTable();
         });
     });
   }

@@ -36,8 +36,8 @@ export class LayoutLogoutButtonComponent {
       disableClose: false,
       data: {
         isPopup: true,
-        title: this.languageService.getTranslation('SHARED.LOGOUT_BUTTON.POPUP.TITLE'),
-        message: this.languageService.getTranslation('SHARED.LOGOUT_BUTTON.POPUP.MESSAGE') 
+        title: this.languageService.translate('SHARED.LOGOUT_BUTTON.POPUP.TITLE'),
+        message: this.languageService.translate('SHARED.LOGOUT_BUTTON.POPUP.MESSAGE') 
       }
     });
     // After closed

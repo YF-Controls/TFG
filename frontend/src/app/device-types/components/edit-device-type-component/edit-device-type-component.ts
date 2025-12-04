@@ -58,7 +58,7 @@ export class EditDeviceTypeComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           // Toast
           const message = error.message;
-          const action = this.languageService.getTranslation('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
+          const action = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -77,8 +77,8 @@ export class EditDeviceTypeComponent implements OnInit {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       // Toast
-      const message = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
+      const message = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
+      const action = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -95,7 +95,7 @@ export class EditDeviceTypeComponent implements OnInit {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.getTranslation('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
+          const action = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
           this.toast.open(errorMessage, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -105,8 +105,8 @@ export class EditDeviceTypeComponent implements OnInit {
           return;
         }
         // Done
-        const message = this.languageService.getTranslation('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
+        const message = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.SUCCESS');
+        const action = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

@@ -44,7 +44,7 @@ export class DeviceAreaAdminTableComponent {
   });
   
   // Methods
-  public updateTable(): void {
+  public onUpdateTable(): void {
     this.deviceAreas.reload();
   }
 
@@ -55,7 +55,7 @@ export class DeviceAreaAdminTableComponent {
     });
 
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.updateTable();      
+      if (confirmed) this.onUpdateTable();      
     });
   }
   
@@ -64,8 +64,8 @@ export class DeviceAreaAdminTableComponent {
       disableClose: false,
       data: {
         isPopup: true,
-        title: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
@@ -76,7 +76,7 @@ export class DeviceAreaAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
+            const action = this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -86,8 +86,8 @@ export class DeviceAreaAdminTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.DELETED');
-          const action = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
+          const message = this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.DELETED');
+          const action = this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
@@ -95,7 +95,7 @@ export class DeviceAreaAdminTableComponent {
             verticalPosition : 'bottom',
           });
           // Return
-          this.updateTable();
+          this.onUpdateTable();
         });
     });
   }

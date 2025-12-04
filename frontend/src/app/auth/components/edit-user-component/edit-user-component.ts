@@ -63,7 +63,7 @@ export class EditUserComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           // Toast
           const message = error.message;
-          const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
+          const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 4000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -83,8 +83,8 @@ export class EditUserComponent implements OnInit {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       // Toast
-      const message = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
+      const message = this.languageService.translate('AUTH.EDIT_USER.TOAST.FORM_ERROR');
+      const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -101,7 +101,7 @@ export class EditUserComponent implements OnInit {
       .subscribe(errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
+          const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
           this.toast.open(errorMessage, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -111,8 +111,8 @@ export class EditUserComponent implements OnInit {
           return;
         }
         // Success
-        const message = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('AUTH.EDIT_USER.TOAST.CLOSE');
+        const message = this.languageService.translate('AUTH.EDIT_USER.TOAST.SUCCESS');
+        const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

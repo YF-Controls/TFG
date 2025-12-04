@@ -59,8 +59,8 @@ export class CreateDeviceComponent implements OnInit {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       
-      const message = this.languageService.getTranslation('DEVICES.CREATE_DEVICE.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
+      const message = this.languageService.translate('DEVICES.CREATE_DEVICE.TOAST.FORM_ERROR');
+      const action = this.languageService.translate('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -79,7 +79,7 @@ export class CreateDeviceComponent implements OnInit {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.getTranslation('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
+          const action = this.languageService.translate('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
           this.toast.open(errorMessage, action, { 
             duration: 10000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -89,8 +89,8 @@ export class CreateDeviceComponent implements OnInit {
           return;
         }
         // created!
-        const message = this.languageService.getTranslation('DEVICES.CREATE_DEVICE.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
+        const message = this.languageService.translate('DEVICES.CREATE_DEVICE.TOAST.SUCCESS');
+        const action = this.languageService.translate('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
@@ -113,7 +113,7 @@ export class CreateDeviceComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
 
           const message = error.message;
-          const action = this.languageService.getTranslation('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
+          const action = this.languageService.translate('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
 
           this.toast.open(message, action, {
             duration: 2000,
@@ -131,7 +131,7 @@ export class CreateDeviceComponent implements OnInit {
         next: (types) => this.deviceTypes.set(types),
         error: (error : HttpErrorResponse) => {
           const message = error.message;
-          const action = this.languageService.getTranslation('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
+          const action = this.languageService.translate('DEVICES.CREATE_DEVICE.TOAST.CLOSE');
           this.toast.open(message, action, {
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],

@@ -26,9 +26,9 @@ export class ThemeService {
     this.languageService.translationsLoaded();
 
     return [
-      { code: 'light', icon: '☀️', name: this.languageService.getTranslation('SHARED.THEME_SERVICE.THEME.LIGHT') },
-      { code: 'dark', icon: '🌙', name: this.languageService.getTranslation('SHARED.THEME_SERVICE.THEME.DARK') },
-      { code: 'halloween', icon: '🎃', name: this.languageService.getTranslation('SHARED.THEME_SERVICE.THEME.HALLOWEEN') }
+      { code: 'light', icon: '☀️', name: this.languageService.translate('SHARED.THEME_SERVICE.THEME.LIGHT') },
+      { code: 'dark', icon: '🌙', name: this.languageService.translate('SHARED.THEME_SERVICE.THEME.DARK') },
+      { code: 'halloween', icon: '🎃', name: this.languageService.translate('SHARED.THEME_SERVICE.THEME.HALLOWEEN') }
     ];
   });
   

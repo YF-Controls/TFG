@@ -46,8 +46,8 @@ export class RegisterUserComponent {
     // Check form and show toast
     if (this.form.invalid) {
       
-      const message = this.languageService.getTranslation('AUTH.REGISTER_USER.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('AUTH.REGISTER_USER.TOAST.CLOSE');
+      const message = this.languageService.translate('AUTH.REGISTER_USER.TOAST.FORM_ERROR');
+      const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
 
       this.toast.open(message, action, { 
         duration: 2000,
@@ -62,8 +62,8 @@ export class RegisterUserComponent {
     const {email = '', fullname = '', password1 = '', password2 = ''} = this.form.value;
 
     if (password1 !== password2) {
-      const message = this.languageService.getTranslation('AUTH.REGISTER_USER.TOAST.PASSWORD_MISMATCH');
-      const action = this.languageService.getTranslation('AUTH.REGISTER_USER.TOAST.CLOSE');
+      const message = this.languageService.translate('AUTH.REGISTER_USER.TOAST.PASSWORD_MISMATCH');
+      const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
 
       this.toast.open(message, action, { 
         duration: 2000,
@@ -79,7 +79,7 @@ export class RegisterUserComponent {
       .subscribe(errorMessage => {
         if (errorMessage) {
           
-          const action = this.languageService.getTranslation('AUTH.REGISTER_USER.TOAST.CLOSE');
+          const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
 
           this.toast.open(errorMessage, action, { 
             duration: 2000,
@@ -90,8 +90,8 @@ export class RegisterUserComponent {
           return;
         }
         // Done
-        const message = this.languageService.getTranslation('AUTH.REGISTER_USER.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('AUTH.REGISTER_USER.TOAST.CLOSE');
+        const message = this.languageService.translate('AUTH.REGISTER_USER.TOAST.SUCCESS');
+        const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

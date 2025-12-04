@@ -437,6 +437,10 @@
       
       "FILTER" : {
         "LABEL_ALL" : "Todo"
+      },
+
+      "TOAST" : {
+        "MESSAGE" : "Tabla actualizada."
       }
     }
   },

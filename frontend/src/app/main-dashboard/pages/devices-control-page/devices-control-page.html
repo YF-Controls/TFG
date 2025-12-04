@@ -9,22 +9,19 @@
     <!--  -->
     <h2 class="app-page-header-subtitle">
       {{ 'MAIN_DASHBOARD.DEVICES_CONTROL_PAGE.TOTAL' | translate }}
-      <span >{{devicesResource.value()?.length}}</span>
+      <span >{{ total() }}</span>
     </h2>
   </div>
 
-  <!-- Update button 
+  <!-- Update button -->
   <button 
     class="app-page-header-button"
     (click)="onUpdateTable()">
-    <!-- Update icon 
+    <!-- Update icon -->
     <app-svg-icon name="update"/>
   </button>
-  --> 
 </header>
 
-
-
 <!-- Main -->
-<app-device-control-table/>
-
+<app-device-control-table
+  (totalChanged)="total.set($event)"/>

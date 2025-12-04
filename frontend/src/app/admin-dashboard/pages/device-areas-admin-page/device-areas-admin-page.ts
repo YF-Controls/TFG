@@ -33,7 +33,7 @@ export class DeviceAreasAdminPage {
     });
     // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.table?.updateTable();
+      if (confirmed) this.table?.onUpdateTable();
     });
   }
 }

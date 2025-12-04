@@ -44,7 +44,7 @@ export class DeviceTypeAdminTableComponent {
   });
 
   // Methods
-  public updateTable(): void {
+  public onUpdateTable(): void {
     this.deviceTypes.reload();
   }
 
@@ -56,7 +56,7 @@ export class DeviceTypeAdminTableComponent {
     });
     // After closed
     dialogRef.closed.subscribe((confirmed) => {
-      if (confirmed) this.updateTable();      
+      if (confirmed) this.onUpdateTable();      
     });
   }
   
@@ -66,8 +66,8 @@ export class DeviceTypeAdminTableComponent {
       disableClose: false,
       data: {
         isPopup: true,
-        title: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     // After closed
@@ -78,7 +78,7 @@ export class DeviceTypeAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
+            const action = this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -88,8 +88,8 @@ export class DeviceTypeAdminTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.DELETED');
-          const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
+          const message = this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.DELETED');
+          const action = this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
@@ -97,7 +97,7 @@ export class DeviceTypeAdminTableComponent {
             verticalPosition : 'bottom',
           });
           // Return
-          this.updateTable();
+          this.onUpdateTable();
         });
     });
   }

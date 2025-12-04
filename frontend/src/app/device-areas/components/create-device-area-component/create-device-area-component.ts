@@ -39,8 +39,8 @@ export class CreateDeviceAreaComponent {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       
-      const message = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
+      const message = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.FORM_ERROR');
+      const action = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -59,7 +59,7 @@ export class CreateDeviceAreaComponent {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
+          const action = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
           this.toast.open(errorMessage, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -69,8 +69,8 @@ export class CreateDeviceAreaComponent {
           return;
         }
         // created!
-        const message = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
+        const message = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.SUCCESS');
+        const action = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

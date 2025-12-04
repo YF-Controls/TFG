@@ -1,35 +1,34 @@
 // System
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
+import { SvgIconComponent } from '@shared/components';
+// This module
 import { DeviceControlTableComponent } from '@devices/components';
 import { DeviceApi } from '@devices/services';
-import { LanguageService } from '@shared/services';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { Device } from '@devices/interfaces';
+
 
 
 @Component({
   standalone : true,
   selector: 'app-devices-control-page',
-  imports: [TranslateModule, DeviceControlTableComponent],
+  imports: [TranslateModule, DeviceControlTableComponent, SvgIconComponent],
   templateUrl: './devices-control-page.html',
 })
 export class DevicesControlPage { 
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly deviceApi = inject(DeviceApi);
-  
-    // Properties
-  devicesResource = rxResource<Device[], []>({
-    stream  : () => this.deviceApi.getAll({orderBy: 'number'}),
-  });
+ 
+  // ViewChild
+  @ViewChild(DeviceControlTableComponent) table!: DeviceControlTableComponent;
 
+  // IO
+  protected total = signal<number>(0);
+  
   // Methods
   protected onUpdateTable() {
-    this.devicesResource.reload();
+    this.table?.onUpdateTable();
   }
-  
   
 }

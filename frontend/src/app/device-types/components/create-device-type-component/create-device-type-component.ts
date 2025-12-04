@@ -40,8 +40,8 @@ export class CreateDeviceTypeComponent {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       
-      const message = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.FORM_ERROR');
-      const action = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
+      const message = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.FORM_ERROR');
+      const action = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
       this.toast.open(message, action, { 
         duration: 2000,
         panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -60,7 +60,7 @@ export class CreateDeviceTypeComponent {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
+          const action = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
           this.toast.open(errorMessage, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -70,8 +70,8 @@ export class CreateDeviceTypeComponent {
           return;
         }
         // created!
-        const message = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.SUCCESS');
-        const action = this.languageService.getTranslation('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
+        const message = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.SUCCESS');
+        const action = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
         this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
