@@ -47,9 +47,9 @@ export class DoughnutChartComponent implements AfterViewInit {
     
     if (!this.chartRef?.nativeElement) return;
     
-    const title = this.languageService.translate(this.translationBase() + '.TITLE');
-    const activeLabel = this.languageService.translate(this.translationBase() + '.ACTIVE');
-    const inactiveLabel = this.languageService.translate(this.translationBase() + '.INACTIVE');
+    const title = this.languageService.translation(this.translationBase() + '.TITLE');
+    const activeLabel = this.languageService.translation(this.translationBase() + '.ACTIVE');
+    const inactiveLabel = this.languageService.translation(this.translationBase() + '.INACTIVE');
     
     const config: ChartConfiguration = {
       type: 'doughnut',

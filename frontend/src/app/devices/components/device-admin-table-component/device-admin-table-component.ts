@@ -3,19 +3,19 @@ import { Component, inject, output } from '@angular/core';
 import { tap } from 'rxjs';
 import { Dialog } from '@angular/cdk/dialog';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
-import { LanguageService } from '@shared/services';
+import { LanguageService, ToastService } from '@shared/services';
 /*import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceArea } from '@device-areas/interfaces';
 import { DeviceTypeApi } from '@device-types/services';
 import { DeviceType } from '@device-types/interfaces';*/
 // This modules
-import { EditDeviceComponent } from '@devices/components';
 import { DeviceApi } from '@devices/services';
 import { Device } from '@devices/interfaces';
+// This path
+import { EditDeviceComponent } from '../';
 
 /*
 export const PageSize = {
@@ -41,7 +41,7 @@ export class DeviceAdminTableComponent {
   // Injections
   protected readonly languageService = inject(LanguageService);
   protected readonly dialog = inject(Dialog);
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly deviceApi = inject(DeviceApi);
   //protected readonly deviceAreaApi = inject(DeviceAreaApi);
   //protected readonly deviceTypeApi = inject(DeviceTypeApi);
@@ -103,8 +103,9 @@ export class DeviceAdminTableComponent {
       disableClose: false,
       data: {
         isPopup: true,
-        title: this.languageService.translate('DEVICES.DEVICE_ADMIN_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.translate('DEVICES.DEVICE_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
+        translate: true,
+        title: 'DEVICES.DEVICE_ADMIN_TABLE.DELETE_POPUP.TITLE',
+        message: 'DEVICES.DEVICE_ADMIN_TABLE.DELETE_POPUP.MESSAGE',
       }
     });
     // After closed
@@ -115,25 +116,11 @@ export class DeviceAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.translate('DEVICES.DEVICE_ADMIN_TABLE.TOAST.CLOSE');
-            this.toast.open(errorMessage, action, { 
-              duration: 3000,
-              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-              horizontalPosition : 'center',
-              verticalPosition : 'bottom',
-            });
+            this.toast.error(errorMessage, false);
             return;
           }
-          // Deleted!
-          const message = this.languageService.translate('DEVICES.DEVICE_ADMIN_TABLE.TOAST.DELETED');
-          const action = this.languageService.translate('DEVICES.DEVICE_ADMIN_TABLE.TOAST.CLOSE');
-          this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-          // Return
+          // Done and exit
+          this.toast.success('DEVICES.DEVICE_ADMIN_TABLE.TOAST.DELETED');
           this.onUpdateTable();
         });
     });

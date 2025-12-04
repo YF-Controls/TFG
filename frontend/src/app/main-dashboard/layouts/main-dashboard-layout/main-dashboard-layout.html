@@ -25,7 +25,7 @@
         [isSidebarCollapsed]="isSidebarCollapsed()"
         subtitle="MAIN_DASHBOARD.LAYOUT.SUBTITLE"/>
     </section>
-
+    
     <!-- Divider -->
     <div class="divider my-0"></div>
       
@@ -51,7 +51,7 @@
     <!-- User name -->
     <app-layout-user-name
       [isSidebarCollapsed]="isSidebarCollapsed()"
-      [fullname]="user()?.fullname || '???'"
+      [fullname]="userApi.user()?.fullname || '???'"
       welcomeText="MAIN_DASHBOARD.LAYOUT.WELCOME"/>
       
     <!-- Divider -->
@@ -63,19 +63,18 @@
       <!-- Admin Panel button -->
       @if (userApi.isAdmin()) {
         <app-layout-link-button-secondary
-          title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.TITLE' | translate }}"
-          subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.SUBTITLE' | translate }}"
+          title="MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.TITLE"
+          subtitle="MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.ADMIN.SUBTITLE"
           path="/admin/dashboard"
           [isCollapsed]="isSidebarCollapsed()"
           svgIconName="tools"/>
-
         <div class="divider my-0"></div>
       }
 
       <!-- Devices button -->
       <app-layout-link-button-primary
-        title="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.TITLE' | translate }}"
-        subtitle="{{ 'MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.SUBTITLE' | translate }}"
+        title="MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.TITLE"
+        subtitle="MAIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICES.SUBTITLE"
         path="/devices"
         [isCollapsed]="isSidebarCollapsed()"
         svgIconName="lamp"/>

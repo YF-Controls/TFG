@@ -3,14 +3,13 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { AppPaths } from 'src/app/app.paths';
+import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
-import { UserApi } from '../../services';
-import { AppPaths } from 'src/app/app.paths';
+import { UserApi } from '@auth/services';
 
 
 @Component({
@@ -22,10 +21,9 @@ import { AppPaths } from 'src/app/app.paths';
 export class RegisterUserComponent { 
   
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialogRef = inject(DialogRef, { optional: true });
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly fb = inject(FormBuilder);
   protected readonly userApi = inject(UserApi);
   protected readonly router = inject(Router);
@@ -45,16 +43,8 @@ export class RegisterUserComponent {
   onSubmit () {
     // Check form and show toast
     if (this.form.invalid) {
-      
-      const message = this.languageService.translate('AUTH.REGISTER_USER.TOAST.FORM_ERROR');
-      const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
-
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom',
-      });
+      //this.form.markAllAsTouched();
+      this.toast.error('AUTH.REGISTER_USER.TOAST.FORM_ERROR');
       return;
     }
     
@@ -62,42 +52,20 @@ export class RegisterUserComponent {
     const {email = '', fullname = '', password1 = '', password2 = ''} = this.form.value;
 
     if (password1 !== password2) {
-      const message = this.languageService.translate('AUTH.REGISTER_USER.TOAST.PASSWORD_MISMATCH');
-      const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
-
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom',
-      });
+      this.toast.error('AUTH.REGISTER_USER.TOAST.PASSWORD_MISMATCH');
       return;
     }
     
     // Send to api
     this.userApi.createOne({email, fullname, password: password1})
       .subscribe(errorMessage => {
+        // Error
         if (errorMessage) {
-          
-          const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
-
-          this.toast.open(errorMessage, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });  
+          this.toast.error(errorMessage, false);
           return;
         }
         // Done
-        const message = this.languageService.translate('AUTH.REGISTER_USER.TOAST.SUCCESS');
-        const action = this.languageService.translate('AUTH.REGISTER_USER.TOAST.CLOSE');
-        this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
+        this.toast.success('AUTH.REGISTER_USER.TOAST.SUCCESS');
         // Check if popup or full page
         if (this.isPopup()) {
           this.dialogRef?.close(true);

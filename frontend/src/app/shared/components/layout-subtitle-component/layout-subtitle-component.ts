@@ -1,5 +1,7 @@
+// System
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-layout-subtitle',

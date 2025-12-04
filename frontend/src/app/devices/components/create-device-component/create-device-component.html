@@ -38,7 +38,7 @@
               {{ 'DEVICES.CREATE_DEVICE.FORM.DEVICE_AREA_PLACEHOLDER' | translate }}
             </option>
             <!-- List -->
-            @for (deviceArea of deviceAreas(); track deviceArea.id) {
+            @for (deviceArea of deviceAreas.value(); track deviceArea.id) {
               <option [value]="deviceArea.id">
                 {{ deviceArea.name }}
               </option>
@@ -63,7 +63,7 @@
               {{ 'DEVICES.CREATE_DEVICE.FORM.DEVICE_TYPE_PLACEHOLDER' | translate }}
             </option>
             <!-- List -->
-            @for (deviceType of deviceTypes(); track deviceType.id) {
+            @for (deviceType of deviceTypes.value(); track deviceType.id) {
               <option [value]="deviceType.id">
                 {{ deviceType.name }}
               </option>

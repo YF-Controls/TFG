@@ -15,6 +15,19 @@
     </button>
   </header>
 
+    <!-- Loading -->
+  @if (deviceType.isLoading() ) {
+    <div 
+      id="loading"
+      class="
+        fixed top-1/2 left-1/2 z-10
+        -translate-x-1/2 -translate-y-1/2
+        p-20
+        bg-base-100/70 border border-primary rounded-lg shadow-lg ">
+      <span class="loading loading-spinner loading-xl"></span>
+    </div>
+  }
+  
   <!-- Body -->
   <div class="app-popup-body">
     <!-- Form -->
@@ -99,7 +112,8 @@
       <!-- Submit button -->      
       <div class="app-form-field-submit">
         <button 
-          type="submit" 
+          type="submit"
+          [disabled]="deviceType.isLoading()"
           class="app-form-field-submit-button">
           <!-- Icon -->
           <app-svg-icon name="edit"/>

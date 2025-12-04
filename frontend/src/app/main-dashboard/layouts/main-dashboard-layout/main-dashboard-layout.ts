@@ -1,7 +1,6 @@
 // System
-import { Component, computed, HostListener, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
+import { RouterOutlet, Router } from '@angular/router';
 // Other modules
 import { 
   LayoutBrandNameComponent,
@@ -14,7 +13,6 @@ import {
   LayoutToggleSidebarButtonComponent,
   LayoutUserNameComponent, } from '@shared/components';
 import { UserApi } from '@auth/services';
-import { User } from '@auth/interfaces';
 // This module
 
 
@@ -22,7 +20,6 @@ import { User } from '@auth/interfaces';
   standalone: true,
   selector: 'app-main-dashboard-layout',
   imports: [
-    TranslateModule, 
     RouterOutlet,
     LayoutBrandNameComponent,
     LayoutLanguageSwitcherComponent,
@@ -42,7 +39,6 @@ export class MainDashboardLayout implements OnInit  {
   protected readonly userApi = inject(UserApi);
   
   // Properties
-  protected user = this.userApi.user;
   protected isSidebarCollapsed = signal<boolean>(false);
 
   // Methods

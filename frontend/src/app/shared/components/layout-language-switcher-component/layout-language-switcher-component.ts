@@ -1,8 +1,9 @@
 // System
 import { Component, inject, input, signal } from '@angular/core';
-// Other modules
+// This modules
 import { Lang, LanguageService } from '@shared/services';
-import { SvgIconComponent } from '@shared/components';
+// This path
+import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 
 
 @Component({

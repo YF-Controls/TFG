@@ -1,5 +1,5 @@
 // This module
-import { OrderDirection } from "../interfaces";
+import { OrderDirection } from "@shared/interfaces";
 
 export interface QueryParamsDto {
   limit?: number;

@@ -8,10 +8,12 @@ import { AppPaths } from 'src/app/app.paths';
 import { UserApi } from '@auth/services';
 // This moudule
 import { LanguageService } from '@shared/services';
-import { ConfirmComponent, SvgIconComponent } from '@shared/components';
-
+// This path
+import { ConfirmComponent } from '../confirm-component/confirm-component';
+import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 
 @Component({
+  standalone : true,
   selector: 'app-layout-logout-button',
   imports: [TranslateModule, SvgIconComponent],
   templateUrl: './layout-logout-button-component.html',
@@ -31,15 +33,18 @@ export class LayoutLogoutButtonComponent {
 
   // Methods
   protected logout() {
+    console.log('!DELETE LayoutLogoutButtonComponent.logout() called');
     // Confirm popup
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: false,
       data: {
         isPopup: true,
-        title: this.languageService.translate('SHARED.LOGOUT_BUTTON.POPUP.TITLE'),
-        message: this.languageService.translate('SHARED.LOGOUT_BUTTON.POPUP.MESSAGE') 
+        translate: true,
+        title: 'SHARED.LOGOUT_BUTTON.POPUP.TITLE',
+        message: 'SHARED.LOGOUT_BUTTON.POPUP.MESSAGE' 
       }
     });
+    console.log('!DELETE Dialog opened', dialogRef);
     // After closed
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {

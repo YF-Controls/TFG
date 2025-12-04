@@ -2,16 +2,16 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs/internal/operators/tap';
-import { Dialog } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Dialog, DIALOG_DATA } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 // This module
-import { UserApi } from '../../services';
-import { User } from '../../interfaces';
-import { EditUserComponent } from '..';
+import { UserApi } from '@auth/services';
+import { User } from '@auth/interfaces';
+// This path
+import { EditUserComponent } from '../';
 
 
 @Component({
@@ -23,9 +23,9 @@ import { EditUserComponent } from '..';
 export class UserAdminTableComponent { 
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
+  protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialog = inject(Dialog);
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly userApi = inject(UserApi);
 
   // IO
@@ -67,9 +67,9 @@ export class UserAdminTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: false,
       data: {
-        isPopup: true,
-        title: this.languageService.translate('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.translate('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
+        isPopup: true, translate: true,
+        title: 'AUTH.USER_ADMIN_TABLE.DELETE_POPUP.TITLE',
+        message: 'AUTH.USER_ADMIN_TABLE.DELETE_POPUP.MESSAGE'
       }
     }); 
     // After closed
@@ -80,25 +80,11 @@ export class UserAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.translate('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
-            this.toast.open(errorMessage, action, { 
-              duration: 3000,
-              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-              horizontalPosition : 'center',
-              verticalPosition : 'bottom',
-            });
+            this.toast.error(errorMessage, false);
             return;
           }
-          // Deleted!
-          const message = this.languageService.translate('AUTH.USER_ADMIN_TABLE.TOAST.DELETED');
-          const action = this.languageService.translate('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
-          this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-          // Return
+          // Done
+          this.toast.success('AUTH.USER_ADMIN_TABLE.TOAST.DELETED');
           this.onUpdateTable();
         });
     });

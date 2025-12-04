@@ -38,7 +38,7 @@
         group-hover:text-secondary-content"
       [class.text-primary-content]="rla.isActive"
       [class.text-base-content/50]="!rla.isActive">
-      {{ title() }}
+      {{ title() | translate}}
     </span>
     <!-- Subtitle -->
     <span 
@@ -48,9 +48,8 @@
         group-hover:text-secondary-content"
       [class.text-primary-content/60]="rla.isActive"
       [class.text-base-content/35]="!rla.isActive">
-      {{ subtitle() }}
+      {{ subtitle() | translate }}
     </span>
   </div>
   }
-  
 </a>

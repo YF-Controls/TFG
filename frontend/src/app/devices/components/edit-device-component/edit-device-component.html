@@ -16,6 +16,19 @@
     </button>
   </header>
 
+  <!-- Loading -->
+  @if (device.isLoading() ) {
+    <div 
+      id="loading"
+      class="
+        fixed top-1/2 left-1/2 z-10
+        -translate-x-1/2 -translate-y-1/2
+        p-20
+        bg-base-100/70 border border-primary rounded-lg shadow-lg ">
+      <span class="loading loading-spinner loading-xl"></span>
+    </div>
+  }
+  
   <!-- Body -->
   <div class="app-popup-body">
     <!-- Form -->
@@ -39,7 +52,7 @@
               {{ 'DEVICES.EDIT_DEVICE.FORM.DEVICE_AREA_PLACEHOLDER' | translate }}
             </option>
             <!-- List -->
-            @for (deviceArea of deviceAreas(); track deviceArea.id) {
+            @for (deviceArea of deviceAreas.value(); track deviceArea.id) {
               <option [value]="deviceArea.id">
                 {{ deviceArea.name }}
               </option>
@@ -64,7 +77,7 @@
               {{ 'DEVICES.EDIT_DEVICE.FORM.DEVICE_TYPE_PLACEHOLDER' | translate }}
             </option>
             <!-- List -->
-            @for (deviceType of deviceTypes(); track deviceType.id) {
+            @for (deviceType of deviceTypes.value(); track deviceType.id) {
               <option [value]="deviceType.id">
                 {{ deviceType.name }}
               </option>
@@ -152,6 +165,7 @@
       <div class="app-form-field-submit">
         <button 
           type="submit" 
+          [disabled]="device.isLoading()"
           class="app-form-field-submit-button">
           <app-svg-icon name="edit"/>
         </button>

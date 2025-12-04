@@ -6,10 +6,9 @@ import { catchError, map, Observable, of, tap } from "rxjs";
 // Other modules
 import { environment } from "@env/environment";
 import { QueryParamsDto } from "@shared/dto";
-import { OrderDirection } from '@shared/interfaces';
 // This module
-import { User, AuthResponse, ValidRoles } from "../interfaces";
-import { LoginUserDto, RegisterUserDto, UpdateUserDto } from "../dtos";
+import { User, AuthResponse, ValidRoles } from "@auth/interfaces";
+import { LoginUserDto, RegisterUserDto, UpdateUserDto } from "@auth/dtos";
 
 
 // Authentication status

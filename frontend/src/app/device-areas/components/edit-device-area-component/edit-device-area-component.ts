@@ -1,13 +1,13 @@
 // System
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import { tap } from 'rxjs';
 import { DialogRef } from '@angular/cdk/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { DeviceAreaApi } from '@device-areas/services';
@@ -20,74 +20,65 @@ import { DeviceArea } from '@device-areas/interfaces';
   imports: [TranslateModule, SvgIconComponent ,ReactiveFormsModule, FormFieldErrorComponent],
   templateUrl: './edit-device-area-component.html',
 })
-export class EditDeviceAreaComponent implements OnInit {
+export class EditDeviceAreaComponent {
   
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialogRef = inject(DialogRef, { optional: true });
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly fb = inject(FormBuilder);
   protected readonly deviceAreaApi = inject(DeviceAreaApi);
   
   // IO
-  deviceAreaId = input<string>(this.dialogData.deviceAreaId);
+  deviceAreaId = input<string>(this.dialogData.deviceAreaId); // 
   
   // Properties
   protected form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     hwId: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-    description: ['....', [Validators.required, Validators.minLength(4)]],
-    isActive: [true, [Validators.required]],
+    description: ['', [Validators.required, Validators.minLength(4)]],
+    isActive: [false, [Validators.required]],
   });
 
-  // Methods
-  // Lifecycle
-  ngOnInit(): void {
-
-    this.deviceAreaApi.getOne(this.deviceAreaId(), {})
-      .subscribe(
-        {
-          next: (deviceArea: DeviceArea) => {
-            this.form.setValue({
-              name: deviceArea.name,
-              hwId: deviceArea.hwId,
-              description: deviceArea.description,
-              isActive: deviceArea.isActive,
-            });
-          },
-          error: (error: HttpErrorResponse) => {
-            // Toast
-            const message = error.message;
-            const action = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
-            this.toast.open(message, action, { 
-              duration: 2000,
-              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-              horizontalPosition : 'center',
-              verticalPosition : 'bottom',
-            });
-            // Close dialog
-            if (this.dialogRef)
-              this.dialogRef.close(true);
-          }
-        }
-      );
-  }
+  protected deviceArea = rxResource<DeviceArea, {deviceAreaId: string}>({
+    params: () => ({ deviceAreaId: this.deviceAreaId() }),
+    stream: ({params}) => {
+      
+      this.form.disable();
+      
+      return this.deviceAreaApi.getOne(params.deviceAreaId, {})
+      .pipe(tap(data => {
+        this.form.setValue({ // Set form values when loaded
+          name: data.name,
+          hwId: data.hwId,
+          description: data.description,
+          isActive: data.isActive,
+        });
+        this.form.enable(); 
+      }))}
+  });
   
+  protected loading = computed<boolean>(() => {
+    
+    console.log('!DELETE -- CHECK LOADING --!');
+
+    if (this.deviceArea.isLoading()) {
+      this.form.disable();
+    }
+
+    if (this.deviceArea.hasValue()) {
+      this.form.enable();
+    }
+    this.form.disable();
+    return this.deviceArea.isLoading()});
+  
+  
+  // Methods
   protected onSubmit() {
     // Exit with toast if invalid form
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      // Toast
-      const message = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
-      const action = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom',
-      });
-      // Exit
+      this.toast.error('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
       return;
     }
     // Get form data
@@ -97,25 +88,11 @@ export class EditDeviceAreaComponent implements OnInit {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
-          this.toast.open(errorMessage, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
+          this.toast.error(errorMessage, false);
           return;
         }
         // Done
-        const message = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.SUCCESS');
-        const action = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
-        this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-        // Close dialog
+        this.toast.success('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.SUCCESS');
         this.dialogRef?.close(true);
     });
   }

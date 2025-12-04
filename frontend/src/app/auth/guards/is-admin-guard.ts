@@ -2,11 +2,11 @@
 import { inject } from "@angular/core";
 import { CanMatchFn, Route, Router, UrlSegment } from "@angular/router";
 import { firstValueFrom } from "rxjs";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { TranslateService } from "@ngx-translate/core";
+// Other modules
+import { AppPaths } from "src/app/app.paths";
+import { ToastService } from "@shared/services";
 // This module
 import { UserApi, AuthStatus } from '@auth/services';
-import { AppPaths } from "src/app/app.paths";
 
 
 export const IsAdminGuard: CanMatchFn = async (
@@ -15,10 +15,9 @@ export const IsAdminGuard: CanMatchFn = async (
 ) => {
   // Injections
   const userApi = inject(UserApi);
-  const toast = inject(MatSnackBar);
+  const toast = inject(ToastService);
   const router = inject(Router);
-  const translate = inject(TranslateService);
-
+  
   // Get auth status
   try {
     await firstValueFrom(userApi.checkUser());
@@ -33,17 +32,12 @@ export const IsAdminGuard: CanMatchFn = async (
     return false;
   }
   
+  console.log('!DELETE ME! IsAdminGuard - user roles:', userApi.user()?.roles);
+
   // Check admin role
   if (!userApi.isAdmin()) {
     // Show toast
-    const message = translate.instant('AUTH.IS_ADMIN_GUARD.TOAST.MESSAGE');
-    const action = translate.instant('AUTH.IS_ADMIN_GUARD.TOAST.CLOSE');
-    toast.open(message, action, { 
-      duration: 3000,
-      panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-    });
+    toast.error('AUTH.IS_ADMIN_GUARD.TOAST.MESSAGE');
     // Go to devices page
     setTimeout(() => {
       router.navigateByUrl(AppPaths.DEVICES);
@@ -51,7 +45,6 @@ export const IsAdminGuard: CanMatchFn = async (
     // Return
     return false;
   }
-
   // All good
   return true;
 };

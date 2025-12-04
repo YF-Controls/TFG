@@ -3,10 +3,9 @@ import { Component, inject, signal, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { SvgIconComponent } from '@shared/components';
-// This module
 import { DeviceControlTableComponent } from '@devices/components';
 import { DeviceApi } from '@devices/services';
-
+// This module
 
 
 @Component({
@@ -25,7 +24,7 @@ export class DevicesControlPage {
 
   // IO
   protected total = signal<number>(0);
-  
+    
   // Methods
   protected onUpdateTable() {
     this.table?.onUpdateTable();

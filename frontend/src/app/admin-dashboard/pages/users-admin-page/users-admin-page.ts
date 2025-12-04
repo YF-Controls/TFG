@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { SvgIconComponent } from '@shared/components';
 import { RegisterUserComponent, UserAdminTableComponent } from '@auth/components';
+// This module
 
 
 @Component({

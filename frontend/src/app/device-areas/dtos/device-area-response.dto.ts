@@ -1,4 +1,3 @@
-
 export interface DeviceAreaResponseDto {
   id: string;
   name: string;

@@ -9,7 +9,6 @@ import {
   LayoutThemeSwitcherComponent } from '@shared/components';
 
 
-
 @Component({
   standalone : true,
   selector: 'app-auth-layout',
@@ -21,10 +20,6 @@ import {
     LayoutThemeSwitcherComponent,
   ],
   templateUrl: './auth-layout.html',
-  host: {
-    class: 'h-screen flex flex-col overflow-hidden' 
-  }
+  host: {class: 'h-screen flex flex-col overflow-hidden'}
 })
-export class AuthLayout {
-  
-}
+export class AuthLayout {}

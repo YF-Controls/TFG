@@ -1,13 +1,12 @@
 // System
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs/internal/operators/tap';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 // This module
 import { EditDeviceAreaComponent } from '@device-areas/components';
 import { DeviceAreaApi } from '@device-areas/services';
@@ -23,9 +22,8 @@ import { DeviceArea } from '@device-areas/interfaces';
 export class DeviceAreaAdminTableComponent { 
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialog = inject(Dialog);
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly deviceAreaApi = inject(DeviceAreaApi);
 
   // IO
@@ -63,9 +61,9 @@ export class DeviceAreaAdminTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: false,
       data: {
-        isPopup: true,
-        title: this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
+        isPopup: true, translate: true,
+        title: 'DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.TITLE',
+        message: 'DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.MESSAGE'
       }
     });
     
@@ -76,25 +74,11 @@ export class DeviceAreaAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
-            this.toast.open(errorMessage, action, { 
-              duration: 3000,
-              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-              horizontalPosition : 'center',
-              verticalPosition : 'bottom',
-            });
+            this.toast.error(errorMessage, false);
             return;
           }
-          // Deleted!
-          const message = this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.DELETED');
-          const action = this.languageService.translate('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
-          this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-          // Return
+          // Done
+          this.toast.success('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.DELETED');
           this.onUpdateTable();
         });
     });

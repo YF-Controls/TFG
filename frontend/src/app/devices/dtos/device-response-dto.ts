@@ -1,4 +1,3 @@
-
 export interface DeviceResponseDto {
   id: string;
   name: string;

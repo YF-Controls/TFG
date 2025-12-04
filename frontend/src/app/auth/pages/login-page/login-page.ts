@@ -1,6 +1,6 @@
 // System
 import { Component } from '@angular/core';
-// Auth
+// This module
 import { LoginUserComponent } from '@auth/components';
 
 @Component({

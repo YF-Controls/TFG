@@ -2,11 +2,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogRef } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
+// This module
 import { DeviceAreaApi } from '@device-areas/services';
 
 
@@ -19,9 +19,8 @@ import { DeviceAreaApi } from '@device-areas/services';
 export class CreateDeviceAreaComponent {
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialogRef = inject(DialogRef, { optional: true });
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly deviceAreaApi = inject(DeviceAreaApi);
   protected readonly fb = inject(FormBuilder);
   
@@ -38,19 +37,10 @@ export class CreateDeviceAreaComponent {
     // Exit with toast if invalid form
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      
-      const message = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.FORM_ERROR');
-      const action = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom',
-      });
-
+      this.toast.error('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.FORM_ERROR');
       return;
     }
-
+    
     // Get from data
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
     
@@ -59,25 +49,11 @@ export class CreateDeviceAreaComponent {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
-          this.toast.open(errorMessage, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
+          this.toast.error(errorMessage, false);
           return;
         }
-        // created!
-        const message = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.SUCCESS');
-        const action = this.languageService.translate('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.CLOSE');
-        this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-        
+        // Done
+        this.toast.success('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.SUCCESS');
         this.dialogRef?.close(true);
     });
   }
@@ -85,5 +61,4 @@ export class CreateDeviceAreaComponent {
   protected onCancel() {
     this.dialogRef?.close(false);
   }
-
 }

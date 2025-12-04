@@ -1,17 +1,18 @@
 // System
-import { Component, inject, input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DialogRef } from '@angular/cdk/dialog';
-import { DIALOG_DATA } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
 import { DeviceTypeApi } from '@device-types/services';
 import { DeviceType } from '@device-types/interfaces';
+
 
 
 @Component({
@@ -20,13 +21,12 @@ import { DeviceType } from '@device-types/interfaces';
   imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent],
   templateUrl: './edit-device-type-component.html',
 })
-export class EditDeviceTypeComponent implements OnInit {
+export class EditDeviceTypeComponent {
   
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialogRef = inject(DialogRef, { optional: true });
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly fb = inject(FormBuilder);
   protected readonly deviceTypeApi = inject(DeviceTypeApi);
   
@@ -41,51 +41,40 @@ export class EditDeviceTypeComponent implements OnInit {
     isActive: [true, [Validators.required]],
   });
 
+  protected deviceType = rxResource<DeviceType, {deviceTypeId: string}> ({
+    params: () => ({ deviceTypeId: this.deviceTypeId() }),
+    stream: ({params}) => {
+      // Disable form while loading
+      this.form.disable();
+      // Get
+      return this.deviceTypeApi.getOne(params.deviceTypeId, {})
+        .pipe(
+          tap({
+            next: (deviceType: DeviceType) => {
+              this.form.setValue({
+                name: deviceType.name,
+                hwId: deviceType.hwId,
+                description: deviceType.description,
+                isActive: deviceType.isActive,
+              });
+              this.form.enable();
+            },
+            error: (error: HttpErrorResponse) => {
+              this.toast.error(error.message, false);
+              this.dialogRef?.close(false);
+            }
+          })
+        );
+    },
+  });
+
   // Methods  
-  // Lifecycle
-  ngOnInit(): void {
-
-    this.deviceTypeApi.getOne(this.deviceTypeId(), {})
-      .subscribe({
-        next: (deviceType: DeviceType) => {
-          this.form.setValue({
-            name: deviceType.name,
-            hwId: deviceType.hwId,
-            description: deviceType.description,
-            isActive: deviceType.isActive,
-          });
-        },
-        error: (error: HttpErrorResponse) => {
-          // Toast
-          const message = error.message;
-          const action = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
-          this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-          // Close dialog
-          if (this.dialogRef)
-            this.dialogRef.close(true);
-        }
-      });
-  }
-
   protected onSubmit() {
     // Exit with toast if invalid form
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       // Toast
-      const message = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
-      const action = this.languageService.translate('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.CLOSE');
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom',
-      });
-      // Exit
+      this.toast.error('DEVICE_AREAS.EDIT_DEVICE_AREA.TOAST.FORM_ERROR');
       return;
     }
     // Get from data
@@ -95,25 +84,11 @@ export class EditDeviceTypeComponent implements OnInit {
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
-          this.toast.open(errorMessage, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
+          this.toast.error(errorMessage, false);
           return;
         }
         // Done
-        const message = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.SUCCESS');
-        const action = this.languageService.translate('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.CLOSE');
-        this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-        // Close dialog
+        this.toast.success('DEVICE_TYPES.EDIT_DEVICE_TYPE.TOAST.SUCCESS');
         this.dialogRef?.close(true);
     });
   }

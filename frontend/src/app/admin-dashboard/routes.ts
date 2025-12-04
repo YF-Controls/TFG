@@ -1,17 +1,15 @@
 // System
 import { Routes } from "@angular/router";
 // Other modules
-import { IsAdminGuard } from "@auth/guards";
+
 // This module
-import { AdminDashboardLayout } from "./layouts";
+import { AdminDashboardLayout } from "@admin/layouts";
 import {
   AdminDashboardPage,
   DeviceAreasAdminPage, 
   DevicesAdminPage,
   DeviceTypesAdminPage, 
-  UsersAdminPage } from "./pages";
-
-
+  UsersAdminPage } from "@admin/pages";
 
 
 export const adminDeashboardRouters: Routes = [

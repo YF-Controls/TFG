@@ -2,6 +2,7 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
 // This module
 import { Theme, ThemeService } from '@shared/services';
+// This path
 import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 
 

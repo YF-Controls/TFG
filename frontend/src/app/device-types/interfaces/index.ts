@@ -1,1 +1,1 @@
-export type { DeviceType } from './device-type-interface';
+export type * from './device-type-interface';

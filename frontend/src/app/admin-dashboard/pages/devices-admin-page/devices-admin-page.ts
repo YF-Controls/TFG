@@ -4,8 +4,8 @@ import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { SvgIconComponent } from '@shared/components';
-// This module
 import { CreateDeviceComponent, DeviceAdminTableComponent } from '@devices/components';
+// This module
 
 
 @Component({

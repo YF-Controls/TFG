@@ -9,7 +9,6 @@ import { DeviceTypeApi } from '@device-types/services';
 import { DeviceAreaApi } from '@device-areas/services';
 // This module
 import { DoughnutChartComponent } from '@admin/components';
-import { QueryParamsDto } from '@shared/dto';
 
 
 interface DashboardStats {

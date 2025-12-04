@@ -4,20 +4,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogRef } from '@angular/cdk/dialog';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { LanguageService, ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
-import { UserApi } from '../../services';
+import { UserApi } from '@auth/services';
 import { User } from '@auth/interfaces';
 
 
 @Component({
   standalone : true,
   selector: 'app-edit-user',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent, SvgIconComponent],
+  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent],
   templateUrl: './edit-user-component.html',
 })
 export class EditUserComponent implements OnInit { 
@@ -26,7 +25,7 @@ export class EditUserComponent implements OnInit {
   protected readonly languageService = inject(LanguageService);
   protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialogRef = inject(DialogRef, { optional: true });
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly fb = inject(FormBuilder);
   protected readonly userApi = inject(UserApi);
   
@@ -61,19 +60,9 @@ export class EditUserComponent implements OnInit {
           });
         },
         error: (error: HttpErrorResponse) => {
-          // Toast
-          const message = error.message;
-          const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
-          this.toast.open(message, action, { 
-            duration: 4000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-        
-          // Close dialog
-          if (this.dialogRef)
-            this.dialogRef.close(true);
+          // Toast & close
+          this.toast.error(error.message, false);
+          this.dialogRef?.close(true);
         }
       });
   }
@@ -82,16 +71,7 @@ export class EditUserComponent implements OnInit {
     // Exit with toast if invalid form
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      // Toast
-      const message = this.languageService.translate('AUTH.EDIT_USER.TOAST.FORM_ERROR');
-      const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom',
-      });
-      // Exit
+      this.toast.error('AUTH.EDIT_USER.TOAST.FORM_ERROR');
       return;
     }
     // Get form data
@@ -101,25 +81,11 @@ export class EditUserComponent implements OnInit {
       .subscribe(errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
-          this.toast.open(errorMessage, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });  
+          this.toast.error(errorMessage, false);
           return;
         }
-        // Success
-        const message = this.languageService.translate('AUTH.EDIT_USER.TOAST.SUCCESS');
-        const action = this.languageService.translate('AUTH.EDIT_USER.TOAST.CLOSE');
-        this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-        // Close dialog
+        // Success & close
+        this.toast.success('AUTH.EDIT_USER.TOAST.SUCCESS');
         this.dialogRef?.close(true);
       });
   }
@@ -128,7 +94,7 @@ export class EditUserComponent implements OnInit {
     this.dialogRef?.close(false);
   }
 
-    protected toggleRole(role: string): void {
+  protected toggleRole(role: string): void {
     const roles = this.form.get('roles')?.value || [];
     const index = roles.indexOf(role);
     

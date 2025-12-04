@@ -1,4 +1,5 @@
-import { CreateDeviceAreaDto } from "./create-device-area.dto";
+//This path
+import { CreateDeviceAreaDto } from "./";
 
 export interface UpdateDeviceAreaDto extends Partial<CreateDeviceAreaDto> {
 }

@@ -1,7 +1,7 @@
 // System
 import { computed, effect, inject, Injectable, signal } from "@angular/core";
 // This module
-import { LanguageService } from './';
+import { LanguageService } from './language.service';
 
 export type ThemeCode = 'light' | 'dark' | 'halloween';
 
@@ -26,9 +26,9 @@ export class ThemeService {
     this.languageService.translationsLoaded();
 
     return [
-      { code: 'light', icon: '☀️', name: this.languageService.translate('SHARED.THEME_SERVICE.THEME.LIGHT') },
-      { code: 'dark', icon: '🌙', name: this.languageService.translate('SHARED.THEME_SERVICE.THEME.DARK') },
-      { code: 'halloween', icon: '🎃', name: this.languageService.translate('SHARED.THEME_SERVICE.THEME.HALLOWEEN') }
+      { code: 'light', icon: '☀️', name: this.languageService.translation('SHARED.THEME_SERVICE.THEME.LIGHT') },
+      { code: 'dark', icon: '🌙', name: this.languageService.translation('SHARED.THEME_SERVICE.THEME.DARK') },
+      { code: 'halloween', icon: '🎃', name: this.languageService.translation('SHARED.THEME_SERVICE.THEME.HALLOWEEN') }
     ];
   });
   

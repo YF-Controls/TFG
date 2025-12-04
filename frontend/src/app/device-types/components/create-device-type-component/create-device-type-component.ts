@@ -1,12 +1,12 @@
 // System
-import { Component, inject, output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogRef } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
+// This module
 import { DeviceTypeApi } from '@device-types/services';
 
 
@@ -19,9 +19,8 @@ import { DeviceTypeApi } from '@device-types/services';
 export class CreateDeviceTypeComponent {
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialogRef = inject(DialogRef, { optional: true });
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly deviceTypeApi = inject(DeviceTypeApi);
   protected readonly fb = inject(FormBuilder);
   
@@ -39,46 +38,21 @@ export class CreateDeviceTypeComponent {
     // Exit with toast if invalid form
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      
-      const message = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.FORM_ERROR');
-      const action = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom',
-      });
-
+      this.toast.error('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.FORM_ERROR');
       return;
     }
-
     // Get from data
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
-    
     // Send to api
     this.deviceTypeApi.create({ name, hwId, description, isActive })
       .subscribe( errorMessage => {
         // Error
         if (errorMessage) {
-          const action = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
-          this.toast.open(errorMessage, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
+          this.toast.error(errorMessage, false);
           return;
         }
-        // created!
-        const message = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.SUCCESS');
-        const action = this.languageService.translate('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.CLOSE');
-        this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-        
+        // Done
+        this.toast.success('DEVICE_TYPES.CREATE_DEVICE_TYPE.TOAST.SUCCESS');
         this.dialogRef?.close(true);
     });
   }

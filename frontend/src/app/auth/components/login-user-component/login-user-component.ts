@@ -3,13 +3,12 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { AppPaths } from 'src/app/app.paths';
+import { LanguageService, ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 // This module
-import { UserApi } from '../../services';
-import { AppPaths } from 'src/app/app.paths';
+import { UserApi } from '@auth/services';
 
 
 @Component({
@@ -22,7 +21,7 @@ export class LoginUserComponent {
 
   // Injections
   protected readonly languageService = inject(LanguageService);
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly fb = inject(FormBuilder);
   protected readonly userApi = inject(UserApi);
   protected readonly router = inject(Router);
@@ -39,16 +38,7 @@ export class LoginUserComponent {
     // Check form and show toast
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      
-      const message = this.languageService.translate('AUTH.LOGIN_USER.TOAST.FORM_ERROR');
-      const action = this.languageService.translate('AUTH.LOGIN_USER.TOAST.CLOSE');
-
-      this.toast.open(message, action, { 
-        duration: 2000,
-        panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-        horizontalPosition : 'center',
-        verticalPosition : 'bottom', 
-      });
+      this.toast.error('AUTH.LOGIN_USER.TOAST.FORM_ERROR');
       return;
     }
     
@@ -58,35 +48,20 @@ export class LoginUserComponent {
     // Send to api
     this.userApi.login({email, password})
       .subscribe(errorMessage => {
-        
+        // Error          
         if (errorMessage) {
-        
-          const action = this.languageService.translate('AUTH.LOGIN_USER.TOAST.CLOSE');
-
-          this.toast.open(errorMessage, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });  
+          this.toast.error(errorMessage, false);
           return;
         }
         // Done
-        const message = this.languageService.translate('AUTH.LOGIN_USER.TOAST.SUCCESS');
-        const action = this.languageService.translate('AUTH.LOGIN_USER.TOAST.CLOSE');
-        this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-        
+        this.toast.success('AUTH.LOGIN_USER.TOAST.SUCCESS');
         this.router.navigateByUrl(AppPaths.DEVICES);
+        console.log('!DELETE ha pasado por LoginUserComponent');
     });
   }
     
   toggleShowPassword () {
-    this.showPassword.update(v => !v);
+    this.showPassword.update(value => !value);
   }
 
 }

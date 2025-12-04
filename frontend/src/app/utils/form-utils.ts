@@ -35,46 +35,46 @@ export class FormUtils {
       switch (key) {
         
         case 'required':
-         return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.REQUIRED');
+         return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.REQUIRED');
         
         case 'email':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL');
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL');
         
         case 'minlength':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MIN_LENGTH') +
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MIN_LENGTH') +
                  errors['minlength'].requiredLength + 
-                 languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.CHRARACTERS');
+                 languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.CHRARACTERS');
         
         case 'maxlength':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MAX_LENGTH') +
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MAX_LENGTH') +
                  errors['maxlength'].requiredLength + 
-                 languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.CHRARACTERS');
+                 languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.CHRARACTERS');
 
         case 'min':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MIN') +
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MIN') +
                  errors['min'].min;
 
         case 'max':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MAX') +
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.MAX') +
                  errors['max'].max;
 
         case 'emailTaken':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL_TAKEN');
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL_TAKEN');
 
         case 'noStrider':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.NO_STRIDER');
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.NO_STRIDER');
         
         case 'isInteger':
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.IS_INTEGER');
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.IS_INTEGER');
           
         case 'pattern':
           if (errors['pattern'].requiredPattern === FormUtils.emailPattern) {
-            return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL_PATTERN');
+            return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.EMAIL_PATTERN');
           }
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.PATTERN');
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.PATTERN');
           
         default:
-          return languageService.translate('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.DEFAULT');
+          return languageService.translation('UTILS.GET_ERROR_TEXT_FROM_FORM_FIELD.DEFAULT');
       }
     }
 

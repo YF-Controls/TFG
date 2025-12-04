@@ -34,7 +34,7 @@
       class = "
         text-base md:text-lg font-bold leading-5
         text-secondary-content group-hover:text-primary-content">
-      {{ title() }}
+      {{ title() | translate}}
     </span>
     <!-- Subtitle -->
     <span 
@@ -42,7 +42,7 @@
         pt-1
         text-xs md:text-sm italic
          text-secondary-content/40 group-hover:text-primary-content/50">
-      {{ subtitle() }}
+      {{ subtitle() | translate }}
     </span>
   </div>
   }

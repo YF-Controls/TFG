@@ -5,7 +5,7 @@ import { merge } from 'rxjs';
 // Other modules
 import { FormUtils } from '@utils/index';
 // This module
-import { LanguageService } from '../../services/language.service';
+import { LanguageService } from '@shared/services';
 
 
 @Component({

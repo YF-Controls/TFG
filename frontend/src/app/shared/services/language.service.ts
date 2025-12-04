@@ -75,7 +75,7 @@ export class LanguageService {
     return this.availableLanguages[0];
   }
   
-  public translate(key: string, params?: any): string {
+  public translation(key: string, params?: any): string {
     return this.translateService.instant(key, params);
   }
   

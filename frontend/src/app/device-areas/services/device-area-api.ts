@@ -1,7 +1,7 @@
 // System
 import { inject, Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { catchError, map, Observable, of, tap } from "rxjs";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { catchError, map, Observable, of } from "rxjs";
 // Other modules
 import { environment } from "@env/environment.development";
 import { QueryParamsDto } from "@shared/dto";

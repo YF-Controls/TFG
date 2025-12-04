@@ -1,15 +1,15 @@
 // System
 import { Component, computed, input } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { RouterLink, RouterLinkActive } from '@angular/router';
-// Other modules
-import { SvgIconComponent, SvgIconName } from '@shared/components';
+import { TranslateModule } from '@ngx-translate/core';
+// This path
+import { SvgIconComponent, SvgIconName } from '../svg-icon-component/svg-icon-component';
 
 
 @Component({
   standalone : true,
   selector: 'app-layout-link-button-primary',
-  imports: [RouterLink, RouterLinkActive, CommonModule, SvgIconComponent],
+  imports: [TranslateModule, RouterLink, RouterLinkActive, SvgIconComponent],
   templateUrl: './layout-link-button-primary-component.html',
 })
 export class LayoutLinkButtonPrimaryComponent { 

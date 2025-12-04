@@ -3,8 +3,9 @@ import { Component, inject, signal, ViewChild } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { CreateDeviceTypeComponent, DeviceTypeAdminTableComponent } from '@device-types/components';
 import { SvgIconComponent } from '@shared/components';
+import { CreateDeviceTypeComponent, DeviceTypeAdminTableComponent } from '@device-types/components';
+
 
 
 @Component({

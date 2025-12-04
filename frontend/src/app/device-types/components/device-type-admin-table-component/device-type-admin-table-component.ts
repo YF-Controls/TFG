@@ -3,15 +3,15 @@ import { Component, inject, output } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Dialog } from '@angular/cdk/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ConfirmComponent, SvgIconComponent } from '@shared/components';
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 // This module
-import { DeviceTypeApi } from '../../services';
-import { DeviceType } from '../../interfaces';
-import { EditDeviceTypeComponent } from '..';
+import { DeviceTypeApi } from '@device-types/services';
+import { DeviceType } from '@device-types/interfaces';
+// This path
+import { EditDeviceTypeComponent } from '../';
 
 
 @Component({
@@ -23,9 +23,8 @@ import { EditDeviceTypeComponent } from '..';
 export class DeviceTypeAdminTableComponent { 
 
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialog = inject(Dialog);
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly deviceTypeApi = inject(DeviceTypeApi);
 
   // IO
@@ -65,9 +64,9 @@ export class DeviceTypeAdminTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: false,
       data: {
-        isPopup: true,
-        title: this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
+        isPopup: true, translate: true,
+        title: 'DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.TITLE',
+        message: 'DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.MESSAGE'
       }
     });
     // After closed
@@ -78,25 +77,11 @@ export class DeviceTypeAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
-            this.toast.open(errorMessage, action, { 
-              duration: 3000,
-              panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
-              horizontalPosition : 'center',
-              verticalPosition : 'bottom',
-            });
+            this.toast.error(errorMessage, false);
             return;
           }
-          // Deleted!
-          const message = this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.DELETED');
-          const action = this.languageService.translate('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
-          this.toast.open(message, action, { 
-            duration: 2000,
-            panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-            horizontalPosition : 'center',
-            verticalPosition : 'bottom',
-          });
-          // Return
+          // Done
+          this.toast.success('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.DELETED');
           this.onUpdateTable();
         });
     });

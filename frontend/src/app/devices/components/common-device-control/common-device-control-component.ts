@@ -1,10 +1,12 @@
 // System
 import { Component, computed, effect, inject, input, OnInit, signal } from '@angular/core';
-import { NgClass } from '@angular/common';
+// Other modules
+import { SvgIconComponent } from '@shared/components';
 // This module
 import { Device, DeviceCommand, DeviceStatus } from '@devices/interfaces';
 import { DeviceWebSocketService } from '@devices/services';
-import { SvgIconComponent } from '@shared/components';
+// This path
+
 
 
 @Component({

@@ -14,7 +14,6 @@ import {
   LayoutToggleSidebarButtonComponent,
   LayoutUserNameComponent, } from '@shared/components';
 import { UserApi } from '@auth/services';
-import { User } from '@auth/interfaces';
 // This module
 
 

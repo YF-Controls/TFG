@@ -1,7 +1,5 @@
 // System
 import { Routes } from "@angular/router";
-// Other modules
-import { IsUserGuard } from "@auth/guards";
 // This module
 import { MainDashboardLayout } from "./layouts";
 import { DevicesControlPage } from "./pages";

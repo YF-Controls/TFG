@@ -1,7 +1,6 @@
 // System
 import { Injectable, signal } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
 // Other modules
 import { environment } from '@env/environment.development';
 // This module

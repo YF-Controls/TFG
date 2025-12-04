@@ -4,17 +4,17 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
-import { LanguageService } from '@shared/services';
+import { ToastService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
 import { DeviceTypeApi } from '@device-types/services';
 import { DeviceType } from '@device-types/interfaces';
 import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceArea } from '@device-areas/interfaces';
 // This module
-import { BlindDeviceControlComponent, CommonDeviceControlComponent } from '@devices/components';
 import { Device } from '@devices/interfaces';
 import { DeviceApi, DeviceWebSocketService } from '@devices/services';
-import { MatSnackBar } from '@angular/material/snack-bar';
+// This paths
+import { BlindDeviceControlComponent, CommonDeviceControlComponent } from '../';
 
 
 @Component({
@@ -26,8 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DeviceControlTableComponent implements OnInit, OnDestroy {
    
   // Injections
-  protected readonly languageService = inject(LanguageService);
-  protected readonly toast = inject(MatSnackBar);
+  protected readonly toast = inject(ToastService);
   protected readonly deviceWebSocketService = inject(DeviceWebSocketService);
   protected readonly deviceApi = inject(DeviceApi);
   protected readonly deviceTypeApi = inject(DeviceTypeApi);
@@ -52,16 +51,8 @@ export class DeviceControlTableComponent implements OnInit, OnDestroy {
         filterBy: ['isActive', ...(params.filterByAreaId ? ['deviceAreaId'] : []), ...(params.filterByTypeId ? ['deviceTypeId'] : [])],
         filterValue: ['true', ...(params.filterByAreaId ? [params.filterByAreaId] : []), ...(params.filterByTypeId ? [params.filterByTypeId] : [])]
       }).pipe(tap(devices => {
-        this.totalChanged.emit(devices.length)
-        // Toast
-        const message = this.languageService.translate('DEVICES.DEVICE_CONTROL_TABLE.TOAST.MESSAGE');
-        this.toast.open(message, 'X', {
-          duration: 4000,
-          panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
-          horizontalPosition : 'center',
-          verticalPosition : 'bottom',
-        })
-      })),
+        this.totalChanged.emit(devices.length);
+        this.toast.success('DEVICES.DEVICE_CONTROL_TABLE.TOAST.MESSAGE');})),
   });
   protected deviceTypes = rxResource<DeviceType[], null>({
     stream: () => this.deviceTypeApi.getAll({ orderBy: 'name', filterBy: ['isActive'], filterValue: ['true'] }),
