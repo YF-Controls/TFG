@@ -1,55 +1,76 @@
+/* Level 0: Container */
 .app-table-container {
   @apply overflow-x-auto;
 }
 
+/* Level 1: Table */
 .app-table {
   @apply table;
 }
 
+/* Level 2: Table Header */
 .app-table-header {
   @apply bg-primary;
 }
 
-.app-table-field-header {
+/* Level 2: Table Body */
+.app-table-body {
+  @apply shadow;
+}
+
+/* Level 4: Table Header Field */
+.app-table-header-row-field {
   @apply
     text-base md:text-lg font-normal md:font-bold text-primary-content
-    border border-primary-content;
+    border-r border-base-100;
 }
 
-.app-table-field-status {
-  @apply flex justify-center items-center;
+/* Level 4: Table Body Row Field*/
+.app-table-body-row-field {
+  @apply
+    border border-primary/25;  
 }
 
-.app-table-field-left {
-  @apply flex flex-col items-start;
+/* Level 5: Table Body Row Field Content */
+.app-table-body-row-field-status {
+  @apply
+    flex justify-center items-center;
 }
 
-.app-table-field-text {
-  @apply text-sm md:text-base;
+/* Level 5: Table Body Row Field Content Left-Aligned */
+.app-table-body-row-field-left {
+  @apply
+    flex flex-col items-start;
 }
 
-
-.app-table-field-roles {
-  @apply flex justify-start gap-1;
+/* Level 5: Table Body Row Field Text */
+.app-table-body-row-field-text {
+  @apply
+    text-sm md:text-base;
 }
 
-.app-table-field-role-text {
+/* Level 5: Table Body Row Field Roles */
+.app-table-body-row-field-roles {
+  @apply 
+    flex justify-start gap-1;
+}
+
+/* Level 6: Table Body Row Field Roles Button */
+.app-table-body-row-field-roles-button {
   @apply
     btn btn-xs btn-secondary
-    text-sm md:text-base
-    italic font-normal;
+    text-sm md:text-base;
 }
 
-.app-table-field-buttons {
-  @apply flex justify-end gap-2;
+/* Level 5: Table Body Row Field Actions */
+.app-table-body-row-field-actions {
+  @apply
+    flex justify-end gap-2;
 }
 
-.app-table-field-buttons-button {
+/* Level 6: Table Body Row Field Actions Button */
+.app-table-body-row-field-actions-button {
   @apply
     py-3.5
     btn btn-xs btn-primary hover:btn-secondary;
-}
-
-.app-dummy {
-  @apply btn btn-primary;
 }

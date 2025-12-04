@@ -3,33 +3,33 @@
 
     <!-- Header -->
     <thead class="app-table-header">
-      <tr class="">
+      <tr>
         <!-- col 1 -->
-        <th class="app-table-field-header text-center w-1">
-          {{ 'DEVICES.DEVICE_TABLE.TABLE.HEADER.STATUS' | translate }}
+        <th class="app-table-header-row-field text-center w-1">
+          {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.STATUS' | translate }}
         </th>
         <!-- col 2 -->
-        <th class="app-table-field-header text-center w-1">
-          {{ 'DEVICES.DEVICE_TABLE.TABLE.HEADER.NUMBER' | translate }}
+        <th class="app-table-header-row-field text-center w-1">
+          {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.NUMBER' | translate }}
         </th>
         <!-- col 3 -->
-        <th class="app-table-field-header text-center">
-          {{ 'DEVICES.DEVICE_TABLE.TABLE.HEADER.NAME' | translate }}
+        <th class="app-table-header-row-field text-center">
+          {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.NAME' | translate }}
         </th>
         <!-- col 4 -->
-        <th class="app-table-field-header text-center w-1">
-          {{ 'DEVICES.DEVICE_TABLE.TABLE.HEADER.TYPE' | translate }}
+        <th class="app-table-header-row-field text-center w-1">
+          {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.TYPE' | translate }}
         </th>
         <!-- col 5 -->
-        <th class="app-table-field-header text-center w-1">
-          {{ 'DEVICES.DEVICE_TABLE.TABLE.HEADER.AREA' | translate }}
+        <th class="app-table-header-row-field text-center w-1">
+          {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.AREA' | translate }}
         </th> 
         <!-- col 6 -->
-        <th class="app-table-field-header">
-          {{ 'DEVICES.DEVICE_TABLE.TABLE.HEADER.DESCRIPTION' | translate }}
+        <th class="app-table-header-row-field">
+          {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.HEADER.DESCRIPTION' | translate }}
         </th>
         <!-- col 7: Details, no header -->
-        <th class="app-table-field-header w-1">
+        <th class="app-table-header-row-field w-1">
           
         </th>
       </tr>
@@ -44,79 +44,79 @@
         <tr>
           
           <!-- Col 1: Status -->
-          <th>
-            <span class="app-table-field-status">
+          <td class="app-table-body-row-field">
+            <span class="app-table-body-row-field-status">
               {{ device.isActive ? '🟢' : '🟠' }}
             </span>
-          </th>
+          </td>
           <!-- Col 2: Nr -->
-          <td>
-            <span class="app-table-field-status app-table-field-text">
+          <td class="app-table-body-row-field">
+            <span class="app-table-body-row-field-status app-table-body-row-field-text">
               {{ device.number }}
             </span>
           </td>
           
           <!-- Col 3: Name -->
-          <td>
-            <div class="app-table-field-left">
-              <div class="app-table-field-text">{{ device.name }}</div>
-              <div class="app-table-field-text italic text-primary/50">{{ device.hwId }}</div>
+          <td class="app-table-body-row-field">
+            <div class="app-table-body-row-field-left">
+              <div class="app-table-body-row-field-text">{{ device.name }}</div>
+              <div class="app-table-body-row-field-text italic text-primary/50">{{ device.hwId }}</div>
             </div>
           </td>
           
           <!-- Col 4: Type -->
-          <td>
-            <div class="app-table-field-left">
-              <div class="app-table-field-text text-primary/50">
+          <td class="app-table-body-row-field">
+            <div class="app-table-body-row-field-left">
+              <div class="app-table-body-row-field-text text-primary/50">
                 {{  device.deviceType?.name || '???' }}
               </div>
             </div>
           </td>
 
           <!-- Col 5: Area -->
-          <td>
-            <div class="app-table-field-left">
-              <div class="app-table-field-text text-primary/50">
+          <td class="app-table-body-row-field">
+            <div class="app-table-body-row-field-left">
+              <div class="app-table-body-row-field-text text-primary/50">
                 {{  device.deviceArea?.name || '???' }}
               </div>
             </div>
           </td>
           <!-- Col 6: Description -->
-          <td>
-            <div class="app-table-field-left">
-              <div class="app-table-field-text text-primary/50">
+          <td class="app-table-body-row-field">
+            <div class="app-table-body-row-field-left">
+              <div class="app-table-body-row-field-text text-primary/50">
                 {{ device.description }}
               </div>
             </div>
           </td>
 
           <!-- Col 7: Details button -->
-          <th>
-            <div class="app-table-field-buttons">
+          <td class="app-table-body-row-field">
+            <div class="app-table-body-row-field-actions">
               <!-- Edit button-->
               <button
-                class="app-table-field-buttons-button"
+                class="app-table-body-row-field-actions-button"
                 (click)="onUpdateOne(device)">
                 <!--edit icon-->
                 <app-svg-icon name="edit"/>
               </button>
               <!-- Delete button -->
               <button 
-                class="app-table-field-buttons-button"
+                class="app-table-body-row-field-actions-button"
                 (click)="onDeleteOne(device)">
                 <!--delete icon-->
                 <app-svg-icon name="delete"/>
               </button>
             </div>
             
-          </th>
+          </td>
           
         </tr>
       
       } 
       @empty {
         <span class="text-secondary">
-          {{ 'DEVICES.DEVICE_TABLE.TABLE.NO_DATA' | translate }}
+          {{ 'DEVICES.DEVICE_ADMIN_TABLE.TABLE.NO_DATA' | translate }}
         </span>
       }
       

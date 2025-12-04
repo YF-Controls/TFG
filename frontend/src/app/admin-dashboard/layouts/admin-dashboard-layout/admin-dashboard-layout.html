@@ -6,7 +6,9 @@
     class="
       shrink-0
       h-screen overflow-y-auto
-      bg-base-300
+      shadow-lg
+      bg-base-200
+      border-r-2 border-primary/50
       transition-all duration-300"
     [class.w-20]="isSidebarCollapsed()"
     [class.w-60]="!isSidebarCollapsed()">
@@ -124,7 +126,7 @@
 
   <!-- Main content -->
   <main 
-    class="flex-1 overflow-auto px-5 py-5">
+    class="flex-1 overflow-auto pl-10 pr-5">
     <router-outlet/>
   </main>
   

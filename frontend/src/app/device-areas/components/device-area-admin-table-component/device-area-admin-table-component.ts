@@ -47,8 +47,8 @@ export class DeviceAreaAdminTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
@@ -59,7 +59,7 @@ export class DeviceAreaAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.CLOSE');
+            const action = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -69,8 +69,8 @@ export class DeviceAreaAdminTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.DELETED');
-          const action = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_TABLE.TOAST.CLOSE');
+          const message = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.DELETED');
+          const action = this.languageService.getTranslation('DEVICE_AREAS.DEVICE_AREA_ADMIN_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

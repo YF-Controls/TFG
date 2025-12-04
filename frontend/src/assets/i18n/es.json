@@ -226,7 +226,7 @@
       }
     },
 
-    "USER_TABLE" : {
+    "USER_ADMIN_TABLE" : {
       
       "TABLE" : {
         "HEADER" : {
@@ -287,7 +287,7 @@
       }
     },
 
-    "DEVICE_AREA_TABLE" : {
+    "DEVICE_AREA_ADMIN_TABLE" : {
 
       "TABLE" : {
         "HEADER" : {
@@ -347,7 +347,7 @@
       }
     },
 
-    "DEVICE_TYPE_TABLE" : {
+    "DEVICE_TYPE_ADMIN_TABLE" : {
       "TABLE" : {
         "HEADER" : {
           "STATUS" : "Estado",
@@ -410,7 +410,7 @@
       }
     },
 
-    "DEVICE_TABLE" : {
+    "DEVICE_ADMIN_TABLE" : {
       "TABLE" : {
         "HEADER" : {
           "STATUS" : "Estado",
@@ -431,6 +431,13 @@
       "TOAST" : {
         "CLOSE" : "Cerrar",
         "DELETED" : "Dispositivo eliminado exitosamente."}
+    },
+
+    "DEVICE_CONTROL_TABLE" : {
+      
+      "FILTER" : {
+        "LABEL_ALL" : "Todo"
+      }
     }
   },
   

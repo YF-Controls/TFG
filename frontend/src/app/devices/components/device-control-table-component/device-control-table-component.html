@@ -1,4 +1,75 @@
-<section class="grid  grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+<section class="pt-2 sticky top-25.5 z-30 bg-base-100">
+
+  <button 
+    class="btn btn-primary md:hidden mb-2"
+    (click)="toggleMenu()">
+    <app-svg-icon name="adjustment-vertical"/>
+  </button>
+
+  <section
+    class="
+      fixed md:sticky
+      bg-base-100/80 md:bg-base-100
+      p-5 md:p-0
+      border md:border-0 border-primary rounded-lg"
+    [class.hidden]="!showMenu()">
+
+    <section class="grid grid-cols-2 md:grid-cols-8 gap-2">
+
+      <button
+          class="btn btn-primary hover:btn-secondary"
+          [class.btn-secondary]="filterByAreaId() === null"
+          (click)="setFilterByArea(null)">
+          <span class="text-base truncate">
+            {{ 'DEVICES.DEVICE_CONTROL_TABLE.FILTER.LABEL_ALL' | translate }}
+          </span>
+        </button>
+
+      @for (deviceArea of devicesAreasResource.value(); track $index) {
+        <button
+          class="btn btn-primary hover:btn-secondary"
+          [class.btn-secondary]="deviceArea.id === filterByAreaId()"
+          (click)="setFilterByArea(deviceArea.id)">
+          <span class="text-base truncate">
+            {{ deviceArea.name }}
+          </span>
+        </button>
+      }
+
+    </section>
+
+    <!-- Divider -->
+    <div class="app-page-header-divider"></div>
+
+    <section class="grid grid-cols-2 md:grid-cols-8 gap-2">
+
+      <button
+          class="btn btn-primary hover:btn-secondary"
+          [class.btn-secondary]="filterByTypeId() === null"
+          (click)="setFilterByType(null)">
+          <span class="text-base truncate">
+            {{ 'DEVICES.DEVICE_CONTROL_TABLE.FILTER.LABEL_ALL' | translate }}
+          </span>
+        </button>
+
+      @for (deviceType of devicesTypesResource.value(); track $index) {
+        <button
+          class="btn btn-primary hover:btn-secondary"
+          [class.btn-secondary]="deviceType.id === filterByTypeId()"
+          (click)="setFilterByType(deviceType.id)">
+          <span class="text-base truncate">
+            {{ deviceType.name }}
+          </span>
+        </button>
+      }
+    </section>
+  </section>
+
+  <!-- Divider -->
+  <div class="app-page-header-divider"></div>
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
 
   @for (device of devicesResource.value(); track $index) {
 

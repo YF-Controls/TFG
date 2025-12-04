@@ -51,8 +51,8 @@ export class UserAdminTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageService.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.getTranslation('AUTH.USER_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
@@ -63,7 +63,7 @@ export class UserAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
+            const action = this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -73,8 +73,8 @@ export class UserAdminTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageService.getTranslation('AUTH.USER_TABLE.TOAST.DELETED');
-          const action = this.languageService.getTranslation('AUTH.USER_TABLE.TOAST.CLOSE');
+          const message = this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.TOAST.DELETED');
+          const action = this.languageService.getTranslation('AUTH.USER_ADMIN_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],

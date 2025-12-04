@@ -1,7 +1,7 @@
 <!-- Header -->
 <header class="app-page-header">
   <!-- Tile and Subtitle part -->
-  <div>
+  <div class="flex flex-col justify-center">
     <!-- Title -->
     <h1 class="app-page-header-title">
       {{ 'MAIN_DASHBOARD.DEVICES_CONTROL_PAGE.TITLE' | translate }}
@@ -13,19 +13,18 @@
     </h2>
   </div>
 
-  <!-- Update button -->
+  <!-- Update button 
   <button 
     class="app-page-header-button"
     (click)="onUpdateTable()">
-    <!-- Update icon -->
+    <!-- Update icon 
     <app-svg-icon name="update"/>
   </button>
-  
+  -->
 </header>
 
-<!-- Divider -->
-<div class="app-page-header-divider"></div>
 
 
+<!-- Main -->
 <app-device-control-table/>
 

@@ -46,8 +46,8 @@ export class DeviceTypeAdminTableComponent {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: true,
       data: {
-        title: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.TITLE'),
-        message: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.DELETE_POPUP.MESSAGE')
+        title: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.TITLE'),
+        message: this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.DELETE_POPUP.MESSAGE')
       }
     });
     
@@ -58,7 +58,7 @@ export class DeviceTypeAdminTableComponent {
         .subscribe( errorMessage => {
           // Error
           if (errorMessage) {
-            const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
+            const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
             this.toast.open(errorMessage, action, { 
               duration: 3000,
               panelClass: ['app-toast-container-effect', 'app-toast-container-error'],
@@ -68,8 +68,8 @@ export class DeviceTypeAdminTableComponent {
             return;
           }
           // Deleted!
-          const message = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.DELETED');
-          const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_TABLE.TOAST.CLOSE');
+          const message = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.DELETED');
+          const action = this.languageService.getTranslation('DEVICE_TYPES.DEVICE_TYPE_ADMIN_TABLE.TOAST.CLOSE');
           this.toast.open(message, action, { 
             duration: 2000,
             panelClass: ['app-toast-container-effect', 'app-toast-container-success'],
