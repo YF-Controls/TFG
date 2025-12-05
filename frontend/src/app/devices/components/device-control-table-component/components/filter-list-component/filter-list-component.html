@@ -1,0 +1,33 @@
+<li class="relative">
+  <details
+    [open]="dropdown.isOpen(id())"
+    (toggle)="$any($event.target).open ? dropdown.open(id()) : dropdown.close(id())">
+    <summary class="btn btn-primary">
+      <span class="hidden md:inline">
+        {{ label() }}
+      </span>
+      @if (icon()) {
+        <app-svg-icon customClass="md:hidden" [name]="icon()"/>
+      }
+    </summary>
+    <ul 
+      class="
+        absolute -right-7 lg:left-0
+        p-5 bg-base-300/80 border border-primary rounded-md">
+      
+      <app-filter-list-item-component
+          [filter]="currentFilter()"
+          [id]="null"
+          [name]="labelAll()"
+          (onClick)="selected(null); dropdown.closeAll()"/>
+
+      @for (item of items() || []; track $index) {
+        <app-filter-list-item-component
+          [filter]="currentFilter()"
+          [id]="item.id"
+          [name]="item.name"
+          (onClick)="selected(item.id); dropdown.closeAll()"/>
+      }
+    </ul>
+  </details>
+</li>

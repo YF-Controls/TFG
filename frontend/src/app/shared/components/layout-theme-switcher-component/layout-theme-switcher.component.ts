@@ -1,15 +1,14 @@
 // System
 import { Component, computed, inject, input, signal } from '@angular/core';
 // This module
-import { Theme, ThemeService } from '@shared/services';
+import { DropdownControlService, Theme, ThemeService } from '@shared/services';
 // This path
-import { SvgIconComponent } from '../svg-icon-component/svg-icon-component';
 
 
 @Component({
   standalone: true,
   selector: 'app-layout-theme-switcher',
-  imports: [SvgIconComponent],
+  imports: [],
   templateUrl: './layout-theme-switcher.component.html',
   //styles: [`:host {display: contents;}`],
 })
@@ -17,20 +16,21 @@ export class LayoutThemeSwitcherComponent {
   
   // Injections
   protected readonly themeService = inject(ThemeService);
+  protected readonly dropdown = inject(DropdownControlService);
   
   // IO
+  id = input.required<string>();
   isSidebarCollapsed = input.required<boolean>();
   
   // Properties
-  protected isOpen = signal(false);
   
   // Methods
-  protected toggleMenu(): void {
-    this.isOpen.update(value => !value);
-  }
-
   protected selectTheme(theme: Theme): void {
     this.themeService.setTheme(theme);
-    this.isOpen.set(false);
+  }
+
+  protected onToggle(isOpen: boolean) {
+    if (isOpen) this.dropdown.open(this.id());
+    else this.dropdown.close(this.id());
   }
 }

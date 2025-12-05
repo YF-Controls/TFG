@@ -436,6 +436,8 @@
     "DEVICE_CONTROL_TABLE" : {
       
       "FILTER" : {
+        "DEVICE_TYPES" : "Device Types",
+        "DEVICE_AREAS" : "Device Areas",
         "LABEL_ALL" : "All"
       },
 

@@ -436,9 +436,11 @@
     "DEVICE_CONTROL_TABLE" : {
       
       "FILTER" : {
+        "DEVICE_TYPES" : "Tipos de Dispositivo",
+        "DEVICE_AREAS" : "Áreas de Dispositivo",
         "LABEL_ALL" : "Todo"
       },
-
+      
       "TOAST" : {
         "MESSAGE" : "Tabla actualizada."
       }

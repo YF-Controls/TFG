@@ -1,18 +1,55 @@
-<!-- Button trigger -->
+<li class="relative">
+  <details
+    [open]="dropdown.isOpen(id())"
+    (toggle)="onToggle($any($event.target).open)">
+    <!-- Button -->
+    <summary class="btn btn-ghost hover:btn-secondary">
+      <span class="text-2xl">
+        {{ themeService.currentTheme().icon }}
+      </span> 
+    </summary>
+    <!-- Dropdown menu -->
+    <ul 
+      class="
+        fixed z-50
+        p-5 bg-base-300/80 border border-primary rounded-md">
+      @for (theme of themeService.availableThemes(); track theme.code) {
+        <li class="flex-1 pb-1 max-w-48">
+          <!-- Button -->
+          <button 
+            type="button"
+            class="btn btn-primary btn-sm hover:bg-secondary"
+            [class.btn-secondary]="theme.code === themeService.currentTheme().code"
+            (click)="selectTheme(theme); dropdown.closeAll()">
+            <!-- Text -->
+            <span class="text-xs lg:text-sm truncate">
+              {{ theme.name + ' ' + theme.icon  }}
+            </span>
+          </button>
+        </li>
+      }
+    </ul>
+  </details>
+</li>
+
+
+
+
+<!-- Button trigger --
 <button 
   type="button"
   class="btn btn-ghost btn-circle"
   (click)="toggleMenu()">
-  <!-- Icon -->
+  <!-- Icon --
   <span class="text-2xl hover:text-4xl">
     {{ this.themeService.currentTheme().icon }}
   </span>
 </button>
 
-<!-- Theme Switcher -->
+<!-- Theme Switcher --
 @if (isOpen()) {
   <div class="relative">
-    <!-- Dropdown menu -->
+    <!-- Dropdown menu --
     <ul
       [class.left-20]="isSidebarCollapsed()"
       [class.left-60]="!isSidebarCollapsed()"
@@ -25,20 +62,20 @@
         border border-primary
         shadow-lg
         min-w-32">
-      <!-- Theme list -->
+      <!-- Theme list --
       @for (theme of this.themeService.availableThemes(); track theme.code) {
         <li class="border-b border-primary pb-1 my-1">
-          <!-- Button -->
+          <!-- Button --
           <button
             type="button"
             class="flex items-center flex-2 justify-between gap-5"
             [class.active]="theme.code === themeService.currentTheme().code"
             (click)="selectTheme(theme)">
-            <!-- Icon -->
+            <!-- Icon --
             <span class="text-sm md:text-base">
               {{ theme.name + ' ' + theme.icon  }}
             </span>
-            <!-- Icon -->
+            <!-- Icon --
             @if (theme.code === themeService.currentTheme().code) {
               <app-svg-icon name="ok"/>
             }
@@ -49,3 +86,5 @@
   
   </div>
 }
+-->
+

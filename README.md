@@ -224,3 +224,14 @@ Notes de fallos y otras cosas:
 
 > Op. 1: En el navegador vamos a DevTools -> Network -> Check en Disable chache
 > Op. 2: Limpiar la caché de compilación de angular: ve a `frontend/.angular` y elimina la carpeta `/cache`
+
+
+* Width tester
+
+```html
+<div class="border border-red-500 text-black
+ bg-white sm:bg-blue-400 md:bg-green-500 lg:bg-amber-300 xl:bg-red-600 2xl:bg-teal-800">
+  Ancho
+</div>
+
+```

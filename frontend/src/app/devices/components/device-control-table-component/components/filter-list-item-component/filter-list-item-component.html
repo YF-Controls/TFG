@@ -1,0 +1,10 @@
+<li class="flex-1 pb-1 max-w-48">
+  <button
+    class="btn btn-primary btn-sm hover:bg-secondary"
+    [class.btn-secondary]="id() === filter()"
+    (click)="onClick.emit();">
+    <span class="text-xs lg:text-sm truncate">
+      {{ name() }}
+    </span>
+  </button>
+</li>

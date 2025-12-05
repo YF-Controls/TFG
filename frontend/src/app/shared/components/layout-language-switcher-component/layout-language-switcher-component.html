@@ -1,4 +1,39 @@
-<!-- Button trigger -->
+<li class="relative">
+  <details
+    [open]="dropdown.isOpen(id())"
+    (toggle)="onToggle($any($event.target).open)">
+    <!-- Button -->
+    <summary class="btn btn-primary hover:btn-secondary">
+      <span class="text-sm md:text-base">
+        {{ isSidebarCollapsed() ? languageService.currentLang().code  : languageService.currentLang().name }}
+      </span>
+    </summary>
+    <!-- Dropdown menu -->
+    <ul 
+      class="
+        fixed z-50
+        p-5 bg-base-300/80 border border-primary rounded-md">
+      @for (lang of languageService.availableLanguages; track lang.code) {
+        <li class="flex-1 pb-1 max-w-48">
+          <!-- Button -->
+          <button 
+            type="button"
+            class="btn btn-primary btn-sm hover:bg-secondary"
+            [class.btn-secondary]="lang.code === languageService.currentLang().code"
+            (click)="selectLanguage(lang); dropdown.closeAll()">
+            <!-- Text -->
+            <span class="text-xs lg:text-sm truncate">
+              {{lang.name}}
+            </span>
+          </button>
+        </li>
+      }
+    </ul>
+  </details>
+</li>
+
+
+<!-- Button trigger --
 <button 
   type="button"
   class="
@@ -8,18 +43,18 @@
   [class.btn-xs]="isSidebarCollapsed()"
   [class.btn-sm]="!isSidebarCollapsed()"
   (click)="toggleMenu()">
-  <!-- Text -->  
+  <!-- Text --
   <span class="text-sm md:text-base">
     {{ isSidebarCollapsed() ? this.languageService.currentLang().code  : this.languageService.currentLang().name }}
   </span>
-  <!-- Icon -->
+  <!-- Icon --
   <app-svg-icon name="arrow-down"/>
 </button>
 
-<!-- Language Switcher -->
+<!-- Language Switcher --
 @if (isOpen()) {
   <div class="relative">
-  <!-- Dropdown menu -->
+  <!-- Dropdown menu --
     <ul 
       [class.left-20]="isSidebarCollapsed()"
       [class.left-60]="!isSidebarCollapsed()"
@@ -32,20 +67,20 @@
         border border-primary
         shadow-lg
         min-w-32">
-      <!-- Language list -->
+      <!-- Language list --
       @for (lang of this.languageService.availableLanguages; track lang.code) {
         <li class="border-b border-primary pb-1 my-1">
-          <!-- Button -->
+          <!-- Button --
           <button 
             type="button"
             class="flex items-center flex-2 justify-between gap-5"
             [class.text-primary]="lang.code === this.languageService.currentLang().code"
             (click)="selectLanguage(lang)">
-            <!-- Text -->
+            <!-- Text --
             <span class="text-sm md:text-base">
               {{lang.name}}
             </span>
-            <!-- Icon -->
+            <!-- Icon --
             @if (lang.code === this.languageService.currentLang().code) {
               <app-svg-icon name="ok"/>
             }
@@ -55,3 +90,5 @@
     </ul>
   </div>
 }
+
+-->

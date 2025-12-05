@@ -29,18 +29,23 @@
     <!-- Divider -->
     <div class="divider my-0"></div>
       
-    <!-- Option buttons -->
+    <!-- Option buttons --
     <section
       class="flex items-center my-2"
-      [class.flex-col]="isSidebarCollapsed()">
+      [class.flex-col]="isSidebarCollapsed()"> -->
+
+    <section
+      class="menu menu-horizontal px-1 gap-2 items-stretch">
       <!-- Theme toggle button -->
       <div class="flex-2 flex justify-center">
-        <app-layout-theme-switcher 
+        <app-layout-theme-switcher
+          id="main-theme"
           [isSidebarCollapsed]="isSidebarCollapsed()"/>
       </div>
       <!-- Language button -->
       <div class="flex-5 flex justify-center">
         <app-layout-language-switcher
+          id="main-language"
           [isSidebarCollapsed]="isSidebarCollapsed()"/>
       </div>
     </section>

@@ -15,7 +15,11 @@ La lista está ordenada por prioridad de más alto a más bajo.
 
 ✅ optimizar el componente de commonDeviceComponent
 
-⏳ Hacer la lista desplegable de device control.
+✅ Hacer la lista desplegable de device control.
+
+⏳ Corregir los desplegables de theme y lang.
+
+⏳ Crear el servicio para los desplegables.
 
 ⏳ Arreglar en la vista de movil que cuando expando el menú se superponga
 al layout, ahora lo desplaza y queda feo.

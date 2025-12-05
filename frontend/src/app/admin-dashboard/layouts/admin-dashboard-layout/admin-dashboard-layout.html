@@ -36,12 +36,14 @@
       [class.flex-col]="isSidebarCollapsed()">
       <!-- Theme toggle button -->
       <div class="flex-2 flex justify-center">
-        <app-layout-theme-switcher 
+        <app-layout-theme-switcher
+          id="admin-theme"
           [isSidebarCollapsed] = "isSidebarCollapsed()"/>
       </div>
       <!-- Language button -->
       <div class="flex-5 flex justify-center">
         <app-layout-language-switcher
+          id="admin-language"
           [isSidebarCollapsed] = "isSidebarCollapsed()"/>
       </div>
     </section>
@@ -101,7 +103,7 @@
         subtitle="{{ 'ADMIN_DASHBOARD.LAYOUT.NAV_BUTTONS.DEVICE_TYPES.SUBTITLE' | translate }}"
         path="/admin/device-types"
         [isCollapsed]="isSidebarCollapsed()"
-        svgIconName="folder"/>
+        svgIconName="device"/>
       
       <!-- Users button -->
       <app-layout-link-button-primary
