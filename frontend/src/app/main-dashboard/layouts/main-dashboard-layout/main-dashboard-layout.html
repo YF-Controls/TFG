@@ -1,17 +1,20 @@
 <!-- All screen -->
 <div 
-  class="w-screen h-screen flex antialiased overflow-hidden">
+  class="w-screen h-screen flex antialiased overflow-hidden sm:relative">
   <!-- Left side menu position -->
   <header
     class="
-      shrink-0
-      h-screen overflow-y-auto
+      h-screen overflow-y-auto overflow-x-hidden
       shadow-lg
       bg-base-200
       border-r-2 border-primary/50
-      transition-all duration-300"
-    [class.w-20]="isSidebarCollapsed()"
-    [class.w-60]="!isSidebarCollapsed()">
+      transition-all duration-300
+      absolute sm:relative
+      z-50 sm:z-auto
+      -translate-x-full sm:translate-x-0
+      w-60 sm:w-20"
+    [class.!translate-x-0]="!isSidebarCollapsed()"
+    [class.sm:!w-60]="!isSidebarCollapsed()">
     <!-- Title, subtitle -->
     <section
       class="my-2 transition-all duration-300"
@@ -31,7 +34,7 @@
       
     <!-- Option buttons -->
     <section
-      class="menu menu-horizontal px-1 gap-2 items-stretch">
+      class="menu menu-horizontal px-1 gap-2 items-stretch flex">
       <!-- Theme toggle button -->
       <div class="flex-2 flex justify-center">
         <app-layout-theme-switcher
@@ -85,13 +88,13 @@
     <!-- Logout button -->
     <app-layout-logout-button
       [isSidebarCollapsed]="isSidebarCollapsed()"/>
-      
-    <!-- Toggle sidebar button -->
-    <app-layout-toggle-sidebar-button
-      [isSidebarCollapsed]="isSidebarCollapsed()"
-      (toggleSidebar)="toggleSidebar()"/>
   
   </header>
+
+  <!-- Toggle sidebar button -->
+  <app-layout-toggle-sidebar-button
+    [isSidebarCollapsed]="isSidebarCollapsed()"
+    (toggleSidebar)="toggleSidebar()"/>
     
   <!-- Main content -->
   <main 

@@ -17,21 +17,21 @@ La lista está ordenada por prioridad de más alto a más bajo.
 
 ✅ Hacer la lista desplegable de device control.
 
-⏳ Corregir los desplegables de theme y lang.
+✅ Corregir los desplegables de theme y lang.
 
-⏳ Crear el servicio para los desplegables.
+✅ Crear el servicio para los desplegables.
 
-⏳ Arreglar en la vista de movil que cuando expando el menú se superponga
+✅ Arreglar en la vista de movil para que cuando expando el menú se superponga
 al layout, ahora lo desplaza y queda feo.
 
-# Extras
-
-⏳ Loading pop up en las páginas
-
-⏳ register fallo cuando los passwords no cuadran
+## Extras
 
 ⏳ Comprobar lo que devuelven los controladores del backend
 
 ⏳ hacer una cola de envío para los websocket del front al back
 
 ⏳ hacer una cola de envío para los tcpsocket del back al io-system
+
+⏳ register fallo cuando los passwords no cuadran
+
+⏳ Loading pop up en las páginas
