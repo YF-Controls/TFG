@@ -4,7 +4,7 @@
     (toggle)="$any($event.target).open ? dropdown.open(id()) : dropdown.close(id())">
     <summary class="btn btn-primary">
       <span class="hidden md:inline">
-        {{ label() }}
+        {{ label() | translate}}
       </span>
       @if (icon()) {
         <app-svg-icon customClass="md:hidden" [name]="icon()"/>
@@ -18,7 +18,7 @@
       <app-filter-list-item-component
           [filter]="currentFilter()"
           [id]="null"
-          [name]="labelAll()"
+          [name]="labelAll() | translate"
           (onClick)="selected(null); dropdown.closeAll()"/>
 
       @for (item of items() || []; track $index) {

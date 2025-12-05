@@ -5,18 +5,18 @@
     <app-svg-icon name="filter"/>
     <!-- Device Areas Menu -->
     <app-filter-list
-      [id]="'device-areas'"
-      [label]="'DEVICES.DEVICE_CONTROL_TABLE.FILTER.DEVICE_AREAS' | translate"
-      [labelAll]="'DEVICES.DEVICE_CONTROL_TABLE.FILTER.LABEL_ALL' | translate"
+      id="device-areas"
+      label="DEVICES.DEVICE_CONTROL_TABLE.FILTER.DEVICE_AREAS"
+      labelAll="DEVICES.DEVICE_CONTROL_TABLE.FILTER.LABEL_ALL"
       icon="house"
       [items]="deviceAreas.value() || []"
       [currentFilter]="filterByAreaId()"
       (onClick)="setFilterByAreaId($event)"/>
     <!-- Device Types Menu -->
     <app-filter-list
-      [id]="'device-types'"
-      [label]="'DEVICES.DEVICE_CONTROL_TABLE.FILTER.DEVICE_TYPES' | translate"
-      [labelAll]="'DEVICES.DEVICE_CONTROL_TABLE.FILTER.LABEL_ALL' | translate"
+      id="device-types"
+      label="DEVICES.DEVICE_CONTROL_TABLE.FILTER.DEVICE_TYPES"
+      labelAll="DEVICES.DEVICE_CONTROL_TABLE.FILTER.LABEL_ALL"
       icon="device"
       [items]="deviceTypes.value() || []"
       [currentFilter]="filterByTypeId()"

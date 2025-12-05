@@ -2,7 +2,6 @@
 import { Component, inject, OnDestroy, OnInit, output, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { tap } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ToastService } from '@shared/services';
 import { SvgIconComponent } from '@shared/components';
@@ -18,18 +17,10 @@ import { CommonDeviceControlComponent } from '../';
 import { FilterListComponent, FilterListItemComponent } from './components';
 
 
-const Popup = {
-  off : 'off',
-  typeId : 'typesId',
-  areasId : 'areasId'
-} as const;
-type Popups = typeof Popup[keyof typeof Popup];
-
-
 @Component({
   standalone: true,
   selector: 'app-device-control-table',
-  imports: [TranslateModule, SvgIconComponent, CommonDeviceControlComponent, FilterListComponent],
+  imports: [SvgIconComponent, CommonDeviceControlComponent, FilterListComponent],
   templateUrl: './device-control-table-component.html',
 })
 export class DeviceControlTableComponent implements OnInit, OnDestroy {
