@@ -14,12 +14,60 @@
   </div>
 
   <!-- Update button -->
-  <button 
-    class="app-page-header-button"
-    (click)="onUpdateTable()">
-    <!-- Update icon -->
-    <app-svg-icon name="update"/>
-  </button>
+  <div
+    class="
+      flex
+      flex-col md:flex-row
+      justify-center md:justify-end
+      items-center
+      gap-2 "> 
+    <!-- Status -->
+    <div class="flex flex-col justify-center items-start gap-2">
+      <!-- WS Status -->
+      <span
+        class="
+          btn btn-soft
+          btn-xs md:btn-sm
+          text-xs md:text-base
+          tooltip tooltip-left"
+        [class.tooltip-success]="wsIsConnected()"
+        [class.tooltip-error]="!wsIsConnected()"
+        [attr.data-tip]="wsMessage()">
+        <div
+          aria-label="success"
+          class="status status-success"
+          [class.status-success] = "wsIsConnected()"
+          [class.status-error] = "!wsIsConnected()">
+        </div>
+        WS
+      </span>
+      <!-- IO Status -->
+      <span
+        class="
+          btn btn-soft
+          btn-xs md:btn-sm
+          text-xs md:text-base
+          tooltip tooltip-left"
+        [class.tooltip-success]="ioSystemIsConnected()"
+        [class.tooltip-error]="!ioSystemIsConnected()"
+        [attr.data-tip]="ioSystemMessage()">
+        <div
+          aria-label="success"
+          class="status status-success"
+          [class.status-success] = "ioSystemIsConnected()"
+          [class.status-error] = "!ioSystemIsConnected()">
+        </div>
+        IO
+      </span>
+    </div>
+    <button 
+      class="app-page-header-button"
+      (click)="onUpdateTable()">
+      <!-- Update icon -->
+      <app-svg-icon name="update"/>
+    </button>
+  </div>
+  
 </header>
 
 <!-- Main -->

@@ -17,13 +17,12 @@ export class DeviceWebSocketService {
   
   // Properties
   private socket: Socket | null = null;
-  
-  isConnected = signal<boolean>(false);
-  connectionError = signal<string | null>(null);
+  wsMessage = signal<string | null>(null);
+  wsIsConnected = signal<boolean>(false);
+  ioSystemMessage = signal<string | null>(null);
+  ioSystemIsConnected = signal<boolean>(false);
   deviceStatus = signal<DeviceStatusDto>({hwId: '', status: DeviceStatus.unknown});
-  lastAck = signal<string | null>(null);
-  //socketId = signal<string | null>(null);
-
+  
   // Connect to WebSocket
   connect(): void {
     
@@ -41,10 +40,8 @@ export class DeviceWebSocketService {
     // Socket system event handlers
     // ####################################
     this.socket.on('connect', () => {
-      this.connectionError.set(null);
-      this.isConnected.set(this.socket?.connected || false);
-      //this.socketId.set(this.socket?.id || null);
-      
+      this.wsMessage.set('Connected to wsServer');
+      this.wsIsConnected.set(this.socket?.connected || false);
       // Solo por jugar
       /*
       const engine = this.socket?.io.engine;
@@ -74,48 +71,45 @@ export class DeviceWebSocketService {
     });
     
     this.socket.on('disconnect', () => {
-      this.connectionError.set(null);
-      this.isConnected.set(false);
-      //this.socketId.set(null);
+      this.wsMessage.set('Disconnected from wsServer');
+      this.wsIsConnected.set(false);
+      this.ioSystemIsConnected.set(false);
     });
 
     this.socket.on('connect_error', (error) => {
-      this.connectionError.set(error.message);
-      this.isConnected.set(false);
+      this.wsMessage.set(error.message);
+      this.wsIsConnected.set(false);
+      this.ioSystemIsConnected.set(false);
     });
 
     // ####################################
     // Socket user event handlers
     // ####################################
     this.socket.on('connection-success', (data) => {
-      this.connectionError.set(null);
+      console.log('!DELETE DeviceWebSocketService.connection-success data received:', data);
+      this.wsMessage.set('Connection successful');
+      this.wsIsConnected.set(true);
     });
 
     this.socket.on('connection-error', (data) => {
-      this.connectionError.set(data.message);
+      console.log('!DELETE DeviceWebSocketService.connection-error data received:', data);
+      this.wsMessage.set(data.message);
+      this.wsIsConnected.set(false);
+    });
+    
+    this.socket.on('io-system-status-channel', (data: {status: string, isConnected: boolean}) => {
+      console.log('!DELETE DeviceWebSocketService.io-system-status-channel data received:', data);
+      this.ioSystemMessage.set(data.status);
+      this.ioSystemIsConnected.set(data.isConnected);
     });
     
     // Listen for device data updates
     this.socket.on('device-status-channel', (data: DeviceStatusDto) => {
+      //console.log('!DELETE DeviceWebSocketService.device-status-channel data received:', data);
       this.deviceStatus.set(data);
+      //this.ioSystemIsConnected.set(true);
+      //this.ioSystemMessage.set('Receiving device status updates');
     });
-
-    this.socket.on('device-ack-channel', (message) => {
-      this.lastAck.set(message);
-    });
-
-
-    /*
-    // Listen for errors
-    this.socket.on('device-error-from-backend', (error) => {
-      console.error('?DELETE DeviceWebSocketService.connect()->this.socket.on(device-error-from-backend):', error)
-    });
-
-    // Listen for acknowledgments
-    this.socket.on('device-ack-from-backend', (ack) => {
-      console.info('?DELETE DeviceWebSocketService.connect()->this.socket.on(device-ack-from-backend):', ack);
-    });
-    */
   }
 
   // Disconnect from WebSocket
@@ -123,12 +117,11 @@ export class DeviceWebSocketService {
     if (this.socket) {
       this.socket.disconnect();
       this.socket = null;
-      this.isConnected.set(false);
-      this.lastAck.set(null);
-      this.connectionError.set(null);
+      this.wsIsConnected.set(false);
+      this.wsMessage.set('Disconnecting from wsServer');
     }
   }
-
+  
   // Send command
   sendCommand(data: DeviceControlDto): void {
     if (!this.socket?.connected) return;

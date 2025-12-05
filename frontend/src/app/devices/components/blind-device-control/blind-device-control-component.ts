@@ -24,7 +24,8 @@ export class BlindDeviceControlComponent implements OnInit {
   deviceArea = input.required<string>();
 
   // Properties
-  protected isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());
+  protected isConnected = computed<boolean>(() => {
+    return this.deviceWebSocketService.wsIsConnected() && this.deviceWebSocketService.ioSystemIsConnected();});
   protected status = signal<DeviceStatus>(DeviceStatus.unknown);
   protected readonly DeviceStatus = DeviceStatus;
   

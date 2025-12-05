@@ -26,7 +26,6 @@ export class ToastService {
 
   // Methods
   public success(message: string, autoTranslate: boolean = true, duration: number = 3000): void {
-    console.log('!DELETE ha pasado por ToastService success', message);
     if (autoTranslate) message = this.languageService.translation(message);
     this.snackbar.open(message, 'X', {
       duration,
@@ -37,7 +36,6 @@ export class ToastService {
   }
 
   public info(message: string, autoTranslate: boolean = true, duration: number = 3000): void {
-    console.log('!DELETE ha pasado por ToastService info', message);
     if (autoTranslate) message = this.languageService.translation(message);
     this.snackbar.open(message, 'X', {
       duration,
@@ -48,7 +46,6 @@ export class ToastService {
   }
   
   public warning(message: string, autoTranslate: boolean = true, duration: number = 3000): void {
-    console.log('!DELETE ha pasado por ToastService warning', message);
     if (autoTranslate) message = this.languageService.translation(message);
     this.snackbar.open(message, 'X', {
       duration,
@@ -59,7 +56,6 @@ export class ToastService {
   }
 
   public error(message: string, autoTranslate: boolean = true, duration: number = 3000): void {
-    console.log('!DELETE ha pasado por ToastService error', message);
     if (autoTranslate) message = this.languageService.translation(message);
     this.snackbar.open(message, 'X', {
       duration,
@@ -68,5 +64,4 @@ export class ToastService {
       verticalPosition : 'bottom',
     })
   }
-
 }

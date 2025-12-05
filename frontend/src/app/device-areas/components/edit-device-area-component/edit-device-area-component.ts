@@ -60,8 +60,6 @@ export class EditDeviceAreaComponent {
   
   protected loading = computed<boolean>(() => {
     
-    console.log('!DELETE -- CHECK LOADING --!');
-
     if (this.deviceArea.isLoading()) {
       this.form.disable();
     }

@@ -49,6 +49,11 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
     this.ioSystemService.onDeviceStatus((status: DeviceStatusDto) => {
       this.emitDeviceStatus(status);
     });
+    // Subscribe to IO-System connection status updates
+    this.ioSystemService.onIOSystemStatus((status: {status: string, isConnected: boolean}) => {
+      console.log('!DELETE DevicesGateway.constructor()->ioSystemService.onIOSystemStatus:', status);
+      this.emitIOSystemStatus(status);
+    });
   }
   
   // OnGatewayConnection implements this method
@@ -82,7 +87,6 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
-
   }
 
   // ####################################
@@ -90,11 +94,14 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   // ####################################
 
   // Emit device data to all connected clients
-  async emitDeviceStatus(data: DeviceStatusDto) {
-    this.server.emit('device-status-channel', data);
-    //this.logger.debug(`!DELETE Emitted device status: ${JSON.stringify(data)}`);
+  async emitDeviceStatus(data: DeviceStatusDto): Promise<boolean> {
+    return this.server.emit('device-status-channel', data);
   }
-
+  
+  async emitIOSystemStatus({status, isConnected}: {status: string, isConnected: boolean}): Promise<boolean> {
+    return this.server.emit('io-system-status-channel', {status, isConnected});
+  }
+  
   // Emit to specific device room
   /*
   emitToDevice(hwId: string, status: string) {
@@ -110,23 +117,18 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
     @MessageBody() data: DeviceControlDto, @ConnectedSocket() client: Socket) {
     // Try to send command to IO-System
     try {
-      const done = this.ioSystemService.sendDeviceControl(data);
-      
-      //this.logger.debug(`!DELETE Received device command from client ${client.id}: ${JSON.stringify(data)}, sent to IO-System: ${done}`);
-      
+      const done = await this.ioSystemService.sendDeviceControl(data);
       // Broadcast to all connected clients (or specific room)
       //this.server.emit('device-ack-channel', {message: `Device hwId ${data.hwId} command received`});
-
       // Error
       if (!done) {
-        client.emit('device-ack-channel', {hwId: data.hwId, type: 'error', message: 'IO-System no connected'});
+        client.emit('io-system-status-channel', {status: 'IO-System does not respond', isConnected: false});
         return;
       }
-      // Done
-      client.emit('device-ack-channel', {hwId: data.hwId, type: 'success', message: 'IO-System received command'});
+      
     // Sending error
     } catch (error) {
-      client.emit('device-ack-channel', {hwId: data.hwId, type: 'error', message: error.message});
+      client.emit('io-system-status-channel', {status: `IO-System error: ${error.message}`, isConnected: false});
     }
   }
   

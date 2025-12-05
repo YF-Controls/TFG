@@ -9,7 +9,6 @@ import type { IOSystemModuleOptions } from './interfaces';
 import { IO_SYSTEM_OPTIONS } from './constants';
 
 
-
 @Injectable()
 export class IOSystemService implements OnModuleInit, OnModuleDestroy {
   
@@ -21,16 +20,17 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
   private maxReconnectAttempts: number;
   private reconnectDelay: number;
   private isConnecting = false;
+
   // Configuration
   private readonly host: string;
   private readonly port: number;
+
   // Callbacks for received data
   private onDeviceStatusReceived: ((status: DeviceStatusDto) => void) | null = null;
+  private onIOSystemStatusReceived: ((status: {status: string, isConnected: boolean}) => void) | null = null;
 
   // Constructor
-  constructor(
-    @Inject(IO_SYSTEM_OPTIONS) private options: IOSystemModuleOptions,
-  ) {
+  constructor(@Inject(IO_SYSTEM_OPTIONS) private options: IOSystemModuleOptions,) {
     this.host = options.host;
     this.port = options.port;
     this.maxReconnectAttempts = options.maxReconnectAttempts ?? 10;
@@ -56,7 +56,6 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
   // ####################################
   // Methods
   // ####################################
-
   // Connect to IO-System TCP server
   connect(): void {
     if (this.isConnecting || this.client?.connecting) {
@@ -82,20 +81,23 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
       this.logger.log('Connected to IO-System');
       this.isConnecting = false;
       this.reconnectAttempts = 0;
-      
+      // Call callback if registered
+      setTimeout(() => {
+        if (this.onIOSystemStatusReceived) this.onIOSystemStatusReceived({status: 'IO-System connected', isConnected: true});
+      }, 500);
+     
       // Clear reconnect interval if exists
       if (this.reconnectInterval) {
         clearInterval(this.reconnectInterval);
         this.reconnectInterval = null;
       }
     });
-
+    
     // Receive data from IO-System
     this.client.on('data', (buffer: Buffer) => {
       // Parse JSON (assuming IO-System sends JSON)
       const data = buffer.toString('utf-8');
       const status: DeviceStatusDto = this.binaryToDeviceStatus(data);
-      //this.logger.debug(`!DELETE received: ${data} parsed: ${JSON.stringify(status)}`);
       // Call callback if registered
       if (this.onDeviceStatusReceived) this.onDeviceStatusReceived(status);
     });
@@ -105,12 +107,16 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
       this.logger.warn('Connection to IO-System closed');
       this.isConnecting = false;
       this.handleReconnect();
+      // Call callback if registered
+      if (this.onIOSystemStatusReceived) this.onIOSystemStatusReceived({status: 'IO-System disconnected', isConnected: false});
     });
-
+    
     // Connection error
     this.client.on('error', (error) => {
       this.logger.error(`IO-System connection error: ${JSON.stringify(error)}`);
       this.isConnecting = false;
+      // Call callback if registered
+      if (this.onIOSystemStatusReceived) this.onIOSystemStatusReceived({status: `IO-System error: ${error.message}`, isConnected: false});
     });
     // ####################################
 
@@ -136,27 +142,33 @@ export class IOSystemService implements OnModuleInit, OnModuleDestroy {
   }
 
   // Send device control command to IO-System
-  sendDeviceControl(control: DeviceControlDto): boolean {
-    // Check connection
-    if (!this.client || this.client.destroyed) {
-      this.logger.error('Cannot send command: Not connected to IO-System');
-      return false;
-    }
-    // Try sending command
-    try {
-      const message = this.deviceCommandToBinary(control);
-      this.client.write(message);
-      return true;
-    // Sending error
-    } catch (error) {
-      this.logger.error(`Error sending command to IO-System: ${error.message}`);
-      return false;
-    }
+  sendDeviceControl(control: DeviceControlDto): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      // Check connection
+      if (!this.client || this.client.destroyed) {
+        reject(new Error('Not connected to IO-System'));
+        return;
+      }
+      // Try sending command
+      try {
+        const message = this.deviceCommandToBinary(control);
+        this.client.write(message, (err: Error | null) => {
+          if (err) reject(err);
+          resolve(true);
+        });
+      // Sending error
+      } catch (error) {reject(error);}
+    });
   }
 
   // Register callback for status updates
   onDeviceStatus(callback: (status: DeviceStatusDto) => void): void {
     this.onDeviceStatusReceived = callback;
+  }
+
+  // Register callback for IO-System status updates
+  onIOSystemStatus(callback: (status: {status: string, isConnected: boolean}) => void): void {
+    this.onIOSystemStatusReceived = callback;
   }
 
   // Check if connected

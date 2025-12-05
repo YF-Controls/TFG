@@ -56,7 +56,6 @@ export class LoginUserComponent {
         // Done
         this.toast.success('AUTH.LOGIN_USER.TOAST.SUCCESS');
         this.router.navigateByUrl(AppPaths.DEVICES);
-        console.log('!DELETE ha pasado por LoginUserComponent');
     });
   }
     

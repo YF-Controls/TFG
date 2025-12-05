@@ -26,7 +26,8 @@ export class CommonDeviceControlComponent implements OnInit {
   deviceArea = input.required<string>();
 
   // Properties
-  protected isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());
+  protected wsIsConnected = computed<boolean>(() => this.deviceWebSocketService.wsIsConnected());
+  protected ioSystemIsConnected = computed<boolean>(() => this.deviceWebSocketService.ioSystemIsConnected());
   protected status = signal<DeviceStatus>(DeviceStatus.unknown);
   protected readonly DeviceStatus = DeviceStatus;
   
@@ -46,7 +47,7 @@ export class CommonDeviceControlComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.isConnected()) return;
+    if (!this.wsIsConnected()) return;
     this.deviceWebSocketService.sendCommand({
       hwId: this.device().hwId,
       command: DeviceCommand.getStatus});
@@ -54,14 +55,14 @@ export class CommonDeviceControlComponent implements OnInit {
 
   // Methods
   setOn () {
-    if (!this.isConnected()) return;
+    if (!this.wsIsConnected()) return;
     this.deviceWebSocketService.sendCommand({
       hwId: this.device().hwId,
       command: DeviceCommand.on});
   }
 
   setOff () {
-    if (!this.isConnected()) return;
+    if (!this.wsIsConnected()) return;
     this.deviceWebSocketService.sendCommand({
       hwId: this.device().hwId,
       command: DeviceCommand.off});

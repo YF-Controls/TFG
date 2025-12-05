@@ -33,7 +33,6 @@ export class LayoutLogoutButtonComponent {
 
   // Methods
   protected logout() {
-    console.log('!DELETE LayoutLogoutButtonComponent.logout() called');
     // Confirm popup
     const dialogRef = this.dialog.open(ConfirmComponent, {
       disableClose: false,
@@ -44,7 +43,6 @@ export class LayoutLogoutButtonComponent {
         message: 'SHARED.LOGOUT_BUTTON.POPUP.MESSAGE' 
       }
     });
-    console.log('!DELETE Dialog opened', dialogRef);
     // After closed
     dialogRef.closed.subscribe((confirmed) => {
       if (confirmed) {

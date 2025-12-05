@@ -17,7 +17,6 @@ export const IsAdminGuard: CanMatchFn = async (
   const userApi = inject(UserApi);
   const toast = inject(ToastService);
   const router = inject(Router);
-  
   // Get auth status
   try {
     await firstValueFrom(userApi.checkUser());
@@ -25,15 +24,11 @@ export const IsAdminGuard: CanMatchFn = async (
     router.navigateByUrl(AppPaths.FULL_LOGIN);
     return false;
   }
-  
   // Check authentication
   if (userApi.status() !== AuthStatus.authenticated) {
     router.navigateByUrl(AppPaths.FULL_LOGIN);
     return false;
   }
-  
-  console.log('!DELETE ME! IsAdminGuard - user roles:', userApi.user()?.roles);
-
   // Check admin role
   if (!userApi.isAdmin()) {
     // Show toast

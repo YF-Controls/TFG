@@ -25,18 +25,18 @@ import { IOSystemModule } from '@io-system/io-system.module';
       autoLoadEntities: true,
       synchronize: true, // In production must be false
     }),
-
-    AuthModule,
-    DevicesModule,
-    DeviceTypesModule,
-    DeviceAreasModule,
-    CommonModule,
     IOSystemModule.forRoot({
       host: process.env.IO_SYSTEM_HOST || 'localhost',
       port: parseInt(process.env.IO_SYSTEM_PORT || '2000', 10),
       maxReconnectAttempts: 10,
       reconnectDelay: 5000,
     }),
+    AuthModule,
+    DevicesModule,
+    DeviceTypesModule,
+    DeviceAreasModule,
+    CommonModule,
+
   ],
 })
 export class AppModule {}

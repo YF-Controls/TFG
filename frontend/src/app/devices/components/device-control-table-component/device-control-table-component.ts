@@ -36,7 +36,6 @@ export class DeviceControlTableComponent implements OnInit, OnDestroy {
   totalChanged = output<number>();
    
   // Properties
-  protected  isConnected = computed<boolean>(() => this.deviceWebSocketService.isConnected());
   protected showMenu = signal<boolean>(true);
   protected orderBy = signal<string>('number');
   protected filterByTypeId = signal<string | null>(null);
