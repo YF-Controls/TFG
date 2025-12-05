@@ -16,8 +16,8 @@ async function bootstrap() {
   app.use(cookieParser(process.env.COOKIE_SECRET)); // It's redundant
   // Enable CORS to use cookies from frontend
   app.enableCors({
-    origin: 'http://localhost:4200',
-    //origin: true, // Allow all origins - adjust for production!
+    //origin: 'http://localhost:4200',
+    origin: true, // Allow all origins in development - adjust for production!
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true, // Important for cookies!
   });
@@ -40,11 +40,9 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
-
-
-
+  
   // Listen
-  await app.listen(process.env.PORT!);
+  await app.listen(process.env.PORT!, '0.0.0.0');
   // Log
   logger.log(`App running on port ${ process.env.PORT }`);
 }

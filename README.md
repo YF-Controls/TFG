@@ -207,3 +207,20 @@ npm i chart.js
 cd frontend
 npm i socket.io-client
 ```
+
+## Development
+
+1. Backend listen on 0.0.0.0
+
+2. Windows firewall ruler:
+
+```shell
+New-NetFirewallRule -DisplayName "Node Backend" -Direction Inbound -Protocol TCP -LocalPort 4000 -Action Allow
+```
+
+Notes de fallos y otras cosas:
+
+* Frontend. He puesto IP y ya no voy por local host, pero la petición HTTP la sigue haciendo con localhost
+
+> Op. 1: En el navegador vamos a DevTools -> Network -> Check en Disable chache
+> Op. 2: Limpiar la caché de compilación de angular: ve a `frontend/.angular` y elimina la carpeta `/cache`

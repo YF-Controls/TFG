@@ -29,6 +29,7 @@ export class AuthService {
   // CRUD Methods
   // Create: save()
   async registerOne(registerUserDto: RegisterUserDto) {
+    this.logger.debug(`Registering user: ${JSON.stringify(registerUserDto)}`);
     try {
       // password, email, fullName...
       const { password, ...userData } = registerUserDto;
@@ -51,6 +52,7 @@ export class AuthService {
   
   // Read: findOne()
   async loginOne( loginUserDto : LoginUserDto) {
+    this.logger.debug(`Logging in user: ${JSON.stringify(loginUserDto)}`);
     // Get data
     const {email, password} = loginUserDto;
     // Find user
@@ -73,6 +75,7 @@ export class AuthService {
 
   // Read: findAll()
   async findAll(queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding all users with query params: ${JSON.stringify(queryParamsDto)}`);
     // Check query parametes
     const {
       limit = null,
@@ -91,6 +94,7 @@ export class AuthService {
   
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding user with ID: ${id} and query params: ${JSON.stringify(queryParamsDto)}`);
     // Query and return
     return await this.repository.findOne({
       where : buildWhereClauseFn(queryParamsDto, id),
@@ -99,6 +103,7 @@ export class AuthService {
   
   // Read: user
   async checkUser(user: User) {
+    this.logger.debug(`Checking user with ID: ${user.id}`);
     // Delete password to send response
     delete user.password;
     // Return user info
@@ -110,6 +115,7 @@ export class AuthService {
   
   // Update: update()
   async updateOne(id: string, updateUserDto: UpdateUserDto) {
+    this.logger.debug(`Updating user with ID: ${id} and data: ${JSON.stringify(updateUserDto)}`);
     // Query
     const result = await this.repository.update(
       {id},
@@ -122,6 +128,7 @@ export class AuthService {
   
   // Delete: delete()
   async deleteOne(id: string) {
+    this.logger.debug(`Deleting user with ID: ${id}`);
     // Return
     return await this.repository.delete({id});
   }

@@ -51,7 +51,6 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
     });
     // Subscribe to IO-System connection status updates
     this.ioSystemService.onIOSystemStatus((status: {status: string, isConnected: boolean}) => {
-      console.log('!DELETE DevicesGateway.constructor()->ioSystemService.onIOSystemStatus:', status);
       this.emitIOSystemStatus(status);
     });
   }

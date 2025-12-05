@@ -26,22 +26,22 @@ export class DeviceTypesService {
   // CRUD Methods
   // Create: save()
   async createOne(createDeviceTypeDto: CreateDeviceTypeDto) {
+    this.logger.debug(`Creating device type: ${JSON.stringify(createDeviceTypeDto)}`);
     const item = this.repository.create(createDeviceTypeDto);
     return this.repository.save(item);
   }
 
     // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding all device types with query params: ${JSON.stringify(queryParamsDto)}`);
     // Check query parametes
     const {
       limit = null,
       offset = 0,
       orderBy = 'id',
       orderDirection = 'ASC' } = queryParamsDto;
-
     // Query and return
-    const result = await this.repository.find({
-      ...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
+    const result = await this.repository.find({...(limit && Number.isInteger(limit) && limit > 0 && { take: limit }),
       skip : offset,
       order : { [orderBy] : orderDirection },
       where: buildWhereClauseFn(queryParamsDto),
@@ -52,6 +52,7 @@ export class DeviceTypesService {
 
   // Read: findeOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding device type with ID: ${id} and query params: ${JSON.stringify(queryParamsDto)}`);
     // Query and return
     const result = await this.repository.findOne({
       where : buildWhereClauseFn(queryParamsDto, id),
@@ -62,6 +63,7 @@ export class DeviceTypesService {
 
   // Update: update()
   async updateOne(id: string, updateDeviceTypeDto: UpdateDeviceTypeDto) {
+    this.logger.debug(`Updating device type with ID: ${id} and data: ${JSON.stringify(updateDeviceTypeDto)}`);
     // Query
     const result = await this.repository.update(
       {id},
@@ -76,6 +78,7 @@ export class DeviceTypesService {
   
   // Delete: delete()
   async deleteOne(id: string) {
+    this.logger.debug(`Deleting device type with ID: ${id}`);
     // Return
     const result = await this.repository.delete({id});
     // Log

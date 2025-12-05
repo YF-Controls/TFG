@@ -109,6 +109,8 @@ export class UserApi {
   
   // Login: POST
   login(loginUserDto: LoginUserDto): Observable<string | null> {
+    console.log(`!DELETE UserApi.login(): loginUserDto: ${JSON.stringify(loginUserDto)}`);
+    console.log(`!DELETE UserApi.login(): LOGIN_URL: ${LOGIN_URL}`);
     return this.http.post<AuthResponse>(LOGIN_URL, loginUserDto, { withCredentials: true })
       .pipe(
         map((authResponse: AuthResponse) => this.handleAuthSuccess(authResponse)), // Return true

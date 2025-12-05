@@ -86,29 +86,25 @@ export class DeviceWebSocketService {
     // Socket user event handlers
     // ####################################
     this.socket.on('connection-success', (data) => {
-      console.log('!DELETE DeviceWebSocketService.connection-success data received:', data);
       this.wsMessage.set('Connection successful');
       this.wsIsConnected.set(true);
     });
 
     this.socket.on('connection-error', (data) => {
-      console.log('!DELETE DeviceWebSocketService.connection-error data received:', data);
       this.wsMessage.set(data.message);
       this.wsIsConnected.set(false);
     });
     
     this.socket.on('io-system-status-channel', (data: {status: string, isConnected: boolean}) => {
-      console.log('!DELETE DeviceWebSocketService.io-system-status-channel data received:', data);
       this.ioSystemMessage.set(data.status);
       this.ioSystemIsConnected.set(data.isConnected);
     });
     
     // Listen for device data updates
     this.socket.on('device-status-channel', (data: DeviceStatusDto) => {
-      //console.log('!DELETE DeviceWebSocketService.device-status-channel data received:', data);
       this.deviceStatus.set(data);
-      //this.ioSystemIsConnected.set(true);
-      //this.ioSystemMessage.set('Receiving device status updates');
+      this.ioSystemIsConnected.set(true);
+      this.ioSystemMessage.set('Receiving device status updates');
     });
   }
 

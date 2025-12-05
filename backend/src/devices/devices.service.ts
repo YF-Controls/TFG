@@ -29,6 +29,7 @@ export class DevicesService {
   // CRUD Methods
   // Create: save()
   async createOne(createDeviceDto: CreateDeviceDto) {
+    this.logger.debug(`Creating device: ${JSON.stringify(createDeviceDto)}`);
     // Check device type
     const deviceType = await this.deviceTypeRepository.findOne({where : {id: createDeviceDto.deviceTypeId}});
     if (!deviceType) throw new NotFoundException(`Device type with ID ${createDeviceDto.deviceTypeId} was not found`);
@@ -41,13 +42,14 @@ export class DevicesService {
     const device = this.deviceRepository.create(createDeviceDto);
     // Build hwId
     device.hwId = this.buildHwId(deviceArea.hwId, deviceType.hwId, device.number);
-    // Save    
+    // Save 
     return await this.deviceRepository.save(device);
   }
 
 
   // Read: findAll()
   async findAll(queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding all devices with query params: ${JSON.stringify(queryParamsDto)}`);
     // Check query parametes for limit, offset and order
     const {
       limit = null,
@@ -67,6 +69,7 @@ export class DevicesService {
 
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding device with ID: ${id} and query params: ${JSON.stringify(queryParamsDto)}`);
     // Query and return
     return await this.deviceRepository.findOne({
       where : buildWhereClauseFn(queryParamsDto, id),
@@ -75,6 +78,7 @@ export class DevicesService {
   
   // Read: findOneByHwId()
   async findOneByHwId(hwId: string, queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding device with hwId: ${hwId} and query params: ${JSON.stringify(queryParamsDto)}`);
     // Query and return
     return await this.deviceRepository.findOne({
       where : {
@@ -84,6 +88,7 @@ export class DevicesService {
   
   // Update: update()
   async updateOne(id: string, updateDeviceDto: UpdateDeviceDto) {
+    this.logger.debug(`Updating device with ID: ${id} and data: ${JSON.stringify(updateDeviceDto)}`);
     // Get
     const device = await this.deviceRepository.findOne({
       where: { id },
@@ -132,6 +137,7 @@ export class DevicesService {
 
   // Delete: delete()
   async deleteOne(id: string) {
+    this.logger.debug(`Deleting device with ID: ${id}`);
     const device = await this.deviceRepository.findOne({where: {id}});
     if (!device) throw new NotFoundException(`Device with ID ${id} was not found`);
     await this.deviceRepository.remove(device);
@@ -143,5 +149,4 @@ export class DevicesService {
     return `${deviceAreaHwId.toLowerCase().trim()}-${deviceTypeHwId.toLowerCase().trim()}-${number.toString().padStart(4, '0') }`;
   }
   
- 
 }

@@ -25,6 +25,7 @@ export class DeviceAreasService {
   // CRUD Methods
   // Create: save()
   async createOne(createDeviceAreaDto: CreateDeviceAreaDto) {
+    this.logger.debug(`Creating device area: ${JSON.stringify(createDeviceAreaDto)}`);
     // Create
     const item = this.repository.create(createDeviceAreaDto);
     // Query
@@ -35,6 +36,7 @@ export class DeviceAreasService {
 
   // Read: find()
   async findAll(queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding all device areas with query params: ${JSON.stringify(queryParamsDto)}`);
     // Check query parametes
     const {
       limit = null,
@@ -52,6 +54,7 @@ export class DeviceAreasService {
 
   // Read: findOne()
   async findOne(id: string, queryParamsDto: QueryParamsDto) {
+    this.logger.debug(`Finding device area with ID: ${id} and query params: ${JSON.stringify(queryParamsDto)}`);
     // Query and return
     return await this.repository.findOne({
       where : buildWhereClauseFn(queryParamsDto, id),
@@ -60,6 +63,7 @@ export class DeviceAreasService {
     
   // Update: update()
   async updateOne(id: string, updateDeviceAreaDto: UpdateDeviceAreaDto) {
+    this.logger.debug(`Updating device area with ID: ${id} and data: ${JSON.stringify(updateDeviceAreaDto)}`);
     // Query
     const result = await this.repository.update(
       {id},
@@ -72,6 +76,7 @@ export class DeviceAreasService {
   
   // Delete: delete()
   async deleteOne(id: string) {
+    this.logger.debug(`Deleting device area with ID: ${id}`);
     // Return
     return await this.repository.delete({id});
   }
