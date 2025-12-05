@@ -1,7 +1,7 @@
 // System
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DialogRef } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ToastService } from '@shared/services';
@@ -19,6 +19,7 @@ import { DeviceAreaApi } from '@device-areas/services';
 export class CreateDeviceAreaComponent {
 
   // Injections
+  protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialogRef = inject(DialogRef, { optional: true });
   protected readonly toast = inject(ToastService);
   protected readonly deviceAreaApi = inject(DeviceAreaApi);
@@ -40,10 +41,8 @@ export class CreateDeviceAreaComponent {
       this.toast.error('DEVICE_AREAS.CREATE_DEVICE_AREA.TOAST.FORM_ERROR');
       return;
     }
-    
     // Get from data
     const { name = '', hwId = '', description = '', isActive = false} = this.form.value;
-    
     // Send to api
     this.deviceAreaApi.createOne({ name, hwId, description, isActive })
       .subscribe( errorMessage => {

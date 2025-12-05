@@ -6,10 +6,23 @@
       <!-- status -->
       @switch (status()) {
         @case (DeviceStatus.isOn) {
-          <app-svg-icon name="lamp" customClass="text-green-500"/>
+          <app-svg-icon
+            [name]="device().deviceType?.hwId === 'lamp' ? 'lamp' : 'device'"
+            customClass="text-green-500"/>
         }
         @case (DeviceStatus.isOff) {
-          <app-svg-icon name="lamp" customClass="text-grey-500"/>
+          <app-svg-icon
+            [name]="device().deviceType?.hwId === 'lamp' ? 'lamp' : 'device'"
+            customClass="text-grey-500"/>
+        }
+        @case (DeviceStatus.isStopped) {
+          <app-svg-icon name="circle-solid-stop" customClass="text-grey-500"/>
+        }
+        @case (DeviceStatus.isGoingDown) {
+          <app-svg-icon name="circle-solid-down" customClass="text-green-500"/>
+        }
+        @case (DeviceStatus.isGoingUp) {
+          <app-svg-icon name="circle-solid-up" customClass="text-green-500"/>
         }
         @default {
           <app-svg-icon name="lamp" customClass="text-white"/>
@@ -22,18 +35,30 @@
       
     </div>
     
-    <p class="text-sm italic text-primary/50">{{ this.deviceArea() }}</p>
+    <p class="text-sm italic text-primary/50">{{ this.device().deviceArea?.name }}</p>
     
     <div class="card-actions justify-end">
-      <button class="btn btn-primary hover:btn-secondary w-10" (click)="setOff()">
-        OFF
-      </button>
-      <button class="btn btn-primary hover:btn-secondary w-10" (click)="setOn()">
-        ON
-      </button>
+      @if (device().deviceType?.hwId === 'lamp' || device().deviceType?.hwId === 'appl') {
+        <button class="btn btn-primary hover:btn-secondary w-10" (click)="setOff()">
+          OFF
+        </button>
+        <button class="btn btn-primary hover:btn-secondary w-10" (click)="setOn()">
+          ON
+        </button>
+      }
+      @else if (device().deviceType?.hwId === 'blnd') {
+        <button class="btn btn-primary hover:btn-secondary w-10" (click)="setDown()">
+          <app-svg-icon name="arrow-down"/>
+        </button>
+
+        <button class="btn btn-primary hover:btn-secondary w-10" (click)="setStop()">
+          <app-svg-icon name="solid-stop"/>
+        </button>
+
+        <button class="btn btn-primary hover:btn-secondary w-10" (click)="setUp()">
+          <app-svg-icon name="arrow-up"/>
+        </button>
+      }
     </div>
-
-    
-
   </div>
 </div>

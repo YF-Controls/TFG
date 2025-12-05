@@ -19,8 +19,7 @@
   <!-- Loading -->
   @if (device.isLoading() ) {
     <div 
-      id="loading"
-      class="
+       class="
         fixed top-1/2 left-1/2 z-10
         -translate-x-1/2 -translate-y-1/2
         p-20
@@ -165,7 +164,7 @@
       <div class="app-form-field-submit">
         <button 
           type="submit" 
-          [disabled]="device.isLoading()"
+          [disabled]="device.isLoading() || !form.valid"
           class="app-form-field-submit-button">
           <app-svg-icon name="edit"/>
         </button>

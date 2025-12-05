@@ -1,14 +1,14 @@
 // System
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 // Other modules
-import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
+import { ToastService } from '@shared/services';
 // This module
 import { DeviceTypeApi } from '@device-types/services';
 import { DeviceType } from '@device-types/interfaces';
@@ -18,7 +18,7 @@ import { DeviceType } from '@device-types/interfaces';
 @Component({
   standalone : true,
   selector: 'app-edit-device-type',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent],
+  imports: [TranslateModule, SvgIconComponent ,ReactiveFormsModule, FormFieldErrorComponent],
   templateUrl: './edit-device-type-component.html',
 })
 export class EditDeviceTypeComponent {
@@ -44,29 +44,23 @@ export class EditDeviceTypeComponent {
   protected deviceType = rxResource<DeviceType, {deviceTypeId: string}> ({
     params: () => ({ deviceTypeId: this.deviceTypeId() }),
     stream: ({params}) => {
-      // Disable form while loading
-      this.form.disable();
-      // Get
+      this.form.disable(); // Disable form while loading
       return this.deviceTypeApi.getOne(params.deviceTypeId, {})
         .pipe(
-          tap({
-            next: (deviceType: DeviceType) => {
-              this.form.setValue({
-                name: deviceType.name,
-                hwId: deviceType.hwId,
-                description: deviceType.description,
-                isActive: deviceType.isActive,
-              });
-              this.form.enable();
-            },
-            error: (error: HttpErrorResponse) => {
-              this.toast.error(error.message, false);
-              this.dialogRef?.close(false);
-            }
-          })
-        );
-    },
-  });
+          tap(data => {
+            this.form.setValue({ // Set form values when loaded
+              name: data.name,
+              hwId: data.hwId,
+              description: data.description,
+              isActive: data.isActive,
+            });
+            this.form.enable(); // enable form
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toast.error(error.message, false); // Show toast
+            this.dialogRef?.close(false); // Close dialog
+            return [];
+  }))}});
 
   // Methods  
   protected onSubmit() {

@@ -99,8 +99,9 @@
       <!-- Submit button -->
       <div class="app-form-field-submit">
         <button 
-          type="submit" 
-          class="app-form-field-submit-button">
+          class="app-form-field-submit-button"  
+          [disabled]="!form.valid"
+          type="submit">
           <app-svg-icon name="add"/>
         </button>
       </div>

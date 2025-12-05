@@ -1,20 +1,21 @@
 // System modules
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { TranslateModule } from '@ngx-translate/core';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { catchError } from 'rxjs';
 // Other modules
+import { DeviceArea } from '@device-areas/interfaces';
+import { DeviceAreaApi } from '@device-areas/services';
+import { DeviceType } from '@device-types/interfaces';
+import { DeviceTypeApi } from '@device-types/services';
 import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 import { FormUtils } from '@utils/form-utils';
-import { DeviceAreaApi } from '@device-areas/services';
-import { DeviceTypeApi } from '@device-types/services';
-import { DeviceArea } from '@device-areas/interfaces';
-import { DeviceType } from '@device-types/interfaces';
 // This module
 import { DeviceApi } from '@devices/services';
-
 
 
 @Component({
@@ -36,11 +37,25 @@ export class CreateDeviceComponent {
   
   // Properties
   protected deviceAreas = rxResource<DeviceArea[], null>({
-    stream  : () => this.deviceAreaApi.getAll({orderBy: 'name', filterBy: ['isActive'], filterValue: ['true']}),
+    stream  : () => this.deviceAreaApi.getAll({orderBy: 'name', filterBy: ['isActive'], filterValue: ['true']})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.toast.error(error.message, false); // Show toast
+          this.dialogRef?.close(false); // Close dialog
+          return [];
+        })
+      )
   });
 
   protected deviceTypes = rxResource<DeviceType[], null>({
-    stream: () => this.deviceTypeApi.getAll({ orderBy: 'name', filterBy: ['isActive'], filterValue: ['true'] }),
+    stream: () => this.deviceTypeApi.getAll({ orderBy: 'name', filterBy: ['isActive'], filterValue: ['true'] })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.toast.error(error.message, false); // Show toast
+          this.dialogRef?.close(false); // Close dialog
+          return [];
+        })
+      )
   });
   
   protected form: FormGroup = this.fb.group({

@@ -6,8 +6,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 // Other modules
 import { AppPaths } from 'src/app/app.paths';
-import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
+import { ToastService } from '@shared/services';
 // This module
 import { UserApi } from '@auth/services';
 
@@ -35,8 +35,8 @@ export class RegisterUserComponent {
     password1: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required, Validators.minLength(6)]],
   });
-  showPassword1 = signal<boolean>(false);
-  showPassword2 = signal<boolean>(false);
+  protected showPassword1 = signal<boolean>(false);
+  protected showPassword2 = signal<boolean>(false);
   protected isPopup = signal<boolean>(!!this.dialogData?.isPopup);
 
   // Methods
@@ -47,15 +47,13 @@ export class RegisterUserComponent {
       this.toast.error('AUTH.REGISTER_USER.TOAST.FORM_ERROR');
       return;
     }
-    
     // Get form data
     const {email = '', fullname = '', password1 = '', password2 = ''} = this.form.value;
-
+    // Check password match
     if (password1 !== password2) {
       this.toast.error('AUTH.REGISTER_USER.TOAST.PASSWORD_MISMATCH');
       return;
     }
-    
     // Send to api
     this.userApi.createOne({email, fullname, password: password1})
       .subscribe(errorMessage => {

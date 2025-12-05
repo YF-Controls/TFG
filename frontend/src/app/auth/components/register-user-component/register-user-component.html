@@ -113,6 +113,7 @@
         <button 
           class="app-form-field-submit-button"
           tabindex="5"
+          [disabled]="!form.valid"
           type="submit">
           {{ 'AUTH.REGISTER_USER.FORM.SUBMIT_BUTTON' | translate }}
         </button>

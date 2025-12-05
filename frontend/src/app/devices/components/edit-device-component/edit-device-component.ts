@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 // Other modules
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
 import { ToastService } from '@shared/services';
@@ -15,8 +15,9 @@ import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceType } from '@device-types/interfaces';
 import { DeviceTypeApi } from '@device-types/services';
 // This module
-import { DeviceApi } from '@devices/services';
 import { Device } from '@devices/interfaces';
+import { DeviceApi } from '@devices/services';
+
 
 
 @Component({
@@ -50,42 +51,50 @@ export class EditDeviceComponent {
   }); 
   
   protected deviceAreas = rxResource<DeviceArea[], null>({
-    stream  : () => this.deviceAreaApi.getAll({orderBy: 'name', filterBy: ['isActive'], filterValue: ['true']}),
+    stream  : () => this.deviceAreaApi.getAll({orderBy: 'name', filterBy: ['isActive'], filterValue: ['true']})
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.toast.error(error.message, false); // Show toast
+          this.dialogRef?.close(false); // Close dialog
+          return [];
+        })
+      )
   });
 
   protected deviceTypes = rxResource<DeviceType[], null>({
-    stream: () => this.deviceTypeApi.getAll({ orderBy: 'name', filterBy: ['isActive'], filterValue: ['true'] }),
+    stream: () => this.deviceTypeApi.getAll({ orderBy: 'name', filterBy: ['isActive'], filterValue: ['true'] })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.toast.error(error.message, false); // Show toast
+          this.dialogRef?.close(false); // Close dialog
+          return [];
+        })
+      )
   });
   
   protected device = rxResource<Device, {deviceId: string}> ({
     params: () => ({ deviceId: this.deviceId() }),
     stream: ({params}) => {
-      // Disable form while loading
-      this.form.disable();
-      // Get
+      this.form.disable(); // Disable form while loading
       return this.deviceApi.getOne(params.deviceId, {})
         .pipe(
-          tap({
-            next: (device: Device) => {
-              this.form.setValue({
-                name: device.name,
-                number: device.number,
-                description: device.description,
-                isActive: device.isActive,
-                deviceTypeId: device.deviceTypeId,
-                deviceAreaId: device.deviceAreaId
-              });
-              this.form.enable();
-          },
-            error: (error: HttpErrorResponse) => {
-              this.toast.error(error.message, false);
-              this.dialogRef?.close(false);
-            }
-          })
-        );
-    },
-  });
-  
+          tap((device: Device) => {
+            this.form.setValue({ // Set form values when loaded
+              name: device.name,
+              number: device.number,
+              description: device.description,
+              isActive: device.isActive,
+              deviceTypeId: device.deviceTypeId,
+              deviceAreaId: device.deviceAreaId
+            });
+            this.form.enable(); // enable form
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toast.error(error.message, false); // Show toast
+            this.dialogRef?.close(false); // Close dialog
+            return [];
+  }))}});
+
   // Methods
   protected onSubmit() {
     // Exit with toast if invalid form
@@ -94,11 +103,9 @@ export class EditDeviceComponent {
       this.toast.error('DEVICES.EDIT_DEVICE.TOAST.FORM_ERROR');
       return;
     }
-
     // Get form data
     const { name = '', number = 0, description = '', isActive = false, deviceTypeId = '', deviceAreaId = ''} = this.form.value;
     const numericNumber = Number(number);
-    
     // Send to api
     this.deviceApi.updateOne(this.deviceId(), { name, number: numericNumber, description, isActive, deviceTypeId,  deviceAreaId })
       .subscribe( errorMessage => {

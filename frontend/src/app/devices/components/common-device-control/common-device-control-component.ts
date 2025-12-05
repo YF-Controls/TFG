@@ -22,9 +22,7 @@ export class CommonDeviceControlComponent implements OnInit {
   
   // IO
   device = input.required<Device>();
-  deviceType = input.required<string>();
-  deviceArea = input.required<string>();
-
+  
   // Properties
   protected wsIsConnected = computed<boolean>(() => this.deviceWebSocketService.wsIsConnected());
   protected ioSystemIsConnected = computed<boolean>(() => this.deviceWebSocketService.ioSystemIsConnected());
@@ -67,5 +65,27 @@ export class CommonDeviceControlComponent implements OnInit {
       hwId: this.device().hwId,
       command: DeviceCommand.off});
   }
+
+    setUp () {
+    if (!this.wsIsConnected()) return;
+    this.deviceWebSocketService.sendCommand({
+      hwId: this.device().hwId,
+      command: DeviceCommand.up});
+  }
+
+  setDown () {
+    if (!this.wsIsConnected()) return;
+    this.deviceWebSocketService.sendCommand({
+      hwId: this.device().hwId,
+      command: DeviceCommand.down});
+  }
+  
+  setStop () {
+    if (!this.wsIsConnected()) return;
+    this.deviceWebSocketService.sendCommand({
+      hwId: this.device().hwId,
+      command: DeviceCommand.stop});
+  }
+
   
  }

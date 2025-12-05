@@ -1,7 +1,7 @@
 // System
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DialogRef } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 // Other modules
 import { ToastService } from '@shared/services';
@@ -13,12 +13,13 @@ import { DeviceTypeApi } from '@device-types/services';
 @Component({
   standalone : true,
   selector: 'app-create-device-type',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent],
+  imports: [TranslateModule, SvgIconComponent, ReactiveFormsModule, FormFieldErrorComponent],
   templateUrl: './create-device-type-component.html',
 })
 export class CreateDeviceTypeComponent {
 
   // Injections
+  protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialogRef = inject(DialogRef, { optional: true });
   protected readonly toast = inject(ToastService);
   protected readonly deviceTypeApi = inject(DeviceTypeApi);

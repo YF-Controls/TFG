@@ -1,28 +1,28 @@
 // System
-import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, input} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DialogRef } from '@angular/cdk/dialog';
-import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { catchError, tap } from 'rxjs';
 // Other modules
-import { LanguageService, ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
+import { ToastService } from '@shared/services';
 // This module
-import { UserApi } from '@auth/services';
 import { User } from '@auth/interfaces';
+import { UserApi } from '@auth/services';
 
 
 @Component({
   standalone : true,
   selector: 'app-edit-user',
-  imports: [TranslateModule, ReactiveFormsModule, FormFieldErrorComponent, SvgIconComponent],
+  imports: [TranslateModule, SvgIconComponent ,ReactiveFormsModule, FormFieldErrorComponent],
   templateUrl: './edit-user-component.html',
 })
-export class EditUserComponent implements OnInit { 
+export class EditUserComponent { 
   
   // Injections
-  protected readonly languageService = inject(LanguageService);
   protected readonly dialogData = inject(DIALOG_DATA, { optional: true });
   protected readonly dialogRef = inject(DialogRef, { optional: true });
   protected readonly toast = inject(ToastService);
@@ -35,7 +35,7 @@ export class EditUserComponent implements OnInit {
   // Properties
   protected readonly availableRoles = [
     { value: 'user', label: 'User' },
-    { value: 'admin', label: 'Admin' }
+    { value: 'admin', label: 'Admin' } 
   ];
   
   protected form: FormGroup = this.fb.group({
@@ -45,28 +45,28 @@ export class EditUserComponent implements OnInit {
     isActive: [true, [Validators.required]],
   });
   
+  protected user = rxResource<User, {userId: string}>({
+    params: () => ({ userId: this.userId() }),
+    stream: ({params}) => {
+      this.form.disable();  
+      return this.userApi.getOne(params.userId, {})
+        .pipe(
+          tap(user => {
+            this.form.setValue({ // Set form values when loaded
+              email: user.email,
+              fullname: user.fullname,
+              roles: user.roles,
+              isActive: user.isActive,
+            });
+            this.form.enable(); // enable form
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toast.error(error.message, false); // Show toast
+            this.dialogRef?.close(false); // Close dialog
+            return [];
+  }))}});
+
   // Methods
-  // Lifecycle
-  ngOnInit(): void {
-
-    this.userApi.getOne(this.userId(), {})
-      .subscribe({
-        next: (user: User) => {
-          this.form.setValue({
-            email: user.email,
-            fullname: user.fullname,
-            roles: user.roles,
-            isActive: user.isActive,
-          });
-        },
-        error: (error: HttpErrorResponse) => {
-          // Toast & close
-          this.toast.error(error.message, false);
-          this.dialogRef?.close(true);
-        }
-      });
-  }
-
   protected onSubmit () {
     // Exit with toast if invalid form
     if (this.form.invalid) {

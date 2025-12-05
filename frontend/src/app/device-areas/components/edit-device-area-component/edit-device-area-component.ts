@@ -1,17 +1,17 @@
 // System
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, inject, input} from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { tap } from 'rxjs';
-import { DialogRef } from '@angular/cdk/dialog';
-import { DIALOG_DATA } from '@angular/cdk/dialog';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { catchError, tap } from 'rxjs';
 // Other modules
-import { ToastService } from '@shared/services';
 import { FormFieldErrorComponent, SvgIconComponent } from '@shared/components';
+import { ToastService } from '@shared/services';
 // This module
-import { DeviceAreaApi } from '@device-areas/services';
 import { DeviceArea } from '@device-areas/interfaces';
+import { DeviceAreaApi } from '@device-areas/services';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class EditDeviceAreaComponent {
   protected readonly deviceAreaApi = inject(DeviceAreaApi);
   
   // IO
-  deviceAreaId = input<string>(this.dialogData.deviceAreaId); // 
+  deviceAreaId = input<string>(this.dialogData.deviceAreaId);
   
   // Properties
   protected form: FormGroup = this.fb.group({
@@ -43,33 +43,23 @@ export class EditDeviceAreaComponent {
   protected deviceArea = rxResource<DeviceArea, {deviceAreaId: string}>({
     params: () => ({ deviceAreaId: this.deviceAreaId() }),
     stream: ({params}) => {
-      
-      this.form.disable();
-      
+      this.form.disable(); // Disable form while loading
       return this.deviceAreaApi.getOne(params.deviceAreaId, {})
-      .pipe(tap(data => {
-        this.form.setValue({ // Set form values when loaded
-          name: data.name,
-          hwId: data.hwId,
-          description: data.description,
-          isActive: data.isActive,
-        });
-        this.form.enable(); 
-      }))}
-  });
-  
-  protected loading = computed<boolean>(() => {
-    
-    if (this.deviceArea.isLoading()) {
-      this.form.disable();
-    }
-
-    if (this.deviceArea.hasValue()) {
-      this.form.enable();
-    }
-    this.form.disable();
-    return this.deviceArea.isLoading()});
-  
+        .pipe(
+          tap(data => {
+            this.form.setValue({ // Set form values when loaded
+              name: data.name,
+              hwId: data.hwId,
+              description: data.description,
+              isActive: data.isActive,
+            });
+            this.form.enable(); // enable form
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.toast.error(error.message, false); // Show toast
+            this.dialogRef?.close(false); // Close dialog
+            return [];
+  }))}});
   
   // Methods
   protected onSubmit() {

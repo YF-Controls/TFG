@@ -113,7 +113,7 @@
       <div class="app-form-field-submit">
         <button 
           type="submit"
-          [disabled]="deviceType.isLoading()"
+          [disabled]="deviceType.isLoading() || !form.valid"
           class="app-form-field-submit-button">
           <!-- Icon -->
           <app-svg-icon name="edit"/>

@@ -14,13 +14,13 @@ import { DeviceArea } from '@device-areas/interfaces';
 import { Device } from '@devices/interfaces';
 import { DeviceApi, DeviceWebSocketService } from '@devices/services';
 // This paths
-import { BlindDeviceControlComponent, CommonDeviceControlComponent } from '../';
+import { CommonDeviceControlComponent } from '../';
 
 
 @Component({
   standalone: true,
   selector: 'app-device-control-table',
-  imports: [TranslateModule, SvgIconComponent, BlindDeviceControlComponent, CommonDeviceControlComponent],
+  imports: [TranslateModule, SvgIconComponent, CommonDeviceControlComponent],
   templateUrl: './device-control-table-component.html',
 })
 export class DeviceControlTableComponent implements OnInit, OnDestroy {

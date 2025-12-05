@@ -1,4 +1,3 @@
-export * from "./blind-device-control/blind-device-control-component";
 export * from "./common-device-control/common-device-control-component";
 export * from "./create-device-component/create-device-component";
 export * from "./device-admin-table-component/device-admin-table-component";
