@@ -31,11 +31,7 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   // Properties
   @WebSocketServer() server: Server;
   private readonly logger = new Logger(DevicesGateway.name);
-
-  private intervalId: NodeJS.Timeout | null = null;
   
-
-
   // ####################################
   // Methods
   // ####################################
@@ -81,18 +77,11 @@ export class DevicesGateway implements OnGatewayConnection, OnGatewayDisconnect 
   handleDisconnect(client: Socket) {
     const user = client.data.user;
     this.logger.log(`Client disconnected: ${client.id}, user id: ${user?.id}`);
-
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
   }
 
   // ####################################
-  // Emit data
+  // Handle Emit data
   // ####################################
-
-  // Emit device data to all connected clients
   async emitDeviceStatus(data: DeviceStatusDto): Promise<boolean> {
     return this.server.emit('device-status-channel', data);
   }

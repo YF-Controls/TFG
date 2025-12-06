@@ -84,9 +84,10 @@ export class DeviceWebSocketService {
 
     // ####################################
     // Socket user event handlers
+    // Received data from server
     // ####################################
     this.socket.on('connection-success', (data) => {
-      this.wsMessage.set('Connection successful');
+      this.wsMessage.set(data.message);
       this.wsIsConnected.set(true);
     });
 
@@ -123,7 +124,7 @@ export class DeviceWebSocketService {
     if (!this.socket?.connected) return;
     this.socket.emit('device-command-channel', data);
   }
-
+  
   /*
   // Subscribe to specific device updates
   subscribeToDevice(hwId: string): void {

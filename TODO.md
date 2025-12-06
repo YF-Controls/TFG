@@ -26,12 +26,12 @@ al layout, ahora lo desplaza y queda feo.
 
 ## Extras
 
-⏳ Comprobar lo que devuelven los controladores del backend
-
 ⏳ hacer una cola de envío para los websocket del front al back
 
 ⏳ hacer una cola de envío para los tcpsocket del back al io-system
 
 ⏳ register fallo cuando los passwords no cuadran
+
+⏳ Comprobar lo que devuelven los controladores del backend
 
 ⏳ Loading pop up en las páginas

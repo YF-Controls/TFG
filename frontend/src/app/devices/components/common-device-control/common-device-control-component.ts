@@ -32,14 +32,10 @@ export class CommonDeviceControlComponent implements OnInit {
   // Methods
   constructor () {
     effect(() => {
-      
       const data = this.deviceWebSocketService.deviceStatus();
-      
       if (!data) return;
       if (data.hwId !== this.device().hwId) return;
-
       this.status.set(data.status);
-      
     });
     
   }
