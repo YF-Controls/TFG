@@ -26,6 +26,8 @@ al layout, ahora lo desplaza y queda feo.
 
 ⏳ Desplegar
 
+⏳ Comprobar github
+
 ## Extras
 
 ⏳ hacer una cola de envío para los websocket del front al back
