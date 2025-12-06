@@ -24,6 +24,8 @@ La lista está ordenada por prioridad de más alto a más bajo.
 ✅ Arreglar en la vista de movil para que cuando expando el menú se superponga
 al layout, ahora lo desplaza y queda feo.
 
+⏳ Desplegar
+
 ## Extras
 
 ⏳ hacer una cola de envío para los websocket del front al back
