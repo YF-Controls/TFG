@@ -9,7 +9,6 @@
 .env
 backend/.env
 frontend/src/environments/environment.ts
+PRIVATE_README.md
 database
 database/*
-reverse-proxy
-reverse-proxy/*

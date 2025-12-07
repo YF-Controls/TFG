@@ -142,6 +142,12 @@ Genera el fichero `./backend/src/migrations/12344556-InitialSchema.ts
 yarn migration:run
 ```
 
+* Comando para crear keys random
+
+```shell
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+```
+
 ## Frontend
 
 ```shell

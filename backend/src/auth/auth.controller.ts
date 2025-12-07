@@ -112,8 +112,10 @@ export class AuthController {
   private buildCookieOptions(): CookieOptions {
     return {
       httpOnly: true,
-      secure: false, // Must be false for HTTP (use true only with HTTPS)
-      sameSite: 'lax', // 'lax' allows cross-port cookies on same domain
+      //secure: false, // Must be false for HTTP (use true only with HTTPS)
+      secure: true, // Now using HTTPS through reverse proxy
+      //sameSite: 'lax', // 'lax' allows cross-port cookies on same domain
+      sameSite: 'strict', // Maximum security with same domain
       maxAge: +process.env.BACKEND_COOKIE_MAX_AGE!,
       path: '/', // Cookie available for all paths
     }

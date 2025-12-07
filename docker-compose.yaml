@@ -81,8 +81,34 @@ services:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     environment:
       - FRONTEND_PORT=${FRONTEND_PORT}
+    networks:
+      - homeassistant-network
+
+  # ###############################################
+  # Reverse Proxy Service
+  # ###############################################
+  reverse-proxy:
+    container_name: homeassistant_reverse_proxy
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile
+    restart: no
+    ports:
+      - "${REVERSE_PROXY_HTTP_PORT}:${REVERSE_PROXY_HTTP_PORT}"
+      - "${REVERSE_PROXY_HTTPS_PORT}:${REVERSE_PROXY_HTTPS_PORT}"
+    environment:
+      - REVERSE_PROXY_HTTP_PORT=${REVERSE_PROXY_HTTP_PORT}
+      - REVERSE_PROXY_HTTPS_PORT=${REVERSE_PROXY_HTTPS_PORT}
+      - REVERSE_PROXY_DOMAIN_NAME=${REVERSE_PROXY_DOMAIN_NAME}
+      - BACKEND_HOST=backend
+      - BACKEND_PORT=${BACKEND_PORT}
+      - FRONTEND_HOST=frontend
+      - FRONTEND_PORT=${FRONTEND_PORT}
+    volumes:
+      - ${REVERSE_PROXY_CERTIFICATES_PATH}:/etc/nginx/ssl:ro
     depends_on:
       - backend
+      - frontend
     networks:
       - homeassistant-network
 

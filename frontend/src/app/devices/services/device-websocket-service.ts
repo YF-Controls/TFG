@@ -2,7 +2,7 @@
 import { Injectable, signal } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 // Other modules
-import { environment } from '@env/environment.development';
+import { environment } from '@env/environment';
 // This module
 import { DeviceStatusDto, DeviceControlDto } from '@devices/dtos';
 import { DeviceStatus } from '@devices/interfaces';

@@ -3,7 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { catchError, map, Observable, of } from "rxjs";
 // Other modules
-import { environment } from "@env/environment.development";
+import { environment } from "@env/environment";
 import { QueryParamsDto } from "@shared/dto";
 // This module
 import { CreateDeviceTypeDto, DeviceTypeResponseDto, UpdateDeviceTypeDto } from "@device-types/dtos";
