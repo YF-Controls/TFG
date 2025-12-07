@@ -1,6 +1,11 @@
 # Docker
 
 ```shell
+# Acceso a NAS con putty
+
+# Ir al usuario root
+sudo -i
+
 # borra todo
 docker system prune -f
 
@@ -12,4 +17,8 @@ docker compose up -d --build
 
 # borrar
 docker compose down
+
+# se puede levantar o para un solo contenedor
+docker compose up container-name -d --build
+docker compose down container-name
 ```

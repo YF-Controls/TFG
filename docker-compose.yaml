@@ -19,10 +19,10 @@ services:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
-      - '/volume1/web_projects/HomeAssistant/database/data:/var/lib/postgresql/18'
+      - '${DB_PERSISTENCE_PATH}:/var/lib/postgresql/18'
     networks:
       - homeassistant-network
-
+  
   # ###############################################
   # Backend Service
   # ###############################################
