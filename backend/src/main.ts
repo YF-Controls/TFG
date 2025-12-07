@@ -13,13 +13,16 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
 
   // Enable cookie parser
-  app.use(cookieParser(process.env.COOKIE_SECRET)); // It's redundant
+  app.use(cookieParser(process.env.BACKEND_COOKIE_SECRET)); // It's redundant
   // Enable CORS to use cookies from frontend
   app.enableCors({
-    //origin: 'http://localhost:4200',
-    origin: true, // Allow all origins in development - adjust for production!
+    // origin: true // only for development
+    origin: [
+      process.env.FRONTEND_HOST!,
+    ],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true, // Important for cookies!
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
   });
   // Set global prefix host/api
   app.setGlobalPrefix('api');
@@ -42,9 +45,9 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory);
   
   // Listen
-  await app.listen(process.env.PORT!, '0.0.0.0');
+  await app.listen(+process.env.BACKEND_PORT!, '0.0.0.0');
   // Log
-  logger.log(`App running on port ${ process.env.PORT }`);
+  logger.log(`App running on port ${ +process.env.BACKEND_PORT! }`);
 }
 // Start the application
 bootstrap();

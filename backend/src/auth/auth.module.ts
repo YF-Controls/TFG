@@ -28,8 +28,10 @@ import { AuthController } from './auth.controller';
       inject: [ ConfigService ],
       useFactory : (configService: ConfigService ) => {
         return {
-          secret : configService.get('JWT_SECRET'),
-          signOptions: {expiresIn: configService.get('JWT_EXPIRES_IN')}}}
+          secret : configService.get('BACKEND_JWT_SECRET'),
+          signOptions: {expiresIn: configService.get('BACKEND_JWT_EXPIRES_IN')},
+        }
+      }
     }),
   ],
   exports: [TypeOrmModule, MyJwtStrategy, PassportModule, JwtModule]

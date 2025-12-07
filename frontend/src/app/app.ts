@@ -2,6 +2,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class App implements OnInit{
   
   // Injections
   protected readonly titleService = inject(Title);
+  private readonly translate = inject(TranslateService);
   
   // Properties
   protected readonly title = signal('HOME Assisstant');
@@ -22,6 +24,8 @@ export class App implements OnInit{
   // Methods
   ngOnInit(): void {
     this.titleService.setTitle(this.title());
+    // Initialize translations
+    this.translate.use('en');
   }
 
 }

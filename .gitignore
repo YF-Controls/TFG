@@ -9,3 +9,7 @@
 .env
 backend/.env
 frontend/src/environments/environment.ts
+database
+database/*
+reverse-proxy
+reverse-proxy/*

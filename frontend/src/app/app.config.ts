@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
         prefix: '/assets/i18n/',
         suffix: '.json',
         enforceLoading: false,
-        useHttpBackend: false,
+        useHttpBackend: true, // Use HttpBackend to avoid interceptor loops
       }),
       fallbackLang: 'en',
       lang: 'en',

@@ -19,10 +19,10 @@ import { type DeviceStatusDto, type DeviceControlDto } from './dtos';
 
 
 @WebSocketGateway({
-  namespace: 'ws/devices', // process.env.WS_NAMESPACE_DEVICES,
+  namespace: process.env.BACKEND_WS_NAMESPACE_DEVICES,
   cors: {
-    origin: process.env.FRONTEND_URL,
-    //origin: true, // Allow all origins - adjust for production!
+    //origin: process.env.FRONTEND_URL,
+    origin: true, // Allow all origins - adjust for production!
     credentials: true,
   },
 })

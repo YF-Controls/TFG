@@ -13,8 +13,12 @@ import { IOSystemModule } from '@io-system/io-system.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-
+    ConfigModule.forRoot({
+      isGlobal: true,
+      ignoreEnvFile: process.env.NODE_ENV !== 'production',
+      envFilePath: '.env',
+    }),
+    
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -23,11 +27,13 @@ import { IOSystemModule } from '@io-system/io-system.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true, // In production must be false
+      synchronize: false, // Always false when using migrations
+      migrationsRun: true, // Run migrations automatically on app start
+      migrations: ['dist/migrations/*.js'], // Path to compiled migrations
     }),
     IOSystemModule.forRoot({
-      host: process.env.IO_SYSTEM_HOST || 'localhost',
-      port: parseInt(process.env.IO_SYSTEM_PORT || '2000', 10),
+      host: process.env.IO_SYSTEM_HOST!,
+      port: parseInt(process.env.IO_SYSTEM_PORT!, 10),
       maxReconnectAttempts: 10,
       reconnectDelay: 5000,
     }),

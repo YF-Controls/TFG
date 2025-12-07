@@ -117,6 +117,31 @@ nest g red devices --no-spec
 yarn add @nestjs/swagger
 ```
 
+* Para las migraciones de la base de datos
+
+```shell
+yarn add -D tsconfig-paths
+yarn add -D cross-env
+```
+
+* Pasos para las migraciones:
+
+
+1. primera migración
+
+```shell
+
+yarn migration:generate src/migrations/InitialSchema
+```
+
+Genera el fichero `./backend/src/migrations/12344556-InitialSchema.ts
+
+2. Ejecuta la migración en local para probar. Al levantar el contenedor el backend ejecutará automáticamente las migraciones al iniciar gracias a migrationsRun: true
+
+```shell
+yarn migration:run
+```
+
 ## Frontend
 
 ```shell

@@ -1,0 +1,96 @@
+version: '3.8'
+
+# #################################################
+# Services Definition
+# #################################################
+services:
+
+  # ###############################################
+  # Database Service
+  # ###############################################
+  database:
+    container_name: homeassistant_db
+    image: postgres:18.0-alpine3.22
+    restart: no
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - '/volume1/web_projects/HomeAssistant/database/data:/var/lib/postgresql/18'
+    networks:
+      - homeassistant-network
+
+  # ###############################################
+  # Backend Service
+  # ###############################################
+  backend:
+    container_name: homeassistant_backend
+    build:
+      # . current path, ./relative/pat, /absolute/path
+      context: ./backend
+      # Dockerfile name (optional, default: 'Dockerfile')
+      dockerfile: Dockerfile
+      # no; always; on-failure; on-failure:N; unless-stopped
+    restart: no
+    ports:
+      # host:container
+      - "${BACKEND_PORT}:${BACKEND_PORT}" 
+    environment:
+      # System environment variables
+      - NODE_ENV=${NODE_ENV}
+      # Database variables
+      # ${DB_HOST} or service name 'database'
+      - DB_HOST=database 
+      # ${DB_PORT}
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      # IO System variables
+      - IO_SYSTEM_HOST=${IO_SYSTEM_HOST}
+      - IO_SYSTEM_PORT=${IO_SYSTEM_PORT}
+      # Backend variables
+      #- BACKEND_HOST=${BACKEND_HOST}
+      - BACKEND_PORT=${BACKEND_PORT}
+      - BACKEND_WS_NAMESPACE_DEVICES=${BACKEND_WS_NAMESPACE_DEVICES}
+      - BACKEND_COOKIE_SECRET=${BACKEND_COOKIE_SECRET}
+      - BACKEND_COOKIE_MAX_AGE=${BACKEND_COOKIE_MAX_AGE}
+      - BACKEND_JWT_SECRET=${BACKEND_JWT_SECRET}
+      - BACKEND_JWT_EXPIRES_IN=${BACKEND_JWT_EXPIRES_IN}
+      # Frontend variables
+      - FRONTEND_HOST=${FRONTEND_HOST}
+      - FRONTEND_PORT=${FRONTEND_PORT}
+    depends_on:
+      - database
+    networks:
+      - homeassistant-network
+ 
+  # ###############################################
+  # Frontend Service
+  # ###############################################
+  frontend:
+    container_name: homeassistant_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: no
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    environment:
+      - FRONTEND_PORT=${FRONTEND_PORT}
+    depends_on:
+      - backend
+    networks:
+      - homeassistant-network
+
+# ###############################################
+# Networks Definition
+# ###############################################
+networks:
+  homeassistant-network:
+    name: homeassistant-network
+    driver: bridge
+

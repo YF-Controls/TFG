@@ -1,6 +1,5 @@
 // System
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from "@nestjs/passport"
 import { InjectRepository } from "@nestjs/typeorm";
 import { ExtractJwt, Strategy } from "passport-jwt";
@@ -11,33 +10,23 @@ import { User } from "../entities";
 import { MyJwtPayload } from "../interfaces";
 
 
-
 @Injectable()
 export class MyJwtStrategy extends PassportStrategy( Strategy ) {
 
   // Constructor
   constructor (
     @InjectRepository(User)
-    private readonly userRepository : Repository<User>,
-    private readonly configService : ConfigService) {
+    private readonly userRepository : Repository<User>) {
     // Init super
-    /*
-      {
-        jwtFromRequest : JWT_TOKEN,
-        secretOrKey    : JWT_SECRET
-      }
-    */
     super({
       jwtFromRequest : ExtractJwt.fromExtractors([
-        // Try to get token from cookie first
-        (request: Request) => {return request?.cookies?.token || null;},
-        // Fallback to Authorization header for backward compatibility
-        ExtractJwt.fromAuthHeaderAsBearerToken()
+        (request: Request) => request?.cookies?.token || null, // Try to get token from cookie first
+        ExtractJwt.fromAuthHeaderAsBearerToken() // Fallback to Authorization header for backward compatibility
       ]),
-      secretOrKey : configService.get('JWT_SECRET')!,
+      secretOrKey : process.env.BACKEND_JWT_SECRET!,
     });
   }
-
+  
   // Method: Validate
   async validate(payload: MyJwtPayload): Promise<User> {
     // Get id from payload inside of jwt sent via authorization/bearer header

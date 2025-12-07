@@ -112,9 +112,10 @@ export class AuthController {
   private buildCookieOptions(): CookieOptions {
     return {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: Number(process.env.COOKIE_MAX_AGE)
+      secure: false, // Must be false for HTTP (use true only with HTTPS)
+      sameSite: 'lax', // 'lax' allows cross-port cookies on same domain
+      maxAge: +process.env.BACKEND_COOKIE_MAX_AGE!,
+      path: '/', // Cookie available for all paths
     }
   }
 }
