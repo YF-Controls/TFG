@@ -63,6 +63,10 @@ services:
       # Frontend variables
       - FRONTEND_HOST=${FRONTEND_HOST}
       - FRONTEND_PORT=${FRONTEND_PORT}
+      # Reverse Proxy variables
+      - REVERSE_PROXY_HTTP_PORT=${REVERSE_PROXY_HTTP_PORT}
+      - REVERSE_PROXY_HTTPS_PORT=${REVERSE_PROXY_HTTPS_PORT}
+      - REVERSE_PROXY_DOMAIN_NAME=${REVERSE_PROXY_DOMAIN_NAME}
     depends_on:
       - database
     networks:

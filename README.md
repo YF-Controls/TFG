@@ -1,13 +1,13 @@
 # HOME ASSISTANT PROJECT
 
-## Information
+## **INFORMATION**
 
 | Item | Description |
 |:-----|:------------|
 | Author | Christian Yáñez Fonseca |
 | Project | TFG |
 
-## Backend
+## **BACKEND**
 
 ### Install enviroment variables config
 
@@ -148,7 +148,13 @@ yarn migration:run
 node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
 ```
 
-## Frontend
+* Añadir helmet para mejorar la seguridad
+
+```shell
+yarn add helmet
+```
+
+## **FRONTEND**
 
 ```shell
 ng new frontend
