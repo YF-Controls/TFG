@@ -31,6 +31,7 @@ async function bootstrap() {
       const allowedOrigins = [
         process.env.FRONTEND_HOST!,
         `https://${process.env.REVERSE_PROXY_DOMAIN_NAME}`, // Without port (standard 443)
+        `${process.env.REVERSE_PROXY_LOCAL_HTTPS_HOST!}:${process.env.REVERSE_PROXY_HTTPS_PORT!}`, // Local network access
         `https://${process.env.REVERSE_PROXY_DOMAIN_NAME}:${process.env.REVERSE_PROXY_HTTPS_PORT}`, // With explicit port
         `http://${process.env.REVERSE_PROXY_DOMAIN_NAME}:${process.env.REVERSE_PROXY_HTTP_PORT}`, // HTTP (redirects to HTTPS)
       ];

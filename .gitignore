@@ -13,3 +13,5 @@ PRIVATE_README.md
 database
 database/*
 audit-report.json
+.doc.private
+.doc.private/*
